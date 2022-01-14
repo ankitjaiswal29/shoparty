@@ -1,33 +1,36 @@
 package com.example.shoparty_android.view.fragment
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
+import android.view.*
+import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.widget.Toast
+import androidx.annotation.NonNull
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import com.example.shoparty_android.MainActivity
 import com.example.shoparty_android.R
+import com.example.shoparty_android.view.activity.BallonsActivity
+import com.example.shoparty_android.view.activity.CostumesActivity
+import com.example.shoparty_android.view.activity.PartySupplyActivity
+import com.example.shoparty_android.view.activity.ThemesActivity
+import com.google.android.material.navigation.NavigationView
+import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.navigation_drawer.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private lateinit var drawerLayout: DrawerLayout
+    private var productsBool: Boolean=false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+        arguments?.let {}
     }
 
     override fun onCreateView(
@@ -35,26 +38,67 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        val root =  inflater.inflate(R.layout.navigation_drawer, container, false)
+
+        drawerLayout = root.findViewById(R.id.drawer_layout)
+
+        return root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HomeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        below_product_layout.visibility = View.GONE
+        products_nav_lay.setOnClickListener {
+            if (productsBool == false){
+                below_product_layout.visibility = View.VISIBLE
+                productsBool = true
+            }else{
+                below_product_layout.visibility = View.GONE
+                productsBool = false
             }
+        }
+        nav_drawer_btn.setOnClickListener {
+            drawerLayout.openDrawer(GravityCompat.START)
+        }
+
+        cross_nav_btn.setOnClickListener {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        }
+
+        costume_nav_lay.setOnClickListener {
+            val intent = Intent(requireActivity(), CostumesActivity::class.java)
+            startActivity(intent)
+        }
+
+        themes_nav_lay.setOnClickListener {
+            val intent = Intent(requireActivity(), ThemesActivity::class.java)
+            startActivity(intent)
+        }
+        party_nav_lay.setOnClickListener {
+            val intent = Intent(requireActivity(), PartySupplyActivity::class.java)
+            startActivity(intent)
+        }
+        ballons_nav_lay.setOnClickListener {
+            val intent = Intent(requireActivity(), BallonsActivity::class.java)
+            startActivity(intent)
+        }
+
+        signup_nav_lay.setOnClickListener {
+            val builder = AlertDialog.Builder(requireActivity(), R.style.CustomAlertDialog)
+            val inflater = layoutInflater
+            val dialogLayout: View =
+                inflater.inflate(R.layout.alert_dialog_signout, null)
+            val btn_cancel = dialogLayout.findViewById<Button>(R.id.cancel_btn)
+            val btn_save = dialogLayout.findViewById<Button>(R.id.save_btn)
+
+            btn_cancel.setOnClickListener {
+
+            }
+            builder.setView(dialogLayout)
+            builder.show()
+        }
+
     }
+
+
 }
