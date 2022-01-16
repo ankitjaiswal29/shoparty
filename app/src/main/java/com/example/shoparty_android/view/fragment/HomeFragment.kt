@@ -15,10 +15,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.shoparty_android.MainActivity
 import com.example.shoparty_android.R
-import com.example.shoparty_android.view.activity.BallonsActivity
-import com.example.shoparty_android.view.activity.CostumesActivity
-import com.example.shoparty_android.view.activity.PartySupplyActivity
-import com.example.shoparty_android.view.activity.ThemesActivity
+import com.example.shoparty_android.view.activity.*
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.navigation_drawer.*
@@ -27,6 +24,8 @@ class HomeFragment : Fragment() {
 
     private lateinit var drawerLayout: DrawerLayout
     private var productsBool: Boolean=false
+    private var serviceBool: Boolean=false
+    private var flowersBool: Boolean=false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +47,9 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         below_product_layout.visibility = View.GONE
+        below_service_layout.visibility = View.GONE
+        below_flowers_layout.visibility = View.GONE
+
         products_nav_lay.setOnClickListener {
             if (productsBool == false){
                 below_product_layout.visibility = View.VISIBLE
@@ -57,6 +59,27 @@ class HomeFragment : Fragment() {
                 productsBool = false
             }
         }
+
+        services_nav_lay.setOnClickListener {
+            if (serviceBool == false){
+                below_service_layout.visibility = View.VISIBLE
+                serviceBool = true
+            }else{
+                below_service_layout.visibility = View.GONE
+                serviceBool = false
+            }
+        }
+
+        flowers_nav_lay.setOnClickListener {
+            if (flowersBool == false){
+                below_flowers_layout.visibility = View.VISIBLE
+                flowersBool = true
+            }else{
+                below_flowers_layout.visibility = View.GONE
+                flowersBool = false
+            }
+        }
+
         nav_drawer_btn.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
         }
@@ -83,6 +106,18 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
+        colors_nav_lay.setOnClickListener {
+            val intent = Intent(requireActivity(), ColoursActivity::class.java)
+            startActivity(intent)
+        }
+        seasons_nav_lay.setOnClickListener {
+            val intent = Intent(requireActivity(), SeasonsActivity::class.java)
+            startActivity(intent)
+        }
+        candles_nav_lay.setOnClickListener {
+            val intent = Intent(requireActivity(), CandlesActivity::class.java)
+            startActivity(intent)
+        }
         signup_nav_lay.setOnClickListener {
             val builder = AlertDialog.Builder(requireActivity(), R.style.CustomAlertDialog)
             val inflater = layoutInflater
