@@ -13,11 +13,19 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.shoparty_android.MainActivity
 import com.example.shoparty_android.R
+import com.example.shoparty_android.adapter.HomeCategoriesAdapter
+import com.example.shoparty_android.adapter.HomeSeasonsAdapter
+import com.example.shoparty_android.adapter.TopSellingHomeAdapter
+import com.example.shoparty_android.adapter.TopSellingItemAdapter
+import com.example.shoparty_android.model.HomeCategoriesModel
+import com.example.shoparty_android.model.TopSellingHomeModel
 import com.example.shoparty_android.view.activity.*
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_top_selling_item_list.*
 import kotlinx.android.synthetic.main.navigation_drawer.*
 
 class HomeFragment : Fragment() {
@@ -133,7 +141,48 @@ class HomeFragment : Fragment() {
             builder.show()
         }
 
+        fillTopSellingRecyclerView(topSellingItemList)
+        fillCategoriesRecyclerView(categoryList)
+        fillSeasonsRecyclerView(seasonsItemList)
     }
 
+
+    private val topSellingItemList = listOf<TopSellingHomeModel>(
+        TopSellingHomeModel("Princess Dress","$10.2"),
+        TopSellingHomeModel("Princess Dress","$10.2"),
+        TopSellingHomeModel("Princess Dress","$10.2"),
+    )
+
+    private fun fillTopSellingRecyclerView(teachers: List<TopSellingHomeModel>) {
+        top_selling_recycler.adapter = TopSellingHomeAdapter(topSellingItemList)
+    }
+
+    private val categoryList = listOf<HomeCategoriesModel>(
+        HomeCategoriesModel("Ballons"),
+        HomeCategoriesModel("Party Supply"),
+    )
+
+    private fun fillCategoriesRecyclerView(categories: List<HomeCategoriesModel>) {
+        val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
+        home_categories_recycler.apply {
+            layoutManager = gridLayoutManager
+            setHasFixedSize(true)
+            isFocusable = false
+            adapter = HomeCategoriesAdapter(categoryList)
+        }
+    }
+
+    private val seasonsItemList = listOf<HomeCategoriesModel>(
+        HomeCategoriesModel("Ballons"),
+        HomeCategoriesModel("Ballons"),
+        HomeCategoriesModel("Ballons"),
+        HomeCategoriesModel("Ballons"),
+        HomeCategoriesModel("Ballons"),
+
+        )
+
+    private fun fillSeasonsRecyclerView(seasons: List<HomeCategoriesModel>) {
+        seasons_recycler.adapter = HomeSeasonsAdapter(seasonsItemList)
+    }
 
 }
