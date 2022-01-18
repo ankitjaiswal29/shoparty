@@ -106,6 +106,7 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -197,11 +198,12 @@
                     <EditText
                         android:id="@+id/etCountry"
                         style="@style/AppTheme.editText_gray"
-                        android:layout_width="150dp"
+                        android:layout_width="0dp"
                         android:hint="American"
+                        android:layout_marginRight="5dp"
                         android:imeOptions="actionNext"
                         android:inputType="text"
-                        app:layout_constraintEnd_toStartOf="@+id/etCity"
+                        app:layout_constraintEnd_toStartOf="@+id/guideline"
                         app:layout_constraintHorizontal_chainStyle="spread_inside"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvCountry" />
@@ -209,8 +211,8 @@
                     <TextView
                         android:id="@+id/tvCity"
                         style="@style/AppTheme.Title"
-                        android:layout_marginTop="15dp"
                         android:layout_width="wrap_content"
+                        android:layout_marginTop="15dp"
                         android:text="@string/city"
                         app:layout_constraintStart_toStartOf="@+id/etCity"
                         app:layout_constraintTop_toBottomOf="@+id/tvAddress" />
@@ -219,15 +221,16 @@
                     <EditText
                         android:id="@+id/etCity"
                         style="@style/AppTheme.editText_gray"
-                        android:layout_width="150dp"
+                        android:layout_width="0dp"
                         android:hint="XYZ"
 
                         android:imeOptions="actionNext"
                         android:inputType="text"
-                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        android:layout_marginLeft="5dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/etCountry"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintStart_toEndOf="@+id/guideline"
                         app:layout_constraintTop_toBottomOf="@+id/tvCountry" />
 
                     <TextView
@@ -243,45 +246,47 @@
                     <EditText
                         android:id="@+id/etStreet"
                         style="@style/AppTheme.editText_gray"
-                        android:layout_width="150dp"
+                        android:layout_width="0dp"
                         android:hint="XYZ"
                         android:imeOptions="actionNext"
+                        android:layout_marginRight="5dp"
                         android:inputType="text"
                         app:layout_constraintHorizontal_chainStyle="spread_inside"
                         app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/guideline"
                         app:layout_constraintTop_toBottomOf="@+id/tvStreet" />
 
 
                     <TextView
                         android:id="@+id/tvHouseno"
                         style="@style/AppTheme.Title"
-                        android:layout_marginTop="15dp"
                         android:layout_width="wrap_content"
+                        android:layout_marginTop="15dp"
                         android:text="@string/country"
                         app:layout_constraintStart_toStartOf="@id/etHouseno"
                         app:layout_constraintTop_toBottomOf="@+id/etCity" />
 
 
-
                     <EditText
                         android:id="@+id/etHouseno"
                         style="@style/AppTheme.editText_gray"
-                        android:layout_width="150dp"
+                        android:layout_width="0dp"
                         android:hint="756"
                         android:imeOptions="actionNext"
                         android:inputType="text"
-                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        android:layout_marginLeft="5dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/etStreet"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintStart_toEndOf="@+id/guideline"
                         app:layout_constraintTop_toBottomOf="@+id/tvStreet" />
 
 
                     <TextView
                         android:id="@+id/tvGender"
                         style="@style/AppTheme.Title"
-                        android:layout_marginTop="35dp"
                         android:layout_width="wrap_content"
+                        android:layout_marginTop="35dp"
                         android:text="@string/gender"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/etHouseno" />
@@ -291,81 +296,85 @@
                         android:id="@+id/tvMale"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvGender"
                         android:layout_marginTop="10dp"
+                        android:background="@drawable/background_rectangular_white"
                         android:drawableStart="@drawable/ic_pink_check"
-                        android:paddingLeft="45dp"
+                        android:drawablePadding="10dp"
                         android:gravity="center"
-                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        android:layout_marginRight="5dp"
+                        android:text="@string/male"
+                        android:paddingLeft="45dp"
+                        android:paddingRight="43dp"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
-                        android:drawablePadding="10dp"
-                        android:text="@string/male"
                         android:textColor="@color/pink"
-                        android:paddingRight="45dp"
-                        android:background="@drawable/background_rectangular_white"/>
-
+                        app:layout_constraintEnd_toStartOf="@+id/guideline"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvGender" />
 
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
 
-                        app:layout_constraintTop_toBottomOf="@+id/tvGender"
                         android:layout_marginTop="10dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                         android:paddingLeft="45dp"
-                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        android:background="@drawable/background_rectangular_white"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:text="@string/female"
+                        android:textColor="@color/black"
+                        android:paddingLeft="47dp"
+                        android:paddingRight="46dp"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
-
-                        android:drawablePadding="10dp"
-                        android:text="@string/female"
-                       android:gravity="center"
-                        android:textColor="@color/black"
-                        android:paddingRight="45dp"
-                        android:background="@drawable/background_rectangular_white"/>
-
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/guideline"
+                        android:layout_marginLeft="5dp"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintTop_toBottomOf="@+id/tvGender" />
 
 
                     <TextView
                         android:id="@+id/tvDateBirthlabel"
                         style="@style/AppTheme.Title"
-                        android:layout_marginTop="25dp"
                         android:layout_width="wrap_content"
+                        android:layout_marginTop="25dp"
                         android:text="Date of Birth"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvMale" />
 
                     <TextView
                         android:id="@+id/tvDateBirth"
-                        android:layout_marginTop="10dp"
+                        style="@style/AppTheme.Text_14dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="26 August 2000"
-                        android:paddingLeft="15dp"
-                        style="@style/AppTheme.Text_14dp"
-                        android:paddingRight="15dp"
-                        android:paddingTop="10dp"
-                        android:drawableEnd="@drawable/ic_ic_icon_calender"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/background_rectangular_white"
+                        android:drawableEnd="@drawable/ic_ic_icon_calender"
+                        android:paddingLeft="15dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="15dp"
                         android:paddingBottom="10dp"
+                        android:text="26 August 2000"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvDateBirthlabel" />
 
                     <Button
                         android:id="@+id/btnSave"
                         style="@style/AppTheme.ButtonStyle"
-                        android:text="@string/save"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
                         android:layout_marginTop="80dp"
+                        android:text="@string/save"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tvDateBirth" />
 
-
-
-
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.5" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

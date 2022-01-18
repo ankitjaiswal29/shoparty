@@ -37,7 +37,7 @@ binding.tvViewordertitle.setOnClickListener(this)
                 /*val intent = Intent(this, MyAccountActivity::class.java)
                 startActivity(intent)*/
 
-                val intent = Intent(this, MyProfileActivity::class.java)
+                val intent = Intent(this, AddNewAddressActivity::class.java)
                 startActivity(intent)
             }
         }
