@@ -2,6 +2,7 @@ package com.example.shoparty_android.adapter
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoparty_android.R
 import com.example.shoparty_android.helper.inflate
@@ -22,6 +23,9 @@ class NewArrivalsHomeAdapter(private val itemList: List<HomeCategoriesModel>): R
         val items = itemList[position]
         holder.itemView.apply {
             new_arrival_item_name_tv.text = items.name
+            new_arrival_item_root.setOnClickListener {
+                findNavController().navigate(R.id.newArrivalsItemFragment)
+            }
         }
     }
 }

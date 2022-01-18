@@ -138,6 +138,11 @@ class HomeFragment : Fragment() {
             builder.show()
         }
 
+        home_search_ed_txt.setOnClickListener {
+            val intent = Intent(requireActivity(), SearchActivity::class.java)
+            startActivity(intent)
+        }
+
         fillTopSellingRecyclerView(topSellingItemList)
         fillCategoriesRecyclerView(categoryList)
         fillSeasonsRecyclerView(seasonsItemList)

@@ -25,4 +25,14 @@
         android:name="com.example.shoparty_android.view.fragment.TopSellingItemListFragment"
         android:label="fragment_top_selling_item_list"
         tools:layout="@layout/fragment_top_selling_item_list" />
+    <fragment
+        android:id="@+id/newArrivalsItemFragment"
+        android:name="com.example.shoparty_android.view.fragment.NewArrivalsItemFragment"
+        android:label="fragment_new_arrivals_item"
+        tools:layout="@layout/fragment_new_arrivals_item" />
+    <fragment
+        android:id="@+id/newArrivalItemDetailsFragment"
+        android:name="com.example.shoparty_android.view.fragment.NewArrivalItemDetailsFragment"
+        android:label="fragment_new_arrival_item_details"
+        tools:layout="@layout/fragment_new_arrival_item_details" />
 </navigation>
