@@ -15,4 +15,8 @@
     <color name="lightgraysubtitle">#6D6D6D</color>
     <color name="lightgraybackground">#E4E4E4</color>
 
+
+    <color name="grey">#F4F4F4</color>
+    <color name="color_pink">#E30986</color>
+
 </resources>

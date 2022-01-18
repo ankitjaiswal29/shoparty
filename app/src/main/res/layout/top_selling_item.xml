@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="130dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:layout_margin="8dp"
+    android:id="@+id/top_selling_item_root"
+    android:background="@drawable/home_top_selling_items_bg">
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="150dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/top_selling_item_img"
+            />
+        <ImageView
+            android:id="@+id/top_selling_item_img"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/homw_wish_love_icon"
+            android:layout_gravity="end"
+            android:layout_margin="10dp"
+            android:visibility="gone"
+            />
+    </FrameLayout>
+    <TextView
+        android:id="@+id/item_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Princess Dress"
+        android:layout_marginStart="10dp"/>
+    <TextView
+        android:id="@+id/item_price_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$10.2"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:layout_marginStart="10dp"
+        />
+
+</LinearLayout>

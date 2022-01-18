@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:background="@drawable/home_top_selling_items_bg"
+    android:layout_margin="10dp">
+
+    <ImageView
+        android:id="@+id/tsi_item_img"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="@drawable/top_selling_item_img" />
+
+    <TextView
+        android:id="@+id/tsi_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tsi_item_img"
+        android:text="Princess Dress"
+        android:textColor="@color/black"
+        android:textSize="16dp" />
+    <TextView
+        android:id="@+id/tsi_item_offer_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10% OFF"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:background="@color/color_pink"
+        android:textColor="@color/white"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/tsi_item_img"
+        />
+
+    <TextView
+        android:id="@+id/tsi_item_desc_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tsi_item_name"
+        android:text="Yoke Design kurta set" />
+
+    <TextView
+        android:id="@+id/tsi_item_price_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tsi_item_desc_tv"
+        android:text="$10.7"
+        android:textColor="@color/color_pink"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$10.02"
+        android:layout_toRightOf="@+id/tsi_item_price_tv"
+        android:layout_below="@+id/tsi_item_desc_tv"
+        android:layout_marginStart="5dp"/>
+</RelativeLayout>

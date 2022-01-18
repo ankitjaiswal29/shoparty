@@ -24,4 +24,9 @@
         android:id="@+id/myAccountFragment"
         android:name="com.example.shoparty_android.view.fragment.MyAccountFragment"
         android:label="MyAccountFragment" />
+    <fragment
+        android:id="@+id/topSellingItemListFragment"
+        android:name="com.example.shoparty_android.view.fragment.TopSellingItemListFragment"
+        android:label="fragment_top_selling_item_list"
+        tools:layout="@layout/fragment_top_selling_item_list" />
 </navigation>
