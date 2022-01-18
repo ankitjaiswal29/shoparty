@@ -20,4 +20,8 @@
         android:name="com.example.shoparty_android.view.fragment.DealsFragment"
         android:label="fragment_deals"
         tools:layout="@layout/fragment_deals" />
+    <fragment
+        android:id="@+id/myAccountFragment"
+        android:name="com.example.shoparty_android.view.fragment.MyAccountFragment"
+        android:label="MyAccountFragment" />
 </navigation>

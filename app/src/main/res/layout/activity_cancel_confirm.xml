@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/pink"
+        tools:context=".view.activity.CancelConfirmActivity">
+
+
+        <ImageView
+            android:layout_width="126dp"
+            android:id="@+id/ivSuccesslogo"
+            android:layout_height="126dp"
+            android:src="@drawable/ic_cancel_confirm_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="253dp"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/tvOrdertitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/AppTheme.Text_23_white_bold_ssp"
+            android:text="@string/cancellation_confirmed"
+            android:layout_marginTop="65dp"
+            android:layout_marginLeft="33dp"
+            android:layout_marginRight="31dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivSuccesslogo"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+       <!-- <TextView
+            android:id="@+id/tvCardholderNamesubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/AppTheme.Text_14_white_ssp"
+            android:text="Total price for 2 item"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvOrdertitle"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/tvViewordertitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/AppTheme.Text_14_white_ssp"
+            android:text="@string/view_order"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="14dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvCardholderNamesubtitle"
+            app:layout_constraintStart_toStartOf="parent"
+            />-->
+
+
+
+
+        <Button
+            android:id="@+id/btnDone"
+            style="@style/AppTheme.ButtonStyleWhite"
+            android:text="@string/done"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvOrdertitle"
+            android:layout_marginTop="166dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintVertical_bias="0.2" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

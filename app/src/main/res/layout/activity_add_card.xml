@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.activity.AddCardActivity">
+
+        <include
+            android:id="@+id/info_tool"
+            layout="@layout/toolbar_info"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+     <View
+         android:layout_width="match_parent"
+         android:layout_height="1dp"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         android:background="@color/lightgray"
+         app:layout_constraintTop_toBottomOf="@+id/info_tool"/>
+        <ScrollView
+            android:id="@+id/scrollMain"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_tool">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_15sdp">
+
+                <TextView
+                    android:id="@+id/tvCardholderName"
+                    style="@style/AppTheme.Title"
+                    android:text="@string/cardholder_name"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/etCardholdeName"
+                    style="@style/AppTheme.editText"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvCardholderName" />
+
+                <TextView
+                    android:id="@+id/tvCardNumber"
+                    style="@style/AppTheme.Title"
+                    android:text="@string/card_number"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/etCardholdeName" />
+
+                <EditText
+                    android:id="@+id/etCardNumber"
+                    style="@style/AppTheme.editText"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvCardNumber" />
+
+                <TextView
+                    android:id="@+id/tvExpiryDate"
+                    style="@style/AppTheme.Title"
+                    android:text="@string/expirydate"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/etCardNumber" />
+
+                 <TextView
+                    android:id="@+id/tvCvv"
+                    style="@style/AppTheme.Title"
+                     android:layout_width="wrap_content"
+                     app:layout_constraintStart_toStartOf="@+id/etCvv"
+                    android:text="Cvv"
+                    app:layout_constraintTop_toBottomOf="@+id/etCardNumber" />
+
+                <EditText
+                    android:id="@+id/etExpiryDate"
+                    style="@style/AppTheme.editText"
+                    android:layout_width="@dimen/_130sdp"
+                    android:inputType="text"
+                    android:hint="@string/mm_yyyy"
+                    app:layout_constraintEnd_toStartOf="@+id/etCvv"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvExpiryDate" />
+
+                <EditText
+                    android:id="@+id/etCvv"
+                    style="@style/AppTheme.editText"
+                    android:layout_width="@dimen/_130sdp"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/etExpiryDate"
+                    app:layout_constraintTop_toBottomOf="@+id/tvExpiryDate"
+
+                    />
+
+
+                <Button
+                    android:id="@+id/btnSave"
+                    style="@style/AppTheme.ButtonStyle"
+                    android:text="Save"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/etCvv"
+                    android:layout_marginTop="@dimen/_105sdp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintVertical_bias="0.2" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

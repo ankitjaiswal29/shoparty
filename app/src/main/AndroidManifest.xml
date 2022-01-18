@@ -10,6 +10,39 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Shoparty_android">
         <activity
+            android:name=".view.activity.MyProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.MyOrdersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.OrderCancelActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.CancelConfirmActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.MyAccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.ShippingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.PaymentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.CancelOrderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.OrderDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.OrderSuccessfulyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.AddCardActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.activity.SplashActivity"
             android:exported="false" />
         <activity
