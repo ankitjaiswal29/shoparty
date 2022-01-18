@@ -22,6 +22,13 @@ class OrderDetailsActivity : AppCompatActivity(),View.OnClickListener {
 
     }
     private fun initialise() {
+
+       /* var activitydata: String? = intent.getStringExtra("data")
+        if(activitydata.equals("ordersuccess")){
+            binding.group1.visibility=View.VISIBLE
+        }else{
+            binding.group1.visibility=View.GONE
+        }*/
     binding.infoTool.tvTitle.setText(R.string.orderdetails)
         binding.btnCancel.setOnClickListener(this)
 

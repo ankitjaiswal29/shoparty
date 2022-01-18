@@ -62,4 +62,11 @@
     <string name="street">Street</string>
     <string name="gender">Gender</string>
     <string name="male">Male</string>
+    <string name="copy">Copy</string>
+    <string name="add">ADD</string>
+    <string name="shipping_details">Shipping Details</string>
+    <string name="house_number">House Number</string>
+    <string name="name">Name</string>
+    <string name="female">Female</string>
+    <string name="save">Save</string>
 </resources>

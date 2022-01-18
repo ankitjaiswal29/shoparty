@@ -22,7 +22,6 @@ class OrderSuccessfulyActivity : AppCompatActivity(), View.OnClickListener{
     }
 
     private fun initialise() {
-
 binding.tvViewordertitle.setOnClickListener(this)
         binding.btnSave.setOnClickListener(this)
     }
@@ -31,6 +30,7 @@ binding.tvViewordertitle.setOnClickListener(this)
         when(v?.id){
             R.id.tvViewordertitle -> {
                  val intent = Intent(this, OrderDetailsActivity::class.java)
+                intent.putExtra("data", "ordersuccess")
                  startActivity(intent)
             }
             R.id.btnSave -> {

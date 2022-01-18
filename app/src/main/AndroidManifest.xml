@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Shoparty_android">
         <activity
+            android:name=".view.activity.AddressActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.WishListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.VouchersActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.activity.MyProfileActivity"
             android:exported="false" />
         <activity
@@ -43,7 +52,6 @@
             android:name=".view.activity.AddCardActivity"
             android:exported="false" />
         <activity
-            android:name=".view.activity.SplashActivity"
             android:name=".view.activity.TopSellingItemActivity"
             android:exported="false" />
         <activity

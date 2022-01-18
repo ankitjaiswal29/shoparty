@@ -124,6 +124,7 @@
                     app:layout_constraintBottom_toBottomOf="@id/vViewractangle2"/>
 
                 <TextView
+                    android:id="@+id/tvList2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/AppTheme.Text_12ssp"
@@ -168,6 +169,12 @@
                       app:layout_constraintBottom_toBottomOf="@id/tvTotal"/>
 
 
+                  <androidx.constraintlayout.widget.Group
+                      android:id="@+id/group1"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:visibility="visible"
+                      app:constraint_referenced_ids="vViewractangle2,ivProductImg2,tvList2,tvTotal,tvTotalItem,tvTotalPrice"/>
 
 
 
@@ -521,6 +528,7 @@
 
 
            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
