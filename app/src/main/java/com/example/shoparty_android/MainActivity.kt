@@ -18,10 +18,5 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_fragment)
         bottom_navigatin_view.setupWithNavController(navController)
 
-        Handler().postDelayed({
-            val intent = Intent(this, AddCardActivity::class.java)
-            startActivity(intent)
-            finish()
-        }, 3000)
     }
 }

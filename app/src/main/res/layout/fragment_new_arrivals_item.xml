@@ -79,7 +79,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="10dp">
         <LinearLayout
-            android:id="@+id/ts_filter_btn"
+            android:id="@+id/na_filter_btn"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/white"
@@ -99,7 +99,7 @@
                 android:textSize="15dp"/>
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/ts_sort_btn"
+            android:id="@+id/na_sort_btn"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/white"

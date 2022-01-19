@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Shoparty_android">
         <activity
+            android:name=".view.activity.VerificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.SignInActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.activity.FilterActivity"
             android:exported="false" />
         <activity

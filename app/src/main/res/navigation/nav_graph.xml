@@ -39,4 +39,9 @@
         android:name="com.example.shoparty_android.view.fragment.NewArrivalItemDetailsFragment"
         android:label="fragment_new_arrival_item_details"
         tools:layout="@layout/fragment_new_arrival_item_details" />
+    <fragment
+        android:id="@+id/categoryItemListFragment"
+        android:name="com.example.shoparty_android.view.fragment.CategoryItemListFragment"
+        android:label="fragment_category_item_list"
+        tools:layout="@layout/fragment_category_item_list" />
 </navigation>

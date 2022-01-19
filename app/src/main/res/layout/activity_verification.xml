@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.activity.VerificationActivity">
+    <TextView
+        android:id="@+id/verification_htv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Verification"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/black"
+        android:textSize="28dp"
+        android:textStyle="bold"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="20dp"/>
+    <TextView
+        android:id="@+id/verification_desc_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/verification_htv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="20dp"
+        android:textSize="16dp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="10dp"
+        android:text="Enter otp sent to mobile number 999 9999 999"/>
+
+    <TextView
+        android:id="@+id/verification_mobile_htv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OTP"
+        android:textSize="14dp"
+        app:layout_constraintTop_toBottomOf="@+id/verification_desc_tv"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="40dp"/>
+    <EditText
+        android:id="@+id/verification_ed_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/verification_mobile_htv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/signin_ed_bg"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/verification_resend_otp_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Resend OTP Sent In"
+        app:layout_constraintTop_toBottomOf="@+id/verification_ed_txt"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2 Min"
+        android:textSize="15dp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/verification_resend_otp_tv"
+        app:layout_constraintTop_toBottomOf="@+id/verification_ed_txt"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"/>
+    <Button
+        android:id="@+id/signin_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/verification_resend_otp_tv"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Sign In"
+        android:textColor="@color/white"
+        android:background="@drawable/customize_btn_bg"
+        android:textAllCaps="false"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
