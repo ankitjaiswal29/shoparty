@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/lightgraybackground"
+        tools:context=".view.activity.AddNewAddressActivity">
+
+        <include
+            android:id="@+id/info_tool"
+            layout="@layout/toolbar_info"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <ScrollView
+            android:id="@+id/scrollMain"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_tool">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="30dp"
+                android:paddingTop="10dp">
+                <TextView
+                    android:id="@+id/tvFirstName"
+                    style="@style/AppTheme.Title"
+                    android:text="@string/first_name"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/etOldPassword"
+                    style="@style/AppTheme.editText"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvFirstName"
+                    />
+
+                <TextView
+                    android:id="@+id/tvLasttName"
+                    style="@style/AppTheme.Title"
+                    android:text="@string/last_name"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/etOldPassword" />
+
+                <EditText
+                    android:id="@+id/etLasttName"
+                    style="@style/AppTheme.editText"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvLasttName"
+                    />
+                <TextView
+                    android:id="@+id/tvCountry"
+                    style="@style/AppTheme.Title"
+                    android:text="@string/country"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/etLasttName" />
+
+                <Spinner
+                    android:id="@+id/spLasttName"
+                    style="@style/AppTheme.editText"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:layout_height="@dimen/_40sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvCountry"
+                    />
+
+                <TextView
+                    android:id="@+id/tvCity"
+                    style="@style/AppTheme.Title"
+                    android:text="@string/city"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spLasttName" />
+
+                <EditText
+                    android:id="@+id/etCity"
+                    style="@style/AppTheme.editText"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvCity"
+                    />
+
+                <TextView
+                    android:id="@+id/tvStreatLandmark"
+                    style="@style/AppTheme.Title"
+                    android:text="@string/street_landmark"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/etCity" />
+
+                <EditText
+                    android:id="@+id/etStreatLandmark"
+                    style="@style/AppTheme.editText"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvStreatLandmark"
+                    />
+
+
+                <TextView
+                    android:id="@+id/tvBuildingno"
+                    style="@style/AppTheme.Title"
+                    android:text="@string/building_no_apartment"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/etStreatLandmark" />
+
+                <EditText
+                    android:id="@+id/etBuildingno_Apartment"
+                    style="@style/AppTheme.editText"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvBuildingno"
+                    />
+
+                <TextView
+                    android:id="@+id/tvMobile"
+                    style="@style/AppTheme.Title"
+                    android:text="@string/mobile"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/etBuildingno_Apartment" />
+
+                <EditText
+                    android:id="@+id/etMobile"
+                    style="@style/AppTheme.editText"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvMobile"
+                    />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <!--<androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btnContinewToPayment"
+                style="@style/AppTheme.ButtonStyle"
+                android:text="@string/continue_to_payment"
+
+
+          />-->
+
+
+        </ScrollView>
+
+
+      <!--  <Button
+            android:id="@+id/btnCancel"
+            style="@style/AppTheme.ButtonStyle"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:text="@string/cancel"
+            android:layout_marginBottom="40dp"
+            android:background=
+            app:layout_constraintVertical_bias="0.2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/scrollMain" />
+
+        <Button
+            android:id="@+id/btnSave"
+            style="@style/AppTheme.ButtonStyle"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:text="@string/save"
+            android:layout_marginBottom="40dp"
+            app:layout_constraintVertical_bias="0.2"
+               app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/scrollMain" />
+
+-->
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

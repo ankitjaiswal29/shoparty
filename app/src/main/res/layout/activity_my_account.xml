@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        tools:context=".view.activity.MyAccountActivity">
+        <include
+            android:id="@+id/info_tool"
+            layout="@layout/toolbar_info_pink"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+   <!-- <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+      android:layout_marginBottom="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/info_tool"
+
+       >-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/pink"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/info_tool"
+
+        >
+
+
+        <ImageView
+            android:id="@+id/iv_ProfilePic"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/person_img"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="20dp"
+            />
+      <!--  <ImageView
+            android:id="@+id/iv_EditProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/iv_ProfilePic"
+            app:layout_constraintEnd_toEndOf="@+id/iv_ProfilePic"
+            android:src="@drawable/ic_rectangle_editshape"
+            app:layout_constraintBottom_toBottomOf="@id/iv_ProfilePic"
+            android:layout_marginBottom="5dp"/>
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/iv_EditProfile"
+            app:layout_constraintEnd_toEndOf="@+id/iv_EditProfile"
+            app:layout_constraintTop_toTopOf="@+id/iv_EditProfile"
+            android:src="@drawable/ic_edit_red_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_EditProfile"/>
+-->
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lukman Khan"
+            app:layout_constraintStart_toStartOf="@+id/iv_ProfilePic"
+            app:layout_constraintEnd_toEndOf="@+id/iv_ProfilePic"
+            app:layout_constraintTop_toBottomOf="@+id/iv_ProfilePic"
+            android:layout_marginTop="10dp"
+            style="@style/AppTheme.Text_15_white_dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="999 9999 999"
+            app:layout_constraintStart_toStartOf="@+id/tvName"
+            app:layout_constraintEnd_toEndOf="@+id/tvName"
+            app:layout_constraintTop_toBottomOf="@+id/tvName"
+            android:layout_marginTop="2dp"
+            android:paddingBottom="25dp"
+            style="@style/AppTheme.Text_15_white_dp"/>
+
+       <!-- <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraint1"
+            >-->
+
+       <!-- <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraint1">
+-->
+
+
+
+
+
+
+
+       <!-- </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>-->
+
+       <!-- <androidx.cardview.widget.CardView
+            android:id="@+id/cvMyOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            android:layout_marginLeft="20dp"
+            app:cardCornerRadius="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/constraint1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="My Orders"
+                style="@style/AppTheme.Text_14dp"
+                android:paddingLeft="10dp"
+                android:drawablePadding="9dp"
+                android:drawableStart="@drawable/ic_myorder_icon"
+                android:drawableEnd="@drawable/ic_forword_icon"
+                android:paddingRight="10dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvVouchers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            android:layout_marginLeft="20dp"
+            app:cardCornerRadius="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/cvMyOrder"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/vouchers"
+                style="@style/AppTheme.Text_14dp"
+                android:paddingLeft="10dp"
+                android:drawablePadding="9dp"
+                android:drawableStart="@drawable/ic_myorder_icon"
+                android:drawableEnd="@drawable/ic_forword_icon"
+                android:paddingRight="10dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"/>
+
+
+
+        </androidx.cardview.widget.CardView>
+
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvWishList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            android:layout_marginLeft="20dp"
+            app:cardCornerRadius="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/cvVouchers"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/wishlist"
+                style="@style/AppTheme.Text_14dp"
+                android:paddingLeft="10dp"
+                android:drawablePadding="9dp"
+                android:drawableStart="@drawable/ic_myorder_icon"
+                android:drawableEnd="@drawable/ic_forword_icon"
+                android:paddingRight="10dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvMyProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            android:layout_marginLeft="20dp"
+            app:cardCornerRadius="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/cvWishList"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/my_profile"
+                style="@style/AppTheme.Text_14dp"
+                android:paddingLeft="10dp"
+                android:drawablePadding="9dp"
+                android:drawableStart="@drawable/ic_myorder_icon"
+                android:drawableEnd="@drawable/ic_forword_icon"
+                android:paddingRight="10dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"/>
+
+
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvAddressBook"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            android:layout_marginLeft="20dp"
+            app:cardCornerRadius="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/cvWishList"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/address_book"
+                style="@style/AppTheme.Text_14dp"
+                android:paddingLeft="10dp"
+                android:drawablePadding="9dp"
+                android:drawableStart="@drawable/ic_myorder_icon"
+                android:drawableEnd="@drawable/ic_forword_icon"
+                android:paddingRight="10dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"/>
+
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvRateOurApp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            android:layout_marginLeft="20dp"
+            app:cardCornerRadius="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/cvAddressBook"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rate_our_app"
+                style="@style/AppTheme.Text_14dp"
+                android:paddingLeft="10dp"
+                android:drawablePadding="9dp"
+                android:drawableStart="@drawable/ic_myorder_icon"
+                android:drawableEnd="@drawable/ic_forword_icon"
+                android:paddingRight="10dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvContactUs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            android:layout_marginLeft="20dp"
+            app:cardCornerRadius="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/cvRateOurApp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/contact_us"
+            style="@style/AppTheme.Text_14dp"
+            android:paddingLeft="10dp"
+            android:drawablePadding="9dp"
+            android:drawableStart="@drawable/ic_myorder_icon"
+            android:drawableEnd="@drawable/ic_forword_icon"
+            android:paddingRight="10dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvAboutUs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            android:layout_marginLeft="20dp"
+            app:cardCornerRadius="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/cvContactUs"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_us"
+                style="@style/AppTheme.Text_14dp"
+                android:paddingLeft="10dp"
+                android:drawablePadding="9dp"
+                android:drawableStart="@drawable/ic_myorder_icon"
+                android:drawableEnd="@drawable/ic_forword_icon"
+                android:paddingRight="10dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvTermsAndConditions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            android:layout_marginLeft="20dp"
+            app:cardCornerRadius="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/cvAboutUs"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/terms_and_conditions"
+                style="@style/AppTheme.Text_14dp"
+                android:paddingLeft="10dp"
+                android:drawablePadding="9dp"
+                android:drawableStart="@drawable/ic_myorder_icon"
+                android:drawableEnd="@drawable/ic_forword_icon"
+                android:paddingRight="10dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvPrivacyPolicy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            android:layout_marginLeft="20dp"
+            app:cardCornerRadius="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/cvTermsAndConditions"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/privacy_policy"
+                style="@style/AppTheme.Text_14dp"
+                android:paddingLeft="10dp"
+                android:drawablePadding="9dp"
+                android:drawableStart="@drawable/ic_myorder_icon"
+                android:drawableEnd="@drawable/ic_forword_icon"
+                android:paddingRight="10dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvReturnPolicy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            android:layout_marginLeft="20dp"
+            app:cardCornerRadius="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/cvPrivacyPolicy"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/return_policy"
+                style="@style/AppTheme.Text_14dp"
+                android:paddingLeft="10dp"
+                android:drawablePadding="9dp"
+                android:drawableStart="@drawable/ic_myorder_icon"
+                android:drawableEnd="@drawable/ic_forword_icon"
+                android:paddingRight="10dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"/>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvSignOut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            android:layout_marginLeft="20dp"
+            app:cardCornerRadius="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/cvReturnPolicy"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sign_out"
+                style="@style/AppTheme.Text_14dp"
+                android:paddingLeft="10dp"
+                android:drawablePadding="9dp"
+                android:drawableStart="@drawable/ic_myorder_icon"
+                android:drawableEnd="@drawable/ic_forword_icon"
+                android:paddingRight="10dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"/>
+
+        </androidx.cardview.widget.CardView>-->
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+       <!-- <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraint2">
+-->
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scrollbars="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraint2" />
+
+       // <!--</androidx.core.widget.NestedScrollView>-->
+  <!--  </androidx.core.widget.NestedScrollView>-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

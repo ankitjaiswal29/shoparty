@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+   <!-- <data>
+
+    </data>-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".view.activity.CancelOrderActivity">
+        <include
+            android:id="@+id/info_tool"
+            layout="@layout/toolbar_info"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/lightgray"
+            app:layout_constraintTop_toBottomOf="@+id/info_tool"/>
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:layout_marginTop="10dp"
+            android:paddingBottom="@dimen/_30sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_tool">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="67dp"
+                >
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:id="@+id/constraint1"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:padding="20dp"
+                tools:ignore="MissingConstraints">
+
+                <TextView
+                    android:id="@+id/tvFirstName"
+                    style="@style/AppTheme.Text_12ssp"
+                    android:text="@string/order_id_od12345678901"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <View
+                    android:id="@+id/view1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:background="@color/lightgray"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    app:layout_constraintTop_toBottomOf="@id/tvFirstName"/>
+
+                <View
+                    android:id="@+id/vViewractangle"
+                    android:layout_width="match_parent"
+                    android:layout_height="67dp"
+                    android:padding="5dp"
+                    android:background="@drawable/background_rectangular_white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view1"
+                    android:layout_marginTop="15dp"/>
+                <ImageView
+                    android:id="@+id/ivProductImg"
+                    android:layout_width="50dp"
+                    android:layout_height="60dp"
+                    app:layout_constraintStart_toStartOf="@+id/vViewractangle"
+                    app:layout_constraintTop_toTopOf="@+id/vViewractangle"
+                    android:src="@drawable/icon_shippingbag"
+                    app:layout_constraintBottom_toBottomOf="@id/vViewractangle"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/AppTheme.Text_12ssp"
+                    app:layout_constraintStart_toEndOf="@+id/ivProductImg"
+                    android:text="@string/tesla_toys_kids_6_bundle_color_pack"
+                    app:layout_constraintTop_toTopOf="@+id/ivProductImg"
+                    app:layout_constraintBottom_toBottomOf="@id/ivProductImg"
+                    android:layout_marginLeft="14dp"
+                    android:paddingRight="@dimen/_41sdp"/>
+
+
+                <View
+                    android:id="@+id/vViewractangle2"
+                    android:layout_width="match_parent"
+                    android:layout_height="67dp"
+                    android:paddingLeft="5dp"
+                    android:padding="5dp"
+                    android:background="@drawable/background_rectangular_white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/vViewractangle"
+                    android:layout_marginTop="15dp"/>
+                <ImageView
+                    android:id="@+id/ivProductImg2"
+                    android:layout_width="50dp"
+                    android:layout_height="60dp"
+                    app:layout_constraintStart_toStartOf="@+id/vViewractangle2"
+                    app:layout_constraintTop_toTopOf="@+id/vViewractangle2"
+                    android:src="@drawable/icon_shippingbag"
+                    app:layout_constraintBottom_toBottomOf="@id/vViewractangle2"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/AppTheme.Text_12ssp"
+                    app:layout_constraintStart_toEndOf="@+id/ivProductImg2"
+                    android:text="@string/tesla_toys_kids_6_bundle_color_pack"
+                    app:layout_constraintTop_toTopOf="@+id/ivProductImg2"
+                    app:layout_constraintBottom_toBottomOf="@id/ivProductImg2"
+                    android:layout_marginLeft="14dp"
+                    android:paddingRight="@dimen/_41sdp"/>
+
+
+
+                <TextView
+                    android:id="@+id/tvTotal"
+                    style="@style/AppTheme.TextBold_12ssp"
+                    android:text="@string/total"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/vViewractangle2" />
+
+
+                <TextView
+                    android:id="@+id/tvTotalItem"
+                    style="@style/AppTheme.Text_12ssp"
+                    android:text="(2 items)"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintStart_toEndOf="@+id/tvTotal"
+                    app:layout_constraintTop_toTopOf="@+id/tvTotal"
+                    app:layout_constraintBottom_toBottomOf="@id/tvTotal"
+
+                    />
+
+                <TextView
+                    android:id="@+id/tvTotalPrice"
+                    style="@style/AppTheme.TextBold_12ssp"
+                    android:text="@string/_20_0"
+                    android:gravity="end"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvTotal"
+                    app:layout_constraintBottom_toBottomOf="@id/tvTotal"/>
+
+
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@color/lightgray"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/constraint1"
+                />
+
+                  <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:id="@+id/constraint2"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" android:paddingBottom="30dp" app:layout_constraintTop_toBottomOf="@+id/view2"
+                android:padding="20dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                tools:ignore="MissingConstraints">
+
+
+                      <TextView
+                          android:id="@+id/tv_Reasonofcancel"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_marginTop="10dp"
+                          app:layout_constraintStart_toStartOf="parent"
+                          android:text="@string/reason_for_cancellation"
+                          style="@style/AppTheme.Text_16_Bold_dp"
+                          />
+                      <View
+                          android:id="@+id/view3"
+                          android:layout_width="match_parent"
+                          android:layout_height="2dp"
+                          android:layout_marginTop="15dp"
+                          app:layout_constraintStart_toStartOf="parent"
+                          app:layout_constraintEnd_toEndOf="parent"
+                          android:background="@color/lightgray"
+                          app:layout_constraintTop_toBottomOf="@+id/tv_Reasonofcancel"/>
+
+
+                      <CheckBox
+                          android:id="@+id/checkBox1"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          style="@style/AppTheme.Text_14_graydp"
+                          android:text="@string/changed_my_mind"
+                          app:layout_constraintStart_toStartOf="parent"
+                          app:layout_constraintTop_toBottomOf="@+id/view3"
+                          android:textSize="18sp"
+                          android:layout_marginTop="15dp"
+                          android:padding="7dp"/>
+
+                      <CheckBox
+                          android:id="@+id/checkBox2"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          style="@style/AppTheme.Text_14_graydp"
+                          android:text="@string/wrong_shipping_address"
+                          android:layout_marginTop="20dp"
+                          app:layout_constraintStart_toStartOf="parent"
+                          app:layout_constraintTop_toBottomOf="@+id/checkBox1"
+                          android:textSize="18sp"
+                          android:padding="7dp"/>
+                      <CheckBox
+                          android:id="@+id/checkBox3"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          style="@style/AppTheme.Text_14_graydp"
+                          android:text="@string/expected_time_is_too_long"
+                          android:layout_marginTop="20dp"
+                          app:layout_constraintStart_toStartOf="parent"
+                          app:layout_constraintTop_toBottomOf="@+id/checkBox2"
+                          android:textSize="18sp"
+                          android:padding="7dp"/>
+
+                      <CheckBox
+                          android:id="@+id/checkBox4"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          style="@style/AppTheme.Text_14_graydp"
+                          android:text="@string/cancel_order_due_to_quality_issue"
+                          android:layout_marginTop="20dp"
+                          app:layout_constraintStart_toStartOf="parent"
+                          app:layout_constraintTop_toBottomOf="@+id/checkBox3"
+                          android:textSize="18sp"
+                          android:padding="7dp"/>
+                      <CheckBox
+                          android:id="@+id/checkBox5"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          style="@style/AppTheme.Text_14_graydp"
+                          android:text="@string/other"
+                          android:layout_marginTop="20dp"
+                          app:layout_constraintStart_toStartOf="parent"
+                          app:layout_constraintTop_toBottomOf="@+id/checkBox4"
+                          android:textSize="18sp"
+                          android:padding="7dp"/>
+
+
+
+                      <EditText
+                          android:id="@+id/etComment"
+                          style="@android:style/TextAppearance.Medium"
+                          android:layout_width="match_parent"
+                          android:layout_height="100dp"
+                          android:padding="10dp"
+                          android:hint="@string/additional_comments_optional"
+                          app:layout_constraintStart_toStartOf="parent"
+                          app:layout_constraintEnd_toEndOf="parent"
+                          android:background="@drawable/background_rectangular_white"
+                          android:layout_marginRight="15dp"
+                          android:layout_marginTop="19dp"
+                          android:gravity="top"
+                          app:layout_constraintTop_toBottomOf="@+id/checkBox5"
+                          />
+
+
+                      <Button
+                          android:id="@+id/btnCancel"
+                          style="@style/AppTheme.ButtonStyle"
+                          android:text="@string/cancel_order"
+                          app:layout_constraintLeft_toLeftOf="parent"
+                          app:layout_constraintTop_toBottomOf="@id/etComment"
+                          android:layout_marginTop="67dp"
+                          app:layout_constraintRight_toRightOf="parent"
+                          app:layout_constraintVertical_bias="0.2" />
+
+
+
+
+
+                  </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

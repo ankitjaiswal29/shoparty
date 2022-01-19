@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.activity.PaymentActivity">
+
+
+        <include
+            android:id="@+id/info_tool"
+            layout="@layout/toolbar_info"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ScrollView
+            android:id="@+id/scrollMain"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_tool">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/constraint1"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@color/white"
+                    android:padding="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    tools:ignore="MissingConstraints">
+
+                    <TextView
+                        android:id="@+id/tvFirstName"
+                        style="@style/AppTheme.TextBold_12ssp"
+                        android:layout_marginTop="@dimen/_50sdp"
+                        android:text="@string/billing_details"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <View
+                        android:id="@+id/view1"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:background="@color/colorGrey"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:layout_constraintTop_toBottomOf="@id/tvFirstName"/>
+
+
+                    <TextView
+                        android:id="@+id/tvSummery"
+                        style="@style/AppTheme.Text_12ssp"
+                        android:text="@string/summary"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view1" />
+
+
+                    <TextView
+                        android:id="@+id/tvSummeryPrice"
+                        style="@style/AppTheme.Text_12ssp"
+                        android:text="@string/_14_0"
+                        android:gravity="end"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view1" />
+
+
+
+                    <TextView
+                        android:id="@+id/tvTax"
+                        style="@style/AppTheme.Text_12ssp"
+                        android:text="@string/summary"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvSummeryPrice" />
+
+
+                    <TextView
+                        android:id="@+id/tvTaxPrice"
+                        style="@style/AppTheme.Text_12ssp"
+                        android:text="@string/_14_0"
+                        android:gravity="end"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvSummeryPrice" />
+
+
+                    <View
+                        android:id="@+id/view2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:background="@color/colorGrey"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:layout_constraintTop_toBottomOf="@id/tvTaxPrice"/>
+
+                    <TextView
+                        android:id="@+id/tvTotal"
+                        style="@style/AppTheme.TextBold_12ssp"
+                        android:text="@string/total"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view2" />
+
+
+                    <TextView
+                        android:id="@+id/tvTotalItem"
+                        style="@style/AppTheme.Text_12ssp"
+                        android:text="(2 items)"
+                        app:layout_constraintStart_toEndOf="@+id/tvTotal"
+                        app:layout_constraintTop_toTopOf="@+id/tvTotal"
+                        app:layout_constraintBottom_toBottomOf="@id/tvTotal"
+                        android:layout_marginLeft="@dimen/_40sdp"
+                        />
+
+
+
+                    <TextView
+                        android:id="@+id/tvTotalPrice"
+                        style="@style/AppTheme.Text_12ssp"
+                        android:text="@string/_20_0"
+                        android:gravity="end"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tvTotal"
+                        app:layout_constraintBottom_toBottomOf="@id/tvTotal"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@color/white"
+                    android:padding="@dimen/_15sdp"
+                    android:paddingBottom="@dimen/_40sdp"
+                    app:layout_constraintTop_toBottomOf="@id/constraint1"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    tools:ignore="MissingConstraints">
+                    <TextView
+                        android:id="@+id/tvPlesesellecttitle"
+                        style="@style/AppTheme.Text_12ssp"
+                        android:text="Please select payment method"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        />
+
+
+
+                    <TextView
+                        android:id="@+id/tvPayment1"
+                        style="@style/AppTheme.Text_12ssp"
+                        android:text="xxxxxxxxxxx1234"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:padding="@dimen/_10sdp"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:paddingLeft="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:background="@drawable/background_rectangular_white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvPlesesellecttitle"
+                        />
+
+                    <RadioButton
+                        android:id="@+id/rbRadio1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:buttonTint="@color/pink"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tvPayment1"
+                        app:layout_constraintBottom_toBottomOf="@id/tvPayment1"
+                        android:textSize="24sp" />
+
+
+
+                    <TextView
+                        android:id="@+id/tvPayment2"
+                        style="@style/AppTheme.Text_12ssp"
+                        android:text="xxxxxxxxxxxx56789"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:padding="@dimen/_10sdp"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:paddingLeft="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:background="@drawable/background_rectangular_white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvPayment1"
+                        />
+
+                    <RadioButton
+                        android:id="@+id/rbRadio2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:buttonTint="@color/pink"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tvPayment2"
+                        app:layout_constraintBottom_toBottomOf="@id/tvPayment2"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/tvAddCard"
+                        style="@style/AppTheme.Text_pink_12ssp"
+                        android:text="+Add Card"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:padding="@dimen/_10sdp"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:paddingLeft="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:background="@drawable/background_rectangular_white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvPayment2"
+                        />
+
+                    <Button
+                        android:id="@+id/btnContinewToPayment"
+                        style="@style/AppTheme.ButtonStyle"
+                        android:text="@string/continue_to_payment"
+                        app:layout_constraintVertical_bias="0.2"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:layout_marginTop="50dp"
+
+                        app:layout_constraintTop_toBottomOf="@id/tvAddCard" />
+
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </ScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
