@@ -16,10 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.shoparty_android.MainActivity
 import com.example.shoparty_android.R
-import com.example.shoparty_android.adapter.HomeCategoriesAdapter
-import com.example.shoparty_android.adapter.HomeSeasonsAdapter
-import com.example.shoparty_android.adapter.TopSellingHomeAdapter
-import com.example.shoparty_android.adapter.TopSellingItemAdapter
+import com.example.shoparty_android.adapter.*
 import com.example.shoparty_android.model.HomeCategoriesModel
 import com.example.shoparty_android.model.TopSellingHomeModel
 import com.example.shoparty_android.view.activity.*
@@ -141,9 +138,19 @@ class HomeFragment : Fragment() {
             builder.show()
         }
 
+        home_search_ed_txt.setOnClickListener {
+            val intent = Intent(requireActivity(), SearchActivity::class.java)
+            startActivity(intent)
+        }
+
         fillTopSellingRecyclerView(topSellingItemList)
         fillCategoriesRecyclerView(categoryList)
         fillSeasonsRecyclerView(seasonsItemList)
+        fillThemesRecyclerView(themesList)
+        fillNewArrivalsRecyclerView(newArrivalsList)
+        fillTsSubCategoriesRecyclerView(tsSubCategoriesList)
+        fillHomeOffersRecyclerView(homeOffersList)
+        fillHomeBondsRecyclerView(homeBondsList)
     }
 
 
@@ -185,4 +192,96 @@ class HomeFragment : Fragment() {
         seasons_recycler.adapter = HomeSeasonsAdapter(seasonsItemList)
     }
 
+
+//themes
+    private val themesList = listOf<HomeCategoriesModel>(
+        HomeCategoriesModel("Unicorn"),
+        HomeCategoriesModel("Mermaid"),
+        HomeCategoriesModel("Unicorn"),
+        HomeCategoriesModel("Mermaid"),
+    )
+
+    private fun fillThemesRecyclerView(themes: List<HomeCategoriesModel>) {
+        val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
+        home_themes_recycler.apply {
+            layoutManager = gridLayoutManager
+            setHasFixedSize(true)
+            isFocusable = false
+            adapter = HomeCategoriesAdapter(themesList)
+        }
+    }
+//new arrivals
+
+    private val newArrivalsList = listOf<HomeCategoriesModel>(
+        HomeCategoriesModel("Toys Kids"),
+        HomeCategoriesModel("Toys Kids"),
+        HomeCategoriesModel("Toys Kids"),
+        HomeCategoriesModel("Toys Kids"),
+    )
+
+    private fun fillNewArrivalsRecyclerView(themes: List<HomeCategoriesModel>) {
+        val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
+        home_new_arrivals_recycler.apply {
+            layoutManager = gridLayoutManager
+            setHasFixedSize(true)
+            isFocusable = false
+            adapter = NewArrivalsHomeAdapter(newArrivalsList)
+        }
+    }
+
+    //ts Sub categories
+    private val tsSubCategoriesList = listOf<HomeCategoriesModel>(
+        HomeCategoriesModel("Mask"),
+        HomeCategoriesModel("Mask"),
+        HomeCategoriesModel("Mask"),
+        HomeCategoriesModel("Mask"),
+    )
+
+    private fun fillTsSubCategoriesRecyclerView(themes: List<HomeCategoriesModel>) {
+        val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
+        ts_subcategories_recycler.apply {
+            layoutManager = gridLayoutManager
+            setHasFixedSize(true)
+            isFocusable = false
+            adapter = TopSellingSubcategoriesAdapter(tsSubCategoriesList)
+        }
+    }
+
+    //home offers
+
+    private val homeOffersList = listOf<HomeCategoriesModel>(
+        HomeCategoriesModel("Toys Kids"),
+        HomeCategoriesModel("Toys Kids"),
+        HomeCategoriesModel("Toys Kids"),
+        HomeCategoriesModel("Toys Kids"),
+    )
+
+    private fun fillHomeOffersRecyclerView(themes: List<HomeCategoriesModel>) {
+        val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
+        home_offers_recycler.apply {
+            layoutManager = gridLayoutManager
+            setHasFixedSize(true)
+            isFocusable = false
+            adapter = HomeOffersAdapter(homeOffersList)
+        }
+    }
+
+    //home Bonds
+
+    private val homeBondsList = listOf<HomeCategoriesModel>(
+        HomeCategoriesModel("Toys Kids"),
+        HomeCategoriesModel("Toys Kids"),
+        HomeCategoriesModel("Toys Kids"),
+        HomeCategoriesModel("Toys Kids"),
+    )
+
+    private fun fillHomeBondsRecyclerView(themes: List<HomeCategoriesModel>) {
+        val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
+        home_bonds_recycler.apply {
+            layoutManager = gridLayoutManager
+            setHasFixedSize(true)
+            isFocusable = false
+            adapter = HomeBondsAdapter(homeBondsList)
+        }
+    }
 }

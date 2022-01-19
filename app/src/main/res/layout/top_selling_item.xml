@@ -8,11 +8,11 @@
     android:id="@+id/top_selling_item_root"
     android:background="@drawable/home_top_selling_items_bg">
     <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="150dp">
+        android:layout_width="130dp"
+        android:layout_height="130dp">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             android:src="@drawable/top_selling_item_img"
             />
         <ImageView

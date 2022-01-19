@@ -55,8 +55,13 @@
             android:name=".view.activity.AddCardActivity"
             android:exported="false" />
         <activity
+            android:name=".view.activity.SearchActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
             android:name=".view.activity.TopSellingItemActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".view.activity.CandlesActivity"
             android:exported="false"
