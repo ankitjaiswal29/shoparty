@@ -1,5 +1,6 @@
 package com.example.shoparty_android.view.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,8 @@ import android.view.ViewGroup
 import com.example.shoparty_android.R
 import com.example.shoparty_android.adapter.TopSellingHomeAdapter
 import com.example.shoparty_android.model.TopSellingHomeModel
+import com.example.shoparty_android.view.activity.CustomizeActivity
+import com.example.shoparty_android.view.activity.SignInActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.top_selling_recycler
 import kotlinx.android.synthetic.main.fragment_new_arrival_item_details.*
@@ -32,6 +35,12 @@ class NewArrivalItemDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         fillTopSellingRecyclerView(topSellingItemList)
+
+
+        na_details_customize_btn.setOnClickListener {
+            val intent = Intent(requireActivity(), CustomizeActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private val topSellingItemList = listOf<TopSellingHomeModel>(

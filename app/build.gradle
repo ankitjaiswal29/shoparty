@@ -69,4 +69,8 @@ dependencies {
     //circle image
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
+    //range seek bar
+    implementation 'org.florescu.android.rangeseekbar:rangeseekbar-library:0.3.0'
+
+
 }

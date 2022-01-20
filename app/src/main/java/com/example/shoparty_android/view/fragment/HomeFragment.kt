@@ -143,6 +143,11 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
+        bag_btn.setOnClickListener {
+            val intent = Intent(requireActivity(), ShopingBagActivity::class.java)
+            startActivity(intent)
+        }
+
         fillTopSellingRecyclerView(topSellingItemList)
         fillCategoriesRecyclerView(categoryList)
         fillSeasonsRecyclerView(seasonsItemList)

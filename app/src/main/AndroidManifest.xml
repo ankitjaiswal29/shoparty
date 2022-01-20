@@ -28,6 +28,24 @@
             android:name=".view.activity.AboutUsActivity"
             android:exported="false" />
         <activity
+            android:name=".view.activity.CustomizeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.ShopingBagActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.VerificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.SignInActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.FilterActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.activity.AddNewAddressActivity"
             android:exported="false" />
         <activity
