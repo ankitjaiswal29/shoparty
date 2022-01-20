@@ -69,4 +69,6 @@
     <string name="name">Name</string>
     <string name="female">Female</string>
     <string name="save">Save</string>
+    <string name="general_site_usage">General Site Usage</string>
+    <string name="whatsapp">Whatsapp</string>
 </resources>

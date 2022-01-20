@@ -8,11 +8,10 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoparty_android.R
-import com.example.shoparty_android.`interface`.RecyclerViewClickListener
 import com.example.shoparty_android.model.MyAccountModel
 
 
-class MyAccountAdapter(private val mList: List<MyAccountModel>) : RecyclerView.Adapter<MyAccountAdapter.ViewHolder>() {
+class MyAccountAdapter(private val mList: List<MyAccountModel>,private val recyclerViewClickListener: RecyclerViewClickListener) : RecyclerView.Adapter<MyAccountAdapter.ViewHolder>() {
 
     // create new views
 
@@ -39,6 +38,9 @@ class MyAccountAdapter(private val mList: List<MyAccountModel>) : RecyclerView.A
             itemclick?.itemclick(ItemsViewModel.id)
         }
 */
+        holder.itemView.setOnClickListener {
+            recyclerViewClickListener.click(ItemsViewModel.id)
+        }
 
 
 

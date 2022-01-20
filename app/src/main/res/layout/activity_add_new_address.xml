@@ -21,10 +21,12 @@
         <ScrollView
             android:id="@+id/scrollMain"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:fillViewport="true"
             android:layout_marginTop="5dp"
+           android:layout_marginBottom="60dp"
             app:layout_constraintEnd_toEndOf="parent"
+            android:paddingBottom="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/info_tool">
 
@@ -40,8 +42,8 @@
                     android:id="@+id/tvFirstName"
                     style="@style/AppTheme.Title"
                     android:text="@string/first_name"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/guidelin_end"
+                    app:layout_constraintStart_toStartOf="@id/guideline_start"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
@@ -164,7 +166,66 @@
                     />
 
 
+
+                <!--<androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/etMobile"-->
+                <Button
+                    android:id="@+id/btn_cancel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="31dp"
+                    android:background="@drawable/background_edittext"
+                    android:text="@string/cancel"
+                    android:textAllCaps="false"
+                    android:layout_marginRight="7dp"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_save"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/etMobile" />
+
+                <Button
+                    android:id="@+id/btn_save"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="31dp"
+                    android:background="@drawable/signout_dialog_save_btn"
+                    android:text="@string/save"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="7dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btn_cancel"
+                    app:layout_constraintTop_toBottomOf="@+id/etMobile" />
+
+
+
+
+
+
+
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="20dp" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelin_end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_end="20dp" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
             <!--<androidx.constraintlayout.widget.ConstraintLayout
@@ -177,36 +238,6 @@
 
 
         </ScrollView>
-
-
-      <!--  <Button
-            android:id="@+id/btnCancel"
-            style="@style/AppTheme.ButtonStyle"
-            android:layout_width="0dp"
-            android:gravity="center"
-            android:text="@string/cancel"
-            android:layout_marginBottom="40dp"
-            android:background=
-            app:layout_constraintVertical_bias="0.2"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/scrollMain" />
-
-        <Button
-            android:id="@+id/btnSave"
-            style="@style/AppTheme.ButtonStyle"
-            android:layout_width="0dp"
-            android:gravity="center"
-            android:text="@string/save"
-            android:layout_marginBottom="40dp"
-            app:layout_constraintVertical_bias="0.2"
-               app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/scrollMain" />
-
--->
-
-
-
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

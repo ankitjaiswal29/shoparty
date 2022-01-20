@@ -1,5 +1,6 @@
 package com.example.shoparty_android.view.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -18,14 +19,22 @@ class PaymentActivity : AppCompatActivity(), View.OnClickListener{
     }
 
     private fun initialise() {
+        binding.tvAddCard.setOnClickListener(this)
+        binding.btnContinewToPayment.setOnClickListener(this)
 
     }
 
     override fun onClick(v: View?) {
         when(v?.id){
-            /* R.id.btnContinewToPayment -> {
-               //  startActivity(ResetPasswordActivity.getStartIntent(this))
-             }*/
+             R.id.tvAddCard -> {
+                 val intent = Intent(this, AddCardActivity::class.java)
+                 startActivity(intent)
+             }
+            R.id.btnContinewToPayment -> {
+
+                val intent = Intent(this, OrderSuccessfulyActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 }

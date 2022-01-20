@@ -9,10 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoparty_android.R
 import com.example.shoparty_android.adapter.MyOrderAdapter
+import com.example.shoparty_android.adapter.RecyclerViewClickListener
 import com.example.shoparty_android.databinding.ActivityMyOrdersBinding
 import com.example.shoparty_android.databinding.ActivityOrderSuccessfulyBinding
 
-class MyOrdersActivity : AppCompatActivity(), View.OnClickListener {
+class MyOrdersActivity : AppCompatActivity(), View.OnClickListener,RecyclerViewClickListener {
     private lateinit var binding: ActivityMyOrdersBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +45,7 @@ class MyOrdersActivity : AppCompatActivity(), View.OnClickListener {
         data.add("Cancelled On Aug 05")
 
 
-        val adapter = MyOrderAdapter(data)
+        val adapter = MyOrderAdapter(data,this)
         binding.myorderRecyclerview.adapter = adapter
     }
 
@@ -59,5 +60,21 @@ class MyOrdersActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(intent)
             }
         }*/
+    }
+
+    override fun click(pos: String) {
+        when (pos) {
+            "Delivered On Jul 07" ->{
+                var intent =Intent(this,OrderDetailsActivity::class.java)
+                intent.putExtra("data","myorder")
+                startActivity(intent)
+              /*  Intent intent =  Intent(context, DestinationActivityName.class);
+                intent.putExtra(Key, Value);
+                startActivity(intent)*/
+            }
+            "Ongoing On Aug 05" -> startActivity(Intent(this, OngoingOrderActivity::class.java))
+            "Cancelled On Aug 05" -> startActivity(Intent(this, CancelOrderActivity::class.java))
+
+        }
     }
 }

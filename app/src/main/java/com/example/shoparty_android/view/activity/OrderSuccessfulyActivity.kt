@@ -30,15 +30,16 @@ binding.tvViewordertitle.setOnClickListener(this)
         when(v?.id){
             R.id.tvViewordertitle -> {
                  val intent = Intent(this, OrderDetailsActivity::class.java)
-                intent.putExtra("data", "ordersuccess")
+                intent.putExtra("data", "2")
                  startActivity(intent)
             }
             R.id.btnSave -> {
                 /*val intent = Intent(this, MyAccountActivity::class.java)
                 startActivity(intent)*/
 
-                val intent = Intent(this, AddNewAddressActivity::class.java)
+                val intent = Intent(this, AddCardActivity::class.java)
                 startActivity(intent)
+                finish();
             }
         }
     }

@@ -10,6 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/lightgraybackground"
         tools:context=".view.activity.ShippingActivity">
 
 
@@ -31,7 +32,84 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_marginTop="5dp"
                 android:padding="@dimen/_15sdp">
+
+
+                <ImageView
+                    android:id="@+id/iv_shippingicon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="42dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:src="@drawable/ic_shipping_circle"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:background="@color/colorGrey"
+                    app:layout_constraintStart_toEndOf="@+id/iv_shippingicon"
+                   app:layout_constraintEnd_toStartOf="@+id/iv_paymenticon"
+                    app:layout_constraintTop_toTopOf="@+id/iv_shippingicon"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_shippingicon"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@+id/iv_shippingicon"
+                    app:layout_constraintEnd_toEndOf="@+id/iv_shippingicon"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_shippingicon"
+                    android:text="Shipping"/>
+
+                <ImageView
+                    android:id="@+id/iv_paymenticon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:src="@drawable/ic_payment_circle"/>
+
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:background="@color/colorGrey"
+                    app:layout_constraintStart_toEndOf="@+id/iv_paymenticon"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_confirm"
+                    app:layout_constraintTop_toTopOf="@+id/iv_shippingicon"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_shippingicon"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@+id/iv_paymenticon"
+                    app:layout_constraintEnd_toEndOf="@+id/iv_paymenticon"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_paymenticon"
+                    android:text="Payment"/>
+
+                <ImageView
+                    android:id="@+id/iv_confirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="42dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:src="@drawable/ic_payment_circle"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@+id/iv_confirm"
+                    app:layout_constraintEnd_toEndOf="@+id/iv_confirm"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_confirm"
+                    android:text="Confirmation"/>
+
+
+
                 <TextView
                     android:id="@+id/tvFirstName"
                     style="@style/AppTheme.Title"
@@ -79,13 +157,14 @@
                 <Spinner
                     android:id="@+id/spLasttName"
                     style="@style/AppTheme.editText"
+                    android:layout_height="@dimen/_40sdp"
+
                     android:imeOptions="actionNext"
                     android:inputType="text"
-                    android:layout_height="@dimen/_40sdp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvCountry"
-                    />
+                    app:layout_constraintTop_toBottomOf="@+id/tvCountry" />
 
                 <TextView
                     android:id="@+id/tvCity"
@@ -178,6 +257,7 @@
                     app:layout_constraintVertical_bias="0.2"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_marginTop="55dp"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/cbShipCheckbox" />
 

@@ -22,6 +22,7 @@ class CancelConfirmActivity : AppCompatActivity(), View.OnClickListener  {
     private fun initialise() {
 
         binding.btnDone.setOnClickListener(this)
+        binding.tvViewordertitle.setOnClickListener(this)
 
     }
 
@@ -31,6 +32,10 @@ class CancelConfirmActivity : AppCompatActivity(), View.OnClickListener  {
                 val intent = Intent(this, OrderCancelActivity::class.java)
                 startActivity(intent)
             }
+           /* R.id.tvViewordertitle -> {
+                val intent = Intent(this, OrderCancelActivity::class.java)
+                startActivity(intent)
+            }*/
         }
     }
 }

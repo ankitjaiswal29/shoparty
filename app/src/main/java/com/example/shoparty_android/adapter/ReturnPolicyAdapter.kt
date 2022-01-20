@@ -6,16 +6,18 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoparty_android.R
+import com.example.shoparty_android.model.ReturnPolicyModel
 
 
-class MyOrderAdapter(private val mList: ArrayList<String> ,var recyclerViewClickListener: RecyclerViewClickListener) : RecyclerView.Adapter<MyOrderAdapter.ViewHolder>() {
+class ReturnPolicyAdapter(private val mList: List<ReturnPolicyModel>) : RecyclerView.Adapter<ReturnPolicyAdapter.ViewHolder>() {
 
     // create new views
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // inflates the card_view_design view
         // that is used to hold list item
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.myorder_item_layout, parent, false)
+            .inflate(R.layout.return_policy_item_layout, parent, false)
 
         return ViewHolder(view)
     }
@@ -26,13 +28,14 @@ class MyOrderAdapter(private val mList: ArrayList<String> ,var recyclerViewClick
         val ItemsViewModel = mList[position]
 
         // sets the image to the imageview from our itemHolder class
-       // holder.ivIcon.setImageResource(ItemsViewModel.image)
-
+        holder.ivNO.setText(ItemsViewModel.serialno)
+        holder.tvTitle.setText(ItemsViewModel.title)
         // sets the text to the textview from our itemHolder class
-        holder.tv_ItemName.text = ItemsViewModel;
-        holder.itemView.setOnClickListener {
-            recyclerViewClickListener.click(ItemsViewModel.toString())
+
+       /* holder.cv_Carditem.setOnClickListener {
+            itemclick?.itemclick(ItemsViewModel.id)
         }
+*/
 
 
 
@@ -45,7 +48,8 @@ class MyOrderAdapter(private val mList: ArrayList<String> ,var recyclerViewClick
 
     // Holds the views for adding it to image and text
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
-        val tv_ItemName: TextView = itemView.findViewById(R.id.tv_ItemName)
+        val ivNO: TextView = itemView.findViewById(R.id.ivNO)
+        val tvTitle:TextView=itemView.findViewById(R.id.tvTitle)
 
     }
 }

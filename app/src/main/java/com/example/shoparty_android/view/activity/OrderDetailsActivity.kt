@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.example.shoparty_android.R
 import com.example.shoparty_android.databinding.ActivityOrderDetailsBinding
@@ -22,6 +23,19 @@ class OrderDetailsActivity : AppCompatActivity(),View.OnClickListener {
 
     }
     private fun initialise() {
+
+        val message = intent.getStringExtra("data")
+
+        if (message.equals("1")){
+
+        }else{
+            binding.group1.visibility=View.GONE
+            binding.group2.visibility=View.GONE
+            binding.ivOrderDelivered.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_order_cancelled_pink));
+
+
+
+        }
 
        /* var activitydata: String? = intent.getStringExtra("data")
         if(activitydata.equals("ordersuccess")){

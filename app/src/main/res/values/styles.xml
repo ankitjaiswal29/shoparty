@@ -73,6 +73,12 @@
         <item name="android:textSize">15dp</item>
     </style>
 
+    <style name="AppTheme.Text_15_Bold_dp" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="AppTheme.Text_16_Bold_dp" parent="Widget.AppCompat.TextView">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
@@ -80,6 +86,19 @@
         <item name="android:paddingEnd">@dimen/_5sdp</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16dp</item>
+    </style>
+
+
+    <style name="AppTheme.Text_19_Bold_dp" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">19dp</item>
+    </style>
+
+    <style name="AppTheme.Text_16_dp_gray" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/colorGrey</item>
+
         <item name="android:textSize">16dp</item>
     </style>
 
@@ -100,6 +119,15 @@
         <item name="android:paddingEnd">@dimen/_5sdp</item>
         <item name="android:textColor">@color/lightgraysubtitle</item>
         <item name="android:textSize">12dp</item>
+    </style>
+
+    <style name="AppTheme.Text_13_graydp" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingBottom">@dimen/_2sdp</item>
+        <item name="android:paddingEnd">@dimen/_5sdp</item>
+        <item name="android:textColor">@color/lightgraysubtitle</item>
+        <item name="android:textSize">13dp</item>
     </style>
 
     <style name="AppTheme.Text_14_graydp" parent="Widget.AppCompat.TextView">
@@ -185,6 +213,13 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">14dp</item>
 
+    </style>
+    <style name="AppTheme.Text_14dp_Bold" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14dp</item>
     </style>
 
     <style name="AppTheme.Text_12dp" parent="Widget.AppCompat.TextView">

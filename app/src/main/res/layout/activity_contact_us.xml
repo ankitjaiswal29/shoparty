@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+   <!-- <data>
+
+    </data>-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/lightgraybackground"
+        tools:context=".view.activity.ContactUsActivity">
+
+        <include
+            android:id="@+id/info_tool"
+            layout="@layout/toolbar_info"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:id="@+id/constraint"
+    android:layout_height="wrap_content"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:background="@color/white"
+    android:layout_marginTop="5dp"
+    android:padding="20dp"
+    app:layout_constraintTop_toBottomOf="@id/info_tool">
+
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="More Ways To Contact Us"
+        style="@style/AppTheme.Text_14dp_Bold"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:layout_marginTop="13dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/background_topleft_topright_corner_white"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title">
+
+
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Call Us - KSA"
+        style="@style/AppTheme.Text_12dp_Bold"
+
+        app:layout_constraintTop_toTopOf="parent"
+
+        android:drawableStart="@drawable/ic_whatsapp_call_icon"
+        android:drawablePadding="5dp"/>
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@color/grey"
+
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="+999 9999 999"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        style="@style/AppTheme.Text_12_graydp_bold"
+
+        />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:background="@drawable/background_bottom_left_right_corner_gray"
+        android:text="10:00 AM To 10:00 PM KSA Time - Sunday To Saturday"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/constraint1"/>
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/background_topleft_topright_corner_white"
+        app:layout_constraintTop_toBottomOf="@+id/tv_time">
+
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/whatsapp"
+            style="@style/AppTheme.Text_12dp_Bold"
+
+            app:layout_constraintTop_toTopOf="parent"
+
+            android:drawableStart="@drawable/ic_whatsapp_call_icon"
+            android:drawablePadding="5dp"/>
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@color/grey"
+
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="+999 9999 999"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            style="@style/AppTheme.Text_12_graydp_bold"
+
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:background="@drawable/background_bottom_left_right_corner_gray"
+        android:text="10:00 AM To 10:00 PM KSA Time - Sunday To Saturday"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/constraint2"/>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:paddingBottom="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraint">
+
+            <TextView
+                android:id="@+id/tv_SocialUilabel"
+                style="@style/AppTheme.Text_14dp_Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Get Social With Us"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <ImageView
+                android:id="@+id/ivFacebook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_facebook_icon"
+                app:layout_constraintEnd_toStartOf="@+id/ivTwitter"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/tv_SocialUilabel" />
+
+            <ImageView
+                android:id="@+id/ivTwitter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="13dp"
+                android:src="@drawable/ic_twiter_icon"
+                app:layout_constraintEnd_toStartOf="@+id/ivYoutube"
+                app:layout_constraintHorizontal_bias="0.5"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toEndOf="@+id/ivFacebook"
+                app:layout_constraintTop_toBottomOf="@+id/tv_SocialUilabel" />
+
+            <ImageView
+                android:id="@+id/ivYoutube"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="13dp"
+
+                android:src="@drawable/ic_youtube_icon"
+                app:layout_constraintEnd_toStartOf="@+id/ivInsta"
+                app:layout_constraintHorizontal_bias="0.5"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toEndOf="@+id/ivTwitter"
+                app:layout_constraintTop_toBottomOf="@+id/tv_SocialUilabel" />
+
+
+            <ImageView
+                android:id="@+id/ivInsta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="13dp"
+                android:src="@mipmap/ic_instagram_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toEndOf="@+id/ivYoutube"
+                app:layout_constraintTop_toBottomOf="@+id/tv_SocialUilabel" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

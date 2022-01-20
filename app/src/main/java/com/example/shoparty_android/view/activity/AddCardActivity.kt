@@ -27,8 +27,11 @@ class AddCardActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.btnSave -> {
-                val intent = Intent(this, OrderSuccessfulyActivity::class.java)
+
+                val intent = Intent(this, PaymentActivity::class.java)
                 startActivity(intent)
+                finish()
+
             }
         }
     }

@@ -1,16 +1,21 @@
 package com.example.shoparty_android.view.activity
 
-import android.content.Intent
+import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoparty_android.R
-import com.example.shoparty_android.`interface`.RecyclerViewClickListener
+import com.example.shoparty_android.adapter.RecyclerViewClickListener
 import com.example.shoparty_android.adapter.MyAccountAdapter
 import com.example.shoparty_android.model.MyAccountModel
+import android.content.Intent
+import android.view.View
+import android.widget.Button
 
-class MyAccountActivity : AppCompatActivity() {
+
+class MyAccountActivity : AppCompatActivity(), RecyclerViewClickListener {
     
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,13 +49,53 @@ class MyAccountActivity : AppCompatActivity() {
         data.add(MyAccountModel(R.drawable.ic_sign_out_icon,"idsignout",getString(R.string.sign_out) ))
 
 
-        val adapter = MyAccountAdapter(data,)
+        val adapter = MyAccountAdapter(data,this)
         recyclerview.adapter = adapter
     }
 
-   /* override fun itemclick(position: String) {
-        
-    }*/
+    override fun click(pos: String) {
+        when(pos) {
+            "idmyorder" -> startActivity(Intent(this, MyOrdersActivity::class.java))
+            "idvoucher" ->startActivity(Intent(this, VouchersActivity::class.java))
+            "idwishlist" -> startActivity(Intent(this, WishListActivity::class.java))
+
+            "idmyprofile" -> startActivity(Intent(this, MyProfileActivity::class.java))
+            "idaddress" ->startActivity(Intent(this, AddressActivity::class.java))
+          //  "idrate" -> startActivity(Intent(this, Ra::class.java))
+            "idcontact" -> startActivity(Intent(this, ContactUsActivity::class.java))
+            "idabout" ->startActivity(Intent(this, AboutUsActivity::class.java))
+
+            "idtermcondition" -> startActivity(Intent(this, TermAndConditionActivity::class.java))
+            "iprivacypolicy" ->startActivity(Intent(this, PrivacyPolicyActivity::class.java))
+
+            "idreturnpolicy" -> startActivity(Intent(this, ReturnPolicyActivity::class.java))
+            "idsignout" ->{
+                val builder = AlertDialog.Builder(this, R.style.CustomAlertDialog)
+                val inflater = layoutInflater
+                val dialogLayout: View =
+                    inflater.inflate(R.layout.alert_dialog_signout2, null)
+                val btn_cancel = dialogLayout.findViewById<Button>(R.id.btn_cancel)
+                val btn_yes = dialogLayout.findViewById<Button>(R.id.btn_yes)
+                builder.setView(dialogLayout)
+                builder.show()
+
+                btn_yes.setOnClickListener {
+
+                }
+                btn_cancel.setOnClickListener {
+
+                }
+               /* builder.setView(dialogLayout)
+                builder.show()*/
+            }
+
+
+        }
+    }
+
+    /* override fun itemclick(position: String) {
+
+     }*/
 
 
 }

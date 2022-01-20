@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.activity.PrivacyPolicyActivity">
+
+        <include
+            android:id="@+id/info_tool"
+            layout="@layout/toolbar_info"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/info_tool"
+            >
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                style="@style/AppTheme.Text_16_Bold_dp"
+                android:layout_marginTop="10dp"
+                android:text="Lorem Ipsum is simply dummy"/>
+
+            <TextView
+                android:id="@+id/tv_subTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+
+                style="@style/AppTheme.Text_13_graydp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+                android:text="Lorem Ipsum is simply dummy text of the"/>
+
+
+            <ExpandableListView
+                android:id="@+id/expendableList"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="10dp"
+                     app:layout_constraintTop_toBottomOf="@+id/tv_subTitle"
+
+                android:groupIndicator="@drawable/settings_selector"
+                android:transcriptMode="alwaysScroll"
+                android:dividerHeight="0.5dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+       <!-- <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingBottom="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_tool">
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="fdkjfkld"-->
+
+
+
+        <!--<ExpandableListView
+            android:id="@+id/expendableList"
+            android:layout_width="match_parent"
+            android:groupIndicator="@null"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:divider="@android:color/background_light"
+            android:dividerHeight="0.5dp" />-->
+       <!-- </androidx.core.widget.NestedScrollView>-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
