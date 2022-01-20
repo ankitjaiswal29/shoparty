@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Shoparty_android">
         <activity
+            android:name=".view.activity.CustomizeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.ShopingBagActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.activity.VerificationActivity"
             android:exported="false" />
         <activity
