@@ -21,8 +21,9 @@ class AddressActivity : AppCompatActivity(), View.OnClickListener  {
 
 
     private fun initialise() {
-        binding.infoTool.tvTitle.setText(getString(R.string.address))
+        binding.infoTool.tvTitle.setText("Address")
         binding.tvAddnewaddress.setOnClickListener(this)
+        binding.infoTool.back.setOnClickListener(this)
         binding.tvEdit.setOnClickListener(this)
 
         // binding..setOnClickListener(this)
@@ -39,6 +40,13 @@ class AddressActivity : AppCompatActivity(), View.OnClickListener  {
                  val intent = Intent(this, AddNewAddressActivity::class.java)
                 startActivity(intent)
             }
+             R.id.back -> {
+                 onBackPressed()
+             }
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }

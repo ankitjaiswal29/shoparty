@@ -34,7 +34,7 @@ class PrivacyPolicyActivity : AppCompatActivity(), View.OnClickListener  {
 
     private fun initialise() {
         // binding.tvViewordertitle.setOnClickListener(this)
-        // binding.btnSave.setOnClickListener(this)
+        binding.infoTool.back.setOnClickListener(this)
 
         val metrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(metrics)
@@ -88,7 +88,16 @@ class PrivacyPolicyActivity : AppCompatActivity(), View.OnClickListener  {
         // Convert the dps to pixels, based on density scale
         return (pixels * scale + 100f).toInt()
     }
-    override fun onClick(p0: View?) {
+    override fun onClick(v: View?) {
+        when(v?.id){
+            R.id.back -> {
+                onBackPressed()
+            }
 
+        }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }

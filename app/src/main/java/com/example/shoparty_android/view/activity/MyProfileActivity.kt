@@ -22,6 +22,8 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
         binding.btnSave.setOnClickListener(this)
         binding.infoTool.back.visibility=View.VISIBLE
         binding.infoTool.tvTitle.setText(getString(R.string.my_account))
+        binding.infoTool.back.setOnClickListener(this)
+
 
     }
 
@@ -30,10 +32,16 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
             R.id.btnSave -> {
                 /*val intent = Intent(this, MyAccountActivity::class.java)
                 startActivity(intent)*/
+                finish()
+            }
+            R.id.back -> {
+                onBackPressed()
 
-                val intent = Intent(this, MyProfileActivity::class.java)
-                startActivity(intent)
             }
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }

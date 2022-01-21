@@ -21,6 +21,14 @@ class CancelConfirmActivity : AppCompatActivity(), View.OnClickListener  {
 
     private fun initialise() {
 
+       var  message = intent.getStringExtra("key").toString();
+
+        if (message.equals("Ongoeing")){
+
+            binding.tvViewordertitle.visibility=View.GONE
+        }else{
+
+        }
         binding.btnDone.setOnClickListener(this)
         binding.tvViewordertitle.setOnClickListener(this)
 

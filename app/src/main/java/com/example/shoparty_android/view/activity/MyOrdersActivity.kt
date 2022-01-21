@@ -31,6 +31,7 @@ class MyOrdersActivity : AppCompatActivity(), View.OnClickListener,RecyclerViewC
 
         // this creates a vertical layout Manager
         binding.infoTool.tvTitle.setText(getString(R.string.my_orders))
+        binding.infoTool.back.setOnClickListener(this)
        binding.myorderRecyclerview.layoutManager = LinearLayoutManager(this)
 
         // ArrayList of class ItemsViewModel
@@ -50,16 +51,12 @@ class MyOrdersActivity : AppCompatActivity(), View.OnClickListener,RecyclerViewC
     }
 
     override fun onClick(v: View?) {
-        /*when(v?.id){
-            R.id.tvViewordertitle -> {
-                val intent = Intent(this, OrderDetailsActivity::class.java)
-                startActivity(intent)
+        when(v?.id){
+            R.id.back -> {
+                onBackPressed()
             }
-            R.id.btnSave -> {
-                val intent = Intent(this, MyOrdersActivity::class.java)
-                startActivity(intent)
-            }
-        }*/
+
+        }
     }
 
     override fun click(pos: String) {
@@ -73,8 +70,16 @@ class MyOrdersActivity : AppCompatActivity(), View.OnClickListener,RecyclerViewC
                 startActivity(intent)*/
             }
             "Ongoing On Aug 05" -> startActivity(Intent(this, OngoingOrderActivity::class.java))
-            "Cancelled On Aug 05" -> startActivity(Intent(this, CancelOrderActivity::class.java))
+            "Cancelled On Aug 05" ->{
+                val intent = Intent(this, CancelOrderActivity::class.java)
+                intent.putExtra("key","Myorder")
+                startActivity(intent)
+            } //startActivity(Intent(this, CancelOrderActivity::class.java))
 
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }

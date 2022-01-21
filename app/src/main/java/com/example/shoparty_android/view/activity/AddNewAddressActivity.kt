@@ -22,6 +22,7 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener {
         binding.infoTool.tvTitle.setText("Add New Address")
         binding.btnSave.setOnClickListener(this)
         binding.btnCancel.setOnClickListener(this)
+        binding.infoTool.back.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -39,6 +40,14 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(intent)
                 finish()
             }
+            R.id.back -> {
+             onBackPressed()
+            }
         }
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
+
 }

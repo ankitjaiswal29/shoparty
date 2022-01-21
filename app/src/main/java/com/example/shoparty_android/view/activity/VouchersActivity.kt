@@ -26,6 +26,7 @@ class VouchersActivity : AppCompatActivity(), View.OnClickListener {
 
         // this creates a vertical layout Manager
         binding.infoTool.tvTitle.setText(getString(R.string.vouchers))
+        binding.infoTool.back.setOnClickListener(this)
         binding.vouchersRecyclerview.layoutManager = LinearLayoutManager(this)
 
         // ArrayList of class ItemsViewModel
@@ -46,15 +47,18 @@ class VouchersActivity : AppCompatActivity(), View.OnClickListener {
         binding.vouchersRecyclerview.adapter = adapter
     }
     override fun onClick(v: View?) {
-        /*when(v?.id){
-            R.id.tvViewordertitle -> {
-                val intent = Intent(this, OrderDetailsActivity::class.java)
-                startActivity(intent)
+        when(v?.id){
+            R.id.back -> {
+                onBackPressed()
             }
-            R.id.btnSave -> {
+           /* R.id.btnSave -> {
                 val intent = Intent(this, MyOrdersActivity::class.java)
                 startActivity(intent)
-            }
-        }*/
+            }*/
+        }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }

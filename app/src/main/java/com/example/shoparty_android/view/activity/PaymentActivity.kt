@@ -21,6 +21,8 @@ class PaymentActivity : AppCompatActivity(), View.OnClickListener{
     private fun initialise() {
         binding.tvAddCard.setOnClickListener(this)
         binding.btnContinewToPayment.setOnClickListener(this)
+        binding.infoTool.tvTitle.setText("Payment")
+        binding.infoTool.back.setOnClickListener(this)
 
     }
 
@@ -35,6 +37,13 @@ class PaymentActivity : AppCompatActivity(), View.OnClickListener{
                 val intent = Intent(this, OrderSuccessfulyActivity::class.java)
                 startActivity(intent)
             }
+            R.id.back -> {
+                onBackPressed()
+            }
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }

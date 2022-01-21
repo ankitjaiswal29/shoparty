@@ -26,19 +26,20 @@ class ContactUsActivity : AppCompatActivity(), View.OnClickListener  {
 
         // this creates a vertical layout Manager
         binding.infoTool.tvTitle.setText(getString(R.string.contact_us))
+        binding.infoTool.back.setOnClickListener(this)
 
     }
 
     override fun onClick(v: View?) {
-        /*when(v?.id){
-            R.id.tvViewordertitle -> {
-                val intent = Intent(this, OrderDetailsActivity::class.java)
-                startActivity(intent)
+        when(v?.id){
+            R.id.back -> {
+                onBackPressed()
             }
-            R.id.btnSave -> {
-                val intent = Intent(this, MyOrdersActivity::class.java)
-                startActivity(intent)
-            }
-        }*/
+
+        }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }

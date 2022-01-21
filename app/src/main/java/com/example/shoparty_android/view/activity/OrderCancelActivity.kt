@@ -22,13 +22,20 @@ class OrderCancelActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun initialise() {
         binding.infoTool.tvTitle.setText(R.string.cancel_order)
+        binding.infoTool.back.setOnClickListener(this)
 
 
     }
 
     override fun onClick(v: View?) {
         when(v?.id){
-
+            R.id.back -> {
+              onBackPressed()
+            }
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }

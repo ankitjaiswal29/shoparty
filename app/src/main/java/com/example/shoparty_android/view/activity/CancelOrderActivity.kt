@@ -11,6 +11,7 @@ import com.example.shoparty_android.databinding.ActivityOrderDetailsBinding
 
 class CancelOrderActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityCancelOrderBinding
+    var message=""
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -21,7 +22,10 @@ class CancelOrderActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initialise() {
+
+         message = intent.getStringExtra("key").toString()
         binding.infoTool.tvTitle.setText(R.string.cancel_order)
+        binding.infoTool.back.setOnClickListener(this)
         binding.btnCancel.setOnClickListener(this)
 
     }
@@ -30,8 +34,16 @@ class CancelOrderActivity : AppCompatActivity(), View.OnClickListener {
         when(v?.id){
             R.id.btnCancel -> {
                 val intent = Intent(this, CancelConfirmActivity::class.java)
+                intent.putExtra("key",message)
                 startActivity(intent)
             }
+            R.id.back -> {
+               onBackPressed()
+            }
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }

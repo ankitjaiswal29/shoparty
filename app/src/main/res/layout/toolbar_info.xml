@@ -26,7 +26,7 @@
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_35sdp"
             android:padding="@dimen/_10sdp"
-            android:src="@drawable/ic_back_button_black"
+            android:src="@drawable/ic_back_icon"
             app:layout_constraintStart_toStartOf="parent"
 
             app:layout_constraintTop_toBottomOf="@+id/logo"

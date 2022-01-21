@@ -30,6 +30,7 @@ class OngoingOrderActivity : AppCompatActivity(), View.OnClickListener {
              binding.group1.visibility=View.GONE
          }*/
         binding.infoTool.tvTitle.setText("OngoeingOrder")
+        binding.infoTool.back.setOnClickListener(this)
         binding.btnCancel.setOnClickListener(this)
 
     }
@@ -38,8 +39,16 @@ class OngoingOrderActivity : AppCompatActivity(), View.OnClickListener {
         when(v?.id){
             R.id.btnCancel -> {
                 val intent = Intent(this, CancelOrderActivity::class.java)
+                intent.putExtra("key","Ongoeing")
                 startActivity(intent)
             }
+            R.id.back -> {
+               onBackPressed()
+            }
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }

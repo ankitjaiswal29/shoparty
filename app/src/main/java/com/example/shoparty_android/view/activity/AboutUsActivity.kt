@@ -21,23 +21,20 @@ class AboutUsActivity : AppCompatActivity() , View.OnClickListener{
 
     private fun initialise() {
         binding.infoTool.tvTitle.setText("About US")
+        binding.infoTool.back.setOnClickListener(this)
        // binding..setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
-       /* when(v?.id){
-            R.id.tvViewordertitle -> {
-                val intent = Intent(this, OrderDetailsActivity::class.java)
-                intent.putExtra("data", "ordersuccess")
-                startActivity(intent)
+        when(v?.id){
+            R.id.back -> {
+               onBackPressed()
             }
-            R.id.btnSave -> {
-                *//*val intent = Intent(this, MyAccountActivity::class.java)
-                startActivity(intent)*//*
 
-                val intent = Intent(this, AddNewAddressActivity::class.java)
-                startActivity(intent)
-            }
-        }*/
+        }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }

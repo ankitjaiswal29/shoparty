@@ -18,6 +18,7 @@ class ShippingActivity : AppCompatActivity(),View.OnClickListener {
     }
     private fun initialise() {
         binding.btnContinewToPayment.setOnClickListener(this)
+        binding.infoTool.back.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -26,6 +27,13 @@ class ShippingActivity : AppCompatActivity(),View.OnClickListener {
                 val intent = Intent(this, PaymentActivity::class.java)
                 startActivity(intent)
             }
+            R.id.back -> {
+                onBackPressed()
+            }
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }

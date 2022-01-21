@@ -21,6 +21,7 @@ class AddCardActivity : AppCompatActivity(), View.OnClickListener {
     private fun initialise() {
         binding.btnSave.setOnClickListener(this)
         binding.infoTool.tvTitle.setText("Add Card")
+        binding.infoTool.back.setOnClickListener(this)
 
     }
 
@@ -33,6 +34,15 @@ class AddCardActivity : AppCompatActivity(), View.OnClickListener {
                 finish()
 
             }
+            R.id.back -> {
+
+            onBackPressed()
+
+            }
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }

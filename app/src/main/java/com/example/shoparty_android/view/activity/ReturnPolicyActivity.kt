@@ -28,6 +28,7 @@ class ReturnPolicyActivity : AppCompatActivity(), View.OnClickListener  {
 
         // this creates a vertical layout Manager
         binding.infoTool.tvTitle.setText(getString(R.string.return_policy))
+        binding.infoTool.back.setOnClickListener(this)
         binding.myorderRecyclerview.layoutManager = LinearLayoutManager(this)
 
         // ArrayList of class ItemsViewModel
@@ -42,15 +43,15 @@ class ReturnPolicyActivity : AppCompatActivity(), View.OnClickListener  {
     }
 
     override fun onClick(v: View?) {
-        /*when(v?.id){
-            R.id.tvViewordertitle -> {
-                val intent = Intent(this, OrderDetailsActivity::class.java)
-                startActivity(intent)
+        when(v?.id){
+            R.id.back -> {
+              onBackPressed()
             }
-            R.id.btnSave -> {
-                val intent = Intent(this, MyOrdersActivity::class.java)
-                startActivity(intent)
-            }
-        }*/
+
+        }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }
