@@ -10,6 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         tools:context=".view.activity.PrivacyPolicyActivity">
 
         <include
@@ -59,6 +60,17 @@
                   android:groupIndicator="@drawable/settings_selector"
                 android:transcriptMode="alwaysScroll"
                 android:dividerHeight="0.5dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:id="@+id/rv_privacyPolicyRecyclar"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_subTitle"/>
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

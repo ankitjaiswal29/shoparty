@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="15dp"
+    android:layout_marginTop="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_rectangular_white"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/AppTheme.Text_14dp_Bold"
+        android:drawableEnd="@drawable/ic_plus_icon__2_"
+        android:text="Lorem Ipsum is simply dummy text of the"
+        app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_subTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/AppTheme.Text_13_graydp"
+        android:visibility="gone"
+        android:layout_marginTop="6dp"
+         android:text="Lorem Ipsum is simply dummy text of printing typesetting industry. Lorem Ipsum industry's standard dummy text ever since the"
+        app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toBottomOf="@+id/tv_title"/>
+    
+
+</androidx.constraintlayout.widget.ConstraintLayout>

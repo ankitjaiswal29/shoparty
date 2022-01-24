@@ -14,8 +14,12 @@ import com.example.shoparty_android.databinding.ActivityOrderSuccessfulyBinding
 import com.example.shoparty_android.databinding.ActivityPrivacyPolicyBinding
 import com.example.shoparty_android.utils.ExpandableListData.data
 import android.util.DisplayMetrics
-
-
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.shoparty_android.adapter.MyAccountAdapter
+import com.example.shoparty_android.adapter.PrivacyPolicyAdapter
+import com.example.shoparty_android.model.MyAccountModel
+import com.example.shoparty_android.model.PrivacyPolicyModel
 
 
 class PrivacyPolicyActivity : AppCompatActivity(), View.OnClickListener  {
@@ -36,7 +40,27 @@ class PrivacyPolicyActivity : AppCompatActivity(), View.OnClickListener  {
         // binding.tvViewordertitle.setOnClickListener(this)
         binding.infoTool.back.setOnClickListener(this)
 
-        val metrics = DisplayMetrics()
+
+        // getting the recyclerview by its id
+        val recyclerview = findViewById<RecyclerView>(R.id.rv_privacyPolicyRecyclar)
+        // this creates a vertical layout Manager
+        recyclerview.layoutManager = LinearLayoutManager(this)
+
+        // ArrayList of class ItemsViewModel
+        val data = ArrayList<PrivacyPolicyModel>()
+        data.add(PrivacyPolicyModel("Lorem Ipsum is simply dummy text of the","Lorem Ipsum is simply dummy text of printing typesetting industry. Lorem Ipsum industry's standard dummy text ever since the"))
+        data.add(PrivacyPolicyModel("Lorem Ipsum is simply dummy text of the","Lorem Ipsum is simply dummy text of printing typesetting industry. Lorem Ipsum industry's standard dummy text ever since the"))
+        data.add(PrivacyPolicyModel("Lorem Ipsum is simply dummy text of the","Lorem Ipsum is simply dummy text of printing typesetting industry. Lorem Ipsum industry's standard dummy text ever since the"))
+        data.add(PrivacyPolicyModel("Lorem Ipsum is simply dummy text of the","Lorem Ipsum is simply dummy text of printing typesetting industry. Lorem Ipsum industry's standard dummy text ever since the"))
+        data.add(PrivacyPolicyModel("Lorem Ipsum is simply dummy text of the","Lorem Ipsum is simply dummy text of printing typesetting industry. Lorem Ipsum industry's standard dummy text ever since the"))
+
+
+        val adapter = PrivacyPolicyAdapter(data,)
+        recyclerview.adapter = adapter
+
+        //------------------------------------------------------------------------
+
+       /* val metrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(metrics)
         val width = metrics.widthPixels
        binding.expendableList.setIndicatorBounds(width - GetPixelFromDips(50f), width - GetPixelFromDips(10f));
@@ -49,11 +73,11 @@ class PrivacyPolicyActivity : AppCompatActivity(), View.OnClickListener  {
             binding.expendableList!!.setAdapter(adapter)
             binding.expendableList!!.setOnGroupExpandListener { groupPosition ->
 
-               /* Toast.makeText(
+               *//* Toast.makeText(
                     applicationContext,
                     (titleList as ArrayList<String>)[groupPosition] + " List Expanded.",
                     Toast.LENGTH_SHORT
-                ).show()*/
+                ).show()*//*
             }
             binding.expendableList!!.setOnGroupCollapseListener { groupPosition ->
                 Toast.makeText(
@@ -77,7 +101,7 @@ class PrivacyPolicyActivity : AppCompatActivity(), View.OnClickListener  {
                 false
             }
         }
-
+*/
 
 
     }
