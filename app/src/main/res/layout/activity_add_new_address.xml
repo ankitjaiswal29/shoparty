@@ -83,9 +83,8 @@
 
                 <Spinner
                     android:id="@+id/spLasttName"
-                    style="@style/AppTheme.editText"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
+                    android:background="@drawable/spinner_background_2"
+                    android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
