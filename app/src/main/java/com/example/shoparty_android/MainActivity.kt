@@ -35,14 +35,14 @@ class MainActivity : AppCompatActivity() {
         }, 3000)*/
 
 
-        Handler().postDelayed({
+        /*Handler().postDelayed({
             val intent = Intent(this, ShippingActivity::class.java)
             startActivity(intent)
            // finish()
           //  val fragmentManager: FragmentManager = supportFragmentManager
             //val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
             //fragmentTransaction.replace(R.id.idmyfragment, MyAccountFragment()).commit()
-        }, 3000)
+        }, 3000)*/
 
 
 

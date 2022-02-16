@@ -1,5 +1,6 @@
 package com.example.shoparty_android.view.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.shoparty_android.R
@@ -17,6 +18,10 @@ class ShopingBagActivity : AppCompatActivity() {
         setContentView(R.layout.activity_shoping_bag)
 
         fillBagItemRecyclerView(bagItemList)
+        bag_item_checkout_btn.setOnClickListener {
+            val intent = Intent (this, SignInActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 

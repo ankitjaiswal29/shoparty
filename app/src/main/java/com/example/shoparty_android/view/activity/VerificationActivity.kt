@@ -13,7 +13,7 @@ class VerificationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_verification)
 
         signin_btn.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, ShippingActivity::class.java)
             startActivity(intent)
         }
     }

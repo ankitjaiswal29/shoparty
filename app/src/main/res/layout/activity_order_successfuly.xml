@@ -62,9 +62,9 @@
 
 
         <Button
-            android:id="@+id/btnSave"
+            android:id="@+id/btnDone"
             style="@style/AppTheme.ButtonStyleWhite"
-            android:text="Save"
+            android:text="Done"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvViewordertitle"
             android:layout_marginTop="90dp"

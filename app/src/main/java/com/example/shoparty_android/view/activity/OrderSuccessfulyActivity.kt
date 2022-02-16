@@ -7,6 +7,7 @@ import android.os.Handler
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
+import com.example.shoparty_android.MainActivity
 import com.example.shoparty_android.R
 import com.example.shoparty_android.databinding.ActivityAddCardBinding
 import com.example.shoparty_android.databinding.ActivityOrderSuccessfulyBinding
@@ -23,21 +24,21 @@ class OrderSuccessfulyActivity : AppCompatActivity(), View.OnClickListener{
 
     private fun initialise() {
 binding.tvViewordertitle.setOnClickListener(this)
-        binding.btnSave.setOnClickListener(this)
+        binding.btnDone.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.tvViewordertitle -> {
                  val intent = Intent(this, OrderDetailsActivity::class.java)
-                intent.putExtra("data", "2")
+                intent.putExtra("data", "1")
                  startActivity(intent)
             }
-            R.id.btnSave -> {
+            R.id.btnDone -> {
                 /*val intent = Intent(this, MyAccountActivity::class.java)
                 startActivity(intent)*/
 
-                val intent = Intent(this, AddCardActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish();
             }

@@ -1,5 +1,6 @@
 package com.example.shoparty_android.view.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.shoparty_android.R
 import com.example.shoparty_android.adapter.NewArrivalItemLIstAdapter
 import com.example.shoparty_android.model.TopSellingHomeModel
+import com.example.shoparty_android.view.activity.SearchActivity
+import com.example.shoparty_android.view.activity.ShopingBagActivity
+import kotlinx.android.synthetic.main.fragment_categories.*
 import kotlinx.android.synthetic.main.fragment_category_item_list.*
 import kotlinx.android.synthetic.main.fragment_deals.*
 
@@ -31,6 +35,15 @@ class DealsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         fillDealsRecyclerView(dealsItemList)
+
+        deals_search_btn.setOnClickListener {
+            val intent = Intent (getActivity(), SearchActivity::class.java)
+            getActivity()?.startActivity(intent)
+        }
+        deals_bag_btn.setOnClickListener {
+            val intent = Intent (getActivity(), ShopingBagActivity::class.java)
+            getActivity()?.startActivity(intent)
+        }
     }
 
     private val dealsItemList = listOf<TopSellingHomeModel>(

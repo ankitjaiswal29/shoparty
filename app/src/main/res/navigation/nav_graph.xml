@@ -20,8 +20,16 @@
         android:name="com.example.shoparty_android.view.fragment.DealsFragment"
         android:label="fragment_deals"
         tools:layout="@layout/fragment_deals" />
+
     <fragment
-        android:id="@+id/myAccountFragment"
+        android:id="@+id/WishlistFragment"
+        android:name="com.example.shoparty_android.view.fragment.WishListFragment"
+        android:label="fragment_wishlist"
+        tools:layout="@layout/fragment_wish_list" />
+
+
+    <fragment
+        android:id="@+id/MyAccountFragment"
         android:name="com.example.shoparty_android.view.fragment.MyAccountFragment"
         android:label="MyAccountFragment" />
     <fragment
@@ -44,4 +52,5 @@
         android:name="com.example.shoparty_android.view.fragment.CategoryItemListFragment"
         android:label="fragment_category_item_list"
         tools:layout="@layout/fragment_category_item_list" />
+
 </navigation>

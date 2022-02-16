@@ -97,6 +97,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:paddingStart="10dp"
+        style="@style/AppTheme.Text_12_graydp_bold"
         android:paddingEnd="10dp"
         android:background="@drawable/background_bottom_left_right_corner_gray"
         android:text="10:00 AM To 10:00 PM KSA Time - Sunday To Saturday"
@@ -162,15 +163,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:paddingStart="10dp"
+        style="@style/AppTheme.Text_12_graydp_bold"
         android:paddingEnd="10dp"
         android:background="@drawable/background_bottom_left_right_corner_gray"
         android:text="10:00 AM To 10:00 PM KSA Time - Sunday To Saturday"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         app:layout_constraintTop_toBottomOf="@+id/constraint2"/>
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

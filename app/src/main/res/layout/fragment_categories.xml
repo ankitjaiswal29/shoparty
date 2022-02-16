@@ -27,8 +27,8 @@
             android:layout_marginStart="20dp"/>
         <ImageView
             android:id="@+id/category_bag_btn"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@drawable/ic_bag"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,8 +36,8 @@
             android:layout_marginEnd="20dp"/>
         <ImageView
             android:id="@+id/category_search_btn"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@drawable/ic_search_icon"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/category_bag_btn"

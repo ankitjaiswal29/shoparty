@@ -12,4 +12,13 @@
         android:id="@+id/dealsFragment"
         android:title="Deals"
         android:icon="@drawable/deals_icon"/>
+    <item
+        android:id="@+id/WishlistFragment"
+        android:title="Wishlist"
+        android:icon="@drawable/wishlist_icon"/>
+
+    <item
+        android:id="@+id/MyAccountFragment"
+        android:title="My Account"
+        android:icon="@drawable/ic_myaccount_icon"/>
 </menu>
