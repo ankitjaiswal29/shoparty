@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        tools:context=".view.activity.MyAccountActivity">
+        tools:context=".ui.activities.MyAccountActivity">
         <include
             android:id="@+id/info_tool"
             layout="@layout/toolbar_info_pink"
