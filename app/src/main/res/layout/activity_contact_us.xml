@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="More Ways To Contact Us"
+        android:text="@string/more_ways_to_contact_us"
         style="@style/AppTheme.Text_14dp_Bold"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -60,7 +60,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="Call Us - KSA"
+        android:text="@string/call_us_ksa"
         style="@style/AppTheme.Text_12dp_Bold"
 
         app:layout_constraintTop_toTopOf="parent"
@@ -82,7 +82,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="+999 9999 999"
+        android:text="@string/_999_9999_999"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         style="@style/AppTheme.Text_12_graydp_bold"
@@ -100,7 +100,7 @@
         style="@style/AppTheme.Text_12_graydp_bold"
         android:paddingEnd="10dp"
         android:background="@drawable/background_bottom_left_right_corner_gray"
-        android:text="10:00 AM To 10:00 PM KSA Time - Sunday To Saturday"
+        android:text="@string/_10_00_am_to_10_00_pm_ksa_time_sunday_to_saturday"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         app:layout_constraintTop_toBottomOf="@+id/constraint1"/>
@@ -149,7 +149,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="+999 9999 999"
+            android:text="@string/_999_9999_999"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             style="@style/AppTheme.Text_12_graydp_bold"
@@ -166,7 +166,7 @@
         style="@style/AppTheme.Text_12_graydp_bold"
         android:paddingEnd="10dp"
         android:background="@drawable/background_bottom_left_right_corner_gray"
-        android:text="10:00 AM To 10:00 PM KSA Time - Sunday To Saturday"
+        android:text="@string/_10_00_am_to_10_00_pm_ksa_time_sunday_to_saturday"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         app:layout_constraintTop_toBottomOf="@+id/constraint2"/>
@@ -190,7 +190,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Get Social With Us"
+                android:text="@string/get_social_with_us"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

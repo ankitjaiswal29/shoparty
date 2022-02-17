@@ -38,7 +38,7 @@
                  android:id="@+id/textview"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-                 android:text="My Orders"
+                 android:text="@string/my_orders"
                  style="@style/AppTheme.Text_14dp"
                  android:drawablePadding="9dp"
                  android:layout_marginLeft="25dp"

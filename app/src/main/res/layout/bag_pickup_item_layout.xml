@@ -23,7 +23,7 @@
         android:layout_centerVertical="true"
         android:layout_marginStart="20dp"
         android:layout_toRightOf="@+id/bag_pickup_item_img"
-        android:text="Bend the Trend"
+        android:text="@string/bend_the_trend"
         android:textColor="@color/black"
         android:textSize="15dp" />
 

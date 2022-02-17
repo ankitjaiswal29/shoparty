@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="10dp"
-            android:text="Princess Dress"
+            android:text="@string/princess_dress"
             android:layout_marginLeft="5dp"
             app:layout_constraintStart_toEndOf="@+id/iv_Productimg"/>
 
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="10dp"
-            android:text="10% OFF"
+            android:text="@string/_10_off"
             android:padding="2dp"
             android:background="@color/pink"
             android:textColor="@color/white"
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:textColor="@color/cardview_dark_background"
-            android:text="Yoke Design kurta set"
+            android:text="@string/yoke_design_kurta_set"
             android:textSize="12dp"
             app:layout_constraintTop_toBottomOf="@+id/tv_ItemName"
             app:layout_constraintStart_toStartOf="@+id/tv_ItemName"/>
@@ -68,7 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
           style="@style/AppTheme.Text_pink_12ssp"
-            android:text="$10.02"
+            android:text="@string/_10_02"
             app:layout_constraintTop_toBottomOf="@+id/tv_Item_subtitle"
             app:layout_constraintStart_toStartOf="@+id/tv_Item_subtitle"/>
 

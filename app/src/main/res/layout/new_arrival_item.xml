@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/new_arrival_item_img"
-            android:text="Toys Kid"
+            android:text="@string/toys_kid"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="16dp" />
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/new_arrival_item_name_tv"
-            android:text="$399.0"
+            android:text="@string/_399_0"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="16dp" />

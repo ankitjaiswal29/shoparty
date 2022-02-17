@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="@id/ivShape"
         app:layout_constraintBottom_toBottomOf="@id/ivShape"
         app:layout_constraintEnd_toEndOf="@+id/ivShape"
-        android:text="54% OFF"
+        android:text="@string/_54_off"
         android:textColor="@color/white"
         android:textStyle="bold"
         android:textSize="25dp"/>
@@ -37,7 +37,7 @@
         style="@style/AppTheme.Text_14dp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="14dp"
-        android:text="On Minimum Purchase Of $. 200"/>
+        android:text="@string/on_minimum_purchase_of_200"/>
 
     <View
         android:id="@+id/view_dotted"
@@ -53,7 +53,7 @@
     android:id="@+id/tv_Code"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Code:123WEFXTRA10"
+    android:text="@string/code_123wefxtra10"
     style="@style/AppTheme.Text_12dp"
  android:layout_marginLeft="5dp"
     app:layout_constraintStart_toStartOf="@+id/view_dotted"
@@ -90,7 +90,7 @@ android:layout_marginRight="10dp"
         android:drawableStart="@drawable/ic_ic_icon_calender"
         app:layout_constraintStart_toStartOf="@+id/view_dotted"
         app:layout_constraintTop_toBottomOf="@+id/view_dotted"
-        android:text="Expire On: 30 Sep, 2021, 11:45 PM"
+        android:text="@string/expire_on_30_sep_2021_11_45_pm"
         style="@style/AppTheme.Text_12dp"
         android:drawablePadding="10dp"
         android:layout_marginTop="11dp"/>

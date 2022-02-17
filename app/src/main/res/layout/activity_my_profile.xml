@@ -85,7 +85,7 @@
                 android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lukman Khan"
+                android:text="@string/lukman_khan"
                 app:layout_constraintStart_toStartOf="@+id/iv_ProfilePic"
                 app:layout_constraintEnd_toEndOf="@+id/iv_ProfilePic"
                 app:layout_constraintTop_toBottomOf="@+id/iv_ProfilePic"
@@ -95,7 +95,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="999 9999 999"
+                android:text="@string/_999_9999_999"
                 app:layout_constraintStart_toStartOf="@+id/tvName"
                 app:layout_constraintEnd_toEndOf="@+id/tvName"
                 app:layout_constraintTop_toBottomOf="@+id/tvName"
@@ -130,7 +130,7 @@
                     <EditText
                         android:id="@+id/etFirstname"
                         style="@style/AppTheme.editText_gray"
-                        android:hint="John Doe"
+                        android:hint="@string/john_doe"
                         android:imeOptions="actionNext"
                         android:inputType="text"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -149,7 +149,7 @@
                     <EditText
                         android:id="@+id/etEmail"
                         style="@style/AppTheme.editText_gray"
-                        android:hint="XYZ@gmail.com"
+                        android:hint="@string/xyz_gmail_com"
                         android:imeOptions="actionNext"
                         android:inputType="text"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -169,7 +169,7 @@
                     <EditText
                         android:id="@+id/etMobile"
                         style="@style/AppTheme.editText_gray"
-                        android:hint="999 9999 999"
+                        android:hint="@string/_999_9999_999"
                         android:imeOptions="actionNext"
                         android:inputType="text"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -199,7 +199,7 @@
                         android:id="@+id/etCountry"
                         style="@style/AppTheme.editText_gray"
                         android:layout_width="0dp"
-                        android:hint="American"
+                        android:hint="@string/american"
                         android:layout_marginRight="5dp"
                         android:imeOptions="actionNext"
                         android:inputType="text"
@@ -222,7 +222,7 @@
                         android:id="@+id/etCity"
                         style="@style/AppTheme.editText_gray"
                         android:layout_width="0dp"
-                        android:hint="XYZ"
+                        android:hint="@string/xyz"
 
                         android:imeOptions="actionNext"
                         android:inputType="text"
@@ -247,7 +247,7 @@
                         android:id="@+id/etStreet"
                         style="@style/AppTheme.editText_gray"
                         android:layout_width="0dp"
-                        android:hint="XYZ"
+                        android:hint="@string/xyz"
                         android:imeOptions="actionNext"
                         android:layout_marginRight="5dp"
                         android:inputType="text"
@@ -271,7 +271,7 @@
                         android:id="@+id/etHouseno"
                         style="@style/AppTheme.editText_gray"
                         android:layout_width="0dp"
-                        android:hint="756"
+                        android:hint="@string/_756"
                         android:imeOptions="actionNext"
                         android:inputType="text"
                         android:layout_marginLeft="5dp"
@@ -340,7 +340,7 @@
                         style="@style/AppTheme.Title"
                         android:layout_width="wrap_content"
                         android:layout_marginTop="25dp"
-                        android:text="Date of Birth"
+                        android:text="@string/date_of_birth"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvMale" />
 
@@ -356,7 +356,7 @@
                         android:paddingTop="10dp"
                         android:paddingRight="15dp"
                         android:paddingBottom="10dp"
-                        android:text="26 August 2000"
+                        android:text="@string/_26_august_2000"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvDateBirthlabel" />
 

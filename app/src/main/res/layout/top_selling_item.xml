@@ -29,13 +29,13 @@
         android:id="@+id/item_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Princess Dress"
+        android:text="@string/princess_dress"
         android:layout_marginStart="10dp"/>
     <TextView
         android:id="@+id/item_price_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="$10.2"
+        android:text="@string/_10_2"
         android:textColor="@color/black"
         android:textSize="16dp"
         android:layout_marginStart="10dp"

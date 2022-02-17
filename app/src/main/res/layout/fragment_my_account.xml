@@ -77,7 +77,7 @@
                     android:id="@+id/tvName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Lukman Khan"
+                    android:text="@string/lukman_khan"
                     app:layout_constraintStart_toStartOf="@+id/iv_ProfilePic"
                     app:layout_constraintEnd_toEndOf="@+id/iv_ProfilePic"
                     app:layout_constraintTop_toBottomOf="@+id/iv_ProfilePic"
@@ -87,7 +87,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="999 9999 999"
+                    android:text="@string/_999_9999_999"
                     app:layout_constraintStart_toStartOf="@+id/tvName"
                     app:layout_constraintEnd_toEndOf="@+id/tvName"
                     app:layout_constraintTop_toBottomOf="@+id/tvName"

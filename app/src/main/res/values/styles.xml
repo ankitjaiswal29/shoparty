@@ -245,5 +245,9 @@
         <item name="android:textSize">12dp</item>
     </style>
 
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/pink</item>
+    </style>
+
 
 </resources>

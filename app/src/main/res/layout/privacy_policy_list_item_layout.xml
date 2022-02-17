@@ -13,7 +13,7 @@
         android:padding="15dp"
         style="@style/AppTheme.Text_14dp_Bold"
         android:drawableEnd="@drawable/ic_plus_icon__2_"
-        android:text="Lorem Ipsum is simply dummy text of the"
+        android:text="@string/lorem_ipsum_is_simply_dummy_text_of_the"
         app:layout_constraintStart_toStartOf="parent"
      app:layout_constraintTop_toTopOf="parent"/>
 
@@ -25,7 +25,7 @@
         android:visibility="gone"
         android:layout_marginTop="6dp"
         android:padding="15dp"
-         android:text="Lorem Ipsum is simply dummy text of printing typesetting industry. Lorem Ipsum industry's standard dummy text ever since the"
+         android:text="@string/lorem_ipsum_is_simply_dummy_text_of_printing_typesetting_industry_lorem_ipsum_industry_s_standard_dummy_text_ever_since_the"
         app:layout_constraintStart_toStartOf="parent"
        app:layout_constraintTop_toBottomOf="@+id/tv_title"/>
     

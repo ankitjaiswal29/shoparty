@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/home_offers_item_name_tv"
-        android:text="Up To 10% Off"
+        android:text="@string/up_to_10_off"
         android:textAlignment="center"
         android:textColor="@color/color_pink"
         android:textSize="16dp"

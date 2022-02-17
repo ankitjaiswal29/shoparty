@@ -37,7 +37,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ballons"
+            android:text="@string/ballons"
             android:textSize="16dp"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -84,7 +84,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="10dp"
-                        android:text="Latex Ballons"
+                        android:text="@string/latex_ballons"
                         android:textColor="@color/black"
                         android:textSize="15dp" />
 
@@ -125,7 +125,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="10dp"
-                        android:text="Fail Ballons"
+                        android:text="@string/fail_ballons"
                         android:textColor="@color/black"
                         android:textSize="15dp" />
 
@@ -153,7 +153,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="20dp"
-                            android:text="Numbers"
+                            android:text="@string/numbers"
                             android:textSize="15dp" />
 
                         <ImageView
@@ -174,7 +174,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="20dp"
-                            android:text="Letters"
+                            android:text="@string/letters"
                             android:textSize="15dp" />
 
                         <ImageView
@@ -195,7 +195,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="20dp"
-                            android:text="Characters"
+                            android:text="@string/characters"
                             android:textSize="15dp" />
 
                         <ImageView
@@ -216,7 +216,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="20dp"
-                            android:text="Graduation"
+                            android:text="@string/graduation"
                             android:textSize="15dp" />
 
                         <ImageView
@@ -236,7 +236,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="20dp"
-                            android:text="Welcome Back"
+                            android:text="@string/welcome_back"
                             android:textSize="15dp" />
 
                         <ImageView
@@ -256,7 +256,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="20dp"
-                            android:text="Birthday"
+                            android:text="@string/birthday"
                             android:textSize="15dp" />
 
                         <ImageView
@@ -277,7 +277,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="20dp"
-                            android:text="Shapes"
+                            android:text="@string/shapes"
                             android:textSize="15dp" />
 
                         <ImageView
@@ -299,7 +299,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="20dp"
-                            android:text="Dinosaurs"
+                            android:text="@string/dinosaurs"
                             android:textSize="15dp" />
 
                         <ImageView

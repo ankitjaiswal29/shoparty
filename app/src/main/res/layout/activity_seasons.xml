@@ -37,7 +37,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Seasons"
+            android:text="@string/seasons"
             android:textSize="16dp"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -72,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="New Year"
+                    android:text="@string/new_year"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -93,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Valentines Day"
+                    android:text="@string/valentines_day"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -114,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Eid Fiter"
+                    android:text="@string/eid_fiter"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -135,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Eid Adha"
+                    android:text="@string/eid_adha"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -155,7 +155,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Halloween"
+                    android:text="@string/halloween"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -175,28 +175,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Mother Day"
-                    android:textSize="15dp" />
-
-                <ImageView
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10dp"
-                    android:padding="8dp"
-                    android:src="@drawable/right_arrow_icon" />
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
-                    android:text="Father Day"
+                    android:text="@string/mother_day"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -217,7 +196,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="National Day"
+                    android:text="@string/father_day"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -238,7 +217,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Graduation"
+                    android:text="@string/national_day"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -259,7 +238,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Anniversary"
+                    android:text="@string/graduation"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -280,7 +259,28 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Back to School"
+                    android:text="@string/anniversary"
+                    android:textSize="15dp" />
+
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10dp"
+                    android:padding="8dp"
+                    android:src="@drawable/right_arrow_icon" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/back_to_school"
                     android:textSize="15dp" />
 
                 <ImageView

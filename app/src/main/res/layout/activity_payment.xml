@@ -72,7 +72,7 @@
                        android:textColor="@color/pink"
                         app:layout_constraintEnd_toEndOf="@+id/iv_shippingicon"
                         app:layout_constraintTop_toBottomOf="@+id/iv_shippingicon"
-                        android:text="Shipping"/>
+                        android:text="@string/shipping"/>
 
                     <ImageView
                         android:id="@+id/iv_paymenticon"
@@ -99,7 +99,7 @@
                         app:layout_constraintStart_toStartOf="@+id/iv_paymenticon"
                         app:layout_constraintEnd_toEndOf="@+id/iv_paymenticon"
                         app:layout_constraintTop_toBottomOf="@+id/iv_paymenticon"
-                        android:text="Payment"/>
+                        android:text="@string/payment"/>
 
                     <ImageView
                         android:id="@+id/iv_confirm"
@@ -117,7 +117,7 @@
                         app:layout_constraintStart_toStartOf="@+id/iv_confirm"
                         app:layout_constraintEnd_toEndOf="@+id/iv_confirm"
                         app:layout_constraintTop_toBottomOf="@+id/iv_confirm"
-                        android:text="Confirmation"/>
+                        android:text="@string/confirmation"/>
 
 
 
@@ -202,7 +202,7 @@
                     <TextView
                         android:id="@+id/tvTotalItem"
                         style="@style/AppTheme.Text_12ssp"
-                        android:text="(2 items)"
+                        android:text="@string/_2_items"
                         app:layout_constraintStart_toEndOf="@+id/tvTotal"
                         app:layout_constraintTop_toTopOf="@+id/tvTotal"
                         app:layout_constraintBottom_toBottomOf="@id/tvTotal"
@@ -237,7 +237,7 @@
                     <TextView
                         android:id="@+id/tvPlesesellecttitle"
                         style="@style/AppTheme.Text_12ssp"
-                        android:text="Please select payment method"
+                        android:text="@string/please_select_payment_method"
                         app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginTop="@dimen/_10sdp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -248,7 +248,7 @@
                     <TextView
                         android:id="@+id/tvPayment1"
                         style="@style/AppTheme.Text_12ssp"
-                        android:text="xxxxxxxxxxx1234"
+                        android:text="@string/xxxxxxxxxxx1234"
                         app:layout_constraintStart_toStartOf="parent"
                         android:padding="@dimen/_10sdp"
                         android:paddingStart="@dimen/_10sdp"
@@ -275,7 +275,7 @@
                     <TextView
                         android:id="@+id/tvPayment2"
                         style="@style/AppTheme.Text_12ssp"
-                        android:text="xxxxxxxxxxxx56789"
+                        android:text="@string/xxxxxxxxxxxx56789"
                         app:layout_constraintStart_toStartOf="parent"
                         android:padding="@dimen/_10sdp"
                         android:paddingStart="@dimen/_10sdp"
@@ -300,7 +300,7 @@
                     <TextView
                         android:id="@+id/tvAddCard"
                         style="@style/AppTheme.Text_pink_12ssp"
-                        android:text="+Add Card"
+                        android:text="@string/add_card"
                         app:layout_constraintStart_toStartOf="parent"
                         android:padding="@dimen/_10sdp"
                         android:paddingStart="@dimen/_10sdp"
@@ -314,7 +314,7 @@
                     <Button
                         android:id="@+id/btnContinewToPayment"
                         style="@style/AppTheme.ButtonStyle"
-                        android:text="Pay Now"
+                        android:text="@string/pay_now"
                         app:layout_constraintVertical_bias="0.2"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"

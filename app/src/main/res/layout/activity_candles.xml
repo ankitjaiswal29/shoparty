@@ -37,7 +37,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Candles"
+            android:text="@string/candles"
             android:textSize="16dp"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -72,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Numbers"
+                    android:text="@string/numbers"
                     android:textColor="@color/black"
                     android:textSize="15dp" />
 
@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Letters"
+                    android:text="@string/letters"
                     android:textColor="@color/black"
                     android:textSize="15dp" />
 
@@ -118,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Sparkling"
+                    android:text="@string/sparkling"
                     android:textColor="@color/black"
                     android:textSize="15dp" />
 
@@ -141,7 +141,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Solar"
+                    android:text="@string/solar"
                     android:textColor="@color/black"
                     android:textSize="15dp" />
 
@@ -163,7 +163,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Shapes"
+                    android:text="@string/shapes"
                     android:textColor="@color/black"
                     android:textSize="15dp" />
 

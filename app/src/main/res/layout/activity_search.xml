@@ -119,7 +119,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"
         android:textColor="@color/color_pink"
-        android:text="Clear History"
+        android:text="@string/clear_history"
         android:textSize="20dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

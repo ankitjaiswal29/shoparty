@@ -140,7 +140,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@+id/tv_orderplaced"
                 app:layout_constraintTop_toBottomOf="@+id/tv_orderplaced"
-                android:text="We have received your order"
+                android:text="@string/we_have_received_your_order"
                 style="@style/AppTheme.Text_12_graydp"
                 />
 
@@ -179,7 +179,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@+id/tv_OrderConfirm"
                 app:layout_constraintTop_toBottomOf="@+id/tv_OrderConfirm"
-                android:text="We have received your order"
+                android:text="@string/we_have_received_your_order"
                 style="@style/AppTheme.Text_12_graydp"
                 />
 
@@ -275,7 +275,7 @@
             <TextView
                 android:id="@+id/tvTax"
                 style="@style/AppTheme.Text_14dp"
-                android:text="Tax (Vat 5%)"
+                android:text="@string/tax_vat_5"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingBottom="5dp"

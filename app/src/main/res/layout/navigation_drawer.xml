@@ -50,7 +50,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Home"
+                        android:text="@string/home"
                         android:layout_marginStart="20dp"
                         android:textSize="15dp"
                         android:textColor="@color/black"
@@ -70,7 +70,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Wishlist"
+                        android:text="@string/wishlist"
                         android:layout_marginStart="20dp"
                         android:textSize="15dp"
                         android:textColor="@color/black"
@@ -90,7 +90,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="My Account"
+                        android:text="@string/my_account"
                         android:layout_marginStart="20dp"
                         android:textSize="15dp"
                         android:textColor="@color/black"
@@ -116,7 +116,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="10dp"
-                            android:text="Products"
+                            android:text="@string/products"
                             android:textColor="@color/black"
                             android:textSize="15dp" />
 
@@ -147,7 +147,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="20dp"
-                                android:text="Costumes"
+                                android:text="@string/costumes"
                                 android:textSize="15dp" />
 
                             <ImageView
@@ -170,7 +170,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="20dp"
-                                android:text="Themes"
+                                android:text="@string/themes"
                                 android:textSize="15dp" />
 
                             <ImageView
@@ -194,7 +194,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="20dp"
-                                android:text="Party Supply"
+                                android:text="@string/party_supply"
                                 android:textSize="15dp" />
 
                             <ImageView
@@ -218,7 +218,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="20dp"
-                                android:text="Ballons"
+                                android:text="@string/ballons"
                                 android:textSize="15dp" />
 
                             <ImageView
@@ -240,7 +240,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="20dp"
-                                android:text="Birthday"
+                                android:text="@string/birthday"
                                 android:textSize="15dp" />
 
                             <ImageView
@@ -261,7 +261,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="20dp"
-                                android:text="Girls"
+                                android:text="@string/girls"
                                 android:textSize="15dp" />
 
                             <ImageView
@@ -282,7 +282,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="20dp"
-                                android:text="Boys"
+                                android:text="@string/boys"
                                 android:textSize="15dp" />
 
                             <ImageView
@@ -303,7 +303,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="20dp"
-                                android:text="Wedding"
+                                android:text="@string/wedding"
                                 android:textSize="15dp" />
 
                             <ImageView
@@ -324,7 +324,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="20dp"
-                                android:text="Colors"
+                                android:text="@string/colors"
                                 android:textSize="15dp" />
 
                             <ImageView
@@ -346,7 +346,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="20dp"
-                                android:text="Seasons"
+                                android:text="@string/seasons"
                                 android:textSize="15dp" />
 
                             <ImageView
@@ -367,7 +367,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="20dp"
-                                android:text="Toys"
+                                android:text="@string/toys"
                                 android:textSize="15dp" />
 
                             <ImageView
@@ -388,7 +388,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="20dp"
-                                android:text="Candles"
+                                android:text="@string/candles"
                                 android:textSize="15dp" />
 
                             <ImageView
@@ -412,7 +412,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="10dp"
-                            android:text="Services"
+                            android:text="@string/services"
                             android:textColor="@color/black"
                             android:textSize="15dp" />
 
@@ -442,7 +442,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="20dp"
-                                android:text="Outside Service"
+                                android:text="@string/outside_service"
                                 android:textSize="15dp" />
 
                             <ImageView
@@ -463,7 +463,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="20dp"
-                                android:text="Customized"
+                                android:text="@string/customized"
                                 android:textSize="15dp" />
 
                             <ImageView
@@ -486,7 +486,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="10dp"
-                            android:text="Flowers"
+                            android:text="@string/flowers"
                             android:textColor="@color/black"
                             android:textSize="15dp" />
 
@@ -516,7 +516,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="20dp"
-                                android:text="Fresh Flowers"
+                                android:text="@string/fresh_flowers"
                                 android:textSize="15dp" />
 
                             <ImageView
@@ -536,28 +536,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="20dp"
-                                android:text="Artificial Flowers"
-                                android:textSize="15dp" />
-
-                            <ImageView
-                                android:layout_width="28dp"
-                                android:layout_height="28dp"
-                                android:layout_alignParentEnd="true"
-                                android:layout_marginEnd="10dp"
-                                android:padding="8dp"
-                                android:src="@drawable/right_arrow_icon" />
-                        </RelativeLayout>
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginStart="20dp"
-                                android:text="Gift Boxes"
+                                android:text="@string/artificial_flowers"
                                 android:textSize="15dp" />
 
                             <ImageView
@@ -578,7 +557,28 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="20dp"
-                                android:text="Gift Cards"
+                                android:text="@string/gift_boxes"
+                                android:textSize="15dp" />
+
+                            <ImageView
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginEnd="10dp"
+                                android:padding="8dp"
+                                android:src="@drawable/right_arrow_icon" />
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="20dp"
+                                android:text="@string/gift_cards"
                                 android:textSize="15dp" />
 
                             <ImageView
@@ -598,7 +598,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="20dp"
-                                android:text="Gift Wrapping"
+                                android:text="@string/gift_wrapping"
                                 android:textSize="15dp" />
 
                             <ImageView
@@ -618,7 +618,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="20dp"
-                                android:text="Accessories"
+                                android:text="@string/accessories"
                                 android:textSize="15dp" />
 
                             <ImageView
@@ -638,7 +638,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="20dp"
-                                android:text="Acrylic Signs"
+                                android:text="@string/acrylic_signs"
                                 android:textSize="15dp" />
 
                             <ImageView
@@ -662,7 +662,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="10dp"
-                            android:text="Rentals"
+                            android:text="@string/rentals"
                             android:textColor="@color/black"
                             android:textSize="15dp" />
 
@@ -688,7 +688,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="10dp"
-                            android:text="New Arrivals"
+                            android:text="@string/new_arrivals"
                             android:textColor="@color/black"
                             android:textSize="15dp" />
 
@@ -714,7 +714,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="10dp"
-                            android:text="Best Selling"
+                            android:text="@string/best_selling"
                             android:textColor="@color/black"
                             android:textSize="15dp" />
 
@@ -760,7 +760,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="10dp"
-                        android:text="Language"
+                        android:text="@string/language"
                         android:textColor="@color/black"
                         android:textSize="15dp"
                         android:layout_toRightOf="@+id/language_nav_start_img"/>
@@ -772,7 +772,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="20dp"
-                        android:text="English" />
+                        android:text="@string/english" />
 
                 </RelativeLayout>
                 <RelativeLayout
@@ -798,7 +798,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="10dp"
-                        android:text="Sign Up"
+                        android:text="@string/sign_out"
                         android:layout_toRightOf="@+id/signup_nav_start_img"
                         android:textColor="@color/black"
                         android:textSize="15dp" />

@@ -37,7 +37,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Party Supply"
+            android:text="@string/party_supply"
             android:textSize="16dp"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -72,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Cups"
+                    android:text="@string/cups"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -93,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Table Cover"
+                    android:text="@string/table_cover"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -114,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Tray"
+                    android:text="@string/tray"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -135,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Plates"
+                    android:text="@string/plates"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -155,7 +155,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Bowl"
+                    android:text="@string/bowl"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -175,28 +175,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Banner-Flags"
-                    android:textSize="15dp" />
-
-                <ImageView
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10dp"
-                    android:padding="8dp"
-                    android:src="@drawable/right_arrow_icon" />
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
-                    android:text="Cutlery"
+                    android:text="@string/banner_flags"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -217,7 +196,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Tissue"
+                    android:text="@string/cutlery"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -238,7 +217,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Centre Piece"
+                    android:text="@string/tissue"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -259,7 +238,28 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Pinata"
+                    android:text="@string/centre_piece"
+                    android:textSize="15dp" />
+
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10dp"
+                    android:padding="8dp"
+                    android:src="@drawable/right_arrow_icon" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/pinata"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -280,7 +280,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="20dp"
-                android:text="Assorted"
+                android:text="@string/assorted"
                 android:textSize="15dp" />
 
             <ImageView
@@ -301,7 +301,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="20dp"
-                android:text="Bags"
+                android:text="@string/bags"
                 android:textSize="15dp" />
 
             <ImageView
@@ -322,7 +322,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="20dp"
-                android:text="Streamer"
+                android:text="@string/streamer"
                 android:textSize="15dp" />
 
             <ImageView
@@ -343,7 +343,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Confettie"
+                    android:text="@string/confettie"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -364,7 +364,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Glasses"
+                    android:text="@string/glasses"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -385,7 +385,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Horns-whistel"
+                    android:text="@string/horns_whistel"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -406,7 +406,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Photo-Booth"
+                    android:text="@string/photo_booth"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -427,7 +427,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Roll"
+                    android:text="@string/roll"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -448,7 +448,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Straws"
+                    android:text="@string/straws"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -469,7 +469,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Invitation Card"
+                    android:text="@string/invitation_card"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -490,7 +490,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Give away bags"
+                    android:text="@string/give_away_bags"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -511,7 +511,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Paper Fans"
+                    android:text="@string/paper_fans"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -532,7 +532,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
-                    android:text="Decoration"
+                    android:text="@string/decoration"
                     android:textSize="15dp" />
 
                 <ImageView

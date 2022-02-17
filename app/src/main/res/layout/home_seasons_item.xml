@@ -17,7 +17,7 @@
         android:id="@+id/home_seasons_item_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ballons"
+        android:text="@string/ballons"
         android:textColor="@color/white"
         android:textSize="12dp"
         android:layout_gravity="bottom"

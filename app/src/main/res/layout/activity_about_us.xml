@@ -63,7 +63,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     style="@style/AppTheme.Text_15_Bold_dp"
                     app:layout_constraintTop_toBottomOf="@+id/view1"
-                    android:text="Lorem Ipsum is simply: Sep 16 2021"/>
+                    android:text="@string/lorem_ipsum_is_simply_sep_16_2021"/>
 
 
 
@@ -75,7 +75,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     style="@style/AppTheme.Text_13_graydp"
                     app:layout_constraintTop_toBottomOf="@+id/tv_LoremIspulLabel"
-                    android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only"/>
+                    android:text="@string/lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry_lorem_ipsum_has_been_the_industry_s_standard_dummy_text_ever_since_the_1500s_when_an_unknown_printer_took_a_galley_of_type_and_scrambled_it_to_make_a_type_specimen_book_it_has_survived_not_only"/>
 
 
 
@@ -87,7 +87,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     style="@style/AppTheme.Text_15_Bold_dp"
                     app:layout_constraintTop_toBottomOf="@+id/tv_LoremIspul"
-                    android:text="1. YOUR AGREEMENT"/>
+                    android:text="@string/_1_your_agreement"/>
 
 
 
@@ -99,7 +99,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     style="@style/AppTheme.Text_13_graydp"
                     app:layout_constraintTop_toBottomOf="@+id/tv_Agreementlabel"
-                    android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only"/>
+                    android:text="@string/lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry_lorem_ipsum_has_been_the_industry_s_standard_dummy_text_ever_since_the_1500s_when_an_unknown_printer_took_a_galley_of_type_and_scrambled_it_to_make_a_type_specimen_book_it_has_survived_not_only"/>
 
 
 

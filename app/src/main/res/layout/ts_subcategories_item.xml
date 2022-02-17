@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/ts_subcategories_item_img"
-            android:text="Toys Kid"
+            android:text="@string/toys_kid"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="16dp" />

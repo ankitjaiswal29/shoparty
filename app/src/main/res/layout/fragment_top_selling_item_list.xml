@@ -67,7 +67,7 @@
             android:textColor="@color/black"
             android:textStyle="bold"
             android:layout_marginTop="10dp"
-            android:text="Princess Dress"/>
+            android:text="@string/princess_dress"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <LinearLayout
         android:id="@+id/ts_linear_lay1"
@@ -94,7 +94,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Filter"
+                android:text="@string/filter"
                 android:layout_marginStart="10dp"
                 android:textSize="15dp"/>
         </LinearLayout>
@@ -113,7 +113,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sort"
+                android:text="@string/sort"
                 android:layout_marginStart="10dp"
                 android:textSize="15dp"/>
         </LinearLayout>

@@ -37,7 +37,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Filter"
+            android:text="@string/filter"
             android:textSize="16dp"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -72,7 +72,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="color"
+                    android:text="@string/color"
                     android:textSize="18dp"
                     android:textColor="@color/black"
                     android:layout_centerVertical="true"/>
@@ -87,7 +87,7 @@
                 android:id="@+id/clear_color_htv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Clear"
+                android:text="@string/clear"
                 android:textColor="@color/color_pink"
                 android:textSize="16dp"
                 app:layout_constraintTop_toBottomOf="@+id/filter_color_lay"
@@ -274,7 +274,7 @@
                     android:layout_marginEnd="20dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
-                    android:text="Apply"
+                    android:text="@string/apply"
                     android:textSize="16dp"
                     android:textAllCaps="false"
                     android:background="@drawable/customize_btn_bg"
@@ -296,7 +296,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Size"
+                    android:text="@string/size"
                     android:textSize="18dp"
                     android:textColor="@color/black"
                     android:layout_centerVertical="true"/>
@@ -311,7 +311,7 @@
                 android:id="@+id/clear_size_htv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Clear"
+                android:text="@string/clear"
                 android:textColor="@color/color_pink"
                 android:textSize="16dp"
                 app:layout_constraintTop_toBottomOf="@+id/filter_size_lay"
@@ -340,7 +340,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="S  "
+                        android:text="@string/s"
                         android:textSize="18dp"
                         android:textColor="@color/black"
                         android:drawableEnd="@drawable/ic_baseline_check_24"
@@ -350,7 +350,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="M  "
+                        android:text="@string/m"
                         android:textSize="18dp"
                         android:textColor="@color/black"
                         android:drawableEnd="@drawable/ic_baseline_check_24"
@@ -360,7 +360,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Xl  "
+                        android:text="@string/xl"
                         android:textSize="18dp"
                         android:textColor="@color/black"
                         android:drawableEnd="@drawable/ic_baseline_check_24"
@@ -370,7 +370,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="XXl  "
+                        android:text="@string/xxl"
                         android:textSize="18dp"
                         android:textColor="@color/black"
                         android:drawableEnd="@drawable/ic_baseline_check_24"
@@ -380,7 +380,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="UK6  "
+                        android:text="@string/uk6"
                         android:textSize="18dp"
                         android:textColor="@color/black"
                         android:drawableEnd="@drawable/ic_baseline_check_24"
@@ -402,7 +402,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="UK7  "
+                        android:text="@string/uk7"
                         android:textSize="18dp"
                         android:textColor="@color/black"
                         android:drawableEnd="@drawable/ic_baseline_check_24"
@@ -412,7 +412,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="UK8  "
+                        android:text="@string/uk8"
                         android:textSize="18dp"
                         android:textColor="@color/black"
                         android:drawableEnd="@drawable/ic_baseline_check_24"
@@ -422,7 +422,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="UK9  "
+                        android:text="@string/uk9"
                         android:textSize="18dp"
                         android:textColor="@color/black"
                         android:drawableEnd="@drawable/ic_baseline_check_24"
@@ -432,7 +432,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="UK10  "
+                        android:text="@string/uk10"
                         android:textSize="18dp"
                         android:textColor="@color/black"
                         android:drawableEnd="@drawable/ic_baseline_check_24"
@@ -450,7 +450,7 @@
                     android:layout_marginEnd="20dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
-                    android:text="Apply"
+                    android:text="@string/apply"
                     android:textSize="16dp"
                     android:textAllCaps="false"
                     android:background="@drawable/customize_btn_bg"
@@ -474,7 +474,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Age"
+                    android:text="@string/age"
                     android:textSize="18dp"
                     android:textColor="@color/black"
                     android:layout_centerVertical="true"/>
@@ -490,7 +490,7 @@
                 android:id="@+id/clear_age_htv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Clear"
+                android:text="@string/clear"
                 android:textColor="@color/color_pink"
                 android:textSize="16dp"
                 app:layout_constraintTop_toBottomOf="@+id/filter_age_lay"
@@ -519,7 +519,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Baby 0-2 Years  "
+                        android:text="@string/baby_0_2_years"
                         android:textSize="18dp"
                         android:textColor="@color/black"
                         android:drawableEnd="@drawable/ic_baseline_check_24"
@@ -529,7 +529,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Toddler 2-4 Years  "
+                        android:text="@string/toddler_2_4_years"
                         android:textSize="18dp"
                         android:textColor="@color/black"
                         android:drawableEnd="@drawable/ic_baseline_check_24"
@@ -551,7 +551,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Adventures 5-7 Years  "
+                        android:text="@string/adventures_5_7_years"
                         android:textSize="18dp"
                         android:textColor="@color/black"
                         android:drawableEnd="@drawable/ic_baseline_check_24"
@@ -561,7 +561,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pioneers 8+  "
+                        android:text="@string/pioneers_8"
                         android:textSize="18dp"
                         android:textColor="@color/black"
                         android:drawableEnd="@drawable/ic_baseline_check_24"
@@ -582,7 +582,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Mumz  "
+                        android:text="@string/mumz"
                         android:textSize="18dp"
                         android:textColor="@color/black"
                         android:drawableEnd="@drawable/ic_baseline_check_24"
@@ -600,7 +600,7 @@
                     android:layout_marginEnd="20dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
-                    android:text="Apply"
+                    android:text="@string/apply"
                     android:textSize="16dp"
                     android:textAllCaps="false"
                     android:background="@drawable/customize_btn_bg"
@@ -624,7 +624,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Gender"
+                    android:text="@string/gender"
                     android:textSize="18dp"
                     android:textColor="@color/black"
                     android:layout_centerVertical="true"/>
@@ -668,7 +668,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Boys  "
+                        android:text="@string/boys"
                         android:textSize="18dp"
                         android:textColor="@color/black"
                         android:drawableEnd="@drawable/ic_baseline_check_24"
@@ -678,7 +678,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Girl  "
+                        android:text="@string/girl"
                         android:textSize="18dp"
                         android:textColor="@color/black"
                         android:drawableEnd="@drawable/ic_baseline_check_24"
@@ -688,7 +688,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Unisex  "
+                        android:text="@string/unisex"
                         android:textSize="18dp"
                         android:textColor="@color/black"
                         android:drawableEnd="@drawable/ic_baseline_check_24"
@@ -698,7 +698,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Women  "
+                        android:text="@string/women"
                         android:textSize="18dp"
                         android:textColor="@color/black"
                         android:drawableEnd="@drawable/ic_baseline_check_24"
@@ -717,7 +717,7 @@
                     android:layout_marginEnd="20dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
-                    android:text="Apply"
+                    android:text="@string/apply"
                     android:textSize="16dp"
                     android:textAllCaps="false"
                     android:background="@drawable/customize_btn_bg"
@@ -741,7 +741,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Price"
+                    android:text="@string/price"
                     android:textSize="18dp"
                     android:textColor="@color/black"
                     android:layout_centerVertical="true"/>
@@ -756,7 +756,7 @@
                 android:id="@+id/clear_price_htv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Clear"
+                android:text="@string/clear"
                 android:textColor="@color/color_pink"
                 android:textSize="16dp"
                 app:layout_constraintTop_toBottomOf="@+id/filter_price_lay"
@@ -767,7 +767,7 @@
                 android:id="@+id/clear_select_price_htv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Selected Price Range"
+                android:text="@string/selected_price_range"
                 android:textColor="@color/black"
                 android:textSize="16dp"
                 app:layout_constraintTop_toBottomOf="@+id/clear_price_htv"

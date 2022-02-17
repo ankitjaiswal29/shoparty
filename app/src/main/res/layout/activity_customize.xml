@@ -71,7 +71,7 @@
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"
-                android:text="Customize It"/>
+                android:text="@string/customize_it"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ct_constrain_lay2"
@@ -103,7 +103,7 @@
                 android:id="@+id/customize_user_name_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Name"
+                android:text="@string/name"
                 android:textColor="@color/white"
                 android:background="#FF3232"
                 app:layout_constraintStart_toEndOf="@+id/customize_user_icon"
@@ -130,7 +130,7 @@
                 android:id="@+id/customize_edit_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Edit/Add You Images"
+                android:text="@string/edit_add_you_images"
                 android:textColor="@color/black"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
@@ -198,7 +198,7 @@
                 android:id="@+id/customize_xyz_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="XYZ               "
+                android:text="@string/xyz"
                 android:drawableEnd="@drawable/ic_icon_material_arrow_drop_down"
                 android:background="@drawable/customize_border1"
                 android:paddingTop="10dp"
@@ -212,7 +212,7 @@
                 android:id="@+id/customize_size_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="15    "
+                android:text="@string/_15"
                 android:drawableEnd="@drawable/ic_icon_material_arrow_drop_down"
                 android:background="@drawable/customize_border1"
                 android:paddingTop="10dp"
@@ -258,7 +258,7 @@
                 android:id="@+id/customize_xyz_tv2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="15    "
+                android:text="@string/_15"
                 android:drawableEnd="@drawable/ic_icon_material_arrow_drop_down"
                 android:background="@drawable/customize_border1"
                 android:paddingTop="10dp"
@@ -298,13 +298,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="T"
+                    android:text="@string/t"
                     android:textColor="@color/black"
                     android:textSize="20dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Text"
+                    android:text="@string/text"
                     android:textColor="@color/black"/>
             </LinearLayout>
             <LinearLayout
@@ -328,7 +328,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Image &amp; Background"
+                    android:text="@string/image_amp_background"
                     android:textColor="@color/black"/>
             </LinearLayout>
 
@@ -358,7 +358,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text="Preview"
+                    android:text="@string/preview"
                     android:textColor="@color/white"
                     android:textAllCaps="false"
                     android:background="@drawable/customize_btn_bg"
@@ -368,7 +368,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:background="@drawable/customize_btn_bg"
-                    android:text="Save"
+                    android:text="@string/save"
                     android:textColor="@color/white"
                     android:textAllCaps="false"
                     android:layout_marginStart="5dp"/>
@@ -381,7 +381,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:background="@drawable/customize_btn_bg"
-                android:text="Save"
+                android:text="@string/save"
                 android:textColor="@color/white"
                 android:textAllCaps="false"
                 android:layout_marginStart="10dp"

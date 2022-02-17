@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tsi_item_img"
-        android:text="Princess Dress"
+        android:text="@string/princess_dress"
         android:textColor="@color/black"
         android:textSize="13dp" />
 
@@ -31,7 +31,7 @@
         android:background="@color/color_pink"
         android:paddingStart="5dp"
         android:paddingEnd="5dp"
-        android:text="10% OFF"
+        android:text="@string/_10_off"
         android:textSize="11dp"
         android:textColor="@color/white" />
 
@@ -40,21 +40,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tsi_item_name"
-        android:text="Yoke Design kurta set" />
+        android:text="@string/yoke_design_kurta_set" />
 
     <TextView
         android:id="@+id/tsi_item_price_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tsi_item_desc_tv"
-        android:text="$10.7"
+        android:text="@string/_10_7"
         android:textColor="@color/color_pink"
         android:textSize="16dp"
         android:textStyle="bold" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="$10.02"
+        android:text="@string/_10_02"
         android:layout_toRightOf="@+id/tsi_item_price_tv"
         android:layout_below="@+id/tsi_item_desc_tv"
         android:layout_marginStart="5dp"/>

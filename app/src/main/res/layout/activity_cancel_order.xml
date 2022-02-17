@@ -146,7 +146,7 @@
                 <TextView
                     android:id="@+id/tvTotalItem"
                     style="@style/AppTheme.Text_12ssp"
-                    android:text="(2 items)"
+                    android:text="@string/_2_items"
                     android:layout_width="wrap_content"
                     app:layout_constraintStart_toEndOf="@+id/tvTotal"
                     app:layout_constraintTop_toTopOf="@+id/tvTotal"

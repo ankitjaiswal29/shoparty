@@ -37,7 +37,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Costumes"
+            android:text="@string/costumes"
             android:textSize="16dp"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -83,7 +83,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="10dp"
-                        android:text="Accessories"
+                        android:text="@string/accessories"
                         android:textColor="@color/black"
                         android:textSize="15dp" />
 
@@ -113,7 +113,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="20dp"
-                            android:text="Mask"
+                            android:text="@string/mask"
                             android:textSize="15dp" />
 
                         <ImageView
@@ -134,7 +134,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="20dp"
-                            android:text="Teeth"
+                            android:text="@string/teeth"
                             android:textSize="15dp" />
 
                         <ImageView
@@ -155,7 +155,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="20dp"
-                            android:text="Wages"
+                            android:text="@string/wages"
                             android:textSize="15dp" />
 
                         <ImageView
@@ -176,7 +176,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="20dp"
-                            android:text="Gloves"
+                            android:text="@string/gloves"
                             android:textSize="15dp" />
 
                         <ImageView
@@ -197,7 +197,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="20dp"
-                            android:text="Barclays"
+                            android:text="@string/barclays"
                             android:textSize="15dp" />
 
                         <ImageView
@@ -218,7 +218,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="20dp"
-                            android:text="Girls"
+                            android:text="@string/girls"
                             android:textSize="15dp" />
 
                         <ImageView
@@ -239,7 +239,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="20dp"
-                            android:text="Crown"
+                            android:text="@string/crown"
                             android:textSize="15dp" />
 
                         <ImageView
@@ -261,7 +261,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="20dp"
-                            android:text="Makeup"
+                            android:text="@string/makeup"
                             android:textSize="15dp" />
 
                         <ImageView
@@ -282,7 +282,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="20dp"
-                            android:text="Hats"
+                            android:text="@string/hats"
                             android:textSize="15dp" />
 
                         <ImageView
@@ -303,7 +303,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="20dp"
-                            android:text="Stick"
+                            android:text="@string/stick"
                             android:textSize="15dp" />
 
                         <ImageView
@@ -325,7 +325,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="20dp"
-                            android:text="Mustache Beard"
+                            android:text="@string/mustache_beard"
                             android:textSize="15dp" />
 
                         <ImageView
@@ -362,7 +362,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="10dp"
-                        android:text="Dresses"
+                        android:text="@string/dresses"
                         android:textColor="@color/black"
                         android:textSize="15dp" />
 
@@ -392,7 +392,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="20dp"
-                            android:text="Super Hero"
+                            android:text="@string/super_hero"
                             android:textSize="15dp" />
 
                         <ImageView
@@ -413,7 +413,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="20dp"
-                            android:text="Princess"
+                            android:text="@string/princess"
                             android:textSize="15dp" />
 
                         <ImageView
@@ -434,7 +434,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="20dp"
-                            android:text="Halloween"
+                            android:text="@string/halloween"
                             android:textSize="15dp" />
 
                         <ImageView
@@ -455,7 +455,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="20dp"
-                            android:text="Unisix"
+                            android:text="@string/unisix"
                             android:textSize="15dp" />
 
                         <ImageView
@@ -476,7 +476,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="20dp"
-                            android:text="Careers Uniform"
+                            android:text="@string/careers_uniform"
                             android:textSize="15dp" />
 
                         <ImageView
@@ -497,7 +497,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="20dp"
-                            android:text="Animals"
+                            android:text="@string/animals"
                             android:textSize="15dp" />
 
                         <ImageView
@@ -518,7 +518,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="20dp"
-                            android:text="Fruit"
+                            android:text="@string/fruit"
                             android:textSize="15dp" />
 
                         <ImageView
@@ -540,7 +540,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="20dp"
-                            android:text="Dinosaurs"
+                            android:text="@string/dinosaurs"
                             android:textSize="15dp" />
 
                         <ImageView

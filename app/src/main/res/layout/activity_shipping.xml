@@ -61,7 +61,7 @@
                     app:layout_constraintStart_toStartOf="@+id/iv_shippingicon"
                     app:layout_constraintEnd_toEndOf="@+id/iv_shippingicon"
                     app:layout_constraintTop_toBottomOf="@+id/iv_shippingicon"
-                    android:text="Shipping"/>
+                    android:text="@string/shipping"/>
 
                 <ImageView
                     android:id="@+id/iv_paymenticon"
@@ -88,7 +88,7 @@
                     app:layout_constraintStart_toStartOf="@+id/iv_paymenticon"
                     app:layout_constraintEnd_toEndOf="@+id/iv_paymenticon"
                     app:layout_constraintTop_toBottomOf="@+id/iv_paymenticon"
-                    android:text="Payment"/>
+                    android:text="@string/payment"/>
 
                 <ImageView
                     android:id="@+id/iv_confirm"
@@ -106,7 +106,7 @@
                     app:layout_constraintStart_toStartOf="@+id/iv_confirm"
                     app:layout_constraintEnd_toEndOf="@+id/iv_confirm"
                     app:layout_constraintTop_toBottomOf="@+id/iv_confirm"
-                    android:text="Confirmation"/>
+                    android:text="@string/confirmation"/>
 
 
 

@@ -13,7 +13,7 @@
         android:id="@+id/search_item_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Birthday cap"
+        android:text="@string/birthday_cap"
         android:textColor="@color/black"
         android:textSize="18dp" />
     <ImageView

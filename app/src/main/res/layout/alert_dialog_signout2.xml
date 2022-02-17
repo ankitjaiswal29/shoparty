@@ -12,7 +12,7 @@
         style="@style/AppTheme.Text_19_Bold_dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign Out"
+        android:text="@string/sign_out"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Are You sure?"
+        android:text="@string/are_you_sure"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvSignout" />
 
@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@drawable/background_rectangular_white"
-        android:text="Cancel"
+        android:text="@string/cancel"
         android:textAllCaps="false"
         android:layout_marginRight="7dp"
         app:layout_constraintEnd_toStartOf="@+id/btn_yes"
@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@drawable/signout_dialog_save_btn"
-        android:text="Yes"
+        android:text="@string/yes"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:layout_marginLeft="7dp"

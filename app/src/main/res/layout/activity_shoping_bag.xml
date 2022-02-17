@@ -37,7 +37,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Shopping bag"
+            android:text="@string/shopping_bag"
             android:textSize="16dp"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -106,7 +106,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/bag_item_view1"
-                    android:text="Apply promo code"
+                    android:text="@string/apply_promo_code"
                     android:layout_marginStart="20dp"
                     android:textSize="16dp"
                     android:textColor="@color/black"/>
@@ -142,7 +142,7 @@
                         android:id="@+id/bag_summary_htv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Summry"
+                        android:text="@string/summry"
                         android:textSize="18dp"
                         android:textColor="@color/black"
                         android:layout_marginTop="10dp"
@@ -155,14 +155,14 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/bag_summary_htv"
                         android:layout_marginEnd="10dp"
-                        android:text="$14.5"
+                        android:text="@string/_14_5"
                         android:textColor="@color/black"
                         android:textSize="18dp"/>
                     <TextView
                         android:id="@+id/bag_tax_htv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tax(Vat 5%)"
+                        android:text="@string/tax_vat_5"
                         android:textSize="18dp"
                         android:textColor="@color/black"
                         android:layout_marginTop="10dp"
@@ -175,7 +175,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/bag_tax_htv"
                         android:layout_marginEnd="10dp"
-                        android:text="$3.5"
+                        android:text="@string/_3_5"
                         android:textColor="@color/black"
                         android:textSize="18dp"/>
                     <View
@@ -195,7 +195,7 @@
                         android:id="@+id/bag_total_htv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Total(2 item)"
+                        android:text="@string/total_2_item"
                         android:textSize="18dp"
                         android:textColor="@color/black"
                         android:layout_marginTop="20dp"
@@ -208,7 +208,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/bag_total_htv"
                         android:layout_marginEnd="10dp"
-                        android:text="$23.5"
+                        android:text="@string/_23_5"
                         android:textColor="@color/black"
                         android:textSize="18dp"/>
 
@@ -242,7 +242,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Purchase As A Guest"
+                        android:text="@string/purchase_as_a_guest"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="10dp"/>
                     <CheckBox
@@ -281,7 +281,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="10dp"
-                            android:text="Pickup For Branch"
+                            android:text="@string/pickup_for_branch"
                             android:textSize="13dp" />
                         <CheckBox
                             android:layout_width="wrap_content"
@@ -305,7 +305,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Delivered For Home"
+                            android:text="@string/delivered_for_home"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="10dp"
                             android:textSize="13dp"/>
@@ -352,7 +352,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Proceed To Checkout"
+                        android:text="@string/proceed_to_checkout"
                         android:textColor="@color/white"
                         android:layout_marginStart="10dp"
                         />

@@ -1,251 +1,269 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.activity.SignUpActivity">
-    <androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/signUp_htv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sign Up"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:textColor="@color/black"
-            android:textSize="28dp"
-            android:textStyle="bold"
-            android:layout_marginTop="50dp"
-            android:layout_marginStart="20dp"/>
-        <TextView
-            android:id="@+id/signUp_desc_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/signUp_htv"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="20dp"
-            android:textSize="16dp"
-            android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginTop="10dp"
-            android:text="Fugiat aut et dolor optio culpa est odit autem voluptate."/>
+        android:background="@color/white"
+        android:layout_height="match_parent"
+        tools:context=".view.activity.SignUpActivity">
 
-        <TextView
-            android:id="@+id/signUp_name_htv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Full Name"
-            android:textSize="14dp"
-            app:layout_constraintTop_toBottomOf="@+id/signUp_desc_tv"
-            android:layout_marginStart="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="40dp"/>
-        <EditText
-            android:id="@+id/signUp_name_ed_txt"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/signUp_name_htv"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/signin_ed_bg"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"/>
-        <TextView
-            android:id="@+id/signUp_email_htv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Email"
-            android:textSize="14dp"
-            app:layout_constraintTop_toBottomOf="@+id/signUp_name_ed_txt"
-            android:layout_marginStart="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="20dp"/>
-        <EditText
-            android:id="@+id/signUp_email_ed_txt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/signUp_email_htv"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/signin_ed_bg"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"/>
-        <TextView
-            android:id="@+id/signUp_mobile_htv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mobile"
-            android:textSize="14dp"
-            app:layout_constraintTop_toBottomOf="@+id/signUp_email_ed_txt"
-            android:layout_marginStart="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="20dp"/>
-        <EditText
-            android:id="@+id/signUp_mobile_ed_txt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/signUp_mobile_htv"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/signin_ed_bg"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"/>
-        <TextView
-            android:id="@+id/signUp_gender_htv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mobile"
-            android:textSize="14dp"
-            app:layout_constraintTop_toBottomOf="@+id/signUp_mobile_ed_txt"
-            android:layout_marginStart="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="20dp"/>
-        <LinearLayout
-            android:id="@+id/signUp_gender_linear_lay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/signUp_gender_htv"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:orientation="horizontal"
-            android:weightSum="1"
-            android:layout_marginTop="10dp">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:layout_marginEnd="5dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:background="@drawable/signup_gender_bg">
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_baseline_check_24"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Male"/>
+            android:layout_marginLeft="36dp"
+            android:layout_marginRight="36dp"
+            android:layout_height="wrap_content">
 
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:layout_marginStart="5dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:background="@drawable/signup_gender_bg">
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:visibility="gone"
-                    android:src="@drawable/ic_baseline_check_24"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Female"/>
-            </LinearLayout>
-
-        </LinearLayout>
-        <TextView
-            android:id="@+id/signUp_dob_htv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Date of Birth"
-            android:textSize="14dp"
-            app:layout_constraintTop_toBottomOf="@+id/signUp_gender_linear_lay"
-            android:layout_marginStart="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="20dp"/>
-        <RelativeLayout
-            android:id="@+id/signUp_dob_relative_lay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/signup_gender_bg"
-            android:paddingStart="20dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:paddingEnd="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/signUp_dob_htv">
             <TextView
+                android:id="@+id/signUp_htv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="26 August 2000"
-                android:layout_alignParentStart="true" />
-
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/dob_icon"/>
-        </RelativeLayout>
-        <Button
-            android:id="@+id/signUp_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/signUp_dob_relative_lay"
-            android:layout_marginTop="50dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:text="Sign Up"
-            android:textColor="@color/white"
-            android:background="@drawable/customize_btn_bg"
-            android:textAllCaps="false"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/signUp_btn"
-            app:layout_constraintStart_toStartOf="@+id/signUp_btn"
-            app:layout_constraintEnd_toEndOf="@+id/signUp_btn"
-            android:orientation="horizontal"
-            android:layout_marginTop="50dp">
-            <TextView
-                android:id="@+id/donot_hvac_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Already have an account?"
-
-                />
-            <TextView
-                android:id="@+id/signUp_toIn_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sign In"
-                android:textSize="15dp"
-                android:textColor="@color/color_pink"
+                android:text="@string/sign_up"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textColor="@color/black"
+                android:textSize="28dp"
                 android:textStyle="bold"
-                android:layout_marginStart="5dp"
-                />
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_marginTop="76dp" />
 
-</ScrollView>
+            <TextView
+                android:id="@+id/signUp_desc_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/signUp_htv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="16dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/fugiat_aut_et_dolor_optio_culpa_est_odit_autem_voluptate" />
+
+            <TextView
+                android:id="@+id/signUp_name_htv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/full_name_manditory"
+                android:textSize="14dp"
+                app:layout_constraintTop_toBottomOf="@+id/signUp_desc_tv"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="49dp" />
+
+            <EditText
+                android:id="@+id/signUp_name_ed_txt"
+                style="@style/AppTheme.editText_gray"
+                app:layout_constraintTop_toBottomOf="@+id/signUp_name_htv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="10dp"
+                android:singleLine="true"
+                android:imeOptions="actionNext"
+             />
+
+            <TextView
+                android:id="@+id/signUp_email_htv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/email"
+                android:textSize="14dp"
+                app:layout_constraintTop_toBottomOf="@+id/signUp_name_ed_txt"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="25dp" />
+
+            <EditText
+                android:id="@+id/signUp_email_ed_txt"
+                style="@style/AppTheme.editText_gray"
+                app:layout_constraintTop_toBottomOf="@+id/signUp_email_htv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="10dp"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
+                android:background="@drawable/signin_ed_bg" />
+
+            <TextView
+                android:id="@+id/signUp_mobile_htv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mobile"
+                android:textSize="14dp"
+                app:layout_constraintTop_toBottomOf="@+id/signUp_email_ed_txt"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="25dp" />
+
+            <EditText
+                android:id="@+id/signUp_mobile_ed_txt"
+                app:layout_constraintTop_toBottomOf="@+id/signUp_mobile_htv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="10dp"
+                android:singleLine="true"
+                android:imeOptions="actionNext"
+                style="@style/AppTheme.editText_gray"
+                android:background="@drawable/signin_ed_bg" />
+
+            <TextView
+                android:id="@+id/signUp_gender_htv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gender"
+                android:textSize="14dp"
+                app:layout_constraintTop_toBottomOf="@+id/signUp_mobile_ed_txt"
+
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="25dp" />
+
+            <LinearLayout
+                android:id="@+id/signUp_gender_linear_lay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/signUp_gender_htv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_marginTop="10dp">
+
+                <LinearLayout
+                    android:id="@+id/ly_male"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_marginEnd="5dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:background="@drawable/signup_gender_bg">
+
+                    <ImageView
+                        android:id="@+id/iv_male"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_baseline_check_24" />
+
+                    <TextView
+                        android:id="@+id/tv_male"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/pink"
+                        android:text="@string/male" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ly_female"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="5dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:background="@drawable/signup_gender_bg">
+
+                    <ImageView
+                        android:id="@+id/iv_female"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:visibility="gone"
+                        android:src="@drawable/ic_baseline_check_24" />
+
+                    <TextView
+                        android:id="@+id/tv_female"
+                        android:textColor="@color/colorMediumGrey"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/female" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/signUp_dob_htv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/date_of_birth"
+                android:textSize="14dp"
+                app:layout_constraintTop_toBottomOf="@+id/signUp_gender_linear_lay"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="25dp" />
+
+            <RelativeLayout
+                android:id="@+id/signUp_dob_relative_lay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/signup_gender_bg"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingEnd="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/signUp_dob_htv">
+
+                <TextView
+                    android:id="@+id/tv_DateOfBirth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_26_august_2000"
+                    android:layout_alignParentStart="true" />
+
+                <ImageView
+                    android:id="@+id/iv_DateOfBirth"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/dob_icon" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/signUp_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/signUp_dob_relative_lay"
+                android:layout_marginTop="85dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/sign_up"
+                android:textColor="@color/white"
+                android:background="@drawable/customize_btn_bg"
+                android:textAllCaps="false" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/signUp_btn"
+                app:layout_constraintStart_toStartOf="@+id/signUp_btn"
+                app:layout_constraintEnd_toEndOf="@+id/signUp_btn"
+                android:orientation="horizontal"
+                android:paddingBottom="35dp"
+                android:layout_marginTop="58dp">
+
+                <TextView
+                    android:id="@+id/donot_hvac_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/already_have_an_account"
+
+                    />
+
+                <TextView
+                    android:id="@+id/signUp_toIn_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sign_in"
+                    android:textSize="15dp"
+                    android:textColor="@color/color_pink"
+                    android:textStyle="bold"
+                    android:layout_marginStart="5dp" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</layout>
