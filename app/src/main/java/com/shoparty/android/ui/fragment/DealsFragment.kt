@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import com.shoparty.android.R
 import com.shoparty.android.models.custommodel.TopSellingHomeModel
-import com.shoparty.android.ui.activities.SearchActivity
-import com.shoparty.android.ui.activities.ShopingBagActivity
+import com.shoparty.android.ui.activities.search.SearchActivity
+import com.shoparty.android.ui.activities.shoppingbag.ShopingBagActivity
 import com.shoparty.android.ui.adapters.NewArrivalItemLIstAdapter
 
 import kotlinx.android.synthetic.main.fragment_deals.*

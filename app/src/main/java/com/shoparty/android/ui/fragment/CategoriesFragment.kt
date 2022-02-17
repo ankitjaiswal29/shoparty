@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.shoparty.android.R
 import com.shoparty.android.models.custommodel.HomeCategoriesModel
-import com.shoparty.android.ui.activities.SearchActivity
-import com.shoparty.android.ui.activities.ShopingBagActivity
+import com.shoparty.android.ui.activities.search.SearchActivity
+import com.shoparty.android.ui.activities.shoppingbag.ShopingBagActivity
 import com.shoparty.android.ui.adapters.CategoryAdapter1
 
 import kotlinx.android.synthetic.main.fragment_categories.*

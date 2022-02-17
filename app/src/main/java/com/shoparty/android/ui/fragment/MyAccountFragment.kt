@@ -12,9 +12,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.shoparty.android.R
 import com.shoparty.android.models.custommodel.MyAccountModel
-import com.shoparty.android.ui.activities.*
 import com.shoparty.android.ui.activities.aboutus.AboutUsActivity
 import com.shoparty.android.ui.activities.address.addaddress.getaddress.AddressActivity
+import com.shoparty.android.ui.activities.contactus.ContactUsActivity
+import com.shoparty.android.ui.activities.myaccount.MyProfileActivity
+import com.shoparty.android.ui.activities.myorder.myorder.MyOrdersActivity
+import com.shoparty.android.ui.activities.privacypolicy.PrivacyPolicyActivity
+import com.shoparty.android.ui.activities.returnpolicy.ReturnPolicyActivity
+import com.shoparty.android.ui.activities.termsandcondition.TermAndConditionActivity
+import com.shoparty.android.ui.activities.vouchers.VouchersActivity
+import com.shoparty.android.ui.activities.wishlist.WishListActivity
 import com.shoparty.android.ui.adapters.MyAccountAdapter
 import com.shoparty.android.ui.adapters.RecyclerViewClickListener
 

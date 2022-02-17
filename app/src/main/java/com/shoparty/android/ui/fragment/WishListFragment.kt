@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.shoparty.android.R
 import com.shoparty.android.databinding.FragmentWishListBinding
-import com.shoparty.android.ui.activities.SearchActivity
-import com.shoparty.android.ui.activities.ShopingBagActivity
+import com.shoparty.android.ui.activities.search.SearchActivity
+import com.shoparty.android.ui.activities.shoppingbag.ShopingBagActivity
 import com.shoparty.android.ui.adapters.WishListAdapter
 import kotlinx.android.synthetic.main.fragment_deals.*
 

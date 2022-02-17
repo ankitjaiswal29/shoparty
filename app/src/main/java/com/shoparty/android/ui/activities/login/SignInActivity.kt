@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
 import com.shoparty.android.R
-import com.shoparty.android.ui.activities.VerificationActivity
-import com.shoparty.android.view.activity.SignUpActivity
+import com.shoparty.android.ui.activities.verificationotp.VerificationActivity
+import com.shoparty.android.ui.activities.register.SignUpActivity
 
 
 import kotlinx.android.synthetic.main.activity_sign_in.*

@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import com.shoparty.android.R
 import com.shoparty.android.models.custommodel.TopSellingHomeModel
-import com.shoparty.android.ui.activities.FilterActivity
+import com.shoparty.android.ui.activities.filter.FilterActivity
 import com.shoparty.android.ui.adapters.NewArrivalItemLIstAdapter
 
 import kotlinx.android.synthetic.main.fragment_new_arrivals_item.*

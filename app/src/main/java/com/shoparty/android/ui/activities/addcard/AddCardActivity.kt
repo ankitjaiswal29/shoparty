@@ -7,7 +7,7 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityAddCardBinding
-import com.shoparty.android.ui.activities.PaymentActivity
+import com.shoparty.android.ui.activities.payment.PaymentActivity
 
 
 class AddCardActivity : AppCompatActivity(), View.OnClickListener {

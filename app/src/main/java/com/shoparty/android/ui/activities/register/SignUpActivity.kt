@@ -1,4 +1,4 @@
-package com.shoparty.android.view.activity
+package com.shoparty.android.ui.activities.register
 
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -11,7 +11,7 @@ import androidx.databinding.DataBindingUtil
 import com.shoparty.android.R
 
 import com.shoparty.android.databinding.ActivitySignUpBinding
-import com.shoparty.android.ui.activities.MainActivity
+import com.shoparty.android.ui.activities.mainactivity.MainActivity
 import com.shoparty.android.ui.activities.login.SignInActivity
 
 import kotlinx.android.synthetic.main.activity_sign_up.*
@@ -25,15 +25,14 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       // setContentView(R.layout.activity_sign_up)
 
         binding= DataBindingUtil.setContentView(this, R.layout.activity_sign_up)
         initialise()
 
-       /* signUp_toIn_btn.setOnClickListener {
-            val intent = Intent(this, SignInActivity::class.java)
+        binding.signUpBtn.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-        }*/
+        }
     }
 
     private fun initialise() {
@@ -68,6 +67,8 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
+
+
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.signUp_toIn_btn -> {
@@ -91,10 +92,7 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
 
         }
 
-        signUp_btn.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
+
 
     }
 

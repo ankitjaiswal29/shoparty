@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.shoparty.android">
 
     <application
@@ -10,31 +11,31 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Shoparty_android">
         <activity
-            android:name="com.shoparty.android.ui.activities.OngoingOrderActivity"
+            android:name="com.shoparty.android.ui.activities.ongoingorder.OngoingOrderActivity"
             android:exported="false" />
         <activity
-            android:name="com.shoparty.android.ui.activities.PrivacyPolicyActivity"
+            android:name="com.shoparty.android.ui.activities.privacypolicy.PrivacyPolicyActivity"
             android:exported="false" />
         <activity
-            android:name="com.shoparty.android.ui.activities.ContactUsActivity"
+            android:name="com.shoparty.android.ui.activities.contactus.ContactUsActivity"
             android:exported="false" />
         <activity
-            android:name="com.shoparty.android.ui.activities.ReturnPolicyActivity"
+            android:name="com.shoparty.android.ui.activities.returnpolicy.ReturnPolicyActivity"
             android:exported="false" />
         <activity
-            android:name="com.shoparty.android.ui.activities.TermAndConditionActivity"
+            android:name="com.shoparty.android.ui.activities.termsandcondition.TermAndConditionActivity"
             android:exported="false" />
         <activity
             android:name="com.shoparty.android.ui.activities.aboutus.AboutUsActivity"
             android:exported="false" />
         <activity
-            android:name="com.shoparty.android.ui.activities.CustomizeActivity"
+            android:name="com.shoparty.android.ui.activities.customize.CustomizeActivity"
             android:exported="false" />
         <activity
-            android:name="com.shoparty.android.ui.activities.ShopingBagActivity"
+            android:name="com.shoparty.android.ui.activities.shoppingbag.ShopingBagActivity"
             android:exported="false" />
         <activity
-            android:name="com.shoparty.android.ui.activities.VerificationActivity"
+            android:name="com.shoparty.android.ui.activities.verificationotp.VerificationActivity"
             android:exported="false" />
         <activity
             android:name="com.shoparty.android.ui.activities.register.SignUpActivity"
@@ -43,7 +44,7 @@
             android:name="com.shoparty.android.ui.activities.login.SignInActivity"
             android:exported="false" />
         <activity
-            android:name="com.shoparty.android.ui.activities.FilterActivity"
+            android:name="com.shoparty.android.ui.activities.filter.FilterActivity"
             android:exported="false" />
         <activity
             android:name="com.shoparty.android.ui.activities.address.addaddress.addaddress.AddNewAddressActivity"
@@ -52,62 +53,62 @@
             android:name="com.shoparty.android.ui.activities.address.addaddress.getaddress.AddressActivity"
             android:exported="false" />
         <activity
-            android:name="com.shoparty.android.ui.activities.WishListActivity"
+            android:name="com.shoparty.android.ui.activities.wishlist.WishListActivity"
             android:exported="false" />
         <activity
-            android:name="com.shoparty.android.ui.activities.VouchersActivity"
+            android:name="com.shoparty.android.ui.activities.vouchers.VouchersActivity"
             android:exported="false" />
         <activity
-            android:name="com.shoparty.android.ui.activities.MyProfileActivity"
+            android:name="com.shoparty.android.ui.activities.myaccount.MyProfileActivity"
             android:exported="false" />
         <activity
-            android:name="com.shoparty.android.ui.activities.MyOrdersActivity"
+            android:name="com.shoparty.android.ui.activities.myorder.myorder.MyOrdersActivity"
             android:exported="false" />
         <activity
-            android:name="com.shoparty.android.ui.activities.OrderCancelActivity"
+            android:name="com.shoparty.android.ui.activities.cancelorder.cancelorder.OrderCancelActivity"
             android:exported="false" />
         <activity
             android:name="com.shoparty.android.ui.activities.cancelorder.cancelconfirm.CancelConfirmActivity"
             android:exported="false" />
         <activity
-            android:name="com.shoparty.android.ui.activities.MyAccountActivity"
+            android:name="com.shoparty.android.ui.activities.myaccount.MyAccountActivity"
             android:exported="false" />
         <activity
-            android:name="com.shoparty.android.ui.activities.ShippingActivity"
+            android:name="com.shoparty.android.ui.activities.shipping.ShippingActivity"
             android:exported="false" />
         <activity
-            android:name="com.shoparty.android.ui.activities.PaymentActivity"
+            android:name="com.shoparty.android.ui.activities.payment.PaymentActivity"
             android:exported="false" />
         <activity
-            android:name="com.shoparty.android.ui.activities.CancelOrderActivity"
+            android:name="com.shoparty.android.ui.activities.cancelorder.cancelorder.CancelOrderActivity"
             android:exported="false" />
         <activity
-            android:name="com.shoparty.android.ui.activities.OrderDetailsActivity"
+            android:name="com.shoparty.android.ui.activities.myorder.orderdetails.OrderDetailsActivity"
             android:exported="false" />
         <activity
-            android:name="com.shoparty.android.ui.activities.OrderSuccessfulyActivity"
+            android:name="com.shoparty.android.ui.activities.myorder.ordersuccess.OrderSuccessfulyActivity"
             android:exported="false" />
         <activity
             android:name="com.shoparty.android.ui.activities.addcard.AddCardActivity"
             android:exported="false" />
         <activity
-            android:name="com.shoparty.android.ui.activities.SearchActivity"
+            android:name="com.shoparty.android.ui.activities.search.SearchActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.shoparty.android.ui.activities.TopSellingItemActivity"
+            android:name="com.shoparty.android.ui.activities.topselling.TopSellingItemActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.shoparty.android.ui.activities.CandlesActivity"
+            android:name="com.shoparty.android.ui.activities.candles.CandlesActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.shoparty.android.ui.activities.SeasonsActivity"
+            android:name="com.shoparty.android.ui.activities.seasons.SeasonsActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.shoparty.android.ui.activities.ColoursActivity"
+            android:name="com.shoparty.android.ui.activities.colors.ColoursActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
@@ -115,15 +116,15 @@
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.shoparty.android.ui.activities.PartySupplyActivity"
+            android:name="com.shoparty.android.ui.activities.partysupply.PartySupplyActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.shoparty.android.ui.activities.ThemesActivity"
+            android:name="com.shoparty.android.ui.activities.theme.ThemesActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.shoparty.android.ui.activities.CostumesActivity"
+            android:name="com.shoparty.android.ui.activities.costumes.CostumesActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
@@ -137,7 +138,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.shoparty.android.ui.activities.MainActivity"
+            android:name="com.shoparty.android.ui.activities.mainactivity.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>

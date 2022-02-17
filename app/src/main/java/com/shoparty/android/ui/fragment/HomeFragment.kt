@@ -12,8 +12,15 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.shoparty.android.R
 import com.shoparty.android.models.custommodel.HomeCategoriesModel
 import com.shoparty.android.models.custommodel.TopSellingHomeModel
-import com.shoparty.android.ui.activities.*
 import com.shoparty.android.ui.activities.ballons.BallonsActivity
+import com.shoparty.android.ui.activities.candles.CandlesActivity
+import com.shoparty.android.ui.activities.colors.ColoursActivity
+import com.shoparty.android.ui.activities.costumes.CostumesActivity
+import com.shoparty.android.ui.activities.partysupply.PartySupplyActivity
+import com.shoparty.android.ui.activities.search.SearchActivity
+import com.shoparty.android.ui.activities.seasons.SeasonsActivity
+import com.shoparty.android.ui.activities.shoppingbag.ShopingBagActivity
+import com.shoparty.android.ui.activities.theme.ThemesActivity
 import com.shoparty.android.ui.adapters.*
 
 import kotlinx.android.synthetic.main.fragment_home.*

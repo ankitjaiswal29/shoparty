@@ -9,7 +9,7 @@ import android.view.ViewGroup
 
 import com.shoparty.android.R
 import com.shoparty.android.models.custommodel.TopSellingHomeModel
-import com.shoparty.android.ui.activities.CustomizeActivity
+import com.shoparty.android.ui.activities.customize.CustomizeActivity
 import com.shoparty.android.ui.adapters.TopSellingHomeAdapter
 import kotlinx.android.synthetic.main.fragment_new_arrival_item_details.*
 
