@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#F8F8F8"
-    tools:context=".ui.fragment.CategoryItemListFragment">
+    tools:context=".ui.mainactivity.categories.CategoryItemListFragment">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_constrain_lay1"
         android:layout_width="match_parent"

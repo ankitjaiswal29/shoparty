@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.topselling.TopSellingItemActivity">
+    tools:context=".ui.topselling.TopSellingItemActivity">
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

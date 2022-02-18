@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F8F8F8"
-    tools:context=".ui.activities.search.SearchActivity">
+    tools:context=".ui.search.SearchActivity">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/search_constrain_lay1"
         android:layout_width="match_parent"
