@@ -7,9 +7,11 @@ import android.view.*
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.core.view.GravityCompat
+import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import com.shoparty.android.R
+import com.shoparty.android.databinding.FragmentHomeBinding
 import com.shoparty.android.models.custommodel.HomeCategoriesModel
 import com.shoparty.android.models.custommodel.TopSellingHomeModel
 import com.shoparty.android.ui.activities.ballons.BallonsActivity
@@ -32,6 +34,7 @@ class HomeFragment : Fragment() {
     private var productsBool: Boolean=false
     private var serviceBool: Boolean=false
     private var flowersBool: Boolean=false
+    lateinit var binding: FragmentHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,13 +46,21 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val root =  inflater.inflate(R.layout.navigation_drawer, container, false)
+       // val root =  inflater.inflate(R.layout.navigation_drawer, container, false)
+      binding=DataBindingUtil.inflate(inflater,R.layout.fragment_home, container, false)
+      //  val root =  inflater.inflate(R.layout.fragment_home, container, false)
 
-        drawerLayout = root.findViewById(R.id.drawer_layout)
-
-        return root
+      // drawerLayout = root.findViewById(R.id.drawer_layout)
+        initialise()
+       // setupUI()
+        return binding.root
+        //return root
     }
 
+    private fun initialise() {
+
+    }
+/*
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         below_product_layout.visibility = View.GONE
@@ -289,5 +300,5 @@ class HomeFragment : Fragment() {
             isFocusable = false
             adapter = HomeBondsAdapter(homeBondsList)
         }
-    }
+    }*/
 }

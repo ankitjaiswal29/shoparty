@@ -72,5 +72,6 @@ dependencies {
     //range seek bar
     implementation 'org.florescu.android.rangeseekbar:rangeseekbar-library:0.3.0'
 
-
+  //  dependency sor slider view
+    implementation 'com.github.smarteist:autoimageslider:1.3.9'
 }
