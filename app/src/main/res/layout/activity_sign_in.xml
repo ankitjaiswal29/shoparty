@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="36dp"
     android:layout_marginRight="36dp"
-    tools:context=".ui.activities.login.SignInActivity">
+    tools:context=".ui.login.SignInActivity">
 
     <TextView
         android:id="@+id/signIn_htv"

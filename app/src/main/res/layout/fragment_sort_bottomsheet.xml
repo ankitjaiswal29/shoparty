@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".ui.fragment.SortBottomsheetFragment">
+    tools:context=".ui.mainactivity.newarrival.SortBottomsheetFragment">
 
     <TextView
         android:id="@+id/sort_by_htv"

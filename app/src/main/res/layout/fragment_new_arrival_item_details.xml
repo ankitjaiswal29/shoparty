@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#F8F8F8"
-    tools:context=".ui.fragment.NewArrivalItemDetailsFragment">
+    tools:context=".ui.mainactivity.newarrival.NewArrivalItemDetailsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/na_details_constrain_lay1"
