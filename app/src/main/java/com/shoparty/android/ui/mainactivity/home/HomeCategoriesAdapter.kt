@@ -13,7 +13,7 @@ class HomeCategoriesAdapter(private val itemList: List<HomeCategoriesModel>): Re
     inner class HomeCategoriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeCategoriesViewHolder {
-        return HomeCategoriesViewHolder(parent.inflate(R.layout.home_categories_item))
+        return HomeCategoriesViewHolder(parent.inflate(R.layout.home_categories_layout_item))
     }
     override fun getItemCount(): Int {
         return itemList.size
