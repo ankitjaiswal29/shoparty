@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 
 
-import com.shoparty.android.app.CustomApplication
 import android.content.SharedPreferences
 
 

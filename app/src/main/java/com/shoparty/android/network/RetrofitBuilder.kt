@@ -5,7 +5,7 @@ import android.content.Context
 import androidx.viewbinding.BuildConfig
 
 import com.google.gson.GsonBuilder
-import com.shoparty.android.app.CustomApplication
+import com.shoparty.android.app.MyApp
 import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.apiutils.AuthInterceptor
 
@@ -20,7 +20,7 @@ object RetrofitBuilder {
     private lateinit var retrofit: Retrofit
 
     private fun getRetrofitInstance(): Retrofit {
-        val context: Context = CustomApplication.getInstance().applicationContext
+        val context: Context = MyApp.getInstance().applicationContext
         val gson = GsonBuilder()
             .setLenient()
             .create()

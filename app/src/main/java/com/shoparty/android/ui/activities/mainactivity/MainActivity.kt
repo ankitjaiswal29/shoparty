@@ -19,7 +19,7 @@ import com.shoparty.android.databinding.ActivityMainBinding
 
 import com.shoparty.android.databinding.ActivityPrivacyPolicyBinding
 import com.shoparty.android.ui.fragment.*
-import com.shoparty.android.ui.login.SignInActivity
+
 import com.shoparty.android.ui.mainactivity.categories.CategoriesFragment
 import com.shoparty.android.ui.mainactivity.deals.DealsFragment
 import com.shoparty.android.ui.mainactivity.myaccount.MyAccountFragment

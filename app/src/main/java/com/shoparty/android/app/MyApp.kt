@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import com.shoparty.android.utils.PrefManager
 
-class CustomApplication : Application() {
+class MyApp : Application() {
     companion object {
 
         lateinit var application: Application
