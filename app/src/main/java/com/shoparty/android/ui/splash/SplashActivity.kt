@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import com.shoparty.android.R
-import com.shoparty.android.ui.login.SignInActivity
+import com.shoparty.android.ui.login.LoginActivity
 
 
 class SplashActivity : AppCompatActivity() {
@@ -14,7 +14,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         Handler().postDelayed({
-            val intent = Intent(this, SignInActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
         }, 1000)

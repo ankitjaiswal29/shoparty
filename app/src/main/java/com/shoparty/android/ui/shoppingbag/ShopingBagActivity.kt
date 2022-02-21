@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.shoparty.android.R
 import com.shoparty.android.ui.mainactivity.home.HomeCategoriesModel
-import com.shoparty.android.ui.login.SignInActivity
+import com.shoparty.android.ui.login.LoginActivity
 
 import kotlinx.android.synthetic.main.activity_shoping_bag.*
 
@@ -16,7 +16,7 @@ class ShopingBagActivity : AppCompatActivity() {
 
         fillBagItemRecyclerView(bagItemList)
         bag_item_checkout_btn.setOnClickListener {
-            val intent = Intent (this, SignInActivity::class.java)
+            val intent = Intent (this, LoginActivity::class.java)
             startActivity(intent)
         }
     }

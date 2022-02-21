@@ -57,6 +57,12 @@ object Utils {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
+   fun checkValidMobile(mobile:String):Boolean{
+        if(mobile.length>8 || mobile.length<=10){
+            return true
+        }else return false
+    }
+
     fun showLongToast(context: Context?, message: String?) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }

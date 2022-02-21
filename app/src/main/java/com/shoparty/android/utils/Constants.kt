@@ -1,13 +1,9 @@
 package com.shoparty.android.utils
 
-class Constants {
-    companion object {
-
-        val DEVICE_TYPE= "ANDROID"
-        const val SHARED_PREF_FILE_NAME = "SHOPARTY"
-        const val ANDROID = "ANDROID"
+object Constants {
+        const val SERVER_URL = "https://quytech.net/shoparty/public/api/v1/"  // server url
+        const val DEVICE_TYPE= "ANDROID"
+        val SHARED_PREF_FILE_NAME = "SHOPARTY"
+        const val DEVICE_TOKEN = "Adssdnsdcnsdcknsdckjn"
 
     }
-
-
-}

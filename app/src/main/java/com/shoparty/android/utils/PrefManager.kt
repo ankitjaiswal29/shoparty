@@ -1,5 +1,6 @@
 package com.shoparty.android.utils
 
+import android.app.Activity
 import android.content.Context
 
 
@@ -9,62 +10,94 @@ import android.content.SharedPreferences
 
 
 object PrefManager {
-    private var sharedPreferences: SharedPreferences =
-        CustomApplication.application.applicationContext.getSharedPreferences(
-            Constants.SHARED_PREF_FILE_NAME,
-        Context.MODE_PRIVATE
-    )
+    fun init(context: Context) {
+        if (!(::preferences.isInitialized)) {
+            preferences = context.getSharedPreferences(context.packageName, Activity.MODE_PRIVATE)
+        }
+    }
+    const val AUTH_TOKEN: String = "authToken"
+    const val USER_ID: String = "user_id"
+    const val NAME: String = "name"
+    const val PHONE: String = "phone_number"
+    const val GENDER: String = "gender"
+    const val COUNTRY_NAME: String = "country_name"
+    const val COUNTRY_ID: String = "country_id"
+    const val COUNTRY_CODE: String = "country_code"
+    const val IMAGE: String = "image"
+    const val ADDRESS: String = "address"
+    const val ROLE: String = "role"
+    const val OTP: String = "otp"
+    const val Logged_User: String = "loggedUser"
+    const val Reffered_User: String = "refferuser"
+    const val CONVERSION: String = "conversion"
+    const val WALLET_POINT: String = "wallet_point"
+    const val LATITUDE: String = "latitude"
+    const val LONGITUDE: String = "longitude"
 
-    // Keys
-    const val KEY_AUTH_TOKEN = "Auth_Token"
-    const val KEY_EMAIL = "email"
-    const val KEY_ID = "id"
-    const val KEY_NAME = "name"
+    const val FIRST_TIME: String = "first_time"
+    const val IS_LOGIN: String = "isLogin"
+    const val PROFILE_DATA: String = "profile_data"
 
+    const val FCM_TOKEN: String = "fcmToken"
+    const val DEVICE_ID: String = "deviceId"
+    const val FCM_USER_ID: String = "fcmUserid"
 
-    fun getString(key: String): String? {
-        return sharedPreferences.getString(key, "")
+    const val FCM_CHAT_ID: String = "fcmChatid"
+    const val TOTALAMOUNT: String = "totalAmount"
+
+    private lateinit var preferences: SharedPreferences
+
+    fun clearUserPref() {
+        preferences.edit()?.remove(AUTH_TOKEN)?.apply()
+        preferences.edit()?.remove(USER_ID)?.apply()
+        preferences.edit()?.remove(NAME)?.apply()
+        preferences.edit()?.remove(PHONE)?.apply()
+        //preferences.edit()?.remove(EMAIL)?.apply()
+        //preferences.edit()?.remove(PASSWORD)?.apply()
+        preferences.edit()?.remove(GENDER)?.apply()
+        preferences.edit()?.remove(COUNTRY_NAME)?.apply()
+        preferences.edit()?.remove(COUNTRY_ID)?.apply()
+        preferences.edit()?.remove(IMAGE)?.apply()
+        preferences.edit()?.remove(ADDRESS)?.apply()
+        preferences.edit()?.remove(ROLE)?.apply()
+        preferences.edit()?.remove(OTP)?.apply()
+        preferences.edit()?.remove(IS_LOGIN)?.apply()
     }
 
-    fun getInt(key: String): Int? {
-        return sharedPreferences.getInt(key,0)
+    //calling this method will clear FCM key
+    fun clearAllPref() {
+        preferences.edit()?.clear()?.apply()
     }
 
-    fun putString(key: String, value: String?) {
-        sharedPreferences.edit().putString(key, value).apply()
+    fun read(key: String, defValue: String): String {
+        return preferences.getString(key, defValue)!!
     }
 
-    fun putInt(key: String, value: Int?) {
-        value?.let { sharedPreferences.edit().putInt(key, it).apply() }
+    fun read(key: String, defValue: Boolean): Boolean {
+        return preferences.getBoolean(key, defValue)
     }
 
-
-    fun putBoolean(key: String, value: Boolean?) {
-        value?.let { sharedPreferences.edit().putBoolean(key, it).apply() }
+    fun read(key: String, defValue: Long): Long {
+        return preferences.getLong(key, defValue)
     }
 
-    fun getBoolean(key: String): Boolean {
-        return sharedPreferences.getBoolean(key, false)
+    fun read(key: String, defValue: Int): Int {
+        return preferences.getInt(key, defValue)
     }
 
-    fun putLong(key : String, value : Long?) {
-        value?.let { sharedPreferences.edit().putLong(key, it).apply()}
+    fun write(key: String, value: String) {
+        preferences.edit().putString(key, value).apply()
     }
 
-    fun getLong(key : String) : Long{
-        return sharedPreferences.getLong(key, 0)
+    fun write(key: String, value: Long) {
+        preferences.edit().putLong(key, value).apply()
     }
 
-    fun clearAuthTokenPref(){
-        val editor = sharedPreferences.edit()
-        editor.remove(KEY_AUTH_TOKEN)
-        editor.apply()
+    fun write(key: String, value: Int) {
+        preferences.edit().putInt(key, value).apply()
     }
 
-    fun clearAllPrefrance(){
-        val editor = sharedPreferences.edit()
-        editor.clear()
-        editor.apply()
+    fun write(key: String, value: Boolean) {
+        preferences.edit().putBoolean(key, value).apply()
     }
-
 }
