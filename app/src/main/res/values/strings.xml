@@ -349,6 +349,12 @@
     <string name="settings">Settings</string>
     <string name="full_name_manditory">Full Name*</string>
     <string name="no_internet">No Internet Connection!! Try Again</string>
+    <string name="enterfullname">Please enter full name</string>
+    <string name="enteremailid">Please enter email id</string>
+    <string name="entermobileno">Please enter mobile number</string>
+    <string name="pleaseselectdob">Please select date of birth</string>
+    <string name="entervalidnumber">Enter Number Valid Mobile Number</string>
+    <string name="entervalidmail">Please enter valid email</string>
 
 
 

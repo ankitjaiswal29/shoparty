@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="registerViewModel"
+            type="com.shoparty.android.ui.register.RegisterViewModel" />
     </data>
 
     <ScrollView
@@ -53,15 +55,16 @@
                 android:layout_marginTop="49dp" />
 
             <EditText
-                android:id="@+id/signUp_name_ed_txt"
+                android:id="@+id/etFullName"
                 style="@style/AppTheme.editText_gray"
                 app:layout_constraintTop_toBottomOf="@+id/signUp_name_htv"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="10dp"
                 android:singleLine="true"
-                android:imeOptions="actionNext"
-             />
+                android:inputType="text"
+                android:text="@={registerViewModel.fullName}"
+                android:imeOptions="actionNext" />
 
             <TextView
                 android:id="@+id/signUp_email_htv"
@@ -69,20 +72,23 @@
                 android:layout_height="wrap_content"
                 android:text="@string/email"
                 android:textSize="14dp"
-                app:layout_constraintTop_toBottomOf="@+id/signUp_name_ed_txt"
+                app:layout_constraintTop_toBottomOf="@+id/etFullName"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="25dp" />
 
             <EditText
-                android:id="@+id/signUp_email_ed_txt"
+                android:id="@+id/etEmail"
                 style="@style/AppTheme.editText_gray"
-                app:layout_constraintTop_toBottomOf="@+id/signUp_email_htv"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/signin_ed_bg"
                 android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
                 android:singleLine="true"
-                android:background="@drawable/signin_ed_bg" />
+                android:text="@={registerViewModel.etEmail}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/signUp_email_htv" />
 
             <TextView
                 android:id="@+id/signUp_mobile_htv"
@@ -90,18 +96,20 @@
                 android:layout_height="wrap_content"
                 android:text="@string/mobile"
                 android:textSize="14dp"
-                app:layout_constraintTop_toBottomOf="@+id/signUp_email_ed_txt"
+                app:layout_constraintTop_toBottomOf="@+id/etEmail"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="25dp" />
 
             <EditText
-                android:id="@+id/signUp_mobile_ed_txt"
+                android:id="@+id/etMobileNo"
                 app:layout_constraintTop_toBottomOf="@+id/signUp_mobile_htv"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="10dp"
                 android:singleLine="true"
                 android:imeOptions="actionNext"
+                android:inputType="phone"
+                android:text="@={registerViewModel.etMobileNo}"
                 style="@style/AppTheme.editText_gray"
                 android:background="@drawable/signin_ed_bg" />
 
@@ -111,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/gender"
                 android:textSize="14dp"
-                app:layout_constraintTop_toBottomOf="@+id/signUp_mobile_ed_txt"
+                app:layout_constraintTop_toBottomOf="@+id/etMobileNo"
 
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="25dp" />
@@ -143,6 +151,7 @@
                         android:id="@+id/iv_male"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
+                        android:layout_marginRight="@dimen/_5sdp"
                         android:src="@drawable/ic_baseline_check_24" />
 
                     <TextView
@@ -171,6 +180,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:visibility="gone"
+                        android:layout_marginRight="@dimen/_5sdp"
                         android:src="@drawable/ic_baseline_check_24" />
 
                     <TextView
@@ -208,11 +218,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/signUp_dob_htv">
 
                 <TextView
-                    android:id="@+id/tv_DateOfBirth"
+                    android:id="@+id/tvDateOfBirth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/_26_august_2000"
-                    android:layout_alignParentStart="true" />
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:hint="@string/pleaseselectdob"
+                    android:text="@={registerViewModel.tvDateOfBirth}" />
 
                 <ImageView
                     android:id="@+id/iv_DateOfBirth"
