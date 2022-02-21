@@ -12,21 +12,10 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import com.shoparty.android.R
 import com.shoparty.android.databinding.FragmentHomeBinding
-import com.shoparty.android.models.custommodel.HomeCategoriesModel
-import com.shoparty.android.models.custommodel.TopSellingHomeModel
-import com.shoparty.android.ui.activities.ballons.BallonsActivity
-import com.shoparty.android.ui.activities.candles.CandlesActivity
-import com.shoparty.android.ui.activities.colors.ColoursActivity
-import com.shoparty.android.ui.activities.costumes.CostumesActivity
-import com.shoparty.android.ui.activities.partysupply.PartySupplyActivity
-import com.shoparty.android.ui.activities.search.SearchActivity
-import com.shoparty.android.ui.activities.seasons.SeasonsActivity
-import com.shoparty.android.ui.activities.shoppingbag.ShopingBagActivity
-import com.shoparty.android.ui.activities.theme.ThemesActivity
-import com.shoparty.android.ui.adapters.*
-
+import com.shoparty.android.ui.mainactivity.deals.TopSellingHomeModel
+import com.shoparty.android.ui.mainactivity.home.*
+import com.smarteist.autoimageslider.SliderView
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.navigation_drawer.*
 
 class HomeFragment : Fragment() {
 
@@ -51,15 +40,91 @@ class HomeFragment : Fragment() {
       //  val root =  inflater.inflate(R.layout.fragment_home, container, false)
 
       // drawerLayout = root.findViewById(R.id.drawer_layout)
-        initialise()
+        //initialise()
        // setupUI()
         return binding.root
         //return root
     }
 
-    private fun initialise() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initialise()
 
     }
+    private fun initialise() {
+
+        val imageList: ArrayList<String> = ArrayList()
+        imageList.add("https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg")
+        imageList.add("https://images.ctfassets.net/hrltx12pl8hq/4plHDVeTkWuFMihxQnzBSb/aea2f06d675c3d710d095306e377382f/shutterstock_554314555_copy.jpg")
+        imageList.add("https://media.istockphoto.com/photos/child-hands-formig-heart-shape-picture-id951945718?k=6&m=951945718&s=612x612&w=0&h=ih-N7RytxrTfhDyvyTQCA5q5xKoJToKSYgdsJ_mHrv0=")
+        setImageInSlider(imageList, binding.imageSliderr)
+
+
+
+
+        Topselling()
+        HomeCategory()
+        season()
+
+
+    }
+
+    private fun season() {
+         val seasonsItemList = listOf<HomeCategoriesModel>(
+            HomeCategoriesModel("Ballons"),
+            HomeCategoriesModel("Ballons"),
+            HomeCategoriesModel("Ballons"),
+            HomeCategoriesModel("Ballons"),
+            HomeCategoriesModel("Ballons"),
+
+            )
+
+
+            binding.seasonsRecycler.adapter = HomeSeasonsAdapter(seasonsItemList)
+
+    }
+
+    private fun HomeCategory() {
+         val categoryList = listOf<HomeCategoriesModel>(
+            HomeCategoriesModel("Ballons"),
+            HomeCategoriesModel("Party Supply"),
+        )
+
+            val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
+            home_categories_recycler.apply {
+                layoutManager = gridLayoutManager
+                setHasFixedSize(true)
+                isFocusable = false
+                adapter = HomeCategoriesAdapter(categoryList)
+            }
+
+    }
+
+    private fun Topselling() {
+        val topSellingItemList = listOf<TopSellingHomeModel>(
+            TopSellingHomeModel("Princess Dress","$10.2"),
+            TopSellingHomeModel("Princess Dress","$10.2"),
+            TopSellingHomeModel("Princess Dress","$10.2"),
+            TopSellingHomeModel("Princess Dress","$10.2"),
+            TopSellingHomeModel("Princess Dress","$10.2"),
+            TopSellingHomeModel("Princess Dress","$10.2"),
+        )
+        binding.topSellingRecycler.adapter = TopSellingHomeAdapter(topSellingItemList)
+    }
+
+    private fun setImageInSlider(images: ArrayList<String>, imageSlider: SliderView) {
+        val adapter = MySliderImageAdapter()
+        adapter.renewItems(images)
+        imageSlider.setSliderAdapter(adapter)
+        imageSlider.isAutoCycle = true
+        imageSlider.startAutoCycle()
+    }
+
+
+
+
+
+
 /*
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -181,33 +246,9 @@ class HomeFragment : Fragment() {
         top_selling_recycler.adapter = TopSellingHomeAdapter(topSellingItemList)
     }
 
-    private val categoryList = listOf<HomeCategoriesModel>(
-        HomeCategoriesModel("Ballons"),
-        HomeCategoriesModel("Party Supply"),
-    )
 
-    private fun fillCategoriesRecyclerView(categories: List<HomeCategoriesModel>) {
-        val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
-        home_categories_recycler.apply {
-            layoutManager = gridLayoutManager
-            setHasFixedSize(true)
-            isFocusable = false
-            adapter = HomeCategoriesAdapter(categoryList)
-        }
-    }
 
-    private val seasonsItemList = listOf<HomeCategoriesModel>(
-        HomeCategoriesModel("Ballons"),
-        HomeCategoriesModel("Ballons"),
-        HomeCategoriesModel("Ballons"),
-        HomeCategoriesModel("Ballons"),
-        HomeCategoriesModel("Ballons"),
 
-        )
-
-    private fun fillSeasonsRecyclerView(seasons: List<HomeCategoriesModel>) {
-        seasons_recycler.adapter = HomeSeasonsAdapter(seasonsItemList)
-    }
 
 
 //themes

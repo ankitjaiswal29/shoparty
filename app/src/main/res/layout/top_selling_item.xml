@@ -8,8 +8,8 @@
     android:id="@+id/top_selling_item_root"
     android:background="@drawable/home_top_selling_items_bg">
     <FrameLayout
-        android:layout_width="130dp"
-        android:layout_height="130dp">
+        android:layout_width="104dp"
+        android:layout_height="106dp">
         <ImageView
             android:layout_width="130dp"
             android:layout_height="130dp"

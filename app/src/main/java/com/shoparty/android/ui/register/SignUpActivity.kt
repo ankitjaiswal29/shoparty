@@ -1,7 +1,6 @@
 package com.shoparty.android.ui.register
 
 import android.app.DatePickerDialog
-import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -12,9 +11,9 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivitySignUpBinding
+import com.shoparty.android.ui.activities.mainactivity.MainActivity
 
 
-import com.shoparty.android.ui.mainactivity.MainActivity
 import com.shoparty.android.ui.login.SignInActivity
 import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.apiutils.Resource
