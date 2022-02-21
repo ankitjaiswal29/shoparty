@@ -28,6 +28,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
 
+
+
+
     private fun initialise()
     {
         binding.btnGetOtp.setOnClickListener(this)
