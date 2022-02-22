@@ -252,7 +252,7 @@
     <string name="candy">Candy</string>
     <string name="baby_shower">Baby Shower</string>
     <string name="verification">Verification</string>
-    <string name="enter_otp_sent_to_mobile_number_999_9999_999">Enter otp sent to mobile number 999 9999 999</string>
+    <string name="str_mobileno">Enter otp sent to mobile number</string>
     <string name="otp">OTP</string>
     <string name="resend_otp_sent_in">Resend OTP Sent</string>
     <string name="_2_min">2 Min</string>

@@ -58,9 +58,7 @@ object Utils {
     }
 
    fun checkValidMobile(mobile:String):Boolean{
-        if(mobile.length>8 || mobile.length<=10){
-            return true
-        }else return false
+       return mobile.length<8 || mobile.length>15
     }
 
     fun showLongToast(context: Context?, message: String?) {

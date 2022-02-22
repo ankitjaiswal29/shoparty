@@ -109,7 +109,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     PrefManager.write(PrefManager.AUTH_TOKEN, response.data?.token!!)
-                    startActivity(Intent(this, MainActivity::class.java))
+                    startActivity(Intent(this, LoginActivity::class.java))
                     Toast.makeText(
                         applicationContext,
                         response.message,

@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingStart="36dp"
-    android:paddingEnd="36dp"
-    tools:context=".ui.activities.verificationotp.VerificationActivity">
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="36dp"
+        android:paddingEnd="36dp">
+
+
+
+
     <TextView
         android:id="@+id/verification_htv"
         android:layout_width="wrap_content"
@@ -17,18 +24,29 @@
         android:textColor="@color/black"
         android:textSize="28dp"
         android:textStyle="bold"
-        android:layout_marginTop="76dp"
-     />
+        android:layout_marginTop="76dp" />
     <TextView
-        android:id="@+id/verification_desc_tv"
+        android:id="@+id/verificationDescTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/verification_htv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:textSize="16dp"
+        android:lines="1"
         android:layout_marginTop="10dp"
-        android:text="@string/enter_otp_sent_to_mobile_number_999_9999_999"/>
+        android:text="@string/str_mobileno"/>
+
+        <TextView
+            android:id="@+id/tv_mobileno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/verificationDescTv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="16dp"
+            android:lines="1"
+            android:text=""/>
 
     <TextView
         android:id="@+id/verification_mobile_htv"
@@ -36,7 +54,7 @@
         android:layout_height="wrap_content"
         android:text="@string/otp"
         android:textSize="14dp"
-        app:layout_constraintTop_toBottomOf="@+id/verification_desc_tv"
+        app:layout_constraintTop_toBottomOf="@+id/verificationDescTv"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="49dp"/>
     <EditText
@@ -81,4 +99,5 @@
         android:textColor="@color/white"
         android:background="@drawable/customize_btn_bg"
         android:textAllCaps="false"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

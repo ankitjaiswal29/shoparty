@@ -4,6 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="loginViewModel"
+            type="com.shoparty.android.ui.login.LoginViewModel" />
+    </data>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -33,10 +39,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:textSize="16dp"
+        android:lines="1"
         android:layout_marginTop="10dp"
         android:text="@string/fugiat_aut_et_dolor_optio_culpa_est_odit_autem_voluptate"/>
 
-    <TextView
+
+
+
+
+
+
+
+        <TextView
         android:id="@+id/signin_mobile_htv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,6 +68,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="10dp"
+        android:inputType="phone"
+        android:text="@={loginViewModel.etMobileNo}"
        />
 
     <Button

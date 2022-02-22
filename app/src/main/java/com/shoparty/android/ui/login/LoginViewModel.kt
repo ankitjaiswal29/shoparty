@@ -9,7 +9,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shoparty.android.R
-import com.shoparty.android.ui.register.RegisterResponseModel
 import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
@@ -21,21 +20,20 @@ class LoginViewModel(private val app: Application) : ViewModel()
 {
     private var mContext:Context = app.applicationContext
     private val repository = LoginRepository()
-    val fullName: ObservableField<String> = ObservableField()
-    val etEmail: ObservableField<String> = ObservableField()
     val etMobileNo: ObservableField<String> = ObservableField()
-    val tvDateOfBirth: ObservableField<String> = ObservableField()
-    private val mlogin = MutableLiveData<Resource<RegisterResponseModel.User>>()
-    val login: LiveData<Resource<RegisterResponseModel.User>> = mlogin
-    fun postLogin(selectedGender: String) = viewModelScope.launch {
+    private val mlogin = MutableLiveData<Resource<LoginResponse.User>>()
+    val login: LiveData<Resource<LoginResponse.User>> = mlogin
+
+    fun postLogin() = viewModelScope.launch {
         if(validation())
         {
-            val request = LoginRequestModel(fullName.get()!!,etEmail.get()!!,etMobileNo.get()!!,tvDateOfBirth.get()!!,selectedGender,Constants.DEVICE_TYPE,Constants.DEVICE_TOKEN)
+            val request = LoginRequestModel(etMobileNo.get()!!,Constants.DEVICE_TYPE,
+                Constants.DEVICE_TOKEN,Constants.TYPE)
             if(Utils.hasInternetConnection(app.applicationContext))
             {
                 mlogin.postValue(Resource.Loading())
                 val response = repository.loginapi(request)
-                mlogin.postValue(handleSignUpResponse(response!!))
+                mlogin.postValue(handleLoginResponse(response!!))
             }
             else
             {
@@ -48,36 +46,20 @@ class LoginViewModel(private val app: Application) : ViewModel()
     
     private fun validation():Boolean
     {
-        if (fullName.get().isNullOrBlank())
-        {
-            Utils.showShortToast(mContext,mContext.getString(R.string.enterfullname))
-            return false
-        }
-        if (etEmail.get()?.trim().isNullOrBlank()) {
-            Utils.showShortToast(mContext,mContext.getString(R.string.enteremailid))
-            return false
-        }
-        if (!Patterns.EMAIL_ADDRESS.matcher(etEmail.get()?.trim()).matches())
-        {
-            Utils.showShortToast(mContext,mContext.getString(R.string.entervalidmail))
-            return false
-        }
         if (etMobileNo.get().isNullOrBlank()) {
             Utils.showShortToast(mContext,mContext.getString(R.string.entermobileno))
             return false
         }
-        if(!Utils.checkValidMobile(etMobileNo.get()!!)){
+
+        if(Utils.checkValidMobile(etMobileNo.get()!!))
+        {
             Utils.showShortToast(mContext,mContext.getString(R.string.entervalidnumber))
-            return false
-        }
-        if(tvDateOfBirth.get().isNullOrBlank()){
-            Utils.showShortToast(mContext,mContext.getString(R.string.pleaseselectdob))
             return false
         }
         return true
     }
 
-    private fun handleSignUpResponse(response: Response<RegisterResponseModel>): Resource<RegisterResponseModel.User> {
+    private fun handleLoginResponse(response: Response<LoginResponse>): Resource<LoginResponse.User> {
         if (response?.isSuccessful)
         {
             response.body()?.let { res ->

@@ -66,7 +66,7 @@ class RegisterViewModel(private val app: Application) : ViewModel()
             Utils.showShortToast(mContext,mContext.getString(R.string.entermobileno))
             return false
         }
-        if(!Utils.checkValidMobile(etMobileNo.get()!!)){
+        if(Utils.checkValidMobile(etMobileNo.get()!!)){
             Utils.showShortToast(mContext,mContext.getString(R.string.entervalidnumber))
             return false
         }

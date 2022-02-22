@@ -10,23 +10,18 @@ import okhttp3.Response
 import java.io.IOException
 
 class AuthInterceptor (val context: Context) : Interceptor {
-
     override fun intercept(chain: Interceptor.Chain): Response {
-
-        if (!isConnected()) {
+        if(!isConnected()) {
             throw NoConnectivityException()
-            // Throwing our custom exception 'NoConnectivityException'
         }
         val requestBuilder = chain.request().newBuilder()
         val authToken = PrefManager.read(PrefManager.AUTH_TOKEN,"")
         Log.e("AuthToken", authToken!!)
-
-        //requestBuilder.addHeader("Authorization", authToken)
         requestBuilder.addHeader("Authorization","Bearer $authToken")
         return chain.proceed(requestBuilder.build())
     }
 
-    fun isConnected(): Boolean {
+    private fun isConnected(): Boolean {
         val connectivityManager: ConnectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val netInfo: NetworkInfo? = connectivityManager.activeNetworkInfo
