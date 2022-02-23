@@ -6,6 +6,7 @@ object Constants {
         val SHARED_PREF_FILE_NAME = "SHOPARTY"
         const val DEVICE_TOKEN = "Adssdnsdcnsdcknsdckjn"
         const val TYPE = "1"
-        const val MOBILE = ""
+        const val MOBILE = "MOBILE"
+        const val USERID = "USERID"
 
     }

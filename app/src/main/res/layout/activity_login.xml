@@ -91,7 +91,8 @@
         app:layout_constraintStart_toStartOf="@+id/btnGetOtp"
         app:layout_constraintEnd_toEndOf="@+id/btnGetOtp"
         android:orientation="horizontal"
-        android:layout_marginTop="58dp">
+        android:layout_marginTop="58dp"
+        android:gravity="">
         <TextView
             android:id="@+id/donot_hvac_txt"
             android:layout_width="wrap_content"
