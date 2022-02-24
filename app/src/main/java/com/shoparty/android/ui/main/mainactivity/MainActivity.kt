@@ -42,7 +42,6 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
     private fun initialise() {
 
         binding.navigationView.bringToFront();
-       // binding.navigationView.setNavigationItemSelectedListener(this)
         binding.homeNavBtn.setOnClickListener(this)
         binding.crossNavBtn.setOnClickListener(this)
         binding.btnSigninSignout.setOnClickListener(this)
@@ -58,7 +57,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
             binding.drawerLayout.openDrawer(GravityCompat.START)
         }
 
-           homeFragment=HomeFragment()
+        homeFragment=HomeFragment()
         val categoriesFragment=CategoriesFragment()
         val dealsFragment=DealsFragment()
         val wishListFragment= WishListFragment()
@@ -73,7 +72,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
             HomeCategoriesModel("Best Selling"))
 
         binding.rvDrawerHomerecyclarview.layoutManager = LinearLayoutManager(this)
-        val adapter = DrawerAdapter(drawerItemList)
+        val adapter = DrawerAdapter(this,drawerItemList)
         binding.rvDrawerHomerecyclarview.adapter = adapter
 
         setCurrentFragment(homeFragment)
