@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityLoginBinding
+import com.shoparty.android.ui.activities.mainactivity.MainActivity
 import com.shoparty.android.ui.verificationotp.VerificationActivity
 import com.shoparty.android.ui.register.RegisterActivity
 import com.shoparty.android.utils.Constants
