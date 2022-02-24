@@ -31,13 +31,18 @@
         <entry key="..\:/shoparty_android/app/src/main/res/drawable/ic_user.xml" value="0.1685185185185185" />
         <entry key="..\:/shoparty_android/app/src/main/res/drawable/language_icon.xml" value="0.1685185185185185" />
         <entry key="..\:/shoparty_android/app/src/main/res/drawable/wishlist_icon.xml" value="0.1685185185185185" />
+        <entry key="..\:/shoparty_android/app/src/main/res/layout/activity_add_new_address.xml" value="0.22" />
+        <entry key="..\:/shoparty_android/app/src/main/res/layout/activity_filter.xml" value="0.22" />
         <entry key="..\:/shoparty_android/app/src/main/res/layout/activity_login.xml" value="0.18802083333333333" />
         <entry key="..\:/shoparty_android/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/shoparty_android/app/src/main/res/layout/activity_my_account.xml" value="0.1" />
+        <entry key="..\:/shoparty_android/app/src/main/res/layout/activity_my_profile.xml" value="0.18" />
         <entry key="..\:/shoparty_android/app/src/main/res/layout/activity_ongoing_order.xml" value="0.1" />
         <entry key="..\:/shoparty_android/app/src/main/res/layout/activity_order_successfuly.xml" value="0.18" />
         <entry key="..\:/shoparty_android/app/src/main/res/layout/activity_payment.xml" value="0.1" />
         <entry key="..\:/shoparty_android/app/src/main/res/layout/activity_privacy_policy.xml" value="0.1" />
         <entry key="..\:/shoparty_android/app/src/main/res/layout/activity_register.xml" value="0.18802083333333333" />
+        <entry key="..\:/shoparty_android/app/src/main/res/layout/activity_shipping.xml" value="0.1" />
         <entry key="..\:/shoparty_android/app/src/main/res/layout/activity_shoping_bag.xml" value="0.33" />
         <entry key="..\:/shoparty_android/app/src/main/res/layout/activity_sign_in.xml" value="0.1" />
         <entry key="..\:/shoparty_android/app/src/main/res/layout/activity_sign_up.xml" value="0.18" />
