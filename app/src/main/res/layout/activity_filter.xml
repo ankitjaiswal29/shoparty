@@ -1,785 +1,838 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#F8F8F8"
-    tools:context=".ui.filter.FilterActivity">
+    xmlns:tools="http://schemas.android.com/tools">
+
+   <!-- <data>
+
+    </data>-->
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/filter_top_lay"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/white"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp">
-        <ImageView
-            android:id="@+id/filter_shoparty_icon_img"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="match_parent"
+        android:background="#F8F8F8"
+        tools:context=".ui.filter.FilterActivity">
+
+        <include
+            android:id="@+id/info_tool"
+            layout="@layout/toolbar_layout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:src="@drawable/shoparty_icon"/>
-        <ImageView
-            android:id="@+id/filter_back_arrow_btn"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_baseline_arrow_back_ios_24"
-            app:tint="@color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/filter_shoparty_icon_img"
-            android:layout_marginStart="20dp"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/filter"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="@+id/filter_shoparty_icon_img"
-            app:layout_constraintEnd_toEndOf="@+id/filter_shoparty_icon_img"
-            app:layout_constraintTop_toBottomOf="@+id/filter_shoparty_icon_img"
-            app:layout_constraintBottom_toBottomOf="@+id/filter_back_arrow_btn"/>
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/info_tool"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/filter_recyclar_color_layout_item"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+
+
+
+            <!--   <androidx.constraintlayout.widget.ConstraintLayout
+                   android:id="@+id/filter_cons_lay1"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:paddingBottom="20dp">
+
+                   <RelativeLayout
+                       android:id="@+id/filter_color_lay"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:background="@color/white"
+                       app:layout_constraintTop_toTopOf="parent"
+                       app:layout_constraintStart_toStartOf="parent"
+                       android:paddingStart="20dp"
+                       android:paddingEnd="20dp"
+                       android:paddingTop="10dp"
+                       android:paddingBottom="10dp"
+                       android:layout_marginTop="10dp">
+
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="@string/color"
+                           android:textSize="18dp"
+                           android:textColor="@color/black"
+                           android:layout_centerVertical="true" />
+
+                       <ImageView
+                           android:layout_width="20dp"
+                           android:layout_height="20dp"
+                           android:layout_alignParentEnd="true"
+                           app:tint="@color/black"
+                           android:src="@drawable/ic_icon_feather_chevron_down" />
+                   </RelativeLayout>
+
+                   <TextView
+                       android:id="@+id/clear_color_htv"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="@string/clear"
+                       android:textColor="@color/color_pink"
+                       android:textSize="16dp"
+                       app:layout_constraintTop_toBottomOf="@+id/filter_color_lay"
+                       app:layout_constraintStart_toStartOf="parent"
+                       android:layout_marginTop="10dp"
+                       android:layout_marginStart="20dp" />
+
+                   <androidx.constraintlayout.widget.ConstraintLayout
+                       android:id="@+id/filter_color_cons_lay"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       app:layout_constraintTop_toBottomOf="@+id/clear_color_htv"
+                       app:layout_constraintStart_toStartOf="parent"
+                       app:layout_constraintEnd_toEndOf="parent"
+                       android:paddingBottom="10dp">
+
+                       <LinearLayout
+                           android:id="@+id/filter_color_linear1"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           app:layout_constraintTop_toTopOf="parent"
+                           app:layout_constraintStart_toStartOf="parent"
+                           app:layout_constraintEnd_toEndOf="parent"
+                           android:layout_marginStart="20dp"
+                           android:layout_marginEnd="20dp"
+                           android:layout_marginTop="10dp"
+                           android:orientation="horizontal">
+
+                           <ImageView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:src="@drawable/ic_ellipse_blue"
+                               android:layout_marginEnd="10dp" />
+
+                           <ImageView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:src="@drawable/ic_ellipse_red"
+                               android:layout_marginStart="10dp"
+                               android:layout_marginEnd="10dp" />
+
+                           <ImageView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:src="@drawable/ic_ellipse_pink"
+                               android:layout_marginEnd="10dp"
+                               android:layout_marginStart="10dp" />
+
+                           <ImageView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:src="@drawable/ic_ellipse_deep_blue"
+                               android:layout_marginStart="10dp"
+                               android:layout_marginEnd="10dp" />
+
+                           <ImageView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:src="@drawable/ic_ellipse_blue"
+                               android:layout_marginStart="10dp"
+                               android:layout_marginEnd="10dp" />
+
+                           <ImageView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:src="@drawable/ic_ellipse_deep_blue"
+                               android:layout_marginStart="10dp"
+                               android:layout_marginEnd="10dp" />
+
+                           <ImageView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:src="@drawable/ic_ellipse_red"
+                               android:layout_marginStart="10dp"
+                               android:layout_marginEnd="10dp" />
+
+                       </LinearLayout>
+
+                       <LinearLayout
+                           android:id="@+id/filter_color_linear2"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           app:layout_constraintTop_toBottomOf="@+id/filter_color_linear1"
+                           app:layout_constraintStart_toStartOf="parent"
+                           app:layout_constraintEnd_toEndOf="parent"
+                           android:layout_marginStart="20dp"
+                           android:layout_marginEnd="20dp"
+                           android:layout_marginTop="10dp"
+                           android:orientation="horizontal">
+
+                           <ImageView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:src="@drawable/ic_ellipse_blue"
+                               android:layout_marginEnd="10dp" />
+
+                           <ImageView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:src="@drawable/ic_ellipse_red"
+                               android:layout_marginStart="10dp"
+                               android:layout_marginEnd="10dp" />
+
+                           <ImageView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:src="@drawable/ic_ellipse_pink"
+                               android:layout_marginEnd="10dp"
+                               android:layout_marginStart="10dp" />
+
+                           <ImageView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:src="@drawable/ic_ellipse_deep_blue"
+                               android:layout_marginStart="10dp"
+                               android:layout_marginEnd="10dp" />
+
+                           <ImageView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:src="@drawable/ic_ellipse_blue"
+                               android:layout_marginStart="10dp"
+                               android:layout_marginEnd="10dp" />
+
+                           <ImageView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:src="@drawable/ic_ellipse_deep_blue"
+                               android:layout_marginStart="10dp"
+                               android:layout_marginEnd="10dp" />
+
+                           <ImageView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:src="@drawable/ic_ellipse_red"
+                               android:layout_marginStart="10dp"
+                               android:layout_marginEnd="10dp" />
+
+                       </LinearLayout>
+
+                       <LinearLayout
+                           android:id="@+id/filter_color_linear3"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           app:layout_constraintTop_toBottomOf="@+id/filter_color_linear2"
+                           app:layout_constraintStart_toStartOf="parent"
+                           app:layout_constraintEnd_toEndOf="parent"
+                           android:layout_marginStart="20dp"
+                           android:layout_marginEnd="20dp"
+                           android:layout_marginTop="10dp"
+                           android:orientation="horizontal">
+
+                           <ImageView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:src="@drawable/ic_ellipse_blue"
+                               android:layout_marginEnd="10dp" />
+
+                           <ImageView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:src="@drawable/ic_ellipse_red"
+                               android:layout_marginStart="10dp"
+                               android:layout_marginEnd="10dp" />
+
+                           <ImageView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:src="@drawable/ic_ellipse_pink"
+                               android:layout_marginEnd="10dp"
+                               android:layout_marginStart="10dp" />
+
+                           <ImageView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:src="@drawable/ic_ellipse_deep_blue"
+                               android:layout_marginStart="10dp"
+                               android:layout_marginEnd="10dp" />
+
+                           <ImageView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:src="@drawable/ic_ellipse_blue"
+                               android:layout_marginStart="10dp"
+                               android:layout_marginEnd="10dp" />
+
+                           <ImageView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:src="@drawable/ic_ellipse_deep_blue"
+                               android:layout_marginStart="10dp"
+                               android:layout_marginEnd="10dp" />
+
+                           <ImageView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:src="@drawable/ic_ellipse_red"
+                               android:layout_marginStart="10dp"
+                               android:layout_marginEnd="10dp" />
+
+                       </LinearLayout>
+
+                       <Button
+                           android:id="@+id/filter_color_apply_btn"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           app:layout_constraintTop_toBottomOf="@+id/filter_color_linear3"
+                           app:layout_constraintStart_toStartOf="parent"
+                           app:layout_constraintEnd_toEndOf="parent"
+                           android:layout_marginEnd="20dp"
+                           android:layout_marginStart="20dp"
+                           android:layout_marginTop="20dp"
+                           android:text="@string/apply"
+                           android:textSize="16dp"
+                           android:textAllCaps="false"
+                           android:background="@drawable/customize_btn_bg"
+                           android:textColor="@color/white" />
+                   </androidx.constraintlayout.widget.ConstraintLayout>
+
+                   <RelativeLayout
+                       android:id="@+id/filter_size_lay"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:background="@color/white"
+                       app:layout_constraintTop_toBottomOf="@+id/filter_color_cons_lay"
+                       app:layout_constraintStart_toStartOf="parent"
+                       android:paddingStart="20dp"
+                       android:paddingEnd="20dp"
+                       android:paddingTop="10dp"
+                       android:paddingBottom="10dp"
+                       android:layout_marginTop="7dp">
+
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="@string/size"
+                           android:textSize="18dp"
+                           android:textColor="@color/black"
+                           android:layout_centerVertical="true" />
+
+                       <ImageView
+                           android:layout_width="20dp"
+                           android:layout_height="20dp"
+                           android:layout_alignParentEnd="true"
+                           app:tint="@color/black"
+                           android:src="@drawable/ic_icon_feather_chevron_down" />
+                   </RelativeLayout>
+
+                   <TextView
+                       android:id="@+id/clear_size_htv"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="@string/clear"
+                       android:textColor="@color/color_pink"
+                       android:textSize="16dp"
+                       app:layout_constraintTop_toBottomOf="@+id/filter_size_lay"
+                       app:layout_constraintStart_toStartOf="parent"
+                       android:layout_marginTop="10dp"
+                       android:layout_marginStart="20dp" />
+
+                   <androidx.constraintlayout.widget.ConstraintLayout
+                       android:id="@+id/filter_size_cons_lay"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       app:layout_constraintTop_toBottomOf="@+id/clear_size_htv"
+                       app:layout_constraintStart_toStartOf="parent"
+                       app:layout_constraintEnd_toEndOf="parent"
+                       android:paddingBottom="10dp">
+
+                       <LinearLayout
+                           android:id="@+id/filter_size_linear1"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           app:layout_constraintTop_toTopOf="parent"
+                           app:layout_constraintStart_toStartOf="parent"
+                           app:layout_constraintEnd_toEndOf="parent"
+                           android:layout_marginStart="20dp"
+                           android:layout_marginEnd="20dp"
+                           android:layout_marginTop="10dp"
+                           android:orientation="horizontal">
+
+                           <TextView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="@string/s"
+                               android:textSize="18dp"
+                               android:textColor="@color/black"
+                               android:drawableEnd="@drawable/ic_baseline_check_24"
+                               android:layout_marginEnd="10dp"
+                               android:background="@color/white"
+                               android:padding="5dp" />
+
+                           <TextView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="@string/m"
+                               android:textSize="18dp"
+                               android:textColor="@color/black"
+                               android:drawableEnd="@drawable/ic_baseline_check_24"
+                               android:layout_marginEnd="10dp"
+                               android:background="@color/white"
+                               android:padding="5dp" />
+
+                           <TextView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="@string/xl"
+                               android:textSize="18dp"
+                               android:textColor="@color/black"
+                               android:drawableEnd="@drawable/ic_baseline_check_24"
+                               android:layout_marginEnd="10dp"
+                               android:background="@color/white"
+                               android:padding="5dp" />
+
+                           <TextView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="@string/xxl"
+                               android:textSize="18dp"
+                               android:textColor="@color/black"
+                               android:drawableEnd="@drawable/ic_baseline_check_24"
+                               android:layout_marginEnd="10dp"
+                               android:background="@color/white"
+                               android:padding="5dp" />
+
+                           <TextView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="@string/uk6"
+                               android:textSize="18dp"
+                               android:textColor="@color/black"
+                               android:drawableEnd="@drawable/ic_baseline_check_24"
+                               android:layout_marginEnd="10dp"
+                               android:background="@color/white"
+                               android:padding="5dp" />
+                       </LinearLayout>
+
+                       <LinearLayout
+                           android:id="@+id/filter_size_linear2"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           app:layout_constraintTop_toBottomOf="@+id/filter_size_linear1"
+                           app:layout_constraintStart_toStartOf="parent"
+                           app:layout_constraintEnd_toEndOf="parent"
+                           android:layout_marginStart="20dp"
+                           android:layout_marginEnd="20dp"
+                           android:layout_marginTop="10dp"
+                           android:orientation="horizontal">
+
+                           <TextView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="@string/uk7"
+                               android:textSize="18dp"
+                               android:textColor="@color/black"
+                               android:drawableEnd="@drawable/ic_baseline_check_24"
+                               android:layout_marginEnd="10dp"
+                               android:background="@color/white"
+                               android:padding="5dp" />
+
+                           <TextView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="@string/uk8"
+                               android:textSize="18dp"
+                               android:textColor="@color/black"
+                               android:drawableEnd="@drawable/ic_baseline_check_24"
+                               android:layout_marginEnd="10dp"
+                               android:background="@color/white"
+                               android:padding="5dp" />
+
+                           <TextView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="@string/uk9"
+                               android:textSize="18dp"
+                               android:textColor="@color/black"
+                               android:drawableEnd="@drawable/ic_baseline_check_24"
+                               android:layout_marginEnd="10dp"
+                               android:background="@color/white"
+                               android:padding="5dp" />
+
+                           <TextView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="@string/uk10"
+                               android:textSize="18dp"
+                               android:textColor="@color/black"
+                               android:drawableEnd="@drawable/ic_baseline_check_24"
+                               android:layout_marginEnd="10dp"
+                               android:background="@color/white"
+                               android:padding="5dp" />
+                       </LinearLayout>
+
+                       <Button
+                           android:id="@+id/filter_size_apply_btn"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           app:layout_constraintTop_toBottomOf="@+id/filter_size_linear2"
+                           app:layout_constraintStart_toStartOf="parent"
+                           app:layout_constraintEnd_toEndOf="parent"
+                           android:layout_marginEnd="20dp"
+                           android:layout_marginStart="20dp"
+                           android:layout_marginTop="20dp"
+                           android:text="@string/apply"
+                           android:textSize="16dp"
+                           android:textAllCaps="false"
+                           android:background="@drawable/customize_btn_bg"
+                           android:textColor="@color/white" />
+
+                   </androidx.constraintlayout.widget.ConstraintLayout>
+
+                   <RelativeLayout
+                       android:id="@+id/filter_age_lay"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:background="@color/white"
+                       app:layout_constraintTop_toBottomOf="@+id/filter_size_cons_lay"
+                       app:layout_constraintStart_toStartOf="parent"
+                       android:paddingStart="20dp"
+                       android:paddingEnd="20dp"
+                       android:paddingTop="10dp"
+                       android:paddingBottom="10dp"
+                       android:layout_marginTop="7dp">
+
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="@string/age"
+                           android:textSize="18dp"
+                           android:textColor="@color/black"
+                           android:layout_centerVertical="true" />
+
+                       <ImageView
+                           android:layout_width="20dp"
+                           android:layout_height="20dp"
+                           android:layout_alignParentEnd="true"
+                           app:tint="@color/black"
+                           android:src="@drawable/ic_icon_feather_chevron_down" />
+                   </RelativeLayout>
+
+                   <TextView
+                       android:id="@+id/clear_age_htv"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="@string/clear"
+                       android:textColor="@color/color_pink"
+                       android:textSize="16dp"
+                       app:layout_constraintTop_toBottomOf="@+id/filter_age_lay"
+                       app:layout_constraintStart_toStartOf="parent"
+                       android:layout_marginTop="10dp"
+                       android:layout_marginStart="20dp" />
+
+                   <androidx.constraintlayout.widget.ConstraintLayout
+                       android:id="@+id/filter_age_cons_lay"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       app:layout_constraintTop_toBottomOf="@+id/clear_age_htv"
+                       app:layout_constraintStart_toStartOf="parent"
+                       app:layout_constraintEnd_toEndOf="parent"
+                       android:paddingBottom="10dp">
+
+                       <LinearLayout
+                           android:id="@+id/filter_age_linear1"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           app:layout_constraintTop_toTopOf="parent"
+                           app:layout_constraintStart_toStartOf="parent"
+                           app:layout_constraintEnd_toEndOf="parent"
+                           android:layout_marginStart="20dp"
+                           android:layout_marginEnd="20dp"
+                           android:layout_marginTop="10dp"
+                           android:orientation="horizontal">
+
+                           <TextView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="@string/baby_0_2_years"
+                               android:textSize="18dp"
+                               android:textColor="@color/black"
+                               android:drawableEnd="@drawable/ic_baseline_check_24"
+                               android:layout_marginEnd="10dp"
+                               android:background="@color/white"
+                               android:padding="5dp" />
+
+                           <TextView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="@string/toddler_2_4_years"
+                               android:textSize="18dp"
+                               android:textColor="@color/black"
+                               android:drawableEnd="@drawable/ic_baseline_check_24"
+                               android:layout_marginEnd="10dp"
+                               android:background="@color/white"
+                               android:padding="5dp" />
+                       </LinearLayout>
+
+                       <LinearLayout
+                           android:id="@+id/filter_age_linear2"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           app:layout_constraintTop_toBottomOf="@+id/filter_age_linear1"
+                           app:layout_constraintStart_toStartOf="parent"
+                           app:layout_constraintEnd_toEndOf="parent"
+                           android:layout_marginStart="20dp"
+                           android:layout_marginEnd="20dp"
+                           android:layout_marginTop="10dp"
+                           android:orientation="horizontal">
+
+                           <TextView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="@string/adventures_5_7_years"
+                               android:textSize="18dp"
+                               android:textColor="@color/black"
+                               android:drawableEnd="@drawable/ic_baseline_check_24"
+                               android:layout_marginEnd="10dp"
+                               android:background="@color/white"
+                               android:padding="5dp" />
+
+                           <TextView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="@string/pioneers_8"
+                               android:textSize="18dp"
+                               android:textColor="@color/black"
+                               android:drawableEnd="@drawable/ic_baseline_check_24"
+                               android:layout_marginEnd="10dp"
+                               android:background="@color/white"
+                               android:padding="5dp" />
+                       </LinearLayout>
+
+                       <LinearLayout
+                           android:id="@+id/filter_age_linear3"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           app:layout_constraintTop_toBottomOf="@+id/filter_age_linear2"
+                           app:layout_constraintStart_toStartOf="parent"
+                           android:layout_marginStart="20dp"
+                           android:layout_marginEnd="20dp"
+                           android:layout_marginTop="10dp"
+                           android:orientation="horizontal">
+
+                           <TextView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="@string/mumz"
+                               android:textSize="18dp"
+                               android:textColor="@color/black"
+                               android:drawableEnd="@drawable/ic_baseline_check_24"
+                               android:layout_marginEnd="10dp"
+                               android:background="@color/white"
+                               android:padding="5dp" />
+                       </LinearLayout>
+
+                       <Button
+                           android:id="@+id/filter_age_apply_btn"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           app:layout_constraintTop_toBottomOf="@+id/filter_age_linear3"
+                           app:layout_constraintStart_toStartOf="parent"
+                           app:layout_constraintEnd_toEndOf="parent"
+                           android:layout_marginEnd="20dp"
+                           android:layout_marginStart="20dp"
+                           android:layout_marginTop="20dp"
+                           android:text="@string/apply"
+                           android:textSize="16dp"
+                           android:textAllCaps="false"
+                           android:background="@drawable/customize_btn_bg"
+                           android:textColor="@color/white" />
+
+                   </androidx.constraintlayout.widget.ConstraintLayout>
+
+                   <RelativeLayout
+                       android:id="@+id/filter_gender_lay"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:background="@color/white"
+                       app:layout_constraintTop_toBottomOf="@+id/filter_age_cons_lay"
+                       app:layout_constraintStart_toStartOf="parent"
+                       android:paddingStart="20dp"
+                       android:paddingEnd="20dp"
+                       android:paddingTop="10dp"
+                       android:paddingBottom="10dp"
+                       android:layout_marginTop="7dp">
+
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="@string/gender"
+                           android:textSize="18dp"
+                           android:textColor="@color/black"
+                           android:layout_centerVertical="true" />
+
+                       <ImageView
+                           android:layout_width="20dp"
+                           android:layout_height="20dp"
+                           android:layout_alignParentEnd="true"
+                           app:tint="@color/black"
+                           android:src="@drawable/ic_icon_feather_chevron_down" />
+                   </RelativeLayout>
+
+                   <TextView
+                       android:id="@+id/clear_gender_htv"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="Clear"
+                       android:textColor="@color/color_pink"
+                       android:textSize="16dp"
+                       app:layout_constraintTop_toBottomOf="@+id/filter_gender_lay"
+                       app:layout_constraintStart_toStartOf="parent"
+                       android:layout_marginTop="10dp"
+                       android:layout_marginStart="20dp" />
+
+                   <androidx.constraintlayout.widget.ConstraintLayout
+                       android:id="@+id/filter_gender_cons_lay"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       app:layout_constraintTop_toBottomOf="@+id/clear_gender_htv"
+                       app:layout_constraintStart_toStartOf="parent"
+                       app:layout_constraintEnd_toEndOf="parent"
+                       android:paddingBottom="10dp">
+
+                       <LinearLayout
+                           android:id="@+id/filter_gender_linear1"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           app:layout_constraintTop_toTopOf="parent"
+                           app:layout_constraintStart_toStartOf="parent"
+                           app:layout_constraintEnd_toEndOf="parent"
+                           android:layout_marginStart="20dp"
+                           android:layout_marginEnd="20dp"
+                           android:layout_marginTop="10dp"
+                           android:orientation="horizontal">
+
+                           <TextView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="@string/boys"
+                               android:textSize="18dp"
+                               android:textColor="@color/black"
+                               android:drawableEnd="@drawable/ic_baseline_check_24"
+                               android:layout_marginEnd="10dp"
+                               android:background="@color/white"
+                               android:padding="5dp" />
+
+                           <TextView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="@string/girl"
+                               android:textSize="18dp"
+                               android:textColor="@color/black"
+                               android:drawableEnd="@drawable/ic_baseline_check_24"
+                               android:layout_marginEnd="10dp"
+                               android:background="@color/white"
+                               android:padding="5dp" />
+
+                           <TextView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="@string/unisex"
+                               android:textSize="18dp"
+                               android:textColor="@color/black"
+                               android:drawableEnd="@drawable/ic_baseline_check_24"
+                               android:layout_marginEnd="10dp"
+                               android:background="@color/white"
+                               android:padding="5dp" />
+
+                           <TextView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="@string/women"
+                               android:textSize="18dp"
+                               android:textColor="@color/black"
+                               android:drawableEnd="@drawable/ic_baseline_check_24"
+                               android:layout_marginEnd="10dp"
+                               android:background="@color/white"
+                               android:padding="5dp" />
+                       </LinearLayout>
+
+                       <Button
+                           android:id="@+id/filter_gender_apply_btn"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           app:layout_constraintTop_toBottomOf="@+id/filter_gender_linear1"
+                           app:layout_constraintStart_toStartOf="parent"
+                           app:layout_constraintEnd_toEndOf="parent"
+                           android:layout_marginEnd="20dp"
+                           android:layout_marginStart="20dp"
+                           android:layout_marginTop="20dp"
+                           android:text="@string/apply"
+                           android:textSize="16dp"
+                           android:textAllCaps="false"
+                           android:background="@drawable/customize_btn_bg"
+                           android:textColor="@color/white" />
+
+                   </androidx.constraintlayout.widget.ConstraintLayout>
+
+                   <RelativeLayout
+                       android:id="@+id/filter_price_lay"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:background="@color/white"
+                       app:layout_constraintTop_toBottomOf="@+id/filter_gender_cons_lay"
+                       app:layout_constraintStart_toStartOf="parent"
+                       android:paddingStart="20dp"
+                       android:paddingEnd="20dp"
+                       android:paddingTop="10dp"
+                       android:paddingBottom="10dp"
+                       android:layout_marginTop="7dp">
+
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="@string/price"
+                           android:textSize="18dp"
+                           android:textColor="@color/black"
+                           android:layout_centerVertical="true" />
+
+                       <ImageView
+                           android:layout_width="20dp"
+                           android:layout_height="20dp"
+                           android:layout_alignParentEnd="true"
+                           app:tint="@color/black"
+                           android:src="@drawable/ic_icon_feather_chevron_down" />
+                   </RelativeLayout>
+
+                   <TextView
+                       android:id="@+id/clear_price_htv"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="@string/clear"
+                       android:textColor="@color/color_pink"
+                       android:textSize="16dp"
+                       app:layout_constraintTop_toBottomOf="@+id/filter_price_lay"
+                       app:layout_constraintStart_toStartOf="parent"
+                       android:layout_marginTop="10dp"
+                       android:layout_marginStart="20dp" />
+
+                   <TextView
+                       android:id="@+id/clear_select_price_htv"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="@string/selected_price_range"
+                       android:textColor="@color/black"
+                       android:textSize="16dp"
+                       app:layout_constraintTop_toBottomOf="@+id/clear_price_htv"
+                       app:layout_constraintStart_toStartOf="parent"
+                       android:layout_marginTop="10dp"
+                       android:layout_marginStart="20dp" />
+
+                   <org.florescu.android.rangeseekbar.RangeSeekBar
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       app:layout_constraintTop_toBottomOf="@+id/clear_select_price_htv"
+                       app:layout_constraintBottom_toBottomOf="parent" />
+               </androidx.constraintlayout.widget.ConstraintLayout>
+       -->    </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/filter_top_lay"
-        app:layout_constraintBottom_toBottomOf="parent">
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/filter_cons_lay1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="20dp">
-            <RelativeLayout
-                android:id="@+id/filter_color_lay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:layout_marginTop="10dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/color"
-                    android:textSize="18dp"
-                    android:textColor="@color/black"
-                    android:layout_centerVertical="true"/>
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentEnd="true"
-                    app:tint="@color/black"
-                    android:src="@drawable/ic_icon_feather_chevron_down"/>
-            </RelativeLayout>
-            <TextView
-                android:id="@+id/clear_color_htv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/clear"
-                android:textColor="@color/color_pink"
-                android:textSize="16dp"
-                app:layout_constraintTop_toBottomOf="@+id/filter_color_lay"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="20dp"/>
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/filter_color_cons_lay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/clear_color_htv"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:paddingBottom="10dp">
-                <LinearLayout
-                    android:id="@+id/filter_color_linear1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_ellipse_blue"
-                        android:layout_marginEnd="10dp"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_ellipse_red"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_ellipse_pink"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginStart="10dp"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_ellipse_deep_blue"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_ellipse_blue"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_ellipse_deep_blue"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_ellipse_red"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"/>
-
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/filter_color_linear2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/filter_color_linear1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_ellipse_blue"
-                        android:layout_marginEnd="10dp"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_ellipse_red"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_ellipse_pink"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginStart="10dp"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_ellipse_deep_blue"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_ellipse_blue"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_ellipse_deep_blue"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_ellipse_red"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"/>
-
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/filter_color_linear3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/filter_color_linear2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_ellipse_blue"
-                        android:layout_marginEnd="10dp"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_ellipse_red"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_ellipse_pink"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginStart="10dp"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_ellipse_deep_blue"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_ellipse_blue"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_ellipse_deep_blue"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_ellipse_red"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"/>
-
-                </LinearLayout>
-                <Button
-                    android:id="@+id/filter_color_apply_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/filter_color_linear3"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/apply"
-                    android:textSize="16dp"
-                    android:textAllCaps="false"
-                    android:background="@drawable/customize_btn_bg"
-                    android:textColor="@color/white"
-                    />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <RelativeLayout
-                android:id="@+id/filter_size_lay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                app:layout_constraintTop_toBottomOf="@+id/filter_color_cons_lay"
-                app:layout_constraintStart_toStartOf="parent"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:layout_marginTop="7dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/size"
-                    android:textSize="18dp"
-                    android:textColor="@color/black"
-                    android:layout_centerVertical="true"/>
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentEnd="true"
-                    app:tint="@color/black"
-                    android:src="@drawable/ic_icon_feather_chevron_down"/>
-            </RelativeLayout>
-            <TextView
-                android:id="@+id/clear_size_htv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/clear"
-                android:textColor="@color/color_pink"
-                android:textSize="16dp"
-                app:layout_constraintTop_toBottomOf="@+id/filter_size_lay"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="20dp"/>
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/filter_size_cons_lay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/clear_size_htv"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:paddingBottom="10dp">
-                <LinearLayout
-                    android:id="@+id/filter_size_linear1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/s"
-                        android:textSize="18dp"
-                        android:textColor="@color/black"
-                        android:drawableEnd="@drawable/ic_baseline_check_24"
-                        android:layout_marginEnd="10dp"
-                        android:background="@color/white"
-                        android:padding="5dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/m"
-                        android:textSize="18dp"
-                        android:textColor="@color/black"
-                        android:drawableEnd="@drawable/ic_baseline_check_24"
-                        android:layout_marginEnd="10dp"
-                        android:background="@color/white"
-                        android:padding="5dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/xl"
-                        android:textSize="18dp"
-                        android:textColor="@color/black"
-                        android:drawableEnd="@drawable/ic_baseline_check_24"
-                        android:layout_marginEnd="10dp"
-                        android:background="@color/white"
-                        android:padding="5dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/xxl"
-                        android:textSize="18dp"
-                        android:textColor="@color/black"
-                        android:drawableEnd="@drawable/ic_baseline_check_24"
-                        android:layout_marginEnd="10dp"
-                        android:background="@color/white"
-                        android:padding="5dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/uk6"
-                        android:textSize="18dp"
-                        android:textColor="@color/black"
-                        android:drawableEnd="@drawable/ic_baseline_check_24"
-                        android:layout_marginEnd="10dp"
-                        android:background="@color/white"
-                        android:padding="5dp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/filter_size_linear2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/filter_size_linear1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/uk7"
-                        android:textSize="18dp"
-                        android:textColor="@color/black"
-                        android:drawableEnd="@drawable/ic_baseline_check_24"
-                        android:layout_marginEnd="10dp"
-                        android:background="@color/white"
-                        android:padding="5dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/uk8"
-                        android:textSize="18dp"
-                        android:textColor="@color/black"
-                        android:drawableEnd="@drawable/ic_baseline_check_24"
-                        android:layout_marginEnd="10dp"
-                        android:background="@color/white"
-                        android:padding="5dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/uk9"
-                        android:textSize="18dp"
-                        android:textColor="@color/black"
-                        android:drawableEnd="@drawable/ic_baseline_check_24"
-                        android:layout_marginEnd="10dp"
-                        android:background="@color/white"
-                        android:padding="5dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/uk10"
-                        android:textSize="18dp"
-                        android:textColor="@color/black"
-                        android:drawableEnd="@drawable/ic_baseline_check_24"
-                        android:layout_marginEnd="10dp"
-                        android:background="@color/white"
-                        android:padding="5dp"/>
-                </LinearLayout>
-                <Button
-                    android:id="@+id/filter_size_apply_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/filter_size_linear2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/apply"
-                    android:textSize="16dp"
-                    android:textAllCaps="false"
-                    android:background="@drawable/customize_btn_bg"
-                    android:textColor="@color/white"
-                    />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <RelativeLayout
-                android:id="@+id/filter_age_lay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                app:layout_constraintTop_toBottomOf="@+id/filter_size_cons_lay"
-                app:layout_constraintStart_toStartOf="parent"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:layout_marginTop="7dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/age"
-                    android:textSize="18dp"
-                    android:textColor="@color/black"
-                    android:layout_centerVertical="true"/>
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentEnd="true"
-                    app:tint="@color/black"
-                    android:src="@drawable/ic_icon_feather_chevron_down"/>
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/clear_age_htv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/clear"
-                android:textColor="@color/color_pink"
-                android:textSize="16dp"
-                app:layout_constraintTop_toBottomOf="@+id/filter_age_lay"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="20dp"/>
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/filter_age_cons_lay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/clear_age_htv"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:paddingBottom="10dp">
-                <LinearLayout
-                    android:id="@+id/filter_age_linear1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/baby_0_2_years"
-                        android:textSize="18dp"
-                        android:textColor="@color/black"
-                        android:drawableEnd="@drawable/ic_baseline_check_24"
-                        android:layout_marginEnd="10dp"
-                        android:background="@color/white"
-                        android:padding="5dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/toddler_2_4_years"
-                        android:textSize="18dp"
-                        android:textColor="@color/black"
-                        android:drawableEnd="@drawable/ic_baseline_check_24"
-                        android:layout_marginEnd="10dp"
-                        android:background="@color/white"
-                        android:padding="5dp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/filter_age_linear2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/filter_age_linear1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/adventures_5_7_years"
-                        android:textSize="18dp"
-                        android:textColor="@color/black"
-                        android:drawableEnd="@drawable/ic_baseline_check_24"
-                        android:layout_marginEnd="10dp"
-                        android:background="@color/white"
-                        android:padding="5dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/pioneers_8"
-                        android:textSize="18dp"
-                        android:textColor="@color/black"
-                        android:drawableEnd="@drawable/ic_baseline_check_24"
-                        android:layout_marginEnd="10dp"
-                        android:background="@color/white"
-                        android:padding="5dp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/filter_age_linear3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/filter_age_linear2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/mumz"
-                        android:textSize="18dp"
-                        android:textColor="@color/black"
-                        android:drawableEnd="@drawable/ic_baseline_check_24"
-                        android:layout_marginEnd="10dp"
-                        android:background="@color/white"
-                        android:padding="5dp"/>
-                </LinearLayout>
-                <Button
-                    android:id="@+id/filter_age_apply_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/filter_age_linear3"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/apply"
-                    android:textSize="16dp"
-                    android:textAllCaps="false"
-                    android:background="@drawable/customize_btn_bg"
-                    android:textColor="@color/white"
-                    />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <RelativeLayout
-                android:id="@+id/filter_gender_lay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                app:layout_constraintTop_toBottomOf="@+id/filter_age_cons_lay"
-                app:layout_constraintStart_toStartOf="parent"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:layout_marginTop="7dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/gender"
-                    android:textSize="18dp"
-                    android:textColor="@color/black"
-                    android:layout_centerVertical="true"/>
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentEnd="true"
-                    app:tint="@color/black"
-                    android:src="@drawable/ic_icon_feather_chevron_down"/>
-            </RelativeLayout>
-            <TextView
-                android:id="@+id/clear_gender_htv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Clear"
-                android:textColor="@color/color_pink"
-                android:textSize="16dp"
-                app:layout_constraintTop_toBottomOf="@+id/filter_gender_lay"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="20dp"/>
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/filter_gender_cons_lay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/clear_gender_htv"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:paddingBottom="10dp">
-                <LinearLayout
-                    android:id="@+id/filter_gender_linear1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/boys"
-                        android:textSize="18dp"
-                        android:textColor="@color/black"
-                        android:drawableEnd="@drawable/ic_baseline_check_24"
-                        android:layout_marginEnd="10dp"
-                        android:background="@color/white"
-                        android:padding="5dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/girl"
-                        android:textSize="18dp"
-                        android:textColor="@color/black"
-                        android:drawableEnd="@drawable/ic_baseline_check_24"
-                        android:layout_marginEnd="10dp"
-                        android:background="@color/white"
-                        android:padding="5dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/unisex"
-                        android:textSize="18dp"
-                        android:textColor="@color/black"
-                        android:drawableEnd="@drawable/ic_baseline_check_24"
-                        android:layout_marginEnd="10dp"
-                        android:background="@color/white"
-                        android:padding="5dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/women"
-                        android:textSize="18dp"
-                        android:textColor="@color/black"
-                        android:drawableEnd="@drawable/ic_baseline_check_24"
-                        android:layout_marginEnd="10dp"
-                        android:background="@color/white"
-                        android:padding="5dp"/>
-                </LinearLayout>
-
-                <Button
-                    android:id="@+id/filter_gender_apply_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/filter_gender_linear1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/apply"
-                    android:textSize="16dp"
-                    android:textAllCaps="false"
-                    android:background="@drawable/customize_btn_bg"
-                    android:textColor="@color/white"
-                    />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <RelativeLayout
-                android:id="@+id/filter_price_lay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                app:layout_constraintTop_toBottomOf="@+id/filter_gender_cons_lay"
-                app:layout_constraintStart_toStartOf="parent"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:layout_marginTop="7dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/price"
-                    android:textSize="18dp"
-                    android:textColor="@color/black"
-                    android:layout_centerVertical="true"/>
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentEnd="true"
-                    app:tint="@color/black"
-                    android:src="@drawable/ic_icon_feather_chevron_down"/>
-            </RelativeLayout>
-            <TextView
-                android:id="@+id/clear_price_htv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/clear"
-                android:textColor="@color/color_pink"
-                android:textSize="16dp"
-                app:layout_constraintTop_toBottomOf="@+id/filter_price_lay"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="20dp"/>
-            <TextView
-                android:id="@+id/clear_select_price_htv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/selected_price_range"
-                android:textColor="@color/black"
-                android:textSize="16dp"
-                app:layout_constraintTop_toBottomOf="@+id/clear_price_htv"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="20dp"/>
-            <org.florescu.android.rangeseekbar.RangeSeekBar
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/clear_select_price_htv"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

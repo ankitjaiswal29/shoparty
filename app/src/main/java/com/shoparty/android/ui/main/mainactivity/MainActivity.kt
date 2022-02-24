@@ -46,14 +46,15 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
         binding.homeNavBtn.setOnClickListener(this)
         binding.crossNavBtn.setOnClickListener(this)
         binding.btnSigninSignout.setOnClickListener(this)
-        binding.infoTools.iv_bag_btn.setOnClickListener(this)
+        binding.infoTools.ivBagBtn.setOnClickListener(this)
 
 
         binding.wishlistNavBtn.setOnClickListener(this)
         binding.accountNavBtn.setOnClickListener(this)
         binding.languageNavLay.setOnClickListener(this)
+        binding.rlSignout.setOnClickListener(this)
 
-        binding.infoTools.iv_Drawericon.setOnClickListener {
+        binding.infoTools.ivDrawericon.setOnClickListener {
             binding.drawerLayout.openDrawer(GravityCompat.START)
         }
 
@@ -105,59 +106,18 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
             }
 
             R.id.wishlist_nav_btn -> {
-                binding.drawerLayout.closeDrawer(GravityCompat.START)
-               // wishlist_icon
 
-                binding.drawerLayout.closeDrawer(GravityCompat.START)
-                binding.ivWishlist.setImageResource(R.drawable.drawer_wishlist_pink);
-                binding.tvWishlist.setTextColor(getColor(R.color.pink))
-
-                binding.ivHome.setImageResource(R.drawable.ic_baseline_home_24);
-                binding.ivMyaccount.setImageResource(R.drawable.ic_user);
-                binding.ivLanguage.setImageResource(R.drawable.language_icon);
-                binding.tvHome.setTextColor(getColor(R.color.black))
-                binding.tvMyaccount.setTextColor(getColor(R.color.black))
-                binding.tvLanguage.setTextColor(getColor(R.color.black))
-
-                binding.bottomNavigatinView.findViewById<View>(R.id.WishlistFragment).performClick()
+                manageWishlistSidebar()
 
             }
             R.id.account_nav_btn -> {
-                binding.drawerLayout.closeDrawer(GravityCompat.START)
-              //  ic_user
-                binding.ivMyaccount.setImageResource(R.drawable.drawer_myaccount_pink);
-                binding.tvMyaccount.setTextColor(getColor(R.color.pink))
 
-                binding.ivHome.setImageResource(R.drawable.ic_baseline_home_24);
-                binding.ivLanguage.setImageResource(R.drawable.language_icon);
-                binding.ivWishlist.setImageResource(R.drawable.wishlist_icon);
-                binding.tvHome.setTextColor(getColor(R.color.black))
-                binding.tvLanguage.setTextColor(getColor(R.color.black))
-                binding.tvWishlist.setTextColor(getColor(R.color.black))
-                binding.bottomNavigatinView.findViewById<View>(R.id.MyAccountFragment).performClick()
+                manageMyaccountAccountSidebar()
 
             }
             R.id.language_nav_lay -> {
-                binding.drawerLayout.closeDrawer(GravityCompat.START)
-                binding.ivLanguage.setImageResource(R.drawable.drawer_language_pink);
-                binding.tvLanguage.setTextColor(getColor(R.color.pink))
-                binding.ivHome.setImageResource(R.drawable.ic_baseline_home_24);
-                binding.tvHome.setTextColor(getColor(R.color.black))
-                binding.ivMyaccount.setImageResource(R.drawable.ic_user);
-                binding.tvMyaccount.setTextColor(getColor(R.color.black))
+                manageLanguageSidebar()
 
-                val builder = AlertDialog.Builder(this , R.style.CustomAlertDialog)
-                val inflater = layoutInflater
-                val dialogLayout: View =
-                    inflater.inflate(R.layout.alert_dialog_signout, null)
-                val btn_cancel = dialogLayout.findViewById<Button>(R.id.cancel_btn)
-                val btn_save = dialogLayout.findViewById<Button>(R.id.save_btn)
-
-                btn_cancel.setOnClickListener {
-
-                }
-                builder.setView(dialogLayout)
-                builder.show()
             }
             R.id.btn_signin_signout -> {
                 binding.drawerLayout.closeDrawer(GravityCompat.START)
@@ -168,7 +128,104 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                 val intent = Intent(this, ShopingBagActivity::class.java)
                 startActivity(intent)
             }
+            R.id.rl_signout->{
+                manageSignoutSidebar()
+            }
         }
+    }
+
+    private fun manageSignoutSidebar() {
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
+        binding.ivSignout.setImageResource(R.drawable.drawer_icon_signout_pink);
+        binding.tvSignout.setTextColor(getColor(R.color.pink))
+
+        binding.ivLanguage.setImageResource(R.drawable.language_icon);
+        binding.tvLanguage.setTextColor(getColor(R.color.black))
+        binding.ivHome.setImageResource(R.drawable.ic_baseline_home_24);
+        binding.tvHome.setTextColor(getColor(R.color.black))
+        binding.ivMyaccount.setImageResource(R.drawable.ic_user);
+        binding.tvMyaccount.setTextColor(getColor(R.color.black))
+
+        val builder = android.app.AlertDialog.Builder(this, R.style.CustomAlertDialog)
+        val inflater = layoutInflater
+        val dialogLayout: View =
+            inflater.inflate(R.layout.alert_dialog_signout2, null)
+        val btn_cancel = dialogLayout.findViewById<Button>(R.id.btn_cancel)
+        val btn_yes = dialogLayout.findViewById<Button>(R.id.btn_yes)
+        builder.setView(dialogLayout)
+        builder.show()
+
+        btn_yes.setOnClickListener {
+
+        }
+        btn_cancel.setOnClickListener {
+
+        }
+    }
+
+    private fun manageLanguageSidebar() {
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
+        binding.ivLanguage.setImageResource(R.drawable.drawer_language_pink);
+        binding.tvLanguage.setTextColor(getColor(R.color.pink))
+
+        binding.ivSignout.setImageResource(R.drawable.ic_sign_out_icon);
+        binding.tvSignout.setTextColor(getColor(R.color.black))
+        binding.ivHome.setImageResource(R.drawable.ic_baseline_home_24);
+        binding.tvHome.setTextColor(getColor(R.color.black))
+        binding.ivMyaccount.setImageResource(R.drawable.ic_user);
+        binding.tvMyaccount.setTextColor(getColor(R.color.black))
+
+        val builder = AlertDialog.Builder(this , R.style.CustomAlertDialog)
+        val inflater = layoutInflater
+        val dialogLayout: View =
+            inflater.inflate(R.layout.alert_dialog_signout, null)
+        val btn_cancel = dialogLayout.findViewById<Button>(R.id.cancel_btn)
+        val btn_save = dialogLayout.findViewById<Button>(R.id.save_btn)
+
+        btn_cancel.setOnClickListener {
+
+        }
+        builder.setView(dialogLayout)
+        builder.show()
+    }
+
+    private fun manageMyaccountAccountSidebar() {
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
+        //  ic_user
+        binding.ivMyaccount.setImageResource(R.drawable.drawer_myaccount_pink);
+        binding.tvMyaccount.setTextColor(getColor(R.color.pink))
+
+        binding.ivSignout.setImageResource(R.drawable.ic_sign_out_icon);
+        binding.tvSignout.setTextColor(getColor(R.color.black))
+        binding.ivHome.setImageResource(R.drawable.ic_baseline_home_24);
+        binding.ivLanguage.setImageResource(R.drawable.language_icon);
+        binding.ivWishlist.setImageResource(R.drawable.wishlist_icon);
+        binding.tvHome.setTextColor(getColor(R.color.black))
+        binding.tvLanguage.setTextColor(getColor(R.color.black))
+        binding.tvWishlist.setTextColor(getColor(R.color.black))
+        binding.bottomNavigatinView.findViewById<View>(R.id.MyAccountFragment).performClick()
+
+    }
+
+    private fun manageWishlistSidebar() {
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
+        // wishlist_icon
+
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
+        binding.ivWishlist.setImageResource(R.drawable.drawer_wishlist_pink);
+        binding.tvWishlist.setTextColor(getColor(R.color.pink))
+
+        binding.ivSignout.setImageResource(R.drawable.ic_sign_out_icon);
+        binding.tvSignout.setTextColor(getColor(R.color.black))
+        binding.ivHome.setImageResource(R.drawable.ic_baseline_home_24);
+        binding.ivMyaccount.setImageResource(R.drawable.ic_user);
+        binding.ivLanguage.setImageResource(R.drawable.language_icon);
+        binding.tvHome.setTextColor(getColor(R.color.black))
+        binding.tvMyaccount.setTextColor(getColor(R.color.black))
+        binding.tvLanguage.setTextColor(getColor(R.color.black))
+
+        binding.bottomNavigatinView.findViewById<View>(R.id.WishlistFragment).performClick()
+
     }
 
     private fun manageHomeSidebar()
@@ -177,6 +234,9 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
         binding.ivHome.setImageResource(R.drawable.ic_drawer_home_pink);
         binding.tvHome.setTextColor(getColor(R.color.pink))
 
+
+        binding.ivSignout.setImageResource(R.drawable.ic_sign_out_icon);
+        binding.tvSignout.setTextColor(getColor(R.color.black))
         binding.ivWishlist.setImageResource(R.drawable.wishlist_icon);
         binding.ivMyaccount.setImageResource(R.drawable.ic_user);
         binding.ivLanguage.setImageResource(R.drawable.language_icon);

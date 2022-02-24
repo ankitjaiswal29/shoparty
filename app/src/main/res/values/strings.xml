@@ -296,7 +296,6 @@
     <string name="add_to_bag">Add to bag</string>
     <string name="you_may_also_like">You may also like</string>
     <string name="customer_also_bought">Customer Also Bought</string>
-    <string name="sort_by">Sort By</string>
     <string name="newest_to_oldest">Newest To Oldest</string>
     <string name="oldest_to_newest">Oldest To Newest</string>
     <string name="price_low_to_high">Price - Low To High</string>
@@ -363,6 +362,7 @@
     <string name="shippingbag">Shipping bag</string>
     <string name="are_sure_exit">Are you sure you want to exit?</string>
     <string name="no">No</string>
+    <string name="sort_by">Sort By</string>
 
 
 </resources>

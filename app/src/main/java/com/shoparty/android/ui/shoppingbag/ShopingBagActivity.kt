@@ -26,8 +26,8 @@ class ShopingBagActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun initialise() {
 
-        binding.infoTool.tv_title.setText(getString(R.string.shippingbag))
-        binding.infoTool.iv_drawer_back.setOnClickListener(this)
+        binding.infoTool.tvTitle.setText(getString(R.string.shippingbag))
+        binding.infoTool.ivDrawerBack.setOnClickListener(this)
         val bagItemList = listOf<HomeCategoriesModel>(
             HomeCategoriesModel("$7.02"),
             HomeCategoriesModel("$7.02"),

@@ -157,12 +157,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/grey"
-                    android:paddingBottom="50dp"
+                    android:padding="20dp"
                     android:orientation="vertical"
                     >
                     <RelativeLayout
                         android:id="@+id/language_nav_lay"
-                        android:layout_marginStart="20dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         >
@@ -197,6 +196,39 @@
                             android:text="@string/english" />
 
                     </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:id="@+id/rl_signout"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+
+                        <ImageView
+                            android:id="@+id/iv_signout"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_alignParentStart="true"
+                            android:padding="8dp"
+
+                            android:src="@drawable/ic_sign_out_icon"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_signout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="13dp"
+                            android:text="@string/sign_out"
+                            style="@style/AppTheme.Text_16_black_dp"
+                            android:layout_toRightOf="@+id/iv_signout"/>
+
+
+
+                    </RelativeLayout>
+
                 </LinearLayout>
             </LinearLayout>
 
