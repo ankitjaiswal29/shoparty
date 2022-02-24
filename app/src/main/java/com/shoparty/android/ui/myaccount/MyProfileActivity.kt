@@ -39,6 +39,7 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
                 /*val intent = Intent(this, MyAccountActivity::class.java)
                 startActivity(intent)*/
                 finish()
+
             }
             R.id.back -> {
                 onBackPressed()
