@@ -1,365 +1,484 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#F8F8F8"
-    tools:context=".ui.shoppingbag.ShopingBagActivity">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/sb_top_lay"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/white"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp">
-        <ImageView
-            android:id="@+id/sb_shoparty_icon_img"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="match_parent"
+        android:background="#F8F8F8"
+        tools:context=".ui.shoppingbag.ShopingBagActivity">
+
+        <include
+            android:id="@+id/info_tool"
+            layout="@layout/toolbar_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/info_tool"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:src="@drawable/shoparty_icon"/>
-        <ImageView
-            android:id="@+id/sb_back_arrow_btn"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_baseline_arrow_back_ios_24"
-            app:tint="@color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sb_shoparty_icon_img"
-            android:layout_marginStart="20dp"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/shopping_bag"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="@+id/sb_shoparty_icon_img"
-            app:layout_constraintEnd_toEndOf="@+id/sb_shoparty_icon_img"
-            app:layout_constraintTop_toBottomOf="@+id/sb_shoparty_icon_img"
-            app:layout_constraintBottom_toBottomOf="@+id/sb_back_arrow_btn"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/sb_top_lay"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/bag_item_cons_lay2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/bag_item_recycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                tools:itemCount="2"
-                tools:listitem="@layout/bag_item_layout"
-                android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/bag_item_cons_lay3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/bag_item_recycler"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:background="@color/white"
-                android:layout_marginTop="10dp"
-                android:paddingStart="30dp">
-                <ImageView
-                    android:id="@+id/bag_item_coupon_img"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/ic_coupon"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginBottom="10dp"/>
-                <View
-                    android:id="@+id/bag_item_view1"
-                    android:layout_width="1dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintStart_toEndOf="@+id/bag_item_coupon_img"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginStart="20dp"
-                    android:background="@color/lightgray"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/bag_item_view1"
-                    android:text="@string/apply_promo_code"
-                    android:layout_marginStart="20dp"
-                    android:textSize="16dp"
-                    android:textColor="@color/black"/>
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginEnd="20dp"
-                    android:src="@drawable/ic_icon_feather_chevron_down"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/bag_item_cons_lay4"
+                android:id="@+id/bag_item_cons_lay2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/bag_item_cons_lay3"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="10dp"
-                android:background="@color/white"
-                android:padding="20dp">
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bag_item_border1"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:paddingBottom="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent">
-                    <TextView
-                        android:id="@+id/bag_summary_htv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/summry"
-                        android:textSize="18dp"
-                        android:textColor="@color/black"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginStart="10dp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/bag_summary_htv"
-                        android:layout_marginEnd="10dp"
-                        android:text="@string/_14_5"
-                        android:textColor="@color/black"
-                        android:textSize="18dp"/>
-                    <TextView
-                        android:id="@+id/bag_tax_htv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tax_vat_5"
-                        android:textSize="18dp"
-                        android:textColor="@color/black"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginStart="10dp"
-                        app:layout_constraintTop_toBottomOf="@+id/bag_summary_htv"
-                        app:layout_constraintStart_toStartOf="parent"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/bag_tax_htv"
-                        android:layout_marginEnd="10dp"
-                        android:text="@string/_3_5"
-                        android:textColor="@color/black"
-                        android:textSize="18dp"/>
-                    <View
-                        android:id="@+id/bag_item_view2"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/black"
-                        app:layout_constraintTop_toBottomOf="@+id/bag_tax_htv"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginTop="20dp"
-                        />
+                android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/bag_total_htv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/total_2_item"
-                        android:textSize="18dp"
-                        android:textColor="@color/black"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginStart="10dp"
-                        app:layout_constraintTop_toBottomOf="@+id/bag_item_view2"
-                        app:layout_constraintStart_toStartOf="parent"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/bag_total_htv"
-                        android:layout_marginEnd="10dp"
-                        android:text="@string/_23_5"
-                        android:textColor="@color/black"
-                        android:textSize="18dp"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/bag_item_cons_lay5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/bag_item_cons_lay4"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="10dp"
-                android:background="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/bag_item_relative_lay1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginEnd="30dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:background="@drawable/bag_item_relative_lay_bg">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/purchase_as_a_guest"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="10dp"/>
-                    <CheckBox
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="10dp"/>
-                </RelativeLayout>
-                <LinearLayout
-                    android:id="@+id/bag_item_linear1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/bag_item_relative_lay1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginEnd="30dp"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="10dp"
-                    android:weightSum="1"
-                    >
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:layout_weight="0.5"
-                        android:layout_marginEnd="5dp"
-                        android:background="@drawable/bag_item_relative_lay_bg">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="10dp"
-                            android:text="@string/pickup_for_branch"
-                            android:textSize="13dp" />
-                        <CheckBox
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="10dp"/>
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:layout_weight="0.5"
-                        android:layout_marginStart="5dp"
-                        android:background="@drawable/bag_item_relative_lay_bg">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/delivered_for_home"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="10dp"
-                            android:textSize="13dp"/>
-                        <CheckBox
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="10dp"/>
-                    </RelativeLayout>
-                </LinearLayout>
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/bag_item_pickup_recycler"
+                    android:id="@+id/rv_shopingitem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/bag_item_linear1"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginTop="10dp"
-                    tools:itemCount="2"
-                    tools:listitem="@layout/bag_pickup_item_layout"
+                    tools:listitem="@layout/bag_item_layout"
                     android:orientation="vertical"
+                    tools:itemCount="2"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-                <LinearLayout
-                    android:id="@+id/bag_item_checkout_btn"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/bag_item_cons_lay3"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    app:layout_constraintTop_toBottomOf="@+id/bag_item_pickup_recycler"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_shopingitem"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:background="@drawable/customize_btn_bg"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:textColor="@color/white">
+                    android:background="@color/white"
+                    android:layout_marginTop="5dp"
+                    android:paddingTop="13dp"
+                    android:paddingBottom="13dp"
+                    android:paddingStart="30dp">
+
+                    <ImageView
+                        android:id="@+id/bag_item_coupon_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_coupon"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <View
+                        android:id="@+id/bag_item_view1"
+                        android:layout_width="1dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintStart_toEndOf="@+id/bag_item_coupon_img"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginStart="20dp"
+                        android:background="@color/lightgray" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/bag_item_view1"
+                        android:text="@string/apply_promo_code"
+                        android:layout_marginStart="20dp"
+                        style="@style/AppTheme.Text_14dp" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_bag_white"/>
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginEnd="20dp"
+                        android:src="@drawable/ic_spinner_down_aero" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cly_summary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:background="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/bag_item_cons_lay3">
+
+
+                    <View
+                        android:id="@+id/view_pinkshape"
+                        android:layout_width="match_parent"
+                        android:layout_height="137dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:background="@drawable/background_dotted_pink"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <TextView
+                        android:id="@+id/tvSummery"
+                        style="@style/AppTheme.Text_14dp"
+                        android:text="@string/summary"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="10dp"
+                        app:layout_constraintStart_toStartOf="@id/view_pinkshape"
+                        app:layout_constraintTop_toTopOf="@id/view_pinkshape" />
+
+
+                    <TextView
+                        android:id="@+id/tvSummeryPrice"
+                        style="@style/AppTheme.Text_14dp"
+                        android:text="@string/_14_0"
+                        android:gravity="end"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="10dp"
+                        app:layout_constraintEnd_toEndOf="@id/view_pinkshape"
+                        app:layout_constraintTop_toTopOf="@id/view_pinkshape" />
+
+
+                    <TextView
+                        android:id="@+id/tvTax"
+                        style="@style/AppTheme.Text_14dp"
+                        android:text="@string/tax_vat_5"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="5dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvSummeryPrice" />
+
+
+                    <TextView
+                        android:id="@+id/tvTaxPrice"
+                        style="@style/AppTheme.Text_14dp"
+                        android:text="@string/_5_0"
+                        android:gravity="end"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="5dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvSummeryPrice" />
+
+
+                    <View
+                        android:id="@+id/view6"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_margin="10dp"
+                        app:layout_constraintStart_toStartOf="@id/view_pinkshape"
+                        app:layout_constraintEnd_toEndOf="@id/view_pinkshape"
+                        android:background="@color/lightgray"
+                        app:layout_constraintTop_toBottomOf="@+id/tvTax" />
+
+
+                    <TextView
+                        android:id="@+id/tvTotalPrizeSummery"
+                        style="@style/AppTheme.TextBold_12ssp"
+                        android:text="@string/total"
+                        android:paddingStart="10dp"
                         android:layout_width="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view6" />
+
+
+                    <TextView
+                        android:id="@+id/tvTotalPriceDetail"
+                        style="@style/AppTheme.TextBold_12ssp"
+                        android:text="@string/_20_0"
+                        android:gravity="end"
+                        android:paddingEnd="5dp"
+                        android:layout_width="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tvTotalPrizeSummery"
+                        app:layout_constraintBottom_toBottomOf="@id/tvTotalPrizeSummery" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <!-- <androidx.constraintlayout.widget.ConstraintLayout
+                     android:id="@+id/bag_item_cons_lay4"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     app:layout_constraintTop_toBottomOf="@+id/bag_item_cons_lay3"
+                     app:layout_constraintStart_toStartOf="parent"
+                     android:layout_marginTop="10dp"
+                     android:background="@color/white"
+                     android:padding="20dp">
+                     <androidx.constraintlayout.widget.ConstraintLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:background="@drawable/bag_item_border1"
+                         app:layout_constraintTop_toTopOf="parent"
+                         app:layout_constraintStart_toStartOf="parent"
+                         app:layout_constraintEnd_toEndOf="parent"
+                         android:paddingBottom="20dp"
+                         app:layout_constraintBottom_toBottomOf="parent">
+                         <TextView
+                             android:id="@+id/bag_summary_htv"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="@string/summry"
+                             android:textSize="18dp"
+                             android:textColor="@color/black"
+                             android:layout_marginTop="10dp"
+                             android:layout_marginStart="10dp"
+                             app:layout_constraintTop_toTopOf="parent"
+                             app:layout_constraintStart_toStartOf="parent"/>
+                         <TextView
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             app:layout_constraintEnd_toEndOf="parent"
+                             app:layout_constraintTop_toTopOf="@+id/bag_summary_htv"
+                             android:layout_marginEnd="10dp"
+                             android:text="@string/_14_5"
+                             android:textColor="@color/black"
+                             android:textSize="18dp"/>
+                         <TextView
+                             android:id="@+id/bag_tax_htv"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="@string/tax_vat_5"
+                             android:textSize="18dp"
+                             android:textColor="@color/black"
+                             android:layout_marginTop="10dp"
+                             android:layout_marginStart="10dp"
+                             app:layout_constraintTop_toBottomOf="@+id/bag_summary_htv"
+                             app:layout_constraintStart_toStartOf="parent"/>
+                         <TextView
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             app:layout_constraintEnd_toEndOf="parent"
+                             app:layout_constraintTop_toTopOf="@+id/bag_tax_htv"
+                             android:layout_marginEnd="10dp"
+                             android:text="@string/_3_5"
+                             android:textColor="@color/black"
+                             android:textSize="18dp"/>
+                         <View
+                             android:id="@+id/bag_item_view2"
+                             android:layout_width="match_parent"
+                             android:layout_height="1dp"
+                             android:background="@color/black"
+                             app:layout_constraintTop_toBottomOf="@+id/bag_tax_htv"
+                             app:layout_constraintStart_toStartOf="parent"
+                             app:layout_constraintEnd_toEndOf="parent"
+                             android:layout_marginStart="10dp"
+                             android:layout_marginEnd="10dp"
+                             android:layout_marginTop="20dp"
+                             />
+
+                         <TextView
+                             android:id="@+id/bag_total_htv"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="@string/total_2_item"
+                             android:textSize="18dp"
+                             android:textColor="@color/black"
+                             android:layout_marginTop="20dp"
+                             android:layout_marginStart="10dp"
+                             app:layout_constraintTop_toBottomOf="@+id/bag_item_view2"
+                             app:layout_constraintStart_toStartOf="parent"/>
+                         <TextView
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             app:layout_constraintEnd_toEndOf="parent"
+                             app:layout_constraintTop_toTopOf="@+id/bag_total_htv"
+                             android:layout_marginEnd="10dp"
+                             android:text="@string/_23_5"
+                             android:textColor="@color/black"
+                             android:textSize="18dp"/>
+
+                     </androidx.constraintlayout.widget.ConstraintLayout>
+                 </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/bag_item_cons_lay5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/cly_summary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:padding="20dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:id="@+id/bag_item_relative_lay1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="11dp"
+                        android:background="@drawable/bag_item_relative_lay_bg">
+
+                        <TextView
+                            style="@style/AppTheme.Text_12dp_Bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/purchase_as_a_guest" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:buttonTint="@color/pink" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/bag_item_linear1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@+id/bag_item_relative_lay1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:weightSum="1">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:paddingTop="12dp"
+                            android:layout_marginRight="5dp"
+                            android:paddingBottom="11dp"
+                            android:layout_weight="0.5"
+
+                            android:background="@drawable/bag_item_relative_lay_bg">
+
+                            <TextView
+                                style="@style/AppTheme.Text_12dp_Bold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="10dp"
+                                android:text="@string/pickup_for_branch" />
+
+                            <CheckBox
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:buttonTint="@color/pink" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:layout_marginLeft="5dp"
+                            android:paddingTop="12dp"
+                            android:paddingBottom="11dp"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/bag_item_relative_lay_bg">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/delivered_for_home"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="10dp"
+                                style="@style/AppTheme.Text_12dp_Bold" />
+
+                            <CheckBox
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:buttonTint="@color/pink"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/bag_item_pickup_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@+id/bag_item_linear1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginTop="10dp"
+                        tools:itemCount="2"
+                        tools:listitem="@layout/bag_pickup_item_layout"
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                    <Button
+                        android:id="@+id/signUp_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@+id/bag_item_pickup_recycler"
+                        android:layout_marginTop="85dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         android:text="@string/proceed_to_checkout"
                         android:textColor="@color/white"
-                        android:layout_marginStart="10dp"
-                        />
-                </LinearLayout>
+                        android:background="@drawable/customize_btn_bg"
+                        android:textAllCaps="false" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="@+id/signUp_btn"
+                        app:layout_constraintTop_toTopOf="@id/signUp_btn"
+                        android:elevation="10dp"
+                        android:layout_marginLeft="80dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/signUp_btn"
+                        android:src="@drawable/ic_bag_white" />
+
+                    <!-- <LinearLayout
+                         android:id="@+id/bag_item_checkout_btn"
+                         android:layout_width="match_parent"
+                         android:layout_height="50dp"
+                         app:layout_constraintTop_toBottomOf="@+id/bag_item_pickup_recycler"
+                         app:layout_constraintStart_toStartOf="parent"
+                         app:layout_constraintEnd_toEndOf="parent"
+                         android:background="@drawable/customize_btn_bg"
+                         android:layout_marginTop="20dp"
+                         android:layout_marginStart="20dp"
+                         android:layout_marginEnd="20dp"
+                         android:orientation="horizontal"
+                         android:gravity="center"
+                         android:textColor="@color/white">
+                         <ImageView
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:src="@drawable/ic_bag_white"/>
+                         <TextView
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="@string/proceed_to_checkout"
+                             android:textColor="@color/white"
+                             android:layout_marginStart="10dp"
+                             />
+                     </LinearLayout>-->
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

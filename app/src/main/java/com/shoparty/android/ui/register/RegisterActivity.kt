@@ -72,7 +72,6 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     }
 
 
-
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.signUp_toIn_btn -> {

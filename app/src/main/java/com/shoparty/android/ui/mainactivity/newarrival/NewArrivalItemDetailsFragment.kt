@@ -48,8 +48,11 @@ class NewArrivalItemDetailsFragment : Fragment() {
     )
 
     private fun fillTopSellingRecyclerView(teachers: List<TopSellingHomeModel>) {
-        na_details_you_may_like_recycler.adapter = TopSellingHomeAdapter(topSellingItemList)
-        na_details_customer_also_bought_recycler.adapter = TopSellingHomeAdapter(topSellingItemList)
+       /* na_details_you_may_like_recycler.adapter = TopSellingHomeAdapter(topSellingItemList, this)
+        na_details_customer_also_bought_recycler.adapter = TopSellingHomeAdapter(
+            topSellingItemList,
+            this
+        )*/
 
     }
 }

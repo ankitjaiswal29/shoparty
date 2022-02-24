@@ -3,34 +3,61 @@ package com.shoparty.android.ui.shoppingbag
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.databinding.DataBindingUtil
 import com.shoparty.android.R
+import com.shoparty.android.databinding.ActivityOngoingOrderBinding
+import com.shoparty.android.databinding.ActivityShopingBagBinding
+import com.shoparty.android.ui.cancelorder.cancelorder.CancelOrderActivity
 import com.shoparty.android.ui.mainactivity.home.HomeCategoriesModel
 import com.shoparty.android.ui.login.LoginActivity
 
 import kotlinx.android.synthetic.main.activity_shoping_bag.*
+import kotlinx.android.synthetic.main.toolbar_layout.view.*
 
-class ShopingBagActivity : AppCompatActivity() {
+class ShopingBagActivity : AppCompatActivity(), View.OnClickListener {
+    private lateinit var binding: ActivityShopingBagBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_shoping_bag)
-
-        fillBagItemRecyclerView(bagItemList)
-        bag_item_checkout_btn.setOnClickListener {
+    //    setContentView(R.layout.activity_shoping_bag)
+        binding= DataBindingUtil.setContentView(this, R.layout.activity_shoping_bag)
+        initialise()
+       /* bag_item_checkout_btn.setOnClickListener {
             val intent = Intent (this, LoginActivity::class.java)
             startActivity(intent)
+        }*/
+    }
+
+    private fun initialise() {
+
+        binding.infoTool.tv_title.setText(getString(R.string.shippingbag))
+        binding.infoTool.iv_drawer_back.setOnClickListener(this)
+        val bagItemList = listOf<HomeCategoriesModel>(
+            HomeCategoriesModel("$7.02"),
+            HomeCategoriesModel("$7.02"),
+        )
+
+
+            binding.rvShopingitem.adapter = ShopingBagItemAdapter(bagItemList)
+
+            //bag_item_pickup_recycler.adapter = ShopingBagPickupAdapter(bagItemList)
+    }
+    override fun onClick(v: View?) {
+        when(v?.id){
+           /* R.id.btnCancel -> {
+                val intent = Intent(this, CancelOrderActivity::class.java)
+                intent.putExtra("key","Ongoeing")
+                startActivity(intent)
+            }*/
+            R.id.iv_drawer_back -> {
+                onBackPressed()
+            }
         }
     }
 
-
-    private val bagItemList = listOf<HomeCategoriesModel>(
-        HomeCategoriesModel("Ballons"),
-        HomeCategoriesModel("Ballons"),
-        )
-
-    private fun fillBagItemRecyclerView(seasons: List<HomeCategoriesModel>) {
-        bag_item_recycler.adapter = ShopingBagItemAdapter(bagItemList)
-
-        bag_item_pickup_recycler.adapter = ShopingBagPickupAdapter(bagItemList)
-
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
+
+
 }

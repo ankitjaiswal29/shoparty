@@ -12,7 +12,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_marginBottom="150dp"
         tools:context=".ui.fragment.HomeFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -244,11 +243,380 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:padding="20dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/constraint3">
+
+
+
+                <TextView
+                    android:id="@+id/home_themes_htv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/themes"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                  style="@style/AppTheme.Text_14dp_Bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/home_themes_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/home_themes_htv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="10dp" />
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:padding="20dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/constraint4">
+
+
+                <TextView
+                    android:id="@+id/home_useason_htv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/upcoming_season"
+                   style="@style/AppTheme.Text_14dp_Bold"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                   />
+
+                <ImageView
+                    android:id="@+id/home_banner_three"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintTop_toBottomOf="@+id/home_useason_htv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:src="@drawable/home_banner_two" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:padding="20dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/constraint5">
+
+
+                <TextView
+                    android:id="@+id/home_new_arrivals_htv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/new_arrivals"
+                 style="@style/AppTheme.Text_14dp_Bold"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/home_new_arrivals_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/home_new_arrivals_htv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="10dp" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:padding="20dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/constraint6">
+
+
+                <TextView
+                    android:id="@+id/ts_subcategories_htv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/top_selling_sub_categories"
+                    app:layout_constraintTop_toTopOf="parent"
+                    style="@style/AppTheme.Text_14dp_Bold"
+                    app:layout_constraintStart_toStartOf="parent"
+
+                    />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/ts_subcategories_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/ts_subcategories_htv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="10dp" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:padding="20dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/constraint7">
+
+
+                <TextView
+                    android:id="@+id/home_offers_htv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/offers_discounted_items"
+                   style="@style/AppTheme.Text_14dp_Bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                     />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/home_offers_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/home_offers_htv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="10dp" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:padding="20dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/constraint8">
+
+                <TextView
+                    android:id="@+id/home_bonds_htv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/brands"
+                    style="@style/AppTheme.Text_14dp_Bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+             />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/home_bonds_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/home_bonds_htv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="10dp" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:padding="20dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/constraint9">
+
+
+                <TextView
+                    android:id="@+id/home_contact_us_htv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/contact_us"
+                    style="@style/AppTheme.Text_14dp_Bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/home_contact_us_htv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20dp"
+
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/phone"
+                        android:drawablePadding="5dp"
+                        style="@style/AppTheme.Text_12dp"
+                        android:layout_marginRight="12dp"
+                        android:drawableStart="@drawable/ic_phone_icon"
+                       />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/whatsapp"
+                        android:drawablePadding="5dp"
+
+                        android:drawableStart="@drawable/ic_whatsapp_icon"
+                        style="@style/AppTheme.Text_12dp"
+                        android:layout_marginRight="12dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/email_without"
+                        android:drawablePadding="5dp"
+
+                        android:drawableStart="@drawable/ic_email_icon"
+                        style="@style/AppTheme.Text_12dp"
+                        android:layout_marginRight="12dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:drawablePadding="5dp"
+                        android:text="@string/instagram"
+                        android:drawableStart="@drawable/ic_insta_icon"
+                        style="@style/AppTheme.Text_12dp"
+                        />
+                </LinearLayout>
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:padding="20dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/constraint10">
+
+                <TextView
+                    android:id="@+id/home_social_us_htv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/get_social_with_us"
+                style="@style/AppTheme.Text_14dp_Bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:gravity="center"
+                    app:layout_constraintTop_toTopOf="parent"
+                   />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/home_social_us_htv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/fb_icon"
+                        android:layout_margin="5dp" />
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/twitter_icon"
+                        android:layout_margin="5dp" />
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/youtube_icon"
+                        android:layout_margin="5dp" />
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:padding="20dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintTop_toBottomOf="@+id/constraint11">
+
+          <View
+              android:layout_width="match_parent"
+              android:layout_height="114dp"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
+              />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             <!--
@@ -260,95 +628,13 @@
 
 
 
-                <TextView
-                    android:id="@+id/home_themes_htv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/themes"
-                    android:textSize="18dp"
-                    android:textColor="@color/black"
-                    app:layout_constraintTop_toBottomOf="@+id/seasons_recycler"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/home_themes_recycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/home_themes_htv"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginTop="10dp" />
 
-                <TextView
-                    android:id="@+id/home_useason_htv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/upcoming_season"
-                    android:textSize="18dp"
-                    android:textColor="@color/black"
-                    app:layout_constraintTop_toBottomOf="@+id/home_themes_recycler"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp" />
 
-                <ImageView
-                    android:id="@+id/home_banner_three"
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    app:layout_constraintTop_toBottomOf="@+id/home_useason_htv"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:src="@drawable/home_banner_two" />
 
-                <TextView
-                    android:id="@+id/home_new_arrivals_htv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/new_arrivals"
-                    android:textSize="18dp"
-                    android:textColor="@color/black"
-                    app:layout_constraintTop_toBottomOf="@+id/home_banner_three"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/home_new_arrivals_recycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/home_new_arrivals_htv"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginTop="10dp" />
 
-                <TextView
-                    android:id="@+id/ts_subcategories_htv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/top_selling_sub_categories"
-                    android:textSize="18dp"
-                    android:textColor="@color/black"
-                    app:layout_constraintTop_toBottomOf="@+id/home_new_arrivals_recycler"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/ts_subcategories_recycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/ts_subcategories_htv"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginTop="10dp" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/home_offer_cons_lay"
@@ -362,28 +648,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
 
-                    <TextView
-                        android:id="@+id/home_offers_htv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/offers_discounted_items"
-                        android:textSize="18dp"
-                        android:textColor="@color/black"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/home_offers_recycler"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@+id/home_offers_htv"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginTop="10dp" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 -->
 
@@ -399,29 +663,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
 
-                    <TextView
-                        android:id="@+id/home_bonds_htv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/bonds"
-                        android:textStyle="bold"
-                        android:textSize="18dp"
-                        android:textColor="@color/black"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/home_bonds_recycler"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@+id/home_bonds_htv"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginTop="10dp" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 -->
@@ -437,57 +679,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
 
-                    <TextView
-                        android:id="@+id/home_contact_us_htv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/contact_us"
-                        android:textStyle="bold"
-                        android:textSize="18dp"
-                        android:textColor="@color/black"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@+id/home_contact_us_htv"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:orientation="horizontal"
-                        android:gravity="center"
-                        android:padding="10dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/phone"
-                            android:drawableStart="@drawable/ic_phone_icon"
-                            android:layout_margin="5dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/whatsapp"
-                            android:drawableStart="@drawable/ic_whatsapp_icon"
-                            android:layout_margin="5dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/email_without"
-                            android:drawableStart="@drawable/ic_email_icon"
-                            android:layout_margin="5dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/instagram"
-                            android:drawableStart="@drawable/ic_insta_icon"
-                            android:layout_margin="5dp" />
-                    </LinearLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -503,46 +695,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
 
-                    <TextView
-                        android:id="@+id/home_social_us_htv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAlignment="center"
-                        android:text="@string/get_social_with_us"
-                        android:textSize="18dp"
-                        android:textColor="@color/black"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:layout_marginTop="10dp" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@+id/home_social_us_htv"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:orientation="horizontal"
-                        android:gravity="center"
-                        android:padding="10dp">
-
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:src="@drawable/fb_icon"
-                            android:layout_margin="5dp" />
-
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:src="@drawable/twitter_icon"
-                            android:layout_margin="5dp" />
-
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:src="@drawable/youtube_icon"
-                            android:layout_margin="5dp" />
-                    </LinearLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
       -->     <!-- </androidx.constraintlayout.widget.ConstraintLayout>-->

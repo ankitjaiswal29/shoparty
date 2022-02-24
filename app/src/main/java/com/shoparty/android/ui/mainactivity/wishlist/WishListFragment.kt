@@ -11,8 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.shoparty.android.R
 import com.shoparty.android.databinding.FragmentWishListBinding
+import com.shoparty.android.ui.activities.mainactivity.MainActivity
 import com.shoparty.android.ui.search.SearchActivity
 import com.shoparty.android.ui.shoppingbag.ShopingBagActivity
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.dashboard_toolbar.view.*
 import kotlinx.android.synthetic.main.fragment_deals.*
 
 class WishListFragment : Fragment() {
@@ -44,21 +47,20 @@ class WishListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-      //  binding.infoTool.tvTitle.setText(getString(R.string.wishlist))
+        (activity as MainActivity).info_tools.tv_title.visibility=View.INVISIBLE
+        (activity as MainActivity).info_tools.home_shoparty_icon.visibility=View.INVISIBLE
+        (activity as MainActivity).info_tools.home_shoparty_icon2.visibility=View.VISIBLE
 
-        //binding.infoTool.ivBag.visibility=View.VISIBLE
-        //binding.infoTool.ivSearch.visibility=View.VISIBLE
+        (activity as MainActivity).info_tools.iv_bag_btn.visibility=View.VISIBLE
+        (activity as MainActivity).info_tools.iv_btnsearch.visibility=View.VISIBLE
+
         binding.wishlistRecyclerview.layoutManager = LinearLayoutManager(requireContext())
-      binding.dealsSearchBtn.setOnClickListener {
-          val intent = Intent (getActivity(), SearchActivity::class.java)
-          getActivity()?.startActivity(intent)
 
-      }
 
-        deals_bag_btn.setOnClickListener {
+        /*deals_bag_btn.setOnClickListener {
             val intent = Intent (getActivity(), ShopingBagActivity::class.java)
             getActivity()?.startActivity(intent)
-        }
+        }*/
 
         // ArrayList of class ItemsViewModel
         val data = ArrayList<String>()

@@ -1,31 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="150dp"
-    android:layout_height="150dp"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="124dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="10dp"
-    android:background="@drawable/circle_border_bg">
+    android:background="@color/white"
+    >
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <View
+            android:id="@+id/v_circleview"
+            android:layout_width="124dp"
+            android:layout_height="124dp"
+            android:background="@drawable/circle_border_bg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+           />
+
+        <ImageView
             android:id="@+id/ts_subcategories_item_img"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/top_selling_item_img"
-            app:civ_border_color="#FF000000"
-            app:civ_border_width="2dp"
-            android:layout_centerHorizontal="true"/>
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:background="@drawable/icon_shippingbag"
+            app:layout_constraintBottom_toBottomOf="@+id/v_circleview"
+            app:layout_constraintEnd_toEndOf="@+id/v_circleview"
+            app:layout_constraintStart_toStartOf="@+id/v_circleview"
+            app:layout_constraintTop_toTopOf="@+id/v_circleview"
 
-        <TextView
-            android:id="@+id/ts_subcategories_item_name_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ts_subcategories_item_img"
-            android:text="@string/toys_kid"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="16dp" />
-</RelativeLayout>
+            />
+
+         <TextView
+             android:id="@+id/ts_subcategories_item_name_tv"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="@string/toys_kid"
+             app:layout_constraintStart_toStartOf="@id/ts_subcategories_item_img"
+             app:layout_constraintEnd_toEndOf="@id/ts_subcategories_item_img"
+             app:layout_constraintTop_toBottomOf="@id/ts_subcategories_item_img"
+           style="@style/AppTheme.Text_12dp_Bold" />
+</androidx.constraintlayout.widget.ConstraintLayout>

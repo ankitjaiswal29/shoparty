@@ -23,10 +23,13 @@ import com.shoparty.android.ui.termsandcondition.TermAndConditionActivity
 import com.shoparty.android.ui.vouchers.VouchersActivity
 import com.shoparty.android.ui.wishlist.WishListActivity
 import com.shoparty.android.interfaces.RecyclerViewClickListener
+import com.shoparty.android.ui.activities.mainactivity.MainActivity
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.dashboard_toolbar.view.*
 
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+/*private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"*/
 
 class MyAccountFragment : Fragment(), RecyclerViewClickListener {
 
@@ -36,8 +39,8 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+       /*     param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)*/
         }
 
     }
@@ -47,6 +50,14 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
+        (activity as MainActivity).info_tools.tv_title.visibility=View.INVISIBLE
+        (activity as MainActivity).info_tools.home_shoparty_icon.visibility=View.INVISIBLE
+        (activity as MainActivity).info_tools.home_shoparty_icon2.visibility=View.VISIBLE
+
+         (activity as MainActivity).info_tools.iv_bag_btn.visibility=View.INVISIBLE
+        (activity as MainActivity).info_tools.iv_btnsearch.visibility=View.INVISIBLE
+
 
         val root =  inflater.inflate(R.layout.fragment_my_account, container, false)
         val recyclerview = root.findViewById<RecyclerView>(R.id.recyclerview);

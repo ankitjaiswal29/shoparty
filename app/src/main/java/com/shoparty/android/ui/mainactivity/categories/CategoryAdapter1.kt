@@ -25,7 +25,7 @@ class CategoryAdapter1(private val itemList: List<HomeCategoriesModel>): Recycle
         holder.itemView.apply {
             category_name.text = items.name
             category_root_lay.setOnClickListener {
-                findNavController().navigate(R.id.categoryItemListFragment)
+              //  findNavController().navigate(R.id.categoryItemListFragment)
             }
         }
     }

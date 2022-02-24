@@ -333,7 +333,7 @@
     <string name="lorem_ipsum_is_simply">Lorem Ipsum is simply</string>
     <string name="birthday_cap">Birthday cap</string>
     <string name="_10_2">$10.2</string>
-    <string name="toys_kid">Toys Kid</string>
+    <string name="toys_kid">Toys Kids</string>
     <string name="_54_off">54% OFF</string>
     <string name="on_minimum_purchase_of_200">On Minimum Purchase Of $. 200</string>
     <string name="code_123wefxtra10">Code:123WEFXTRA10</string>
@@ -355,7 +355,10 @@
     <string name="pleaseselectdob">Please select date of birth</string>
     <string name="entervalidnumber">Enter Number Valid Mobile Number</string>
     <string name="entervalidmail">Please enter valid email</string>
-
+    <string name="brands">Brands</string>
+    <string name="lorem_ipsum_dolar">Lorem Ipsum Dolar</string>
+    <string name="_0">0</string>
+    <string name="shippingbag">Shipping bag</string>
 
 
 </resources>

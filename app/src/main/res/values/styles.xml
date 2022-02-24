@@ -119,6 +119,20 @@
 
         <item name="android:textSize">16dp</item>
     </style>
+
+    <style name="AppTheme.Text_11_dp_pink" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/pink</item>
+
+
+        <item name="android:textSize">11dp</item>
+    </style>
+    <style name="AppTheme.Text_12_dp_bold_pink" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/pink</item>
+        <item name="android:textStyle">bold</item>
+
+        <item name="android:textSize">12dp</item>
+    </style>
+
     <style name="AppTheme.Text_16_dp_white" parent="Widget.AppCompat.TextView">
         <item name="android:textColor">@color/white</item>
 
@@ -158,6 +172,11 @@
 
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">13dp</item>
+    </style>
+
+    <style name="AppTheme.Text_9_whitedp" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">9dp</item>
     </style>
 
     <style name="AppTheme.Text_14_graydp" parent="Widget.AppCompat.TextView">

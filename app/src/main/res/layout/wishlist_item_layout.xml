@@ -6,6 +6,7 @@
     android:paddingRight="20dp"
     android:paddingTop="11dp"
     android:paddingBottom="11dp"
+    android:layout_marginBottom="5dp"
     android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -27,6 +28,42 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/iv_unselect"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:elevation="10dp"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="@id/iv_background"
+            app:layout_constraintEnd_toEndOf="@id/iv_background"
+            app:layout_constraintTop_toTopOf="@id/iv_background"
+            app:layout_constraintBottom_toBottomOf="@id/iv_background"
+            android:src="@drawable/ic_icon_fav_gray"/>
+
+        <ImageView
+            android:id="@+id/iv_select"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:elevation="10dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/iv_background"
+            app:layout_constraintEnd_toEndOf="@id/iv_background"
+            app:layout_constraintTop_toTopOf="@id/iv_background"
+            app:layout_constraintBottom_toBottomOf="@id/iv_background"
+            android:src="@drawable/ic_icon_fav_pink"/>
+        <ImageView
+            android:id="@+id/iv_background"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_Productimg"
+            app:layout_constraintTop_toTopOf="@+id/iv_Productimg"
+            android:src="@drawable/ic_favourite_gray"
+            android:layout_margin="10dp"/>
+
+
+
         <TextView
             android:id="@+id/tv_ItemName"
             android:layout_width="wrap_content"
@@ -44,9 +81,9 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="10dp"
             android:text="@string/_10_off"
-            android:padding="2dp"
+            android:padding="3dp"
             android:background="@color/pink"
-            android:textColor="@color/white"
+           style="@style/AppTheme.Text_9_whitedp"
             android:layout_marginRight="5dp"
             app:layout_constraintEnd_toEndOf="parent"/>
 

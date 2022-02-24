@@ -23,9 +23,9 @@ class NewArrivalsHomeAdapter(private val itemList: List<HomeCategoriesModel>): R
         val items = itemList[position]
         holder.itemView.apply {
             new_arrival_item_name_tv.text = items.name
-            new_arrival_item_root.setOnClickListener {
+           /* new_arrival_item_root.setOnClickListener {
                 findNavController().navigate(R.id.newArrivalsItemFragment)
-            }
+            }*/
         }
     }
 }

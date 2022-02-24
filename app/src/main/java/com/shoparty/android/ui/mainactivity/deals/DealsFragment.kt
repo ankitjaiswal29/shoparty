@@ -8,11 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import com.shoparty.android.R
+import com.shoparty.android.ui.activities.mainactivity.MainActivity
 import com.shoparty.android.ui.search.SearchActivity
 import com.shoparty.android.ui.shoppingbag.ShopingBagActivity
 import com.shoparty.android.ui.mainactivity.categories.NewArrivalItemLIstAdapter
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.dashboard_toolbar.view.*
 
 import kotlinx.android.synthetic.main.fragment_deals.*
+import kotlinx.android.synthetic.main.fragment_new_arrivals_item.*
 
 class DealsFragment : Fragment() {
 
@@ -32,16 +36,46 @@ class DealsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        fillDealsRecyclerView(dealsItemList)
 
-        deals_search_btn.setOnClickListener {
+        (activity as MainActivity).info_tools.tv_title.visibility=View.INVISIBLE
+        (activity as MainActivity).info_tools.home_shoparty_icon.visibility=View.INVISIBLE
+        (activity as MainActivity).info_tools.home_shoparty_icon2.visibility=View.VISIBLE
+
+        (activity as MainActivity).info_tools.iv_bag_btn.visibility=View.VISIBLE
+        (activity as MainActivity).info_tools.iv_btnsearch.visibility=View.VISIBLE
+
+        fillDealsRecyclerView(dealsItemList)
+        Deals()
+
+       /* deals_search_btn.setOnClickListener {
             val intent = Intent (getActivity(), SearchActivity::class.java)
             getActivity()?.startActivity(intent)
         }
         deals_bag_btn.setOnClickListener {
             val intent = Intent (getActivity(), ShopingBagActivity::class.java)
             getActivity()?.startActivity(intent)
-        }
+        }*/
+    }
+
+    private fun Deals() {
+         val naItemList = listOf<TopSellingHomeModel>(
+            TopSellingHomeModel("Princess Dress","$10.2"),
+            TopSellingHomeModel("Princess Dress","$10.2"),
+            TopSellingHomeModel("Princess Dress","$10.2"),
+            TopSellingHomeModel("Princess Dress","$10.2"),
+            TopSellingHomeModel("Princess Dress","$10.2"),
+            TopSellingHomeModel("Princess Dress","$10.2"),
+
+            )
+
+             val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
+        deals_item_recycler.apply {
+                layoutManager = gridLayoutManager
+                setHasFixedSize(true)
+                isFocusable = false
+                adapter = DealsAdapter(naItemList)
+            }
+
     }
 
     private val dealsItemList = listOf<TopSellingHomeModel>(

@@ -1,23 +1,25 @@
 package com.shoparty.android.ui.fragment
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import com.shoparty.android.R
 import com.shoparty.android.databinding.FragmentHomeBinding
+import com.shoparty.android.interfaces.RecyclerViewClickListener
+import com.shoparty.android.ui.activities.mainactivity.MainActivity
 import com.shoparty.android.ui.mainactivity.deals.TopSellingHomeModel
 import com.shoparty.android.ui.mainactivity.home.*
+import com.shoparty.android.ui.mainactivity.topselling.TopSellingActivity
 import com.smarteist.autoimageslider.SliderView
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.dashboard_toolbar.view.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(),RecyclerViewClickListener {
 
     private lateinit var drawerLayout: DrawerLayout
     private var productsBool: Boolean=false
@@ -48,6 +50,14 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        (activity as MainActivity).info_tools.tv_title.visibility=View.INVISIBLE
+        (activity as MainActivity).info_tools.home_shoparty_icon.visibility=View.INVISIBLE
+        (activity as MainActivity).info_tools.home_shoparty_icon2.visibility=View.VISIBLE
+
+        (activity as MainActivity).info_tools.iv_bag_btn.visibility=View.VISIBLE
+        (activity as MainActivity).info_tools.iv_btnsearch.visibility=View.INVISIBLE
+
         initialise()
 
     }
@@ -65,6 +75,108 @@ class HomeFragment : Fragment() {
         Topselling()
         HomeCategory()
         season()
+        HomeTheamRecyclar()
+        NewArrival()
+        TopsellingSubcategories()
+        OfferDiscoutItem()
+        Brands()
+
+
+
+    }
+
+    private fun Brands() {
+        val homeOffersList = listOf<HomeCategoriesModel>(
+            HomeCategoriesModel("Up To 10% Off"),
+            HomeCategoriesModel("Up To 10% Off"),
+            HomeCategoriesModel("Up To 10% Off"),
+            HomeCategoriesModel("Up To 10% Off"),
+
+            )
+
+
+        val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
+        home_bonds_recycler.apply {
+            layoutManager = gridLayoutManager
+            setHasFixedSize(true)
+            isFocusable = false
+            adapter = HomeBondsAdapter(homeOffersList)
+        }
+    }
+
+    private fun OfferDiscoutItem() {
+         val homeOffersList = listOf<HomeCategoriesModel>(
+            HomeCategoriesModel("Up To 10% Off"),
+            HomeCategoriesModel("Up To 10% Off"),
+
+        )
+
+
+            val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
+            home_offers_recycler.apply {
+                layoutManager = gridLayoutManager
+                setHasFixedSize(true)
+                isFocusable = false
+                adapter = HomeOffersAdapter(homeOffersList)
+            }
+
+    }
+
+    private fun TopsellingSubcategories() {
+         val tsSubCategoriesList = listOf<HomeCategoriesModel>(
+            HomeCategoriesModel("Mask"),
+            HomeCategoriesModel("Mask"),
+            HomeCategoriesModel("Mask"),
+            HomeCategoriesModel("Mask"),
+        )
+
+               val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
+            ts_subcategories_recycler.apply {
+                layoutManager = gridLayoutManager
+                setHasFixedSize(true)
+                isFocusable = false
+                adapter = TopSellingSubcategoriesAdapter(tsSubCategoriesList)
+            }
+
+    }
+
+    private fun NewArrival() {
+         val newArrivalsList = listOf<HomeCategoriesModel>(
+            HomeCategoriesModel("Toys Kids"),
+            HomeCategoriesModel("Toys Kids"),
+            HomeCategoriesModel("Toys Kids"),
+            HomeCategoriesModel("Toys Kids"),
+        )
+
+
+            val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
+            home_new_arrivals_recycler.apply {
+                layoutManager = gridLayoutManager
+                setHasFixedSize(true)
+                isFocusable = false
+                adapter = NewArrivalsHomeAdapter(newArrivalsList)
+            }
+
+
+    }
+
+    private fun HomeTheamRecyclar() {
+
+         val themesList = listOf<HomeCategoriesModel>(
+            HomeCategoriesModel("Unicorn"),
+            HomeCategoriesModel("Mermaid"),
+            HomeCategoriesModel("Unicorn"),
+            HomeCategoriesModel("Mermaid"),
+        )
+
+            val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
+            home_themes_recycler.apply {
+                layoutManager = gridLayoutManager
+                setHasFixedSize(true)
+                isFocusable = false
+                adapter = HomeCategoriesAdapter(themesList)
+            }
+
 
 
     }
@@ -109,7 +221,7 @@ class HomeFragment : Fragment() {
             TopSellingHomeModel("Princess Dress","$10.2"),
             TopSellingHomeModel("Princess Dress","$10.2"),
         )
-        binding.topSellingRecycler.adapter = TopSellingHomeAdapter(topSellingItemList)
+        binding.topSellingRecycler.adapter = TopSellingHomeAdapter(topSellingItemList,this)
     }
 
     private fun setImageInSlider(images: ArrayList<String>, imageSlider: SliderView) {
@@ -120,9 +232,10 @@ class HomeFragment : Fragment() {
         imageSlider.startAutoCycle()
     }
 
-
-
-
+    override fun click(pos: String) {
+        val intent = Intent(activity, TopSellingActivity::class.java)
+        startActivity(intent)
+    }
 
 
 /*
@@ -235,111 +348,19 @@ class HomeFragment : Fragment() {
         fillHomeBondsRecyclerView(homeBondsList)
     }
 
-
-    private val topSellingItemList = listOf<TopSellingHomeModel>(
-        TopSellingHomeModel("Princess Dress","$10.2"),
-        TopSellingHomeModel("Princess Dress","$10.2"),
-        TopSellingHomeModel("Princess Dress","$10.2"),
-    )
-
-    private fun fillTopSellingRecyclerView(teachers: List<TopSellingHomeModel>) {
-        top_selling_recycler.adapter = TopSellingHomeAdapter(topSellingItemList)
-    }
-
-
-
-
-
-
 //themes
-    private val themesList = listOf<HomeCategoriesModel>(
-        HomeCategoriesModel("Unicorn"),
-        HomeCategoriesModel("Mermaid"),
-        HomeCategoriesModel("Unicorn"),
-        HomeCategoriesModel("Mermaid"),
-    )
 
-    private fun fillThemesRecyclerView(themes: List<HomeCategoriesModel>) {
-        val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
-        home_themes_recycler.apply {
-            layoutManager = gridLayoutManager
-            setHasFixedSize(true)
-            isFocusable = false
-            adapter = HomeCategoriesAdapter(themesList)
-        }
-    }
 //new arrivals
 
-    private val newArrivalsList = listOf<HomeCategoriesModel>(
-        HomeCategoriesModel("Toys Kids"),
-        HomeCategoriesModel("Toys Kids"),
-        HomeCategoriesModel("Toys Kids"),
-        HomeCategoriesModel("Toys Kids"),
-    )
-
-    private fun fillNewArrivalsRecyclerView(themes: List<HomeCategoriesModel>) {
-        val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
-        home_new_arrivals_recycler.apply {
-            layoutManager = gridLayoutManager
-            setHasFixedSize(true)
-            isFocusable = false
-            adapter = NewArrivalsHomeAdapter(newArrivalsList)
-        }
-    }
 
     //ts Sub categories
-    private val tsSubCategoriesList = listOf<HomeCategoriesModel>(
-        HomeCategoriesModel("Mask"),
-        HomeCategoriesModel("Mask"),
-        HomeCategoriesModel("Mask"),
-        HomeCategoriesModel("Mask"),
-    )
 
-    private fun fillTsSubCategoriesRecyclerView(themes: List<HomeCategoriesModel>) {
-        val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
-        ts_subcategories_recycler.apply {
-            layoutManager = gridLayoutManager
-            setHasFixedSize(true)
-            isFocusable = false
-            adapter = TopSellingSubcategoriesAdapter(tsSubCategoriesList)
-        }
-    }
 
     //home offers
 
-    private val homeOffersList = listOf<HomeCategoriesModel>(
-        HomeCategoriesModel("Toys Kids"),
-        HomeCategoriesModel("Toys Kids"),
-        HomeCategoriesModel("Toys Kids"),
-        HomeCategoriesModel("Toys Kids"),
-    )
 
-    private fun fillHomeOffersRecyclerView(themes: List<HomeCategoriesModel>) {
-        val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
-        home_offers_recycler.apply {
-            layoutManager = gridLayoutManager
-            setHasFixedSize(true)
-            isFocusable = false
-            adapter = HomeOffersAdapter(homeOffersList)
-        }
-    }
 
     //home Bonds
 
-    private val homeBondsList = listOf<HomeCategoriesModel>(
-        HomeCategoriesModel("Toys Kids"),
-        HomeCategoriesModel("Toys Kids"),
-        HomeCategoriesModel("Toys Kids"),
-        HomeCategoriesModel("Toys Kids"),
-    )
-
-    private fun fillHomeBondsRecyclerView(themes: List<HomeCategoriesModel>) {
-        val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
-        home_bonds_recycler.apply {
-            layoutManager = gridLayoutManager
-            setHasFixedSize(true)
-            isFocusable = false
-            adapter = HomeBondsAdapter(homeBondsList)
-        }
-    }*/
+    */
 }

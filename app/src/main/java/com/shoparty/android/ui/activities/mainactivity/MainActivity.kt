@@ -6,24 +6,32 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityMainBinding
 
 import com.shoparty.android.databinding.ActivityPrivacyPolicyBinding
 import com.shoparty.android.ui.fragment.*
+import com.shoparty.android.ui.login.LoginActivity
 
 import com.shoparty.android.ui.mainactivity.categories.CategoriesFragment
 import com.shoparty.android.ui.mainactivity.deals.DealsFragment
+import com.shoparty.android.ui.mainactivity.home.HomeCategoriesModel
+import com.shoparty.android.ui.mainactivity.home.HomeSeasonsAdapter
+import com.shoparty.android.ui.mainactivity.myaccount.MyAccountAdapter
 import com.shoparty.android.ui.mainactivity.myaccount.MyAccountFragment
 import com.shoparty.android.ui.mainactivity.wishlist.WishListFragment
+import com.shoparty.android.ui.shoppingbag.ShopingBagActivity
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
@@ -49,6 +57,8 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
        // binding.navigationView.setNavigationItemSelectedListener(this)
         binding.homeNavBtn.setOnClickListener(this)
         binding.crossNavBtn.setOnClickListener(this)
+        binding.btnSigninSignout.setOnClickListener(this)
+        binding.infoTools.iv_bag_btn.setOnClickListener(this)
 
 
         binding.wishlistNavBtn.setOnClickListener(this)
@@ -64,6 +74,21 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
         val dealsFragment=DealsFragment()
         val wishListFragment= WishListFragment()
         val myAccountFragment= MyAccountFragment()
+
+        val drawerItemList = listOf<HomeCategoriesModel>(
+            HomeCategoriesModel("Products"),
+            HomeCategoriesModel("Services"),
+            HomeCategoriesModel("Flowers"),
+            HomeCategoriesModel("Rentals"),
+            HomeCategoriesModel("New Arrivals"),
+            HomeCategoriesModel("Best Selling"),
+            )
+
+        binding.rvDrawerHomerecyclarview.layoutManager = LinearLayoutManager(this)
+        val adapter = DrawerAdapter(drawerItemList)
+        binding.rvDrawerHomerecyclarview.adapter = adapter
+
+     //   binding.rvDrawerHomerecyclarview.adapter = DrawerAdapter(drawerItemList)
 
        /* binding.wishlistNavBtn.setOnClickListener {
             setCurrentFragment(wishListFragment)
@@ -165,10 +190,27 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                 binding.tvMyaccount.setTextColor(getColor(R.color.black))
                 binding.bottomNavigatinView.findViewById<View>(R.id.MyAccountFragment).performClick()
 
-                //  binding.drawerLayout.closeDrawer(GravityCompat.START)
-                //  ic_user
-              //  binding.bottomNavigatinView.findViewById<View>(R.id.MyAccountFragment).performClick()
+                val builder = AlertDialog.Builder(this , R.style.CustomAlertDialog)
+                val inflater = layoutInflater
+                val dialogLayout: View =
+                    inflater.inflate(R.layout.alert_dialog_signout, null)
+                val btn_cancel = dialogLayout.findViewById<Button>(R.id.cancel_btn)
+                val btn_save = dialogLayout.findViewById<Button>(R.id.save_btn)
 
+                btn_cancel.setOnClickListener {
+
+
+                }
+                builder.setView(dialogLayout)
+                builder.show()
+            }
+            R.id.btn_signin_signout -> {
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.iv_bag_btn->{
+                val intent = Intent(this, ShopingBagActivity::class.java)
+                startActivity(intent)
             }
 
 

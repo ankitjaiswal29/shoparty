@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#F8F8F8"
     tools:context=".ui.mainactivity.deals.DealsFragment">
-    <androidx.constraintlayout.widget.ConstraintLayout
+   <!-- <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/deals_constrain_lay1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -68,37 +68,49 @@
             android:layout_marginTop="10dp"
             android:text="@string/deals"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <LinearLayout
+-->
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/deals_linear_lay1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/deals_constrain_lay1"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="10dp">
-        <LinearLayout
-            android:id="@+id/deals_filter_btn"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/white"
-            android:layout_weight="0.5"
-            android:layout_marginEnd="2dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <ImageView
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_filter_icon"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/filter"
-                android:layout_marginStart="10dp"
-                android:textSize="15dp"/>
-        </LinearLayout>
-        <LinearLayout
+                android:src="@drawable/ic_filter_icon"/>-->
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:elevation="10dp"
+            app:layout_constraintTop_toTopOf="@+id/tv_filter"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_filter"
+            app:layout_constraintStart_toStartOf="@+id/tv_filter"
+            android:src="@drawable/ic_filter_icon"/>
+        <TextView
+            android:id="@+id/tv_filter"
+            style="@style/AppTheme.Text_12_graydp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+              android:paddingTop="17dp"
+             android:background="@color/white"
+            android:gravity="center"
+            android:paddingBottom="16dp"
+            android:layout_marginRight="1dp"
+            android:text="@string/filter"
+            app:layout_constraintEnd_toStartOf="@+id/tv_sort"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- <LinearLayout
             android:id="@+id/deals_sort_btn"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -109,28 +121,47 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_icon_sort"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sort"
-                android:layout_marginStart="10dp"
-                android:textSize="15dp"/>
-        </LinearLayout>
+                android:src="@drawable/ic_icon_sort"/>-->
 
-    </LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:elevation="10dp"
+            app:layout_constraintTop_toTopOf="@+id/tv_sort"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_sort"
+            app:layout_constraintStart_toStartOf="@+id/tv_sort"
+            android:src="@drawable/ic_icon_sort"/>
+
+        <TextView
+            android:id="@+id/tv_sort"
+            style="@style/AppTheme.Text_12_graydp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="17dp"
+            android:layout_marginLeft="1dp"
+            android:paddingBottom="16dp"
+            android:text="@string/sort"
+            android:gravity="center"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_filter"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--  </LinearLayout>-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/deals_item_recycler"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/deals_linear_lay1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
         tools:listitem="@layout/top_selling_item2"
         app:spanCount="2"
+        android:paddingBottom="40dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="5dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

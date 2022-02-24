@@ -42,7 +42,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.btnGetOtp -> {
-                viewModel.postLogin()  //api call
+                //viewModel.postLogin()  //api call
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
             }
             R.id.txtSignUp -> {
                 val intent = Intent(this, RegisterActivity::class.java)
