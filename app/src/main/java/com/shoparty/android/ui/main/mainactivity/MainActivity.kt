@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
@@ -25,7 +24,6 @@ import com.shoparty.android.ui.main.home.HomeCategoriesModel
 import com.shoparty.android.ui.main.myaccount.MyAccountFragment
 import com.shoparty.android.ui.main.wishlist.WishListFragment
 import com.shoparty.android.ui.shoppingbag.ShopingBagActivity
-import com.shoparty.android.utils.Utils
 
 import kotlinx.android.synthetic.main.dashboard_toolbar.view.*
 
@@ -37,7 +35,6 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
     private lateinit var drawerLayout: DrawerLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-      //  setContentView(R.layout.activity_main)
         binding= DataBindingUtil.setContentView(this,R.layout.activity_main)
         initialise()
     }
@@ -78,16 +75,6 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
         val adapter = DrawerAdapter(drawerItemList)
         binding.rvDrawerHomerecyclarview.adapter = adapter
 
-     //   binding.rvDrawerHomerecyclarview.adapter = DrawerAdapter(drawerItemList)
-
-       /* binding.wishlistNavBtn.setOnClickListener {
-            setCurrentFragment(wishListFragment)
-            Toast.makeText(this,"dfdf",Toast.LENGTH_LONG).show()
-            binding.bottomNavigatinView.findViewById<View>(R.id.WishlistFragment).performClick()
-
-        }*/
-
-
         setCurrentFragment(homeFragment)
 
         binding.bottomNavigatinView.setOnNavigationItemSelectedListener {
@@ -111,26 +98,12 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
     override fun onClick(v: View?) {
         when(v?.id) {
             R.id.home_nav_btn -> {
-                binding.drawerLayout.closeDrawer(GravityCompat.START)
-                binding.ivHome.setImageResource(R.drawable.ic_drawer_home_pink);
-                binding.tvHome.setTextColor(getColor(R.color.pink))
-
-                binding.ivWishlist.setImageResource(R.drawable.wishlist_icon);
-                binding.ivMyaccount.setImageResource(R.drawable.ic_user);
-                binding.ivLanguage.setImageResource(R.drawable.language_icon);
-                binding.tvWishlist.setTextColor(getColor(R.color.black))
-                binding.tvMyaccount.setTextColor(getColor(R.color.black))
-                binding.tvLanguage.setTextColor(getColor(R.color.black))
-                //  ic_baseline_home_24
-                binding.bottomNavigatinView.findViewById<View>(R.id.homeFragment).performClick()
-
+                manageHomeSidebar()
             }
             R.id.cross_nav_btn -> {
                 binding.drawerLayout.closeDrawer(GravityCompat.START)
-              //  binding.bottomNavigatinView.findViewById<View>(R.id.WishlistFragment).performClick()
-
-
             }
+
             R.id.wishlist_nav_btn -> {
                 binding.drawerLayout.closeDrawer(GravityCompat.START)
                // wishlist_icon
@@ -165,16 +138,13 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
             }
             R.id.language_nav_lay -> {
-              //  language_icon
-
+                binding.drawerLayout.closeDrawer(GravityCompat.START)
                 binding.ivLanguage.setImageResource(R.drawable.drawer_language_pink);
                 binding.tvLanguage.setTextColor(getColor(R.color.pink))
-
                 binding.ivHome.setImageResource(R.drawable.ic_baseline_home_24);
                 binding.tvHome.setTextColor(getColor(R.color.black))
                 binding.ivMyaccount.setImageResource(R.drawable.ic_user);
                 binding.tvMyaccount.setTextColor(getColor(R.color.black))
-                binding.bottomNavigatinView.findViewById<View>(R.id.MyAccountFragment).performClick()
 
                 val builder = AlertDialog.Builder(this , R.style.CustomAlertDialog)
                 val inflater = layoutInflater
@@ -185,12 +155,12 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
                 btn_cancel.setOnClickListener {
 
-
                 }
                 builder.setView(dialogLayout)
                 builder.show()
             }
             R.id.btn_signin_signout -> {
+                binding.drawerLayout.closeDrawer(GravityCompat.START)
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
             }
@@ -199,6 +169,22 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                 startActivity(intent)
             }
         }
+    }
+
+    private fun manageHomeSidebar()
+    {
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
+        binding.ivHome.setImageResource(R.drawable.ic_drawer_home_pink);
+        binding.tvHome.setTextColor(getColor(R.color.pink))
+
+        binding.ivWishlist.setImageResource(R.drawable.wishlist_icon);
+        binding.ivMyaccount.setImageResource(R.drawable.ic_user);
+        binding.ivLanguage.setImageResource(R.drawable.language_icon);
+        binding.tvWishlist.setTextColor(getColor(R.color.black))
+        binding.tvMyaccount.setTextColor(getColor(R.color.black))
+        binding.tvLanguage.setTextColor(getColor(R.color.black))
+
+        binding.bottomNavigatinView.findViewById<View>(R.id.homeFragment).performClick()
     }
 
 
@@ -211,13 +197,11 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                 .setMessage(getString(R.string.are_sure_exit))
                 .setPositiveButton(
                     getString(R.string.yes)
-                ) { dialog: DialogInterface?, which: Int -> finishAffinity() }
+                ) {
+                        dialog: DialogInterface?, which: Int -> finishAffinity()
+                }
                 .setNegativeButton(getString(R.string.no), null).show()
         }
-
-
-
-
         else
         {
             binding.bottomNavigatinView.setSelectedItemId(R.id.homeFragment)
