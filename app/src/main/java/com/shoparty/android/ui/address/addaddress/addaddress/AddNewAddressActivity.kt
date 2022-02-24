@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityAddNewAddressBinding
@@ -21,24 +22,19 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun initialise() {
         binding.infoTool.tvTitle.setText("Add New Address")
-        binding.btnSave.setOnClickListener(this)
-        binding.btnCancel.setOnClickListener(this)
+        binding.btnCan.setOnClickListener(this)
+        binding.btnSav.setOnClickListener(this)
         binding.infoTool.back.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when(v?.id){
-            R.id.btnSave -> {
-                val intent = Intent(this, AddressActivity::class.java)
-                startActivity(intent)
+            R.id.btn_can -> {
                 finish()
             }
-            R.id.btnCancel -> {
+            R.id.btn_sav -> {
                 /*val intent = Intent(this, MyAccountActivity::class.java)
                 startActivity(intent)*/
-
-                val intent = Intent(this, AddressActivity::class.java)
-                startActivity(intent)
                 finish()
             }
             R.id.back -> {

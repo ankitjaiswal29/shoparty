@@ -173,7 +173,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/etMobile"-->
                 <Button
-                    android:id="@+id/btn_cancel"
+                    android:id="@+id/btn_can"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="31dp"
@@ -181,13 +181,13 @@
                     android:text="@string/cancel"
                     android:textAllCaps="false"
                     android:layout_marginRight="7dp"
-                    app:layout_constraintEnd_toStartOf="@+id/btn_save"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_sav"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/etMobile" />
 
                 <Button
-                    android:id="@+id/btn_save"
+                    android:id="@+id/btn_sav"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="31dp"
@@ -198,7 +198,7 @@
                     android:layout_marginLeft="7dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/btn_cancel"
+                    app:layout_constraintStart_toEndOf="@+id/btn_can"
                     app:layout_constraintTop_toBottomOf="@+id/etMobile" />
 
 
