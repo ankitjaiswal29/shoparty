@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.shoparty.android.R
 import com.shoparty.android.utils.inflate
-import com.shoparty.android.ui.mainactivity.home.HomeCategoriesModel
+import com.shoparty.android.ui.main.home.HomeCategoriesModel
 import kotlinx.android.synthetic.main.bag_item_layout.view.*
 
 

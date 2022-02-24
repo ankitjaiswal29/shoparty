@@ -10,7 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityVerificationBinding
-import com.shoparty.android.ui.activities.mainactivity.MainActivity
+import com.shoparty.android.ui.main.mainactivity.MainActivity
 
 import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.ProgressDialog
@@ -19,7 +19,6 @@ import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 
 import kotlinx.android.synthetic.main.activity_verification.*
-import kotlin.time.Duration.Companion.seconds
 
 class VerificationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityVerificationBinding

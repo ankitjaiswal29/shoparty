@@ -7,7 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityWishListBinding
-import com.shoparty.android.ui.mainactivity.wishlist.WishListAdapter
+import com.shoparty.android.ui.main.wishlist.WishListAdapter
 
 
 class WishListActivity : AppCompatActivity(), View.OnClickListener {

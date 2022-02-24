@@ -11,7 +11,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityRegisterBinding
-import com.shoparty.android.ui.activities.mainactivity.MainActivity
 
 
 import com.shoparty.android.ui.login.LoginActivity

@@ -19,7 +19,7 @@ import com.shoparty.android.ui.returnpolicy.ReturnPolicyActivity
 import com.shoparty.android.ui.termsandcondition.TermAndConditionActivity
 import com.shoparty.android.ui.vouchers.VouchersActivity
 import com.shoparty.android.ui.wishlist.WishListActivity
-import com.shoparty.android.ui.mainactivity.myaccount.MyAccountAdapter
+import com.shoparty.android.ui.main.myaccount.MyAccountAdapter
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 
 

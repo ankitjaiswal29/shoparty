@@ -7,7 +7,7 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityOrderSuccessfulyBinding
-import com.shoparty.android.ui.activities.mainactivity.MainActivity
+import com.shoparty.android.ui.main.mainactivity.MainActivity
 import com.shoparty.android.ui.myorders.orderdetails.OrderDetailsActivity
 
 

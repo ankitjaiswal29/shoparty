@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Shoparty_android</string>
+    <string name="app_name">Shoparty</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="first_name">First Name*</string>
@@ -361,6 +361,8 @@
     <string name="lorem_ipsum_dolar">Lorem Ipsum Dolar</string>
     <string name="_0">0</string>
     <string name="shippingbag">Shipping bag</string>
+    <string name="are_sure_exit">Are you sure you want to exit?</string>
+    <string name="no">No</string>
 
 
 </resources>

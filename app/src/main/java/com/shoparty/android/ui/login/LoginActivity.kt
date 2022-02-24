@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityLoginBinding
-import com.shoparty.android.ui.activities.mainactivity.MainActivity
 import com.shoparty.android.ui.verificationotp.VerificationActivity
 import com.shoparty.android.ui.register.RegisterActivity
 import com.shoparty.android.utils.Constants
@@ -39,9 +38,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.btnGetOtp -> {
-                //viewModel.postLogin()  //api call
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                viewModel.postLogin()  //api call
+               /* val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)*/
             }
             R.id.txtSignUp -> {
                 val intent = Intent(this, RegisterActivity::class.java)

@@ -1,16 +1,12 @@
 package com.shoparty.android.ui.shoppingbag
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.shoparty.android.R
-import com.shoparty.android.databinding.ActivityOngoingOrderBinding
 import com.shoparty.android.databinding.ActivityShopingBagBinding
-import com.shoparty.android.ui.cancelorder.cancelorder.CancelOrderActivity
-import com.shoparty.android.ui.mainactivity.home.HomeCategoriesModel
-import com.shoparty.android.ui.login.LoginActivity
+import com.shoparty.android.ui.main.home.HomeCategoriesModel
 
 import kotlinx.android.synthetic.main.activity_shoping_bag.*
 import kotlinx.android.synthetic.main.toolbar_layout.view.*

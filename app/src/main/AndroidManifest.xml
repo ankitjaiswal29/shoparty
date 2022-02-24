@@ -19,7 +19,7 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
         <activity
-            android:name=".ui.mainactivity.topselling.TopSellingActivity"
+            android:name=".ui.main.topselling.TopSellingActivity"
             android:exported="false" />
         <activity
             android:name=".ui.ongoingorder.OngoingOrderActivity"
@@ -213,7 +213,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activities.mainactivity.MainActivity"
+            android:name="com.shoparty.android.ui.main.mainactivity.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
