@@ -214,6 +214,10 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                 ) { dialog: DialogInterface?, which: Int -> finishAffinity() }
                 .setNegativeButton(getString(R.string.no), null).show()
         }
+
+
+
+
         else
         {
             binding.bottomNavigatinView.setSelectedItemId(R.id.homeFragment)
