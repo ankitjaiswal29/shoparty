@@ -1,5 +1,6 @@
 package com.shoparty.android.utils
 
+import android.R
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
@@ -12,6 +13,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.util.Patterns
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
@@ -20,6 +22,7 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestListener
 import com.google.android.material.snackbar.Snackbar
+import java.lang.RuntimeException
 
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -44,11 +47,10 @@ object Utils {
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
-    fun hideKeyboard(context: Context, view: View) {
-        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view.windowToken, 0)
+    fun hideKeyboard(activity: Activity) {
+        val view = (activity.findViewById<View>(R.id.content) as ViewGroup).getChildAt(0)
+        hideKeyboard(activity, view)
     }
-
     fun showSnackBar(view: View, message: String) {
         Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
     }
@@ -61,6 +63,9 @@ object Utils {
        return mobile.length<8 || mobile.length>15
     }
 
+    fun formatElapsedTime(elapsedSeconds: Long): String? {
+        throw RuntimeException("Stub!")
+    }
     fun showLongToast(context: Context?, message: String?) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }

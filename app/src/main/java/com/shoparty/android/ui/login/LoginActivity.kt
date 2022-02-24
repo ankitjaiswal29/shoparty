@@ -10,16 +10,12 @@ import androidx.lifecycle.ViewModelProvider
 
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityLoginBinding
-import com.shoparty.android.ui.activities.mainactivity.MainActivity
 import com.shoparty.android.ui.verificationotp.VerificationActivity
 import com.shoparty.android.ui.register.RegisterActivity
-import com.shoparty.android.ui.register.RegisterViewModel
 import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_register.*
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityLoginBinding
@@ -63,6 +59,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                     PrefManager.write(PrefManager.AUTH_TOKEN, response.data?.token!!)
                     val intent = Intent(this, VerificationActivity::class.java)
                     intent.putExtra(Constants.MOBILE,response.data.mobile)
+                    intent.putExtra(Constants.USERID,response.data.user_id.toString())
                     startActivity(intent)
 
                     Toast.makeText(

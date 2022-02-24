@@ -355,6 +355,8 @@
     <string name="pleaseselectdob">Please select date of birth</string>
     <string name="entervalidnumber">Enter Number Valid Mobile Number</string>
     <string name="entervalidmail">Please enter valid email</string>
+    <string name="enterotp">Please enter otp</string>
+    <string name="txtseconds">Seconds</string>
     <string name="brands">Brands</string>
     <string name="lorem_ipsum_dolar">Lorem Ipsum Dolar</string>
     <string name="_0">0</string>
