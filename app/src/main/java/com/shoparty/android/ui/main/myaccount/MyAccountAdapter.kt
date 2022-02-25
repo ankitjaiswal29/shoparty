@@ -1,61 +1,48 @@
 package com.shoparty.android.ui.main.myaccount
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.shoparty.android.R
+import com.shoparty.android.databinding.MyaccountItemBinding
 import com.shoparty.android.ui.myaccount.MyAccountModel
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 
-
-class MyAccountAdapter(private val mList: List<MyAccountModel>, private val recyclerViewClickListener: RecyclerViewClickListener) : RecyclerView.Adapter<MyAccountAdapter.ViewHolder>() {
-
-    // create new views
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        // inflates the card_view_design view
-        // that is used to hold list item
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.my_account_item_layout, parent, false)
-
-        return ViewHolder(view)
+class MyAccountAdapter(
+    context:Context,
+    private val mList: List<MyAccountModel>,
+    private val recyclerViewClickListener: RecyclerViewClickListener) :
+    RecyclerView.Adapter<MyAccountAdapter.MyViewHolder>()
+{
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): MyViewHolder {
+        val itemView: View = LayoutInflater.from(parent.context)
+            .inflate(R.layout.myaccount_item, parent, false)
+        return MyViewHolder(itemView)
     }
 
-    // binds the list items to a view
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int)
+    {
+        val item = mList[position]
+        holder.binding.textview.text=item.text
 
-        val ItemsViewModel = mList[position]
 
-        // sets the image to the imageview from our itemHolder class
-        holder.ivIcon.setImageResource(ItemsViewModel.image)
-
-        // sets the text to the textview from our itemHolder class
-        holder.textView.text = ItemsViewModel.text
-       /* holder.cv_Carditem.setOnClickListener {
-            itemclick?.itemclick(ItemsViewModel.id)
-        }
-*/
         holder.itemView.setOnClickListener {
-            recyclerViewClickListener.click(ItemsViewModel.id)
+            recyclerViewClickListener.click(item.id)
         }
-
-
-
     }
 
-    // return the number of the items in the list
     override fun getItemCount(): Int {
         return mList.size
     }
-
-    // Holds the views for adding it to image and text
-    class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
-        val textView: TextView = itemView.findViewById(R.id.textview)
-        val ivIcon:ImageView=itemView.findViewById(R.id.iv_icon)
-       val cv_Carditem:CardView=itemView.findViewById(R.id.cv_Carditem)
+    class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        var binding =MyaccountItemBinding.bind(view)
+        init {
+        }
     }
+
 }

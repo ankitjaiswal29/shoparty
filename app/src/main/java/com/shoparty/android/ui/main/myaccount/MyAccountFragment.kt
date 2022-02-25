@@ -1,16 +1,17 @@
 package com.shoparty.android.ui.main.myaccount
 
-import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.shoparty.android.R
+import com.shoparty.android.databinding.FragmentMyAccountBinding
 import com.shoparty.android.ui.myaccount.MyAccountModel
 import com.shoparty.android.ui.aboutus.AboutUsActivity
 import com.shoparty.android.ui.address.addaddress.getaddress.AddressActivity
@@ -27,44 +28,33 @@ import com.shoparty.android.ui.main.mainactivity.MainActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dashboard_toolbar.view.*
 
-
-/*private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"*/
-
 class MyAccountFragment : Fragment(), RecyclerViewClickListener {
-
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
+    private lateinit var binding: FragmentMyAccountBinding
+    private lateinit var myaccountAdapter: MyAccountAdapter
+    var dialog: Dialog? = null
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
         arguments?.let {
-       /*     param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)*/
         }
-
     }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_account, container, false)
+            init()
+            return binding.root
+    }
 
+    fun init()
+    {
         (activity as MainActivity).info_tools.tv_title.visibility=View.INVISIBLE
         (activity as MainActivity).info_tools.home_shoparty_icon.visibility=View.INVISIBLE
         (activity as MainActivity).info_tools.home_shoparty_icon2.visibility=View.VISIBLE
 
-         (activity as MainActivity).info_tools.iv_bag_btn.visibility=View.INVISIBLE
+        (activity as MainActivity).info_tools.ivBagBtn.visibility=View.INVISIBLE
         (activity as MainActivity).info_tools.iv_btnsearch.visibility=View.INVISIBLE
 
-
-        val root =  inflater.inflate(R.layout.fragment_my_account, container, false)
-        val recyclerview = root.findViewById<RecyclerView>(R.id.recyclerview);
-        // this creates a vertical layout Manager
-        recyclerview.layoutManager = LinearLayoutManager(requireContext())
-
-        // ArrayList of class ItemsViewModel
         val data = ArrayList<MyAccountModel>()
         data.add(MyAccountModel(R.drawable.ic_myorder_icon,"idmyorder",getString(R.string.my_order) ))
         data.add(MyAccountModel(R.drawable.ic_vouchers_icon,"idvoucher",getString(R.string.vouchers) ))
@@ -86,22 +76,9 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
         data.add(MyAccountModel(R.drawable.ic_sign_out_icon,"idsignout",getString(R.string.sign_out) ))
 
 
-        val adapter = MyAccountAdapter(data,this)
-        recyclerview.adapter = adapter
-
-        return root
-     //   return inflater.inflate(R.layout.fragment_my_account, container, false)
-
-
-        // getting the recyclerview by its id
-
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-
+        myaccountAdapter = MyAccountAdapter(requireContext(),data,this)
+        binding.recyclerview.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerview.adapter = myaccountAdapter
     }
 
 
@@ -118,12 +95,12 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
                 val intent = Intent (getActivity(), VouchersActivity::class.java)
                 getActivity()?.startActivity(intent)
             }
-           // startActivity(Intent(this, VouchersActivity::class.java))
+
             "idwishlist" -> {
                 val intent = Intent (getActivity(), WishListActivity::class.java)
                 getActivity()?.startActivity(intent)
             }
-                //startActivity(Intent(this, WishListActivity::class.java))
+
 
             "idmyprofile" -> {
                 val intent = Intent (getActivity(), MyProfileActivity::class.java)
@@ -155,34 +132,31 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
                 val intent = Intent (getActivity(), PrivacyPolicyActivity::class.java)
                 getActivity()?.startActivity(intent)
             }
-               // startActivity(Intent(this, PrivacyPolicyActivity::class.java))
-
             "idreturnpolicy" ->{
                 val intent = Intent (getActivity(), ReturnPolicyActivity::class.java)
                 getActivity()?.startActivity(intent)
             }
-               // startActivity(Intent(this, ReturnPolicyActivity::class.java))
             "idsignout" ->{
-                val builder = AlertDialog.Builder(context, R.style.CustomAlertDialog)
-                val inflater = layoutInflater
-                val dialogLayout: View =
-                    inflater.inflate(R.layout.alert_dialog_signout2, null)
-                val btn_cancel = dialogLayout.findViewById<Button>(R.id.btn_cancel)
-                val btn_yes = dialogLayout.findViewById<Button>(R.id.btn_yes)
-                builder.setView(dialogLayout)
-                builder.show()
-
+                dialog = Dialog(requireContext())
+                dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                dialog!!.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+                dialog!!.setContentView(R.layout.alert_dialog_signout2)
+                val lp = WindowManager.LayoutParams()
+                lp.copyFrom(dialog!!.getWindow()?.attributes)
+                lp.width = WindowManager.LayoutParams.MATCH_PARENT
+                lp.height = WindowManager.LayoutParams.WRAP_CONTENT
+                lp.gravity = Gravity.CENTER
+                dialog!!.window?.attributes = lp
+                dialog!!.setCanceledOnTouchOutside(false)
+                val btn_cancel = dialog!!.findViewById<Button>(R.id.btn_cancel)
+                val btn_yes = dialog!!.findViewById<Button>(R.id.btn_yes)
                 btn_yes.setOnClickListener {
-
                 }
                 btn_cancel.setOnClickListener {
-
+                dialog!!.dismiss()
                 }
-                /* builder.setView(dialogLayout)
-                 builder.show()*/
+                dialog!!.show()
             }
-
-
         }
     }
 }
