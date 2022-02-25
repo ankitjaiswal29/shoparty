@@ -1,6 +1,7 @@
 package com.shoparty.android.ui.myaccount
 
 import android.app.DatePickerDialog
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -8,6 +9,9 @@ import androidx.databinding.DataBindingUtil
 import com.shoparty.android.R
 
 import com.shoparty.android.databinding.ActivityMyProfileBinding
+import kotlinx.android.synthetic.main.activity_my_profile.*
+import kotlinx.android.synthetic.main.activity_register.*
+import kotlinx.android.synthetic.main.activity_register.tv_female
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -26,6 +30,8 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
     private fun initialise() {
         binding.btnSave.setOnClickListener(this)
         binding.tvDateBirth.setOnClickListener(this)
+        binding.tvMale.setOnClickListener(this)
+        binding.tvFemale.setOnClickListener(this)
         binding.infoTool.back.visibility=View.VISIBLE
         binding.infoTool.tvTitle.setText(getString(R.string.my_account))
         binding.infoTool.back.setOnClickListener(this)
@@ -49,6 +55,31 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
                 DatePic()
 
             }
+            R.id.tvMale -> {
+               // iv_male.visibility=View.VISIBLE
+                //iv_female.visibility=View.GONE
+                binding.tvMale.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_pink_check, 0, 0, 0);
+                binding.tvFemale.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+
+                binding.tvFemale.setTextColor(Color.parseColor("#E30986"));
+                binding.tvMale.setTextColor(Color.parseColor("#E30986"));
+                binding.tvFemale.setTextColor(Color.parseColor("#A19989"));
+               // selectedgender=tv_male.text.toString()
+
+            }
+            R.id.tv_female -> {
+              //  iv_male.visibility=View.GONE
+                //iv_female.visibility=View.VISIBLE
+               // tv_female.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_pink_check, 0, 0, 0);
+                //tv_male.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                binding.tvMale.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+                binding.tvFemale.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_pink_check, 0, 0, 0);
+
+                binding.tvFemale.setTextColor(Color.parseColor("#E30986"));
+                binding.tvMale.setTextColor(Color.parseColor("#A19989"));
+                //selectedgender=tv_female.text.toString()
+            }
+
         }
     }
 

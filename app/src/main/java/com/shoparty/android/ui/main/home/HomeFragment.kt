@@ -14,12 +14,13 @@ import com.shoparty.android.ui.main.mainactivity.MainActivity
 import com.shoparty.android.ui.main.deals.TopSellingHomeModel
 import com.shoparty.android.ui.main.home.*
 import com.shoparty.android.ui.main.topselling.TopSellingActivity
+import com.shoparty.android.ui.search.SearchActivity
 import com.smarteist.autoimageslider.SliderView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dashboard_toolbar.view.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
-class HomeFragment : Fragment(),RecyclerViewClickListener {
+class HomeFragment : Fragment(),RecyclerViewClickListener,View.OnClickListener {
 
     private lateinit var drawerLayout: DrawerLayout
     private var productsBool: Boolean=false
@@ -63,6 +64,7 @@ class HomeFragment : Fragment(),RecyclerViewClickListener {
     }
     private fun initialise() {
 
+        binding.tvHomeSearch.setOnClickListener(this)
         val imageList: ArrayList<String> = ArrayList()
         imageList.add("https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg")
         imageList.add("https://images.ctfassets.net/hrltx12pl8hq/4plHDVeTkWuFMihxQnzBSb/aea2f06d675c3d710d095306e377382f/shutterstock_554314555_copy.jpg")
@@ -235,6 +237,16 @@ class HomeFragment : Fragment(),RecyclerViewClickListener {
     override fun click(pos: String) {
         val intent = Intent(activity, TopSellingActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun onClick(v: View?) {
+        when(v?.id){
+           R.id.tv_home_search->{
+               val intent = Intent(activity, SearchActivity::class.java)
+               startActivity(intent)
+           }
+        }
+
     }
 
 

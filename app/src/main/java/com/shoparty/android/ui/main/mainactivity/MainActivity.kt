@@ -23,6 +23,7 @@ import com.shoparty.android.ui.main.deals.DealsFragment
 import com.shoparty.android.ui.main.home.HomeCategoriesModel
 import com.shoparty.android.ui.main.myaccount.MyAccountFragment
 import com.shoparty.android.ui.main.wishlist.WishListFragment
+import com.shoparty.android.ui.search.SearchActivity
 import com.shoparty.android.ui.shoppingbag.ShopingBagActivity
 
 import kotlinx.android.synthetic.main.dashboard_toolbar.view.*
@@ -45,7 +46,10 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
         binding.homeNavBtn.setOnClickListener(this)
         binding.crossNavBtn.setOnClickListener(this)
         binding.btnSigninSignout.setOnClickListener(this)
+        binding.btnSigninSignout.setOnClickListener(this)
         binding.infoTools.ivBagBtn.setOnClickListener(this)
+        binding.infoTools.ivBtnsearch.setOnClickListener(this)
+
 
 
         binding.wishlistNavBtn.setOnClickListener(this)
@@ -129,6 +133,10 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
             }
             R.id.rl_signout->{
                 manageSignoutSidebar()
+            }
+            R.id.iv_btnsearch->{
+                val intent = Intent (this, SearchActivity::class.java)
+                startActivity(intent)
             }
         }
     }

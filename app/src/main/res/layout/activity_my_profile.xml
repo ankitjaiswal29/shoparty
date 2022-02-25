@@ -315,17 +315,17 @@
 
 
                     <TextView
+                        android:id="@+id/tv_female"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-
                         android:layout_marginTop="10dp"
                         android:background="@drawable/background_rectangular_white"
                         android:drawablePadding="10dp"
                         android:gravity="center"
                         android:text="@string/female"
                         android:textColor="@color/black"
-                        android:paddingLeft="47dp"
-                        android:paddingRight="46dp"
+                        android:paddingLeft="40dp"
+                        android:paddingRight="40dp"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
                         app:layout_constraintEnd_toEndOf="parent"

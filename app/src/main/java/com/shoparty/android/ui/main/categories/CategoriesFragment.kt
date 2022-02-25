@@ -52,7 +52,6 @@ class CategoriesFragment : Fragment() {
        /* home_shoparty_icon2  visible
         tv_title
         home_shoparty_icon*/
-
         (activity as MainActivity).info_tools.tv_title.visibility=View.INVISIBLE
         (activity as MainActivity).info_tools.home_shoparty_icon.visibility=View.INVISIBLE
         (activity as MainActivity).info_tools.home_shoparty_icon2.visibility=View.VISIBLE
