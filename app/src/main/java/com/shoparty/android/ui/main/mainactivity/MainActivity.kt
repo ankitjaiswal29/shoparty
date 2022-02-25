@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
 
     private fun initialise() {
 
-        binding.navigationView.bringToFront();
+        binding.navigationView.bringToFront()
         binding.homeNavBtn.setOnClickListener(this)
         binding.crossNavBtn.setOnClickListener(this)
         binding.btnSigninSignout.setOnClickListener(this)
@@ -127,7 +127,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
             }
-            R.id.iv_bag_btn->{
+            R.id.ivBagBtn->{
                 val intent = Intent(this, ShopingBagActivity::class.java)
                 startActivity(intent)
             }

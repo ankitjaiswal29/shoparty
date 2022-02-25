@@ -28,7 +28,7 @@
         app:layout_constraintTop_toTopOf="@id/nav_drawer_btn" />
 
     <ImageView
-        android:id="@+id/iv_bag_btn"
+        android:id="@+id/ivBagBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_bag"
@@ -41,9 +41,9 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="11dp"
         android:src="@drawable/ic_search_icon_dashbord"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_bag_btn"
-        app:layout_constraintEnd_toStartOf="@+id/iv_bag_btn"
-        app:layout_constraintTop_toTopOf="@id/iv_bag_btn" />
+        app:layout_constraintBottom_toBottomOf="@+id/ivBagBtn"
+        app:layout_constraintEnd_toStartOf="@+id/ivBagBtn"
+        app:layout_constraintTop_toTopOf="@id/ivBagBtn" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

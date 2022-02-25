@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.shoparty.android.R
 import com.shoparty.android.databinding.FragmentDealsBinding
-import com.shoparty.android.databinding.FragmentHomeBinding
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.ui.filter.FilterActivity
 import com.shoparty.android.ui.main.mainactivity.MainActivity
@@ -51,7 +50,7 @@ class DealsFragment : Fragment(),View.OnClickListener, RecyclerViewClickListener
         (activity as MainActivity).info_tools.home_shoparty_icon.visibility=View.INVISIBLE
         (activity as MainActivity).info_tools.home_shoparty_icon2.visibility=View.VISIBLE
 
-        (activity as MainActivity).info_tools.iv_bag_btn.visibility=View.VISIBLE
+        (activity as MainActivity).info_tools.ivBagBtn.visibility=View.VISIBLE
         (activity as MainActivity).info_tools.iv_btnsearch.visibility=View.VISIBLE
 
         fillDealsRecyclerView(dealsItemList)

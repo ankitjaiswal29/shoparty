@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.content.Intent
 import android.view.View
 import android.widget.Button
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.shoparty.android.R
 import com.shoparty.android.ui.aboutus.AboutUsActivity
 import com.shoparty.android.ui.address.addaddress.getaddress.AddressActivity
@@ -24,8 +25,7 @@ import com.shoparty.android.interfaces.RecyclerViewClickListener
 
 
 class MyAccountActivity : AppCompatActivity(), RecyclerViewClickListener {
-    
-
+    private lateinit var myaccountAdapter: MyAccountAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_account)
@@ -57,9 +57,9 @@ class MyAccountActivity : AppCompatActivity(), RecyclerViewClickListener {
         data.add(MyAccountModel(R.drawable.ic_sign_out_icon,"idsignout",getString(R.string.sign_out) ))
 
 
-        val adapter = MyAccountAdapter(data,this)
-        recyclerview.adapter = adapter
+
     }
+
 
     override fun click(pos: String) {
         when(pos) {

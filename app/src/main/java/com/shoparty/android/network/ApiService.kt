@@ -3,6 +3,7 @@ package com.shoparty.android.network
 
 import com.shoparty.android.ui.login.LoginRequestModel
 import com.shoparty.android.ui.login.LoginResponse
+import com.shoparty.android.ui.main.myaccount.LogoutResponse
 import com.shoparty.android.ui.register.RegisterRequestModel
 import com.shoparty.android.ui.register.RegisterResponseModel
 import com.shoparty.android.ui.verificationotp.ResendOtpResponse
@@ -37,4 +38,10 @@ interface ApiService {
     suspend fun resendAsync(
         @Body resendRequestModel: ResendRequestModel
     ): Response<ResendOtpResponse>
+
+
+    @GET("logout")     //
+    suspend fun logoutAsync():
+            Response<LogoutResponse>
+
 }
