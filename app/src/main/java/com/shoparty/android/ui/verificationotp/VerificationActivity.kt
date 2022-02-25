@@ -52,7 +52,7 @@ class VerificationActivity : AppCompatActivity() {
     }
 
     private var countDownTimer =
-        object : CountDownTimer(60000 * 1, 1000) {
+        object : CountDownTimer(60000 * 2, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 val seconds = millisUntilFinished / 1000
                 val elapsedFormattedString = seconds.toString()
@@ -66,16 +66,11 @@ class VerificationActivity : AppCompatActivity() {
             }
         }
 
-
-
-
-
-
     private fun startTimer()
     {
         binding.txtTimecount.visibility = View.VISIBLE
         binding.txtotpcount.visibility = View.INVISIBLE
-        var timeleft = 1.toDouble().toString()
+        var timeleft = 2.toDouble().toString()
         binding.txtTimecount.text = timeleft
 
         countDownTimer.start()
