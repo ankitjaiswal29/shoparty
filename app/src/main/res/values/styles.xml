@@ -72,6 +72,13 @@
         <item name="android:textSize">@dimen/_14sdp</item>
     </style>
 
+
+    <style name="AppTheme.Text_14_white_dp" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">14dp</item>
+    </style>
+
+
     <style name="AppTheme.Text_15_white_dp" parent="Widget.AppCompat.TextView">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>

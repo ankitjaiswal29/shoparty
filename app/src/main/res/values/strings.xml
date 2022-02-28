@@ -365,6 +365,10 @@
     <string name="sort_by">Sort By</string>
     <string name="Search">Search</string>
     <string name="read_more_withforword"><![CDATA[Read More  >]]></string>
+    <string name="your_photo">Your Photo</string>
+    <string name="add_photo">Add Photo</string>
+    <string name="add_graphic">Add Graphic</string>
+    <string name="approve_add_to_bag"><![CDATA[Approve & Add To Bag]]></string>
 
 
 </resources>

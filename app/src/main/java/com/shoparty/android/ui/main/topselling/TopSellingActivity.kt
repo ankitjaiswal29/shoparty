@@ -14,13 +14,17 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityTopSellingBinding
 import com.shoparty.android.interfaces.RecyclerViewClickListener
+import com.shoparty.android.interfaces.RecyclerViewTopSellingClickListener
 import com.shoparty.android.ui.filter.FilterActivity
 import com.shoparty.android.ui.main.deals.TopSellingHomeModel
 import com.shoparty.android.ui.myaccount.MyAccountModel
+import com.shoparty.android.ui.productdetails.ProductDetailsActivity
+import com.shoparty.android.ui.search.SearchActivity
+import com.shoparty.android.ui.shoppingbag.ShopingBagActivity
 import kotlinx.android.synthetic.main.fragment_deals.*
 import kotlinx.android.synthetic.main.toolbar_layout.view.*
 
-class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerViewClickListener {
+class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerViewClickListener,RecyclerViewTopSellingClickListener {
     private lateinit var binding: ActivityTopSellingBinding
     lateinit var dialog:BottomSheetDialog
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +38,8 @@ class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerVie
         binding.infoTool.ivBagBtn.visibility=View.VISIBLE
         binding.infoTool.ivBtnsearch.visibility=View.VISIBLE
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
+        binding.infoTool.ivBagBtn.setOnClickListener(this)
+        binding.infoTool.ivBtnsearch.setOnClickListener(this)
         binding.tvFilter.setOnClickListener(this)
         binding.tvSort.setOnClickListener(this)
         Topsellingitem()
@@ -55,6 +61,14 @@ class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerVie
             }
             R.id.tv_filter -> {
                 val intent = Intent(this, FilterActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.ivBagBtn -> {
+                val intent = Intent(this, ShopingBagActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.iv_btnsearch -> {
+                val intent = Intent (this, SearchActivity::class.java)
                 startActivity(intent)
             }
         }
@@ -115,7 +129,7 @@ class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerVie
             layoutManager = gridLayoutManager
             setHasFixedSize(true)
             isFocusable = false
-            adapter = TopSellingAdapter(naItemList)
+            adapter = TopSellingAdapter(naItemList,this@TopSellingActivity)
         }
 
     }
@@ -127,6 +141,11 @@ class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerVie
     override fun click(pos: String) {
         Toast.makeText(this,pos,Toast.LENGTH_LONG).show()
         dialog.dismiss();
+    }
+
+    override fun itemclick(pos: String) {
+        val intent = Intent (this, ProductDetailsActivity::class.java)
+        startActivity(intent)
     }
 
 }

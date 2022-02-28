@@ -20,13 +20,15 @@
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
+
             app:layout_constraintTop_toBottomOf="@+id/info_tool"
             >
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/home_constrain_lay2"
                 android:layout_width="match_parent"
+                android:paddingBottom="300dp"
                 android:layout_height="wrap_content">
 
 
@@ -48,10 +50,12 @@
                     app:sliderScrollTimeInSec="1"
                     app:sliderStartAutoCycle="true" />
 
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="20dp"
+                    android:id="@+id/cl_constrain_lay1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageSliderr">
@@ -170,7 +174,7 @@
                     <TextView
                         android:id="@+id/tv_wishlist"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:layout_marginRight="5dp"
                         android:background="@drawable/background_rectangular_white"
                         android:drawableStart="@drawable/wishlist_icon"
@@ -192,8 +196,8 @@
                     <TextView
                         android:id="@+id/tv_addtobag"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="5dp"
                         android:background="@drawable/signout_dialog_save_btn"
                         android:drawableStart="@drawable/ic_bag_white"
                         android:drawablePadding="10dp"
@@ -212,6 +216,79 @@
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_constraint2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:padding="20dp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/cl_constrain_lay1">
+
+
+                <TextView
+                    android:id="@+id/home_offers_htv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/you_may_also_like"
+                   style="@style/AppTheme.Text_14dp_Bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                     />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvProductdetailsRecyclarview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                      app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/home_offers_htv"
+                    tools:listitem="@layout/top_selling_layout_item"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:layout_marginTop="10dp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_constraint3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:padding="20dp"
+                    android:background="@color/white"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_constraint2">
+
+
+                    <TextView
+                        android:id="@+id/tv_customer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/customer_also_bought"
+                        style="@style/AppTheme.Text_14dp_Bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvProductdetailsRecyclarview2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_customer"
+                        tools:listitem="@layout/top_selling_layout_item"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:layout_marginTop="10dp" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
