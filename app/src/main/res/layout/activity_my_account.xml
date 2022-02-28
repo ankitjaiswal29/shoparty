@@ -34,7 +34,7 @@
        >-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint2"
+        android:id="@+id/imgProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/pink"
@@ -109,14 +109,14 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview"
+            android:id="@+id/recyProfile"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:scrollbars="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraint2" />
+            app:layout_constraintTop_toBottomOf="@+id/imgProfile" />
 
        // <!--</androidx.core.widget.NestedScrollView>-->
   <!--  </androidx.core.widget.NestedScrollView>-->

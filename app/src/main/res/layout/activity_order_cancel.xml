@@ -103,7 +103,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:id="@+id/constraint2"
+            android:id="@+id/imgProfile"
             android:layout_height="wrap_content"
             android:background="@color/white"
             app:layout_constraintStart_toStartOf="parent"
@@ -211,7 +211,7 @@
             android:background="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraint2"
+            app:layout_constraintTop_toBottomOf="@+id/imgProfile"
             >
 
 

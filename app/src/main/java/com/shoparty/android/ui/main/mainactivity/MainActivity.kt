@@ -25,6 +25,7 @@ import com.shoparty.android.ui.main.myaccount.MyAccountFragment
 import com.shoparty.android.ui.main.wishlist.WishListFragment
 import com.shoparty.android.ui.search.SearchActivity
 import com.shoparty.android.ui.shoppingbag.ShopingBagActivity
+import com.shoparty.android.utils.PrefManager
 
 import kotlinx.android.synthetic.main.dashboard_toolbar.view.*
 
@@ -40,7 +41,17 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
         initialise()
     }
 
-    private fun initialise() {
+    private fun initialise()
+    {
+        binding.rlSignout.visibility=View.GONE
+        if(PrefManager.read(PrefManager.AUTH_TOKEN, "").isEmpty())
+        {
+            binding.btnSigninSignout.visibility=View.VISIBLE
+        }
+        else
+        {
+            binding.btnSigninSignout.visibility=View.GONE
+        }
 
         binding.navigationView.bringToFront()
         binding.homeNavBtn.setOnClickListener(this)

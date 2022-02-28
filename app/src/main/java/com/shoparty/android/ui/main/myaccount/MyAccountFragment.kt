@@ -8,15 +8,18 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Button
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.shoparty.android.R
+import com.shoparty.android.app.MyApp.Companion.application
 import com.shoparty.android.databinding.FragmentMyAccountBinding
-import com.shoparty.android.ui.myaccount.MyAccountModel
+
 import com.shoparty.android.ui.aboutus.AboutUsActivity
 import com.shoparty.android.ui.address.addaddress.getaddress.AddressActivity
 import com.shoparty.android.ui.contactus.ContactUsActivity
-import com.shoparty.android.ui.myaccount.MyProfileActivity
 import com.shoparty.android.ui.myorders.myorder.MyOrdersActivity
 import com.shoparty.android.ui.privacypolicy.PrivacyPolicyActivity
 import com.shoparty.android.ui.returnpolicy.ReturnPolicyActivity
@@ -25,13 +28,20 @@ import com.shoparty.android.ui.vouchers.VouchersActivity
 import com.shoparty.android.ui.wishlist.WishListActivity
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.ui.main.mainactivity.MainActivity
+import com.shoparty.android.utils.PrefManager
+import com.shoparty.android.utils.PrefManager.clearAllPref
+import com.shoparty.android.utils.apiutils.Resource
+import com.shoparty.android.utils.apiutils.ViewModalFactory
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dashboard_toolbar.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MyAccountFragment : Fragment(), RecyclerViewClickListener {
     private lateinit var binding: FragmentMyAccountBinding
     private lateinit var myaccountAdapter: MyAccountAdapter
     var dialog: Dialog? = null
+    private lateinit var viewModel: MyAccountViewModel
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
@@ -42,45 +52,138 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_account, container, false)
-            init()
-            return binding.root
+        viewModel = ViewModelProvider(this, ViewModalFactory(application))[MyAccountViewModel::class.java]
+          init()
+          setObserver()
+          return binding.root
     }
 
-    fun init()
+    private fun init()
     {
+        viewModel.getProfle()      //api call
+
         (activity as MainActivity).info_tools.tv_title.visibility=View.INVISIBLE
         (activity as MainActivity).info_tools.home_shoparty_icon.visibility=View.INVISIBLE
         (activity as MainActivity).info_tools.home_shoparty_icon2.visibility=View.VISIBLE
-
         (activity as MainActivity).info_tools.ivBagBtn.visibility=View.INVISIBLE
         (activity as MainActivity).info_tools.iv_btnsearch.visibility=View.INVISIBLE
 
-        val data = ArrayList<MyAccountModel>()
-        data.add(MyAccountModel(R.drawable.ic_myorder_icon,"idmyorder",getString(R.string.my_order) ))
-        data.add(MyAccountModel(R.drawable.ic_vouchers_icon,"idvoucher",getString(R.string.vouchers) ))
-
-        data.add(MyAccountModel(R.drawable.ic_wishlist_icon,"idwishlist",getString(R.string.wishlist) ))
-        data.add(MyAccountModel(R.drawable.ic_myprofile_icon,"idmyprofile",getString(R.string.my_profile) ))
-
-        data.add(MyAccountModel(R.drawable.ic_address_icon,"idaddress",getString(R.string.address_book) ))
-        data.add(MyAccountModel(R.drawable.ic_rate_our_icon,"idrate",getString(R.string.rate_our_app) ))
-
-
-        data.add(MyAccountModel(R.drawable.ic_contact_icon,"idcontact",getString(R.string.contact_us) ))
-        data.add(MyAccountModel(R.drawable.ic_aboutus_icon,"idabout",getString(R.string.about_us) ))
-
-        data.add(MyAccountModel(R.drawable.ic_term_and_conditon_icon,"idtermcondition",getString(R.string.terms_and_conditions) ))
-        data.add(MyAccountModel(R.drawable.ic_privacy_policy_icon,"iprivacypolicy",getString(R.string.privacy_policy) ))
-
-        data.add(MyAccountModel(R.drawable.ic_return_policy_icon,"idreturnpolicy",getString(R.string.return_policy) ))
-        data.add(MyAccountModel(R.drawable.ic_sign_out_icon,"idsignout",getString(R.string.sign_out) ))
-
-
-        myaccountAdapter = MyAccountAdapter(requireContext(),data,this)
-        binding.recyclerview.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerview.adapter = myaccountAdapter
+        dataaddsetAdapter()
     }
 
+    private fun setObserver()
+    {
+        viewModel.logout.observe(requireActivity(), { response ->
+            when (response)
+            {
+                is Resource.Success -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+
+                    clearAllPref()
+                    dialog!!.dismiss()
+
+                    val intent = Intent(activity, MainActivity::class.java)
+                    activity?.startActivity(intent)
+
+                    Toast.makeText(
+                        requireActivity(),
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is Resource.Loading -> {
+                    com.shoparty.android.utils.ProgressDialog.showProgressBar(requireContext())
+                }
+                is Resource.Error -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        requireActivity(),
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        requireActivity(),
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        })
+
+
+        viewModel.getprofile.observe(requireActivity(), { response ->
+            when (response)
+            {
+                is Resource.Success -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    setupUI(response.data)
+
+                }
+
+                is Resource.Loading -> {
+                    com.shoparty.android.utils.ProgressDialog.showProgressBar(requireContext())
+                }
+                is Resource.Error -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        requireActivity(),
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        requireActivity(),
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        })
+
+
+    }
+
+    private fun setupUI(data: getProfileResponse.User?) {
+        Glide.with(this).load(data?.image).error(R.drawable.person_img).into(binding.imgProfile)
+        binding.tvName.text = data?.name?.replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(
+                Locale.getDefault()
+            ) else it.toString()
+        }
+        binding.tvMobile.text = data?.mobile.toString()
+    }
+
+
+    private fun dataaddsetAdapter()
+    {
+        val data = ArrayList<MyAccountCustomModel>()
+        data.add(MyAccountCustomModel(R.drawable.ic_myorder_icon,"idmyorder",getString(R.string.my_order) ))
+        data.add(MyAccountCustomModel(R.drawable.ic_vouchers_icon,"idvoucher",getString(R.string.vouchers) ))
+        data.add(MyAccountCustomModel(R.drawable.ic_contact_icon,"idwishlist",getString(R.string.wishlist) ))
+        data.add(MyAccountCustomModel(R.drawable.ic_aboutus_icon,"idmyprofile",getString(R.string.my_profile) ))
+        data.add(MyAccountCustomModel(R.drawable.ic_address_icon,"idaddress",getString(R.string.address_book) ))
+        data.add(MyAccountCustomModel(R.drawable.ic_rate_our_icon,"idrate",getString(R.string.rate_our_app) ))
+        data.add(MyAccountCustomModel(R.drawable.ic_contact_icon,"idcontact",getString(R.string.contact_us) ))
+        data.add(MyAccountCustomModel(R.drawable.ic_aboutus_icon,"idabout",getString(R.string.about_us) ))
+        data.add(MyAccountCustomModel(R.drawable.ic_term_and_conditon_icon,"idtermcondition",getString(R.string.terms_and_conditions) ))
+        data.add(MyAccountCustomModel(R.drawable.ic_privacy_policy_icon,"iprivacypolicy",getString(R.string.privacy_policy) ))
+        data.add(MyAccountCustomModel(R.drawable.ic_return_policy_icon,"idreturnpolicy",getString(R.string.return_policy) ))
+
+        if(PrefManager.read(PrefManager.AUTH_TOKEN, "").isEmpty())
+        { }
+        else
+        {
+            data.add(MyAccountCustomModel(R.drawable.ic_sign_out_icon,"idsignout",getString(R.string.sign_out) ))
+        }
+        myaccountAdapter = MyAccountAdapter(requireContext(),data,this)
+        binding.recyProfile.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyProfile.adapter = myaccountAdapter
+    }
 
 
     override fun click(pos: String) {
@@ -106,7 +209,7 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
                 val intent = Intent (getActivity(), MyProfileActivity::class.java)
                 getActivity()?.startActivity(intent)
 
-            }//startActivity(Intent(this, MyProfileActivity::class.java))
+            }
             "idaddress" ->
             {
                 val intent = Intent (getActivity(), AddressActivity::class.java)
@@ -137,26 +240,34 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
                 getActivity()?.startActivity(intent)
             }
             "idsignout" ->{
-                dialog = Dialog(requireContext())
-                dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                dialog!!.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
-                dialog!!.setContentView(R.layout.alert_dialog_signout2)
-                val lp = WindowManager.LayoutParams()
-                lp.copyFrom(dialog!!.getWindow()?.attributes)
-                lp.width = WindowManager.LayoutParams.MATCH_PARENT
-                lp.height = WindowManager.LayoutParams.WRAP_CONTENT
-                lp.gravity = Gravity.CENTER
-                dialog!!.window?.attributes = lp
-                dialog!!.setCanceledOnTouchOutside(false)
-                val btn_cancel = dialog!!.findViewById<Button>(R.id.btn_cancel)
-                val btn_yes = dialog!!.findViewById<Button>(R.id.btn_yes)
-                btn_yes.setOnClickListener {
-                }
-                btn_cancel.setOnClickListener {
-                dialog!!.dismiss()
-                }
-                dialog!!.show()
+                opendialog()
             }
         }
     }
+
+    fun opendialog()
+    {
+        dialog = Dialog(requireContext())
+        dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog!!.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+        dialog!!.setContentView(R.layout.alert_dialog_signout2)
+        val lp = WindowManager.LayoutParams()
+        lp.copyFrom(dialog!!.getWindow()?.attributes)
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT
+        lp.gravity = Gravity.CENTER
+        dialog!!.window?.attributes = lp
+        dialog!!.setCanceledOnTouchOutside(true)
+        val btn_cancel = dialog!!.findViewById<Button>(R.id.btn_cancel)
+        val btn_yes = dialog!!.findViewById<Button>(R.id.btn_yes)
+        btn_yes.setOnClickListener {
+            viewModel.postLogout()  //api call
+        }
+        btn_cancel.setOnClickListener {
+            dialog!!.dismiss()
+        }
+        dialog!!.show()
+    }
+
+
 }

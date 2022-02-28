@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.myaccount.MyProfileActivity">
+        tools:context=".ui.main.myaccount.MyProfileActivity">
 
         <include
             android:id="@+id/info_tool"
@@ -40,7 +40,7 @@
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraint2"
+                android:id="@+id/imgProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/pink"
@@ -117,7 +117,7 @@
 
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraint2">
+                    app:layout_constraintTop_toBottomOf="@+id/imgProfile">
 
 
                     <TextView
