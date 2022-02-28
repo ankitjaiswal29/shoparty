@@ -1,4 +1,4 @@
-package com.shoparty.android.ui.myaccount
+package com.shoparty.android.ui.main.myaccount
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
@@ -12,14 +12,11 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import com.bumptech.glide.Glide
 import com.shoparty.android.R
 
 import com.shoparty.android.databinding.ActivityMyProfileBinding
-import kotlinx.android.synthetic.main.activity_my_profile.*
-import kotlinx.android.synthetic.main.activity_register.*
-import kotlinx.android.synthetic.main.activity_register.tv_female
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -32,18 +29,17 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityMyProfileBinding
     var cal = Calendar.getInstance()
     private var selecteddate = ""
- /*   private var btn: Button? = null
-    private var imageview: ImageView? = null*/
     private val GALLERY = 1
     private val CAMERA = 2
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_my_profile)
         binding= DataBindingUtil.setContentView(this, R.layout.activity_my_profile)
         initialise()
     }
 
     private fun initialise() {
+
+
         binding.btnSave.setOnClickListener(this)
         binding.tvDateBirth.setOnClickListener(this)
         binding.tvMale.setOnClickListener(this)
@@ -190,7 +186,8 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
         val bytes = ByteArrayOutputStream()
         myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes)
         val wallpaperDirectory = File(
-            (Environment.getExternalStorageDirectory()).toString() + IMAGE_DIRECTORY)
+            (Environment.getExternalStorageDirectory()).toString() + IMAGE_DIRECTORY
+        )
         // have the object build the directory structure, if needed.
         Log.d("fee",wallpaperDirectory.toString())
         if (!wallpaperDirectory.exists())

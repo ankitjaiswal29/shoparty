@@ -111,4 +111,13 @@ dependencies {
 //filter activity tagview
     implementation 'co.lujun:androidtagview:1.1.7'
     implementation 'androidx.appcompat:appcompat:1.0.1'
+
+    //circularimageview
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    //roundimageview
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+
+    //autoimageslider
+    implementation 'com.github.smarteist:autoimageslider:1.4.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

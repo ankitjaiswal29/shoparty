@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
@@ -16,9 +15,7 @@ import com.shoparty.android.databinding.ActivityTopSellingBinding
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.ui.filter.FilterActivity
 import com.shoparty.android.ui.main.deals.TopSellingHomeModel
-import com.shoparty.android.ui.myaccount.MyAccountModel
 import kotlinx.android.synthetic.main.fragment_deals.*
-import kotlinx.android.synthetic.main.toolbar_layout.view.*
 
 class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerViewClickListener {
     private lateinit var binding: ActivityTopSellingBinding

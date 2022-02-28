@@ -4,6 +4,7 @@ package com.shoparty.android.network
 import com.shoparty.android.ui.login.LoginRequestModel
 import com.shoparty.android.ui.login.LoginResponse
 import com.shoparty.android.ui.main.myaccount.LogoutResponse
+import com.shoparty.android.ui.main.myaccount.getProfileResponse
 import com.shoparty.android.ui.register.RegisterRequestModel
 import com.shoparty.android.ui.register.RegisterResponseModel
 import com.shoparty.android.ui.verificationotp.ResendOtpResponse
@@ -43,5 +44,9 @@ interface ApiService {
     @GET("logout")     //
     suspend fun logoutAsync():
             Response<LogoutResponse>
+
+    @GET("profile-details")     //
+    suspend fun getProfileAsync():
+            Response<getProfileResponse>
 
 }
