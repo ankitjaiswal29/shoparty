@@ -166,13 +166,13 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
                 {
                     val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, contentURI)
                     val path = saveImage(bitmap)
-                    Toast.makeText(this, "Image Saved!", Toast.LENGTH_SHORT).show()
+                 //   Toast.makeText(this, "Image Saved!", Toast.LENGTH_SHORT).show()
                     binding.ivProfilePic!!.setImageBitmap(bitmap)
 
                 }
                 catch (e: IOException) {
                     e.printStackTrace()
-                    Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
+                  //  Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
                 }
 
             }
@@ -183,7 +183,7 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
             val thumbnail = data!!.extras!!.get("data") as Bitmap
             binding.ivProfilePic!!.setImageBitmap(thumbnail)
             saveImage(thumbnail)
-            Toast.makeText(this, "Image Saved!", Toast.LENGTH_SHORT).show()
+         //   Toast.makeText(this, "Image Saved!", Toast.LENGTH_SHORT).show()
         }
     }
     fun saveImage(myBitmap: Bitmap):String {

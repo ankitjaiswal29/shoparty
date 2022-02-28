@@ -25,39 +25,51 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener {
         binding.rvList.layoutManager = LinearLayoutManager(this)
 
         // attach adapter to the recycler view
-        rvAdapter = FilterAdapter(languageList)
+        rvAdapter = FilterAdapter(languageList,this)
         binding.rvList.adapter = rvAdapter
+val data=ArrayList<String>()
+        data.add("dfd")
+        data.add("dfd")
+        data.add("dfd")
+        data.add("dfd")
+        data.add("dfd")
+
+        val data2=ArrayList<String>()
+        data2.add("rrr")
+        data2.add("rrrr")
+        data2.add("rrr")
+        data2.add("rrr")
+        data2.add("rrr")
+        val data3=ArrayList<String>()
+        data3.add("ggg")
+        data3.add("ggg")
+        data3.add("gggg")
+        data3.add("gggg")
+        data3.add("gggrr")
 
         val language1 = FilterModel(
             "Color",
-            "Java is an Object Oriented Programming language." +
-                    " Java is used in all kind of applications like Mobile Applications (Android is Java based), " +
-                    "desktop applications, web applications, client server applications, enterprise applications and many more. ",
+            data,
             false
         )
         val language2 = FilterModel(
             "Size",
-            "Kotlin is a statically typed, general-purpose programming language" +
-                    " developed by JetBrains, that has built world-class IDEs like IntelliJ IDEA, PhpStorm, Appcode, etc.",
+            data2,
             false
         )
         val language3 = FilterModel(
             "Age",
-            "Python is a high-level, general-purpose and a very popular programming language." +
-                    " Python programming language (latest Python 3) is being used in web development, Machine Learning applications, " +
-                    "along with all cutting edge technology in Software Industry.",
+            data3,
             false
         )
         val language4 = FilterModel(
             "Gender",
-            "C++ is a general purpose programming language and widely used now a days for " +
-                    "competitive programming. It has imperative, object-oriented and generic programming features. ",
+            data2,
             false
         )
         val language5 = FilterModel(
             "Price",
-            "C++ is a general purpose programming language and widely used now a days for " +
-                    "competitive programming. It has imperative, object-oriented and generic programming features. ",
+            data,
             false
         )
 

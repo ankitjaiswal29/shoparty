@@ -1,5 +1,6 @@
 package com.shoparty.android.ui.main.topselling
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -13,6 +14,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityTopSellingBinding
 import com.shoparty.android.interfaces.RecyclerViewClickListener
+import com.shoparty.android.ui.filter.FilterActivity
 import com.shoparty.android.ui.main.deals.TopSellingHomeModel
 import com.shoparty.android.ui.myaccount.MyAccountModel
 import kotlinx.android.synthetic.main.fragment_deals.*
@@ -32,6 +34,7 @@ class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerVie
         binding.infoTool.ivBagBtn.visibility=View.VISIBLE
         binding.infoTool.ivBtnsearch.visibility=View.VISIBLE
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
+        binding.tvFilter.setOnClickListener(this)
         binding.tvSort.setOnClickListener(this)
         Topsellingitem()
 
@@ -49,6 +52,10 @@ class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerVie
             }
             R.id.tv_sort -> {
                 showBottomsheetDialog()
+            }
+            R.id.tv_filter -> {
+                val intent = Intent(this, FilterActivity::class.java)
+                startActivity(intent)
             }
         }
     }

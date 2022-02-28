@@ -1,13 +1,22 @@
 package com.shoparty.android.ui.filter
 
+import android.app.ActionBar
+import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.shoparty.android.databinding.FilterRecyclarColorLayoutItemBinding
+import java.util.ArrayList
+import android.widget.TextView
+
+
+
 
 class FilterAdapter(
-    private var languageList: List<FilterModel>
+    private var languageList: List<FilterModel>,var context: Context
 ) : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
 
     // create an inner class with name ViewHolder
@@ -29,12 +38,42 @@ class FilterAdapter(
         with(holder){
             with(languageList[position]){
                 // set name of the language from the list
-                binding.tvLangName.text = this.name
+                val item = languageList[position]
+                binding.tvLangName.text = item.name
+
+
+
+               /* for( item in description){
+
+                    val text = TextView(context)
+                    text.layoutParams =
+                        ActionBar.LayoutParams(
+                            ActionBar.LayoutParams.WRAP_CONTENT,
+                            ActionBar.LayoutParams.WRAP_CONTENT
+                        )
+                    text.text = "" +item
+                    binding.tvDescription.addView(text)
+
+                }*/
+               // text.text = "" +description[position].toString()
+               // binding.tvDescription.addView(text)
+
+
+
                 // set description to the text
                 // since this is inside "expandedView" its visibility will be gone initially
                 // after click on the item we will make the visibility of the "expandedView" visible
                 // which will also make the visibility of desc also visible
-                binding.tvDescription.text = this.description
+               // binding.tvDescription.setTags(languageList[position].description)
+
+                holder.binding.rvFilter.setLayoutManager(
+                    GridLayoutManager(
+                        context,
+                        3
+                    )
+                )
+                val filterchildadapter = FilterChildAdapter(context,description)
+                holder.binding.rvFilter.setAdapter(filterchildadapter)
                 // check if boolean property "extend" is true or false
                 // if it is true make the "extendedView" Visible
                 binding.expandedView.visibility = if (this.expand) View.VISIBLE else View.GONE
@@ -42,8 +81,11 @@ class FilterAdapter(
                 // revert the boolean "expand"
                 binding.cardLayout.setOnClickListener {
                     this.expand = !this.expand
-                    notifyDataSetChanged()
+                    //notifyDataSetChanged()
+                    notifyItemChanged(holder.bindingAdapterPosition)
                 }
+
+           //     binding.tvDescription.setOnTagClickListener(TagView.OnTagClickListener)
             }
         }
     }
