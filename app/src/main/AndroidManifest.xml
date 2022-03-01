@@ -131,11 +131,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
-        <activity
-            android:name=".ui.main.myaccount.MyProfileActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+
         <activity
             android:name=".ui.shipping.ShippingActivity"
             android:exported="false"
@@ -217,22 +213,28 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
 
-            <activity
-                android:name=".utils.ImagePickerActivity"
-                android:screenOrientation="portrait"
-                android:windowSoftInputMode="adjustPan|stateAlwaysHidden"
-                tools:ignore="WrongManifestParent" /> <!-- uCrop cropping activity -->
-            <activity
-                android:name="com.yalantis.ucrop.UCropActivity"
-                android:screenOrientation="portrait"
-                android:windowSoftInputMode="adjustPan|stateAlwaysHidden"
-                />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <activity
+            android:name=".utils.ImagePickerActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"
+            tools:ignore="WrongManifestParent" /> <!-- uCrop cropping activity -->
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"
+            />
+
+
+
         <activity
             android:name=".ui.main.mainactivity.MainActivity"
             android:exported="true"

@@ -27,6 +27,7 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.shoparty.android.R;
+import com.yalantis.ucrop.UCrop;
 
 
 import java.io.File;
@@ -90,29 +91,6 @@ public class ImagePickerActivity extends AppCompatActivity
             {
             chooseImageFromGallery();
         }
-    }
-
-    public static void showImagePickerOptions(Context context, PickerOptionListener listener) {
-        // setup the alert builder
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(context.getString(R.string.lbl_set_profile_photo));
-
-        // add a list
-        String[] animals = {context.getString(R.string.lbl_take_camera_picture), context.getString(R.string.lbl_choose_from_gallery)};
-        builder.setItems(animals, (dialog, which) -> {
-            switch (which) {
-                case 0:
-                    listener.onTakeCameraSelected();
-                    break;
-                case 1:
-                    listener.onChooseGallerySelected();
-                    break;
-            }
-        });
-
-        // create and show the alert dialog
-        AlertDialog dialog = builder.create();
-        dialog.show();
     }
 
     private void takeCameraImage()
@@ -192,9 +170,9 @@ public class ImagePickerActivity extends AppCompatActivity
         options.setCompressionQuality(IMAGE_COMPRESSION);
 
         // applying UI theme
-        options.setToolbarColor(ContextCompat.getColor(this, R.color.nav_blue));
-        options.setStatusBarColor(ContextCompat.getColor(this, R.color.nav_blue));
-        options.setActiveWidgetColor(ContextCompat.getColor(this, R.color.nav_blue));
+        options.setToolbarColor(ContextCompat.getColor(this, R.color.color_pink));
+        options.setStatusBarColor(ContextCompat.getColor(this, R.color.color_pink));
+        options.setActiveWidgetColor(ContextCompat.getColor(this, R.color.color_pink));
         options.setToolbarWidgetColor(ContextCompat.getColor(this, R.color.black));
         if (lockAspectRatio)
             options.withAspectRatio(ASPECT_RATIO_X, ASPECT_RATIO_Y);

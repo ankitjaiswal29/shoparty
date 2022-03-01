@@ -15,7 +15,7 @@
         <ImageView
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
-            android:src="@drawable/ic_cancel_confirm_icon" />
+            android:src="@drawable/camera" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
         <ImageView
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
-            android:src="@drawable/check_black" />
+            android:src="@drawable/gallery" />
 
         <TextView
             android:layout_width="wrap_content"

@@ -120,7 +120,6 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     setupUI(response.data)
-
                 }
 
                 is Resource.Loading -> {
@@ -164,8 +163,8 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
         val data = ArrayList<MyAccountCustomModel>()
         data.add(MyAccountCustomModel(R.drawable.ic_myorder_icon,"idmyorder",getString(R.string.my_order) ))
         data.add(MyAccountCustomModel(R.drawable.ic_vouchers_icon,"idvoucher",getString(R.string.vouchers) ))
-        data.add(MyAccountCustomModel(R.drawable.ic_contact_icon,"idwishlist",getString(R.string.wishlist) ))
-        data.add(MyAccountCustomModel(R.drawable.ic_aboutus_icon,"idmyprofile",getString(R.string.my_profile) ))
+        data.add(MyAccountCustomModel(R.drawable.ic_wishlist,"idwishlist",getString(R.string.wishlist)))
+        data.add(MyAccountCustomModel(R.drawable.ic_myaccountlist_icon,"idmyprofile",getString(R.string.my_profile) ))
         data.add(MyAccountCustomModel(R.drawable.ic_address_icon,"idaddress",getString(R.string.address_book) ))
         data.add(MyAccountCustomModel(R.drawable.ic_rate_our_icon,"idrate",getString(R.string.rate_our_app) ))
         data.add(MyAccountCustomModel(R.drawable.ic_contact_icon,"idcontact",getString(R.string.contact_us) ))

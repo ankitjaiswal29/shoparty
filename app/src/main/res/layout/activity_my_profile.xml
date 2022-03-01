@@ -46,22 +46,22 @@
                 android:background="@color/pink"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
-                >
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/iv_ProfilePic"
+                    android:layout_width="@dimen/_90sdp"
+                    android:layout_height="@dimen/_105sdp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/person_img"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    app:riv_border_color="@color/white"
+                    app:riv_border_width="@dimen/_2sdp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:riv_corner_radius="@dimen/_10sdp" />
 
-
-            <ImageView
-                android:id="@+id/iv_ProfilePic"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/person_img"
-                android:scaleType="centerCrop"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="20dp"
-                />
 
                   <ImageView
            android:id="@+id/iv_EditProfile"
