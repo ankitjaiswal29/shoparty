@@ -4,10 +4,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityFilterBinding
 import com.shoparty.android.databinding.ActivityTopSellingBinding
+import com.shoparty.android.ui.main.home.HomeCategoriesModel
+import com.shoparty.android.ui.main.home.TopSellingSubcategoriesAdapter
+import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class FilterActivity : AppCompatActivity(),View.OnClickListener {
@@ -22,7 +26,28 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener {
 
     private fun initialise() {
 
-        binding.rvList.layoutManager = LinearLayoutManager(this)
+       val data=ArrayList<String>()
+        data.add("#FFBB86FC")
+        data.add("#606060")
+        data.add("#FFBB86FC")
+        data.add("#FFBB86FC")
+        data.add("#E30986")
+        data.add("#FFBB86FC")
+        data.add("#606060")
+        data.add("#E30986")
+        data.add("#FFBB86FC")
+        data.add("#606060")
+
+
+        val gridLayoutManager = GridLayoutManager(this, 9)
+        binding.rvColorRecyclarview.apply {
+            layoutManager = gridLayoutManager
+            setHasFixedSize(true)
+            isFocusable = false
+            adapter = FilterColorAdapter(data)
+        }
+
+      /*  binding.rvList.layoutManager = LinearLayoutManager(this)
 
         // attach adapter to the recycler view
         rvAdapter = FilterAdapter(languageList,this)
@@ -80,7 +105,7 @@ val data=ArrayList<String>()
         languageList.add(language5)
 
         rvAdapter.notifyDataSetChanged()
-
+*/
         // create new objects
         // add some row data
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
