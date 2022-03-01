@@ -1,22 +1,47 @@
 package com.shoparty.android.ui.main.myaccount
 
+import android.Manifest
+import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.media.MediaScannerConnection
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
+
+
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.provider.Settings
 import android.util.Log
+import android.view.Gravity
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
+import android.webkit.PermissionRequest
+import android.widget.LinearLayout
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import com.bumptech.glide.Glide
+import com.developers.imagezipper.ImageZipper
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+
+
 import com.shoparty.android.R
 
 import com.shoparty.android.databinding.ActivityMyProfileBinding
+import com.shoparty.android.utils.ImagePickerActivity
+import com.shoparty.android.utils.PrefManager
+import kotlinx.android.synthetic.main.activity_register.*
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -42,8 +67,6 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initialise() {
-
-
         selectedgender=binding.tvMale.text.toString()
         binding.btnSave.setOnClickListener(this)
         binding.tvDateBirth.setOnClickListener(this)
@@ -74,9 +97,7 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
 
             }
             R.id.iv_EditProfile -> {
-                showPictureDialog()
-
-               /* Dexter.withContext(this)
+                Dexter.withContext(this)
                     .withPermissions(
                         Manifest.permission.CAMERA,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -97,10 +118,8 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
                         ) {
                             token?.continuePermissionRequest()
                         }
-
-
                     }).check()
-*/
+
             }
             R.id.tvMale -> {
                // iv_male.visibility=View.VISIBLE
@@ -154,7 +173,7 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
     }
 
 
-   /* fun openDialogToUpdateProfilePIC() {
+    fun openDialogToUpdateProfilePIC() {
         dialog = Dialog(this)
         dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_curved_bg_inset)
@@ -177,8 +196,8 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
         }
         dialog?.show()
     }
-*/
-    /*fun showSettingsDialog() {
+
+    fun showSettingsDialog() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle(getString(R.string.dialog_permission_title))
         builder.setMessage(getString(R.string.dialog_permission_message))
@@ -187,18 +206,17 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
             openSettings()
         }
         builder.setNegativeButton(
-            //PrefManager.getString(R.string.Profile.toString())
-        Toast.makeText(this,"dfd",Toast.LENGTH_LONG).show()
         ) { dialog: DialogInterface, which: Int -> dialog.cancel() }
         builder.show()
-    }*/
-   /* private fun openSettings() {
+
+    }
+    private fun openSettings() {
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
         val uri = Uri.fromParts("package", this.packageName, null)
         intent.data = uri
         startActivityForResult(intent, 101)
-    }*/
-   /* private fun launchCameraIntent() {
+    }
+    private fun launchCameraIntent() {
         val intent = Intent(this, ImagePickerActivity::class.java)
         intent.putExtra(
             ImagePickerActivity.INTENT_IMAGE_PICKER_OPTION,
@@ -217,8 +235,8 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
         startActivityForResult(intent, REQUEST_IMAGE)
 
 
-    }*/
-   /* private fun launchGalleryIntent() {
+    }
+    private fun launchGalleryIntent() {
         val intent = Intent(this, ImagePickerActivity::class.java)
         intent.putExtra(
             ImagePickerActivity.INTENT_IMAGE_PICKER_OPTION,
@@ -230,9 +248,9 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
         intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_X, 1) // 16x9, 1x1, 3:4, 3:2
         intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_Y, 1)
         startActivityForResult(intent, REQUEST_IMAGE)
-    }*/
+    }
 
-   /* override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (data != null) {
             checkPermissionOnActivityResult(requestCode, resultCode, data)
@@ -253,116 +271,14 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
-    }*/
-  /*  private fun checkPermissionOnActivityResult(requestCode: Int, resultCode: Int, data: Intent) {}
-    private fun loadProfile(url: String) {
-        //  Log.d("TAG", "Image cache path: $url")
+    }
+    private fun checkPermissionOnActivityResult(requestCode: Int, resultCode: Int, data: Intent) {}
+
+    private fun loadProfile(url: String)
+    {
         Glide.with(this).load(url).error(R.drawable.gallery_image_icon).placeholder(R.drawable.gallery_image_icon)
             .into(binding.ivProfilePic)
         binding.ivProfilePic.setColorFilter(ContextCompat.getColor(this, android.R.color.transparent))
-    }
-*/
-    private fun showPictureDialog() {
-        val pictureDialog = AlertDialog.Builder(this)
-        pictureDialog.setTitle("Select Action")
-        val pictureDialogItems = arrayOf("Select photo from gallery", "Capture photo from camera")
-        pictureDialog.setItems(pictureDialogItems
-        ) { dialog, which ->
-            when (which) {
-                0 -> choosePhotoFromGallary()
-                1 -> takePhotoFromCamera()
-            }
-        }
-        pictureDialog.show()
-    }
-    fun choosePhotoFromGallary() {
-        val galleryIntent = Intent(Intent.ACTION_PICK,
-            MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-
-        startActivityForResult(galleryIntent, GALLERY)
-    }
-
-    private fun takePhotoFromCamera() {
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE_SECURE)
-
-        startActivityForResult(intent, CAMERA)
-    }
-
-    public override fun onActivityResult(requestCode:Int, resultCode:Int, data: Intent?) {
-
-        super.onActivityResult(requestCode, resultCode, data)
-        /* if (resultCode == this.RESULT_CANCELED)
-         {
-         return
-         }*/
-        if (requestCode == GALLERY)
-        {
-            if (data != null)
-            {
-                val contentURI = data!!.data
-                try
-                {
-                    val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, contentURI)
-                    val path = saveImage(bitmap)
-                 //   Toast.makeText(this, "Image Saved!", Toast.LENGTH_SHORT).show()
-                    binding.ivProfilePic!!.setImageBitmap(bitmap)
-
-                }
-                catch (e: IOException) {
-                    e.printStackTrace()
-                  //  Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
-                }
-
-            }
-
-        }
-        else if (requestCode == CAMERA)
-        {
-            val thumbnail = data!!.extras!!.get("data") as Bitmap
-            binding.ivProfilePic!!.setImageBitmap(thumbnail)
-            saveImage(thumbnail)
-         //   Toast.makeText(this, "Image Saved!", Toast.LENGTH_SHORT).show()
-        }
-    }
-    fun saveImage(myBitmap: Bitmap):String {
-        val bytes = ByteArrayOutputStream()
-        myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes)
-        val wallpaperDirectory = File(
-            (Environment.getExternalStorageDirectory()).toString() + IMAGE_DIRECTORY
-        )
-        // have the object build the directory structure, if needed.
-        Log.d("fee",wallpaperDirectory.toString())
-        if (!wallpaperDirectory.exists())
-        {
-
-            wallpaperDirectory.mkdirs()
-        }
-
-        try
-        {
-            Log.d("heel",wallpaperDirectory.toString())
-            val f = File(wallpaperDirectory, ((Calendar.getInstance()
-                .getTimeInMillis()).toString() + ".jpg"))
-            f.createNewFile()
-            val fo = FileOutputStream(f)
-            fo.write(bytes.toByteArray())
-            MediaScannerConnection.scanFile(this,
-                arrayOf(f.getPath()),
-                arrayOf("image/jpeg"), null)
-            fo.close()
-            Log.d("TAG", "File Saved::--->" + f.getAbsolutePath())
-
-            return f.getAbsolutePath()
-        }
-        catch (e1: IOException) {
-            e1.printStackTrace()
-        }
-
-        return ""
-    }
-
-    companion object {
-        private val IMAGE_DIRECTORY = "/demonuts"
     }
 
 
@@ -376,4 +292,8 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
     override fun onBackPressed() {
         super.onBackPressed()
     }
+}
+
+private fun AlertDialog.Builder.setNegativeButton(function: (DialogInterface, Int) -> Unit) {
+
 }
