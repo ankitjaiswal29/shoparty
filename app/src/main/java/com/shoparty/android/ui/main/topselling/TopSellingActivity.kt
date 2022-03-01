@@ -17,7 +17,7 @@ import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.interfaces.RecyclerViewTopSellingClickListener
 import com.shoparty.android.ui.filter.FilterActivity
 import com.shoparty.android.ui.main.deals.TopSellingHomeModel
-import com.shoparty.android.ui.myaccount.MyAccountModel
+
 import com.shoparty.android.ui.productdetails.ProductDetailsActivity
 import com.shoparty.android.ui.search.SearchActivity
 import com.shoparty.android.ui.shoppingbag.ShopingBagActivity
