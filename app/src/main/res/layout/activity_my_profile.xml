@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <!--<variable
+            name="myAccountViewModel"
+            type="com.shoparty.android.ui.main.myaccount.MyAccountViewModel" />
+-->
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -94,6 +97,7 @@
                 style="@style/AppTheme.Text_15_white_dp"/>
 
             <TextView
+                android:id="@+id/txtMobile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_999_9999_999"
@@ -134,6 +138,7 @@
                         android:hint="@string/john_doe"
                         android:imeOptions="actionNext"
                         android:inputType="text"
+                        android:text=""
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvFirstName" />
@@ -153,6 +158,7 @@
                         android:hint="@string/xyz_gmail_com"
                         android:imeOptions="actionNext"
                         android:inputType="text"
+                        android:text=""
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvEmail" />
@@ -173,6 +179,7 @@
                         android:hint="@string/_999_9999_999"
                         android:imeOptions="actionNext"
                         android:inputType="text"
+                        android:text=""
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvMobile" />
@@ -354,10 +361,10 @@
                         android:background="@drawable/background_rectangular_white"
                         android:drawableEnd="@drawable/ic_ic_icon_calender"
                         android:paddingLeft="15dp"
+                        android:text=""
                         android:paddingTop="10dp"
                         android:paddingRight="15dp"
                         android:paddingBottom="10dp"
-                        android:text="@string/_26_august_2000"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvDateBirthlabel" />
 

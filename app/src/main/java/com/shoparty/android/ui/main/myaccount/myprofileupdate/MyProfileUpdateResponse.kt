@@ -1,21 +1,18 @@
-package com.shoparty.android.ui.main.myaccount
+package com.shoparty.android.ui.main.myaccount.myprofileupdate
 
-data class getProfileResponse(
+data class MyProfileUpdateResponse(
     val message: String,
     val response_code: Int,
     val result: User
 )
 {
     data class User(
-        val dob: String,
         val email: String,
         val gender: String,
         val image: String,
-        val mobile: Long,
+        val mobile: String,
         val name: String,
-        val role: Int,
         val user_id: Int
+
     )
-
-
 }
