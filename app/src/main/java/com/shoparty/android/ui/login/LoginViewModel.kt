@@ -2,7 +2,6 @@ package com.shoparty.android.ui.login
 
 import android.app.Application
 import android.content.Context
-import android.util.Patterns
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

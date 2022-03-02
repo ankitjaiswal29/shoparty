@@ -3,7 +3,6 @@ package com.shoparty.android.ui.register
 import android.app.Application
 import android.content.Context
 import android.util.Patterns
-import android.widget.Toast
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

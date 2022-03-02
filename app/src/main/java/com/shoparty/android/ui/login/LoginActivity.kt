@@ -39,8 +39,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         when(v?.id){
             R.id.btnGetOtp -> {
                 viewModel.postLogin()  //api call
-               /* val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)*/
             }
             R.id.txtSignUp -> {
                 val intent = Intent(this, RegisterActivity::class.java)
@@ -60,6 +58,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                     val intent = Intent(this, VerificationActivity::class.java)
                     intent.putExtra(Constants.MOBILE,response.data.mobile)
                     intent.putExtra(Constants.USERID,response.data.user_id.toString())
+                    intent.putExtra(Constants.OTP,response.data.otp.toString())
                     startActivity(intent)
 
                     Toast.makeText(

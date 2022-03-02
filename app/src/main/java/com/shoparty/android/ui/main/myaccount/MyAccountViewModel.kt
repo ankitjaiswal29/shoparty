@@ -2,8 +2,6 @@ package com.shoparty.android.ui.main.myaccount
 
 import android.app.Application
 import android.content.Context
-import android.util.Patterns
-import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,9 +10,6 @@ import com.shoparty.android.R
 import com.shoparty.android.ui.main.myaccount.getprofile.getProfileResponse
 import com.shoparty.android.ui.main.myaccount.logout.LogoutResponse
 import com.shoparty.android.ui.main.myaccount.myprofileupdate.MyProfileUpdateResponse
-import com.shoparty.android.ui.main.myaccount.myprofileupdate.UpdateProfileRequestModel
-import com.shoparty.android.ui.register.RegisterRequestModel
-import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 

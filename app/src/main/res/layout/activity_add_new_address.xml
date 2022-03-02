@@ -3,8 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
 
+
+
+    <data>
+        <variable
+            name="AddressViewModel"
+            type="com.shoparty.android.ui.address.addaddress.AddressViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,9 +20,12 @@
 
         <include
             android:id="@+id/info_tool"
-            layout="@layout/toolbar_info"
+            layout="@layout/toolbar_layout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+
+
         <ScrollView
             android:id="@+id/scrollMain"
             android:layout_width="match_parent"
@@ -47,10 +55,11 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/etOldPassword"
+                    android:id="@+id/etFirstname"
                     style="@style/AppTheme.editText"
                     android:imeOptions="actionNext"
-                    android:inputType="text"
+                    android:inputType="text|textCapSentences"
+                    android:text="@={AddressViewModel.etFirstname}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvFirstName"
@@ -62,13 +71,14 @@
                     android:text="@string/last_name"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/etOldPassword" />
+                    app:layout_constraintTop_toBottomOf="@+id/etFirstname" />
 
                 <EditText
                     android:id="@+id/etLasttName"
                     style="@style/AppTheme.editText"
                     android:imeOptions="actionNext"
-                    android:inputType="text"
+                    android:inputType="text|textCapSentences"
+                    android:text="@={AddressViewModel.etLasttName}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvLasttName"
@@ -88,8 +98,7 @@
                     android:layout_height="@dimen/_40sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvCountry"
-                    />
+                    app:layout_constraintTop_toBottomOf="@+id/tvCountry" />
 
                 <TextView
                     android:id="@+id/tvCity"
@@ -103,7 +112,8 @@
                     android:id="@+id/etCity"
                     style="@style/AppTheme.editText"
                     android:imeOptions="actionNext"
-                    android:inputType="text"
+                    android:inputType="text|textCapSentences"
+                    android:text="@={AddressViewModel.etCity}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvCity"
@@ -121,7 +131,8 @@
                     android:id="@+id/etStreatLandmark"
                     style="@style/AppTheme.editText"
                     android:imeOptions="actionNext"
-                    android:inputType="text"
+                    android:inputType="text|textCapSentences"
+                    android:text="@={AddressViewModel.etStreatLandmark}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvStreatLandmark"
@@ -137,10 +148,11 @@
                     app:layout_constraintTop_toBottomOf="@+id/etStreatLandmark" />
 
                 <EditText
-                    android:id="@+id/etBuildingno_Apartment"
+                    android:id="@+id/etBuildingnoApartment"
                     style="@style/AppTheme.editText"
                     android:imeOptions="actionNext"
-                    android:inputType="text"
+                    android:inputType="text|textCapSentences"
+                    android:text="@={AddressViewModel.etBuildingnoApartment}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvBuildingno"
@@ -152,26 +164,21 @@
                     android:text="@string/mobile"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/etBuildingno_Apartment" />
+                    app:layout_constraintTop_toBottomOf="@+id/etBuildingnoApartment" />
 
                 <EditText
                     android:id="@+id/etMobile"
                     style="@style/AppTheme.editText"
                     android:imeOptions="actionNext"
-                    android:inputType="text"
+                    android:digits="0123456789"
+                    android:inputType="number"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvMobile"
-                    />
+                    android:text="@={AddressViewModel.etMobile}"
+                    app:layout_constraintTop_toBottomOf="@+id/tvMobile" />
 
 
 
-                <!--<androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/etMobile"-->
                 <Button
                     android:id="@+id/btn_can"
                     android:layout_width="0dp"
@@ -227,13 +234,7 @@
 
 
 
-            <!--<androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/btnContinewToPayment"
-                style="@style/AppTheme.ButtonStyle"
-                android:text="@string/continue_to_payment"
 
-
-          />-->
 
 
         </ScrollView>

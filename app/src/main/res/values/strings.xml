@@ -352,7 +352,7 @@
     <string name="enteremailid">Please enter email id</string>
     <string name="entermobileno">Please enter mobile number</string>
     <string name="pleaseselectdob">Please select date of birth</string>
-    <string name="entervalidnumber">Enter Number Valid Mobile Number</string>
+    <string name="entervalidnumber">Enter Valid Mobile Number</string>
     <string name="entervalidmail">Please enter valid email</string>
     <string name="enterotp">Please enter otp</string>
     <string name="txtseconds">Seconds</string>
@@ -377,6 +377,12 @@
     <string name="usd_39_00">USD 39.00</string>
     <string name="clear_all">Clear All</string>
     <string name="pleaselogin">Please Login Once</string>
+    <string name="addresstitle">Address</string>
+    <string name="enterfirstname">Please enter first name</string>
+    <string name="enterlastname">Please enter last name</string>
+    <string name="entercity">Please enter city name</string>
+    <string name="enterlandmark">Please enter landmark</string>
+    <string name="enterbuilding">Please enter building number</string>
 
 
 </resources>

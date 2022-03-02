@@ -21,6 +21,9 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
+
+
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,7 +46,7 @@
             style="@style/AppTheme.Text_pink_12ssp"
             android:textStyle="bold"
             android:background="@color/white"
-          android:paddingStart="22dp"
+            android:paddingStart="22dp"
             android:paddingTop="16dp"
             android:paddingBottom="16dp"
             android:drawablePadding="10dp"
@@ -71,10 +74,13 @@
             android:layout_height="wrap_content"
             android:scrollbars="vertical"
             app:layout_constraintTop_toTopOf="parent"
-
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             />
+
+
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -82,188 +88,6 @@
 </androidx.core.widget.NestedScrollView>
 
 
-
-
-
-
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="5dp"-->
-<!--            android:background="@color/white"-->
-<!--            android:paddingLeft="20dp"-->
-<!--            android:paddingTop="20dp"-->
-<!--            android:paddingRight="20dp"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/tvAddnewaddress">-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/tv_Shippinglabel"-->
-<!--                style="@style/AppTheme.Text_16_Bold_dp"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-
-<!--                android:text="@string/shipping_details"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--            <View-->
-<!--                android:id="@+id/view1"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="1dp"-->
-<!--                android:layout_marginTop="14dp"-->
-<!--                android:background="@color/lightgray"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/tv_Shippinglabel" />-->
-
-
-<!--            <TextView-->
-<!--                android:id="@+id/tv_Name"-->
-<!--                style="@style/AppTheme.Text_12dp_Bold"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="14dp"-->
-<!--                android:text="@string/name"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/view1" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/tv_Namedata"-->
-<!--                style="@style/AppTheme.Text_12_graydp_bold"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginLeft="9dp"-->
-<!--                android:layout_marginTop="14dp"-->
-<!--                android:text="@string/shipping_details"-->
-<!--                app:layout_constraintStart_toEndOf="@+id/tv_Name"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/view1" />-->
-
-
-<!--            <TextView-->
-<!--                android:id="@+id/tv_Houseno"-->
-<!--                style="@style/AppTheme.Text_12dp_Bold"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:text="@string/house_number"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/tv_Name" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/tv_HousenoData"-->
-<!--                style="@style/AppTheme.Text_12_graydp_bold"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginLeft="9dp"-->
-<!--                android:text="@string/_12"-->
-<!--                app:layout_constraintStart_toEndOf="@+id/tv_Houseno"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/tv_Name"-->
-<!--                app:layout_constraintTop_toTopOf="@+id/tv_Houseno" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/tv_Address"-->
-<!--                style="@style/AppTheme.Text_12dp_Bold"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:text="@string/addres"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/tv_Houseno" />-->
-
-
-<!--            <TextView-->
-<!--                android:id="@+id/tv_AddressData"-->
-<!--                style="@style/AppTheme.Text_12_graydp_bold"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginLeft="9dp"-->
-<!--                android:text="@string/xyz"-->
-<!--                app:layout_constraintStart_toEndOf="@+id/tv_Address"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/tv_Houseno"-->
-<!--                app:layout_constraintTop_toTopOf="@+id/tv_Address" />-->
-
-
-<!--            <TextView-->
-<!--                android:id="@+id/tv_Phoneno"-->
-<!--                style="@style/AppTheme.Text_12dp_Bold"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:text="@string/phone_number"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/tv_Address" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/tv_PhonenoData"-->
-<!--                style="@style/AppTheme.Text_12_graydp_bold"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginLeft="9dp"-->
-<!--                android:text="@string/_999_9999_999"-->
-<!--                app:layout_constraintStart_toEndOf="@+id/tv_Phoneno"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/tv_Address"-->
-<!--                app:layout_constraintTop_toTopOf="@+id/tv_Phoneno" />-->
-
-<!--            <View-->
-<!--                android:id="@+id/view2"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="2dp"-->
-<!--                android:layout_marginTop="20dp"-->
-<!--                android:background="@color/lightgraybackground"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/tv_PhonenoData" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/tvEdit"-->
-<!--                style="@style/AppTheme.Text_16_Bold_dp"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="0dp"-->
-<!--                android:gravity="center"-->
-<!--                android:paddingStart="20dp"-->
-<!--                android:paddingTop="10dp"-->
-<!--                android:paddingEnd="20dp"-->
-<!--                android:paddingBottom="10dp"-->
-<!--                android:text="@string/edit"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintEnd_toStartOf="@+id/view3"-->
-<!--                app:layout_constraintHorizontal_chainStyle="spread_inside"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/view2" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/textView"-->
-<!--                style="@style/AppTheme.Text_16_Bold_dp"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="0dp"-->
-<!--                android:gravity="center"-->
-<!--                android:paddingStart="20dp"-->
-<!--                android:paddingTop="10dp"-->
-<!--                android:paddingEnd="20dp"-->
-<!--                android:paddingBottom="10dp"-->
-<!--                android:text="@string/remove"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintHorizontal_bias="0.5"-->
-<!--                app:layout_constraintStart_toEndOf="@+id/view3"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/view2" />-->
-
-
-<!--            <View-->
-<!--                android:id="@+id/view3"-->
-<!--                android:layout_width="2dp"-->
-<!--                android:layout_height="60dp"-->
-<!--                android:background="@color/lightgraybackground"-->
-<!--                android:orientation="vertical"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/view2"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent" />-->
-
-
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

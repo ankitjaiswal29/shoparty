@@ -1,6 +1,9 @@
 package com.shoparty.android.network
 
 
+import com.shoparty.android.ui.address.addaddress.addaddress.AddAddressRequestModel
+import com.shoparty.android.ui.address.addaddress.addaddress.AddAddressResponse
+import com.shoparty.android.ui.address.addaddress.addaddress.getCountryResponse
 import com.shoparty.android.ui.login.LoginRequestModel
 import com.shoparty.android.ui.login.LoginResponse
 import com.shoparty.android.ui.main.myaccount.logout.LogoutResponse
@@ -57,5 +60,16 @@ interface ApiService {
     suspend fun updateprofileAsync(
         @Body requestBody: RequestBody
     ): Response<MyProfileUpdateResponse>
+
+
+    @POST("add-address")                //
+    suspend fun addAddressAsync(
+        @Body addAddressRequestModel: AddAddressRequestModel
+    ): Response<AddAddressResponse>
+
+
+    @GET("list-countries")     //
+    suspend fun getcountryAsync():
+            Response<getCountryResponse>
 
 }

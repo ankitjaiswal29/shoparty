@@ -36,6 +36,7 @@ class VerificationActivity : AppCompatActivity() {
     private fun initialise()
     {
         binding.tvMobileno.text= intent.getStringExtra(Constants.MOBILE)
+        Utils.showShortToast(this,intent.getStringExtra(Constants.OTP))
         userid= intent.getStringExtra(Constants.USERID)!!
         startTimer()
 

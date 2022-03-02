@@ -233,7 +233,6 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
             {
                 val intent = Intent (getActivity(), AddressActivity::class.java)
                 getActivity()?.startActivity(intent)
-               // startActivity(Intent(this, AddressActivity::class.java))
             }
             //  "idrate" -> startActivity(Intent(this, Ra::class.java))
             "idcontact" ->{

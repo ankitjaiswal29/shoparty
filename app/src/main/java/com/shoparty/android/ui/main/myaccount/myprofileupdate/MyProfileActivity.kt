@@ -170,8 +170,7 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
                             builder.addFormDataPart(
                                 "image",
                                 imageZipperFile?.name,
-                                RequestBody.create("image/*".toMediaTypeOrNull(), imageZipperFile!!)
-                            )
+                                RequestBody.create("image/*".toMediaTypeOrNull(), imageZipperFile!!))
                         }
                         builder.addFormDataPart("name", binding.etFirstname.text.toString())
                         builder.addFormDataPart("email", binding.etEmail.text.toString())

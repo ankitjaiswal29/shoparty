@@ -13,11 +13,8 @@ import com.shoparty.android.ui.returnpolicy.ReturnPolicyModel
 
 class AddressAdapter(private val mList: List<ReturnPolicyModel>,var recyclerViewClickListener: RecyclerViewClickListener) : RecyclerView.Adapter<AddressAdapter.ViewHolder>() {
 
-    // create new views
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        // inflates the card_view_design view
-        // that is used to hold list item
+
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.address_item_recyclar_layout, parent, false)
 
@@ -28,22 +25,10 @@ class AddressAdapter(private val mList: List<ReturnPolicyModel>,var recyclerView
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val ItemsViewModel = mList[position]
-
-        // sets the image to the imageview from our itemHolder class
         holder.tv_Shippinglabel.setText(ItemsViewModel.title)
         holder.tvEdit.setOnClickListener {
-
             recyclerViewClickListener.click(ItemsViewModel.title)
         }
-
-        // sets the text to the textview from our itemHolder class
-
-       /* holder.cv_Carditem.setOnClickListener {
-            itemclick?.itemclick(ItemsViewModel.id)
-        }
-*/
-
-
 
     }
 
@@ -51,8 +36,6 @@ class AddressAdapter(private val mList: List<ReturnPolicyModel>,var recyclerView
     override fun getItemCount(): Int {
         return mList.size
     }
-
-    // Holds the views for adding it to image and text
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         val tv_Shippinglabel: TextView = itemView.findViewById(R.id.tv_Shippinglabel)
         val tvEdit: TextView = itemView.findViewById(R.id.tvEdit)
