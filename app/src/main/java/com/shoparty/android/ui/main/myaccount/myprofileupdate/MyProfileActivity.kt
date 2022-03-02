@@ -1,33 +1,29 @@
-package com.shoparty.android.ui.main.myaccount
+package com.shoparty.android.ui.main.myaccount.myprofileupdate
 
 import android.Manifest
-import android.app.Activity.RESULT_OK
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.Color
-import android.media.MediaScannerConnection
 import android.net.Uri
 
 
 import android.os.Bundle
-import android.os.Environment
-import android.provider.MediaStore
 import android.provider.Settings
-import android.util.Log
+import android.util.Patterns
 import android.view.Gravity
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import android.webkit.PermissionRequest
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.developers.imagezipper.ImageZipper
 import com.karumi.dexter.Dexter
@@ -39,12 +35,19 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.shoparty.android.R
 
 import com.shoparty.android.databinding.ActivityMyProfileBinding
+import com.shoparty.android.ui.login.LoginActivity
+import com.shoparty.android.ui.main.myaccount.MyAccountViewModel
+import com.shoparty.android.ui.register.RegisterViewModel
+import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.ImagePickerActivity
 import com.shoparty.android.utils.PrefManager
-import kotlinx.android.synthetic.main.activity_register.*
-import java.io.ByteArrayOutputStream
+import com.shoparty.android.utils.Utils
+import com.shoparty.android.utils.apiutils.Resource
+import com.shoparty.android.utils.apiutils.ViewModalFactory
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import java.io.File
-import java.io.FileOutputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -53,21 +56,27 @@ import java.util.*
 class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityMyProfileBinding
     var cal = Calendar.getInstance()
+    private lateinit var viewModel: MyAccountViewModel
     private var selecteddate = ""
     private var selectedgender = ""
-    private val GALLERY = 1
-    private val CAMERA = 2
     var dialog: Dialog? = null
     private val REQUEST_IMAGE = 999
-    var imageZipperFile: File? = null
+    private var imageZipperFile: File? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= DataBindingUtil.setContentView(this, R.layout.activity_my_profile)
+        viewModel = ViewModelProvider(
+            this,
+            ViewModalFactory(application)
+        )[MyAccountViewModel::class.java]
+
         initialise()
+        setObserver()
     }
 
-    private fun initialise() {
-        selectedgender=binding.tvMale.text.toString()
+    private fun initialise()
+    {
+        setPrefrenceData()  //set data
         binding.btnSave.setOnClickListener(this)
         binding.tvDateBirth.setOnClickListener(this)
         binding.tvMale.setOnClickListener(this)
@@ -76,17 +85,103 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
         binding.infoTool.back.visibility=View.VISIBLE
         binding.infoTool.tvTitle.setText(getString(R.string.my_account))
         binding.infoTool.back.setOnClickListener(this)
-
-
     }
+
+
+    private fun setObserver() {
+        viewModel.profileupdate.observe(this, { response ->
+            when (response)
+            {
+                is Resource.Success -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    PrefManager.write(PrefManager.NAME, response.data?.name!!)
+                    PrefManager.write(PrefManager.IMAGE,response.data?.image!!)
+                    PrefManager.write(PrefManager.MOBILE, response.data?.mobile!!)
+                    PrefManager.write(PrefManager.EMAIL, response.data?.email!!)
+                    PrefManager.write(PrefManager.DOB, binding.tvDateBirth.text.toString().trim())
+                    PrefManager.write(PrefManager.GENDER, response.data?.gender!!)
+                    setResult(Activity.RESULT_OK, intent)
+                    finish()
+
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is Resource.Loading -> {
+                    com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
+                }
+                is Resource.Error -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        })
+    }
+
+    private fun setPrefrenceData()
+    {
+        Glide.with(this).load(PrefManager.read(PrefManager.IMAGE,"")).error(R.drawable.person_img).into(binding.ivProfilePic)
+        binding.txtMobile.text = PrefManager.read(PrefManager.MOBILE,"").toString()
+        binding.tvName.text = PrefManager.read(PrefManager.NAME,"")
+        binding.etFirstname.setText(PrefManager.read(PrefManager.NAME,""))
+        binding.etMobile.setText(PrefManager.read(PrefManager.MOBILE,""))
+        binding.etEmail.setText(PrefManager.read(PrefManager.EMAIL,""))
+        binding.tvDateBirth.text = PrefManager.read(PrefManager.DOB,"")
+
+        binding.etFirstname.setSelection(binding.etFirstname.length())
+        binding.etMobile.isEnabled = false
+        binding.etEmail.setSelection(binding.etEmail.length())
+        if(PrefManager.read(PrefManager.GENDER,"") == Constants.MALE)
+        {
+            maleGenderSet()
+        }
+        else
+        {
+            femaleGenderSet()
+        }
+    }
+
+
+
 
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.btnSave -> {
-                /*val intent = Intent(this, MyAccountActivity::class.java)
-                startActivity(intent)*/
-                finish()
+                if(validation())
+                {
+                val builder = MultipartBody.Builder()
+                        builder.setType(MultipartBody.FORM)
+                        if(imageZipperFile != null)
+                        {
+                            builder.addFormDataPart(
+                                "image",
+                                imageZipperFile?.name,
+                                RequestBody.create("image/*".toMediaTypeOrNull(), imageZipperFile!!)
+                            )
+                        }
+                        builder.addFormDataPart("name", binding.etFirstname.text.toString())
+                        builder.addFormDataPart("email", binding.etEmail.text.toString())
+                        builder.addFormDataPart("mobile",binding.etMobile.text.toString())
+                        builder.addFormDataPart("dob",binding.tvDateBirth.text.toString())
+                        builder.addFormDataPart("gender",  selectedgender)
+                        val body = builder.build()
 
+                        viewModel.postupdateProfile(body)   //api call
+                }
             }
             R.id.back -> {
                 onBackPressed()
@@ -122,36 +217,35 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
 
             }
             R.id.tvMale -> {
-               // iv_male.visibility=View.VISIBLE
-                //iv_female.visibility=View.GONE
-                binding.tvMale.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_pink_check, 0, 0, 0);
-                binding.tvFemale.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-
-                binding.tvFemale.setTextColor(Color.parseColor("#E30986"));
-                binding.tvMale.setTextColor(Color.parseColor("#E30986"));
-                binding.tvFemale.setTextColor(Color.parseColor("#A19989"));
-                selectedgender=binding.tvMale.text.toString()
-               // selectedgender=tv_male.text.toString()
-
+                maleGenderSet()
             }
             R.id.tv_female -> {
-              //  iv_male.visibility=View.GONE
-                //iv_female.visibility=View.VISIBLE
-               // tv_female.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_pink_check, 0, 0, 0);
-                //tv_male.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                binding.tvMale.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-                binding.tvFemale.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_pink_check, 0, 0, 0);
-
-                binding.tvFemale.setTextColor(Color.parseColor("#E30986"));
-                binding.tvMale.setTextColor(Color.parseColor("#A19989"));
-                selectedgender=binding.tvFemale.text.toString()
-                //selectedgender=tv_female.text.toString()
+                femaleGenderSet()
             }
-
         }
     }
 
-    private fun DatePic() {
+    private fun maleGenderSet()
+    {
+        binding.tvMale.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_pink_check, 0, 0, 0);
+        binding.tvFemale.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        binding.tvFemale.setTextColor(Color.parseColor("#E30986"));
+        binding.tvMale.setTextColor(Color.parseColor("#E30986"));
+        binding.tvFemale.setTextColor(Color.parseColor("#A19989"));
+        selectedgender=binding.tvMale.text.toString()
+    }
+
+    private fun femaleGenderSet()
+    {
+        binding.tvMale.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+        binding.tvFemale.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_pink_check, 0, 0, 0);
+        binding.tvFemale.setTextColor(Color.parseColor("#E30986"));
+        binding.tvMale.setTextColor(Color.parseColor("#A19989"));
+        selectedgender=binding.tvFemale.text.toString()
+    }
+
+    private fun DatePic()
+    {
         val dateSetListener =
             DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 cal.set(Calendar.YEAR, year)
@@ -292,7 +386,40 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
     override fun onBackPressed() {
         super.onBackPressed()
     }
+
+    private fun validation():Boolean
+    {
+        if (binding.etFirstname.text.toString().isNullOrBlank())
+        {
+            Utils.showShortToast(this,getString(R.string.enterfullname))
+            return false
+        }
+        if (binding.etEmail.text.toString().trim().isNullOrBlank()) {
+            Utils.showShortToast(this,getString(R.string.enteremailid))
+            return false
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString().trim()).matches())
+        {
+            Utils.showShortToast(this,getString(R.string.entervalidmail))
+            return false
+        }
+        if (binding.etMobile.text.toString().isNullOrBlank()) {
+            Utils.showShortToast(this,getString(R.string.entermobileno))
+            return false
+        }
+        if(Utils.checkValidMobile(binding.etMobile.text.toString()!!)){
+            Utils.showShortToast(this,getString(R.string.entervalidnumber))
+            return false
+        }
+        if(binding.tvDateBirth.text.toString().isNullOrBlank()){
+            Utils.showShortToast(this,getString(R.string.pleaseselectdob))
+            return false
+        }
+        return true
+    }
 }
+
+
 
 private fun AlertDialog.Builder.setNegativeButton(function: (DialogInterface, Int) -> Unit) {
 

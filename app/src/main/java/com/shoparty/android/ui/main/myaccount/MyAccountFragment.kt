@@ -1,5 +1,6 @@
 package com.shoparty.android.ui.main.myaccount
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
@@ -28,8 +29,12 @@ import com.shoparty.android.ui.vouchers.VouchersActivity
 import com.shoparty.android.ui.wishlist.WishListActivity
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.ui.main.mainactivity.MainActivity
+import com.shoparty.android.ui.main.myaccount.getprofile.getProfileResponse
+import com.shoparty.android.ui.main.myaccount.myprofileupdate.MyProfileActivity
+import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.PrefManager.clearAllPref
+import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 import kotlinx.android.synthetic.main.activity_main.*
@@ -147,7 +152,8 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
 
     }
 
-    private fun setupUI(data: getProfileResponse.User?) {
+    private fun setupUI(data: getProfileResponse.User?)
+    {
         Glide.with(this).load(data?.image).error(R.drawable.person_img).into(binding.imgProfile)
         binding.tvName.text = data?.name?.replaceFirstChar {
             if (it.isLowerCase()) it.titlecase(
@@ -155,6 +161,14 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
             ) else it.toString()
         }
         binding.tvMobile.text = data?.mobile.toString()
+
+        PrefManager.write(PrefManager.NAME, binding.tvName.text.toString())
+        PrefManager.write(PrefManager.IMAGE,data?.image.toString())
+        PrefManager.write(PrefManager.MOBILE, data?.mobile.toString())
+        PrefManager.write(PrefManager.EMAIL, data?.email.toString())
+        PrefManager.write(PrefManager.DOB, data?.dob.toString())
+        PrefManager.write(PrefManager.GENDER, data?.gender.toString())
+
     }
 
 
@@ -205,9 +219,15 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
 
 
             "idmyprofile" -> {
-                val intent = Intent (getActivity(), MyProfileActivity::class.java)
-                getActivity()?.startActivity(intent)
-
+                if(PrefManager.read(PrefManager.AUTH_TOKEN,"").isEmpty())
+                {
+                    Utils.showShortToast(activity,getString(R.string.pleaselogin))
+                }
+                else
+                {
+                    val intent = Intent (activity, MyProfileActivity::class.java)
+                    startActivityForResult(intent, Constants.EDIT_PROFILE_CODE)
+                }
             }
             "idaddress" ->
             {
@@ -266,6 +286,17 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
             dialog!!.dismiss()
         }
         dialog!!.show()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
+    {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == Constants.EDIT_PROFILE_CODE && resultCode == Activity.RESULT_OK)
+        {
+            Glide.with(this).load(PrefManager.read(PrefManager.IMAGE,"")).error(R.drawable.person_img).into(binding.imgProfile)
+            binding.tvMobile.text = PrefManager.read(PrefManager.MOBILE,"")
+            binding.tvName.text = PrefManager.read(PrefManager.NAME,"")
+        }
     }
 
 
