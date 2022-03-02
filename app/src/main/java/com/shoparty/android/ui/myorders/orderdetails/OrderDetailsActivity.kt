@@ -42,7 +42,7 @@ class OrderDetailsActivity : AppCompatActivity(),View.OnClickListener {
             binding.group1.visibility=View.GONE
         }*/
     binding.infoTool.tvTitle.setText(R.string.orderdetails)
-        binding.infoTool.back.setOnClickListener(this)
+        binding.infoTool.ivDrawerBack.setOnClickListener(this)
         binding.btnCancel.setOnClickListener(this)
 
     }
@@ -54,7 +54,7 @@ class OrderDetailsActivity : AppCompatActivity(),View.OnClickListener {
                  intent.putExtra("key","OrderDetails")
                  startActivity(intent)
             }
-            R.id.back -> {
+            R.id.iv_drawer_back -> {
                 onBackPressed()
             }
         }

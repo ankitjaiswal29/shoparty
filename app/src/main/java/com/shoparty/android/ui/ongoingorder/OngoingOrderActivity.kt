@@ -30,7 +30,7 @@ class OngoingOrderActivity : AppCompatActivity(), View.OnClickListener {
              binding.group1.visibility=View.GONE
          }*/
         binding.infoTool.tvTitle.setText("OngoeingOrder")
-        binding.infoTool.back.setOnClickListener(this)
+        binding.infoTool.ivDrawerBack.setOnClickListener(this)
         binding.btnCancel.setOnClickListener(this)
 
     }
@@ -42,7 +42,7 @@ class OngoingOrderActivity : AppCompatActivity(), View.OnClickListener {
                 intent.putExtra("key","Ongoeing")
                 startActivity(intent)
             }
-            R.id.back -> {
+            R.id.iv_drawer_back -> {
                onBackPressed()
             }
         }

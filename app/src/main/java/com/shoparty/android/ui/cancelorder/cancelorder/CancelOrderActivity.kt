@@ -27,7 +27,7 @@ class CancelOrderActivity : AppCompatActivity(), View.OnClickListener {
 
          message = intent.getStringExtra("key").toString()
         binding.infoTool.tvTitle.setText(R.string.cancel_order)
-        binding.infoTool.back.setOnClickListener(this)
+        binding.infoTool.ivDrawerBack.setOnClickListener(this)
         binding.btnCancel.setOnClickListener(this)
 
     }
@@ -39,7 +39,7 @@ class CancelOrderActivity : AppCompatActivity(), View.OnClickListener {
                 intent.putExtra("key",message)
                 startActivity(intent)
             }
-            R.id.back -> {
+            R.id.iv_drawer_back -> {
                onBackPressed()
             }
         }
