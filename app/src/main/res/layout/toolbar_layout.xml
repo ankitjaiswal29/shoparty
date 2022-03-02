@@ -57,6 +57,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         />
 
+    <TextView
+        android:id="@+id/tv_clearall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/clear_all"
+        android:visibility="invisible"
+
+        style="@style/AppTheme.Text_12_dp_bold_pink"
+        app:layout_constraintTop_toTopOf="@id/tv_title"
+
+        app:layout_constraintBottom_toBottomOf="@id/tv_title"
+        />
+
     <ImageView
         android:id="@+id/home_shoparty_icon2"
         app:layout_constraintEnd_toEndOf="parent"

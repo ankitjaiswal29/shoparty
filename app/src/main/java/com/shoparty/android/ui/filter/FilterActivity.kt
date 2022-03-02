@@ -1,23 +1,32 @@
 package com.shoparty.android.ui.filter
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.mohammedalaa.seekbar.DoubleValueSeekBarView
+import com.mohammedalaa.seekbar.OnDoubleValueSeekBarChangeListener
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityFilterBinding
-import com.shoparty.android.databinding.ActivityTopSellingBinding
-import com.shoparty.android.ui.main.home.HomeCategoriesModel
-import com.shoparty.android.ui.main.home.TopSellingSubcategoriesAdapter
+import com.shoparty.android.utils.SpacesItemDecoration
+import kotlinx.android.synthetic.main.activity_filter.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class FilterActivity : AppCompatActivity(),View.OnClickListener {
     private lateinit var binding: ActivityFilterBinding
-    private var languageList = ArrayList<FilterModel>()
+   // var array = arrayOf("rvColorRecyclarview","rvSizeRecyclarview", "rvAgeRecyclarview","rvGenderRecyclarview", "clPrice")
+    private var recyvlerviewItemList=ArrayList<RecyclerView>()
     private lateinit var rvAdapter: FilterAdapter
+    var color=false
+    var size=false
+    var age=false
+    var gender=false
+    var price=false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
          binding= DataBindingUtil.setContentView(this, R.layout.activity_filter)
@@ -25,6 +34,53 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener {
     }
 
     private fun initialise() {
+
+        binding.tvColor.setOnClickListener(this)
+        binding.tvSize.setOnClickListener(this)
+        binding.infoTool.tvClearall.visibility=View.VISIBLE
+        binding.infoTool.tvTitle.setText("Filter")
+
+
+        binding.tvAge.setOnClickListener(this)
+        binding.tvGender.setOnClickListener(this)
+        binding.tvPrice.setOnClickListener(this)
+        binding.clPrice.setOnClickListener(this)
+        binding.doubleRangeSeekbar.currentMinValue=50
+        binding.doubleRangeSeekbar.currentMaxValue=150
+        recyvlerviewItemList.add(binding.rvColorRecyclarview)
+        recyvlerviewItemList.add(binding.rvSizeRecyclarview)
+        recyvlerviewItemList.add(binding.rvAgeRecyclarview)
+        recyvlerviewItemList.add(binding.rvGenderRecyclarview)
+
+
+
+        binding.doubleRangeSeekbar.setOnRangeSeekBarViewChangeListener(object :OnDoubleValueSeekBarChangeListener{
+            override fun onStartTrackingTouch(
+                seekBar: DoubleValueSeekBarView?,
+                min: Int,
+                max: Int
+            ) {
+                Toast.makeText(this@FilterActivity,min.toString()+max.toString(),Toast.LENGTH_LONG).show()
+            }
+
+            override fun onStopTrackingTouch(seekBar: DoubleValueSeekBarView?, min: Int, max: Int) {
+
+            }
+
+            override fun onValueChanged(
+                seekBar: DoubleValueSeekBarView?,
+                min: Int,
+                max: Int,
+                fromUser: Boolean
+            ) {
+
+            }
+
+        })
+
+        size()
+        age()
+        gender()
 
        val data=ArrayList<String>()
         data.add("#FFBB86FC")
@@ -114,18 +170,198 @@ val data=ArrayList<String>()
 
     }
 
+    private fun gender() {
+
+        val data=ArrayList<String>()
+        data.add("Babys")
+        data.add("Girl")
+        data.add("Unisex")
+        data.add("Women")
+
+
+        val gridLayoutManager = GridLayoutManager(this, 4)
+        binding.rvGenderRecyclarview.apply {
+            layoutManager = gridLayoutManager
+            setHasFixedSize(true)
+            isFocusable = false
+            adapter = FilterGenderAdapter(data)
+        }
+    }
+
+    private fun age() {
+        val data=ArrayList<String>()
+        data.add("Baby 0-2 Years")
+        data.add("Toddler 2-4 Years")
+        data.add("Adventures 5-7 Years")
+        data.add("Pioneers 8+")
+        val spanCount = 2 // 2 columns
+        val spacing = 10 // 30px
+        val includeEdge = false
+
+        binding.rvAgeRecyclarview.addItemDecoration(
+            SpacesItemDecoration(
+                spanCount,
+                spacing,
+                includeEdge
+            )
+        )
+
+        val gridLayoutManager = GridLayoutManager(this, 2)
+        binding.rvAgeRecyclarview.apply {
+            layoutManager = gridLayoutManager
+            setHasFixedSize(true)
+            isFocusable = false
+            adapter = FilterAgeAdapter(data)
+        }
+    }
+
+    private fun size(){
+       val data=ArrayList<String>()
+       data.add("S")
+       data.add("M")
+       data.add("XL")
+       data.add("XXL")
+       data.add("UK6")
+       data.add("UK7")
+       data.add("UK8")
+       data.add("UK9")
+       data.add("UK10")
+
+        val spanCount = 5 // 2 columns
+        val spacing = 10 // 30px
+        val includeEdge = false
+        binding.rvSizeRecyclarview.addItemDecoration(
+            SpacesItemDecoration(
+                spanCount,
+                spacing,
+                includeEdge
+            )
+        )
+
+
+        val gridLayoutManager = GridLayoutManager(this, 5)
+       binding.rvSizeRecyclarview.apply {
+           layoutManager = gridLayoutManager
+           setHasFixedSize(true)
+           isFocusable = false
+           adapter = FilterSizeAdapter(data)
+       }
+    }
+
     override fun onClick(v: View?) {
         when(v?.id) {
-            /* R.id.btnCancel -> {
-                 val intent = Intent(this, CancelOrderActivity::class.java)
-                 intent.putExtra("key","Ongoeing")
-                 startActivity(intent)
-             }*/
+             R.id.tv_color -> {
+                 goneHide(binding.rvColorRecyclarview)
+                 color=!color;
+                 /*if (color){
+                     binding.rvColorRecyclarview.visibility=View.VISIBLE
+                     binding.tvColor.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_spinner_down_aero, 0);
+                     color=false
+                 }else{
+                     binding.tvColor.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_back_icon, 0);
+                     binding.rvColorRecyclarview.visibility=View.GONE
+                     color=true
+                 }*/
+
+             }
+            R.id.tv_size -> {
+                goneHide(binding.rvSizeRecyclarview)
+                size=!size;
+                /*if (size){
+                    binding.rvSizeRecyclarview.visibility=View.VISIBLE
+                    binding.tvSize.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_spinner_down_aero, 0);
+                    size=false
+                }else{
+                    binding.tvSize.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_back_icon, 0);
+                    binding.rvSizeRecyclarview.visibility=View.GONE
+                    size=true
+                }*/
+
+            }
+            R.id.tv_age -> {
+                goneHide(binding.rvAgeRecyclarview)
+                age=!age;
+                /*if (age){
+                    binding.rvAgeRecyclarview.visibility=View.VISIBLE
+                    binding.tvAge.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_spinner_down_aero, 0);
+                    age=false
+                }else{
+
+                    binding.tvAge.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_back_icon, 0);
+                    binding.rvAgeRecyclarview.visibility=View.GONE
+                    age=true
+                }*/
+
+            }
+            R.id.tv_gender -> {
+                goneHide(binding.rvGenderRecyclarview)
+                gender=!gender
+                /*if (gender) {
+                    binding.rvGenderRecyclarview.visibility = View.VISIBLE
+                    binding.tvGender.setCompoundDrawablesWithIntrinsicBounds(
+                        0,
+                        0,
+                        R.drawable.ic_spinner_down_aero,
+                        0
+                    );
+                    gender = false
+                } else {
+                    binding.tvGender.setCompoundDrawablesWithIntrinsicBounds(
+                        0,
+                        0,
+                        R.drawable.ic_back_icon,
+                        0
+                    );
+                    binding.rvGenderRecyclarview.visibility = View.GONE
+                    gender = true
+                }*/
+            }
+            R.id.tv_price -> {
+                binding.clPrice.visibility=View.VISIBLE
+                binding.rvColorRecyclarview.visibility=View.GONE
+                binding.rvGenderRecyclarview.visibility=View.GONE
+                binding.rvSizeRecyclarview.visibility=View.GONE
+                binding.rvAgeRecyclarview.visibility=View.GONE
+               /* goneHide(binding.rvColorRecyclarview)
+                if (price) {
+                    binding.clPrice.visibility = View.VISIBLE
+                    binding.tvPrice.setCompoundDrawablesWithIntrinsicBounds(
+                        0,
+                        0,
+                        R.drawable.ic_spinner_down_aero,
+                        0
+                    );
+                    price = false
+                } else {
+                    binding.tvPrice.setCompoundDrawablesWithIntrinsicBounds(
+                        0,
+                        0,
+                        R.drawable.ic_back_icon,
+                        0
+                    );
+                    binding.clPrice.visibility = View.GONE
+                    price = true
+                }*/
+            }
             R.id.iv_drawer_back -> {
                 onBackPressed()
             }
         }
     }
+
+  //  private fun goneHide(clickRecyclerview: RecyclerView,doubleClickEvent:Boolean,defaboolean: Boolean = false) {
+        private fun goneHide(clickRecyclerview: RecyclerView) {
+              binding.clPrice.visibility=View.GONE
+            for (recyclerview in recyvlerviewItemList) {
+
+                if (recyclerview == clickRecyclerview) {
+                recyclerview.visibility = View.VISIBLE
+            } else {
+                recyclerview.visibility = View.GONE
+            }
+        }
+    }
+
     override fun onBackPressed() {
         super.onBackPressed()
     }

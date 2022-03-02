@@ -8,15 +8,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.shoparty.android.R
 import com.shoparty.android.utils.inflate
 import kotlinx.android.synthetic.main.filter_color_item_layout.view.*
+import kotlinx.android.synthetic.main.filter_recyclar_item_layout.view.*
 
 import kotlinx.android.synthetic.main.ts_subcategories_item.view.*
 import kotlinx.android.synthetic.main.ts_subcategories_item.view.ts_subcategories_item_name_tv
 
-class FilterColorAdapter(private val itemList: List<String>): RecyclerView.Adapter<FilterColorAdapter.TopSellingSubcategoriesViewHolder>() {
+class FilterAgeAdapter(private val itemList: List<String>): RecyclerView.Adapter<FilterAgeAdapter.TopSellingSubcategoriesViewHolder>() {
     inner class TopSellingSubcategoriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-
+    var check=false
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopSellingSubcategoriesViewHolder {
-        return TopSellingSubcategoriesViewHolder(parent.inflate(R.layout.filter_color_item_layout))
+        return TopSellingSubcategoriesViewHolder(parent.inflate(R.layout.filter_recyclar_item_layout))
     }
     override fun getItemCount(): Int {
         return itemList.size
@@ -25,7 +26,20 @@ class FilterColorAdapter(private val itemList: List<String>): RecyclerView.Adapt
         val items = itemList[position]
         holder.itemView.apply {
           //  view_circle.backgroundTintList(Color.parseColor(items));
-            view_circle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(items)));
+            tv_text.setText(items)
         }
+
+        holder.itemView.tv_text.setOnClickListener(View.OnClickListener {
+            if(check){
+                holder.itemView.tv_text.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.check_black, 0);
+                check=false
+                //Toast.makeText(context,item[position].toString(),Toast.LENGTH_LONG).show()
+            }else{
+                //Toast.makeText(context,item[position].toString(),Toast.LENGTH_LONG).show()
+                check=true
+                holder.itemView.tv_text.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_baseline_check_24, 0);
+
+            }
+        })
     }
 }

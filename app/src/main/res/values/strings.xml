@@ -373,6 +373,9 @@
     <string name="dialog_permission_message">This app needs permission to use this feature. You can grant them in app settings.</string>
     <string name="go_to_settings">GOTO SETTINGS</string>
     <string name="Profile">Profile</string>
+    <string name="usd_4_00">USD 4.00</string>
+    <string name="usd_39_00">USD 39.00</string>
+    <string name="clear_all">Clear All</string>
 
 
 </resources>
