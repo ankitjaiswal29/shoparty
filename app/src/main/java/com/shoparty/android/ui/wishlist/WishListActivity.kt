@@ -1,5 +1,6 @@
 package com.shoparty.android.ui.wishlist
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -8,6 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityWishListBinding
 import com.shoparty.android.ui.main.wishlist.WishListAdapter
+import com.shoparty.android.ui.search.SearchActivity
+import com.shoparty.android.ui.shipping.ShippingActivity
 
 
 class WishListActivity : AppCompatActivity(), View.OnClickListener {
@@ -26,8 +29,11 @@ class WishListActivity : AppCompatActivity(), View.OnClickListener {
 
         // this creates a vertical layout Manager
         binding.infoTool.tvTitle.setText(getString(R.string.wishlist))
-        binding.infoTool.ivBag.visibility=View.VISIBLE
-        binding.infoTool.ivSearch.visibility=View.VISIBLE
+        binding.infoTool.ivBagBtn.visibility=View.VISIBLE
+        binding.infoTool.ivBtnsearch.visibility=View.VISIBLE
+        binding.infoTool.ivDrawerBack.setOnClickListener(this)
+        binding.infoTool.ivBagBtn.setOnClickListener(this)
+        binding.infoTool.ivBtnsearch.setOnClickListener(this)
         binding.vouchersRecyclerview.layoutManager = LinearLayoutManager(this)
 
         // ArrayList of class ItemsViewModel
@@ -50,15 +56,22 @@ class WishListActivity : AppCompatActivity(), View.OnClickListener {
         binding.vouchersRecyclerview.adapter = adapter
     }
     override fun onClick(v: View?) {
-        /*when(v?.id){
-            R.id.tvViewordertitle -> {
-                val intent = Intent(this, OrderDetailsActivity::class.java)
+        when(v?.id){
+            R.id.iv_drawer_back -> {
+               onBackPressed()
+            }
+            R.id.ivBagBtn -> {
+                val intent = Intent(this, ShippingActivity::class.java)
                 startActivity(intent)
             }
-            R.id.btnSave -> {
-                val intent = Intent(this, MyOrdersActivity::class.java)
+            R.id.iv_btnsearch -> {
+                val intent = Intent(this, SearchActivity::class.java)
                 startActivity(intent)
             }
-        }*/
+        }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }

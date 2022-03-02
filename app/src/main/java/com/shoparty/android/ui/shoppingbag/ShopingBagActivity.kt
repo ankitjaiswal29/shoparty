@@ -10,6 +10,9 @@ import com.shoparty.android.ui.main.home.HomeCategoriesModel
 
 import kotlinx.android.synthetic.main.activity_shoping_bag.*
 import kotlinx.android.synthetic.main.toolbar_layout.view.*
+import android.content.Intent
+import com.shoparty.android.ui.login.LoginActivity
+
 
 class ShopingBagActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityShopingBagBinding
@@ -28,6 +31,7 @@ class ShopingBagActivity : AppCompatActivity(), View.OnClickListener {
 
         binding.infoTool.tvTitle.setText(getString(R.string.shippingbag))
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
+        binding.btnProcessTocheckOut.setOnClickListener(this)
         val bagItemList = listOf<HomeCategoriesModel>(
             HomeCategoriesModel("$7.02"),
             HomeCategoriesModel("$7.02"),
@@ -47,6 +51,12 @@ class ShopingBagActivity : AppCompatActivity(), View.OnClickListener {
             }*/
             R.id.iv_drawer_back -> {
                 onBackPressed()
+            }
+            R.id.btn_ProcessTocheckOut -> {
+                val intent = Intent(applicationContext, LoginActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
+
             }
         }
     }

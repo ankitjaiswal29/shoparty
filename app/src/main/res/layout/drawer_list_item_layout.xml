@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:padding="15dp"
+        android:padding="10dp"
         android:background="@color/white">
 
 
@@ -28,8 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:background="@color/white"
-            android:text="@string/products"
-            android:textSize="@dimen/_16ssp" />
+            android:text="@string/products" />
 
 
         <ImageView

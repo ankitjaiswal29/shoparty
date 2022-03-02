@@ -16,7 +16,7 @@
 
         <include
             android:id="@+id/info_tool"
-            layout="@layout/toolbar_info"
+            layout="@layout/toolbar_layout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

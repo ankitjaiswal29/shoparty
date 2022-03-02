@@ -20,13 +20,13 @@ class TermAndConditionActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun initialise() {
         binding.infoTool.tvTitle.setText("Terms And Conditions")
-        binding.infoTool.back.setOnClickListener(this)
+        binding.infoTool.ivDrawerBack.setOnClickListener(this)
         // binding..setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
          when(v?.id){
-             R.id.back -> {
+             R.id.iv_drawer_back -> {
                  onBackPressed()
              }
 

@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.ts_subcategories_item.view.ts_subcategorie
 
 class FilterColorAdapter(private val itemList: List<String>): RecyclerView.Adapter<FilterColorAdapter.TopSellingSubcategoriesViewHolder>() {
     inner class TopSellingSubcategoriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    var check=true
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopSellingSubcategoriesViewHolder {
         return TopSellingSubcategoriesViewHolder(parent.inflate(R.layout.filter_color_item_layout))
@@ -26,6 +27,16 @@ class FilterColorAdapter(private val itemList: List<String>): RecyclerView.Adapt
         holder.itemView.apply {
           //  view_circle.backgroundTintList(Color.parseColor(items));
             view_circle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(items)));
+        }
+        holder.itemView.view_circle.setOnClickListener{
+            if (check){
+                check=false
+                holder.itemView.iv_check.visibility=View.VISIBLE
+            }else{
+                holder.itemView.iv_check.visibility=View.GONE
+                check=true
+            }
+
         }
     }
 }

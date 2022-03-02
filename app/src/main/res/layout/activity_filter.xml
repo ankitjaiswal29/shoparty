@@ -77,7 +77,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_color_recyclarview"
-                android:drawableEnd="@drawable/ic_spinner_down_aero"
+                android:drawableEnd="@drawable/ic_back_icon"
                 style="@style/AppTheme.Text_14dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"/>
@@ -105,7 +105,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_size_recyclarview"
-                android:drawableEnd="@drawable/ic_spinner_down_aero"
+                android:drawableEnd="@drawable/ic_back_icon"
                 style="@style/AppTheme.Text_14dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"/>
@@ -134,7 +134,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_age_recyclarview"
-                android:drawableEnd="@drawable/ic_spinner_down_aero"
+                android:drawableEnd="@drawable/ic_back_icon"
                 style="@style/AppTheme.Text_14dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"/>
@@ -161,7 +161,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_gender_recyclarview"
-                android:drawableEnd="@drawable/ic_spinner_down_aero"
+                android:drawableEnd="@drawable/ic_back_icon"
                 style="@style/AppTheme.Text_14dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"/>
@@ -227,6 +227,21 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+            <Button
+                android:id="@+id/btn_Applay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/cl_price"
+                android:layout_marginTop="187dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/apply"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/white"
+                android:background="@drawable/customize_btn_bg"
+                android:textAllCaps="false"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
       </ScrollView>

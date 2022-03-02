@@ -25,7 +25,7 @@ class ReturnPolicyActivity : AppCompatActivity(), View.OnClickListener  {
 
         // this creates a vertical layout Manager
         binding.infoTool.tvTitle.setText(getString(R.string.return_policy))
-        binding.infoTool.back.setOnClickListener(this)
+        binding.infoTool.ivDrawerBack.setOnClickListener(this)
         binding.myorderRecyclerview.layoutManager = LinearLayoutManager(this)
 
         // ArrayList of class ItemsViewModel
@@ -41,7 +41,7 @@ class ReturnPolicyActivity : AppCompatActivity(), View.OnClickListener  {
 
     override fun onClick(v: View?) {
         when(v?.id){
-            R.id.back -> {
+            R.id.iv_drawer_back -> {
               onBackPressed()
             }
 

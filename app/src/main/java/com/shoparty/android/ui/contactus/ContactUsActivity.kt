@@ -18,13 +18,13 @@ class ContactUsActivity : AppCompatActivity(), View.OnClickListener  {
 
     private fun initialise() {
         binding.infoTool.tvTitle.text = getString(R.string.contact_us)
-        binding.infoTool.back.setOnClickListener(this)
+        binding.infoTool.ivDrawerBack.setOnClickListener(this)
 
     }
 
     override fun onClick(v: View?) {
         when(v?.id){
-            R.id.back -> {
+            R.id.iv_drawer_back -> {
                 onBackPressed()
             }
 

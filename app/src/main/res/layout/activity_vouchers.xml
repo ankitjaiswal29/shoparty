@@ -13,9 +13,14 @@
         android:background="@color/lightgraybackground"
         tools:context=".ui.vouchers.VouchersActivity">
 
-        <include
+       <!-- <include
             android:id="@+id/info_tool"
             layout="@layout/toolbar_info"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />-->
+        <include
+            android:id="@+id/info_tool"
+            layout="@layout/toolbar_layout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

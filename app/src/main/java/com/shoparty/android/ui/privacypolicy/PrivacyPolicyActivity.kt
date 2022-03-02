@@ -29,7 +29,7 @@ class PrivacyPolicyActivity : AppCompatActivity(), View.OnClickListener  {
 
     private fun initialise() {
         // binding.tvViewordertitle.setOnClickListener(this)
-        binding.infoTool.back.setOnClickListener(this)
+        binding.infoTool.ivDrawerBack.setOnClickListener(this)
         binding.infoTool.tvTitle.setText("PrivacyPolicy")
         // getting the recyclerview by its id
         val recyclerview = findViewById<RecyclerView>(R.id.rv_privacyPolicyRecyclar)
@@ -57,7 +57,7 @@ class PrivacyPolicyActivity : AppCompatActivity(), View.OnClickListener  {
     }
     override fun onClick(v: View?) {
         when(v?.id){
-            R.id.back -> {
+            R.id.iv_drawer_back -> {
                 onBackPressed()
             }
 

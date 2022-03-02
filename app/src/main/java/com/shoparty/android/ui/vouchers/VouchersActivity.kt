@@ -24,7 +24,7 @@ class VouchersActivity : AppCompatActivity(), View.OnClickListener {
 
         // this creates a vertical layout Manager
         binding.infoTool.tvTitle.setText(getString(R.string.vouchers))
-        binding.infoTool.back.setOnClickListener(this)
+        binding.infoTool.ivDrawerBack.setOnClickListener(this)
         binding.vouchersRecyclerview.layoutManager = LinearLayoutManager(this)
 
         // ArrayList of class ItemsViewModel
@@ -46,7 +46,7 @@ class VouchersActivity : AppCompatActivity(), View.OnClickListener {
     }
     override fun onClick(v: View?) {
         when(v?.id){
-            R.id.back -> {
+            R.id.iv_drawer_back -> {
                 onBackPressed()
             }
            /* R.id.btnSave -> {

@@ -10,12 +10,19 @@
         android:id="@+id/view_circle"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:backgroundTint="@color/pink"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/circle_border_bg"/>
-    <!--<ImageView
+    <ImageView
+        android:id="@+id/iv_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="che"-->
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/view_circle"
+        app:layout_constraintEnd_toEndOf="@+id/view_circle"
+        app:layout_constraintTop_toTopOf="@+id/view_circle"
+        app:layout_constraintBottom_toBottomOf="@+id/view_circle"
+        android:src="@drawable/ic_check_white"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

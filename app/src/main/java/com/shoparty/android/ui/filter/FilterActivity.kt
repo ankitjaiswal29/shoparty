@@ -2,6 +2,7 @@ package com.shoparty.android.ui.filter
 
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -15,12 +16,14 @@ import com.shoparty.android.databinding.ActivityFilterBinding
 import com.shoparty.android.utils.SpacesItemDecoration
 import kotlinx.android.synthetic.main.activity_filter.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.w3c.dom.Text
 
 
 class FilterActivity : AppCompatActivity(),View.OnClickListener {
     private lateinit var binding: ActivityFilterBinding
    // var array = arrayOf("rvColorRecyclarview","rvSizeRecyclarview", "rvAgeRecyclarview","rvGenderRecyclarview", "clPrice")
     private var recyvlerviewItemList=ArrayList<RecyclerView>()
+    private var filterIconItem=ArrayList<TextView>()
     private lateinit var rvAdapter: FilterAdapter
     var color=false
     var size=false
@@ -37,10 +40,9 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener {
 
         binding.tvColor.setOnClickListener(this)
         binding.tvSize.setOnClickListener(this)
+        binding.btnApplay.setOnClickListener(this)
         binding.infoTool.tvClearall.visibility=View.VISIBLE
         binding.infoTool.tvTitle.setText("Filter")
-
-
         binding.tvAge.setOnClickListener(this)
         binding.tvGender.setOnClickListener(this)
         binding.tvPrice.setOnClickListener(this)
@@ -51,6 +53,13 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener {
         recyvlerviewItemList.add(binding.rvSizeRecyclarview)
         recyvlerviewItemList.add(binding.rvAgeRecyclarview)
         recyvlerviewItemList.add(binding.rvGenderRecyclarview)
+
+        filterIconItem.add(binding.tvColor)
+        filterIconItem.add(binding.tvSize)
+        filterIconItem.add(binding.tvAge)
+        filterIconItem.add(binding.tvGender)
+
+
 
 
 
@@ -252,6 +261,7 @@ val data=ArrayList<String>()
         when(v?.id) {
              R.id.tv_color -> {
                  goneHide(binding.rvColorRecyclarview)
+                 iconGoneHide(binding.tvColor)
                  color=!color;
                  /*if (color){
                      binding.rvColorRecyclarview.visibility=View.VISIBLE
@@ -266,6 +276,7 @@ val data=ArrayList<String>()
              }
             R.id.tv_size -> {
                 goneHide(binding.rvSizeRecyclarview)
+                iconGoneHide(binding.tvSize)
                 size=!size;
                 /*if (size){
                     binding.rvSizeRecyclarview.visibility=View.VISIBLE
@@ -280,6 +291,7 @@ val data=ArrayList<String>()
             }
             R.id.tv_age -> {
                 goneHide(binding.rvAgeRecyclarview)
+                iconGoneHide(binding.tvAge)
                 age=!age;
                 /*if (age){
                     binding.rvAgeRecyclarview.visibility=View.VISIBLE
@@ -295,6 +307,7 @@ val data=ArrayList<String>()
             }
             R.id.tv_gender -> {
                 goneHide(binding.rvGenderRecyclarview)
+                iconGoneHide(binding.tvGender)
                 gender=!gender
                 /*if (gender) {
                     binding.rvGenderRecyclarview.visibility = View.VISIBLE
@@ -318,7 +331,13 @@ val data=ArrayList<String>()
             }
             R.id.tv_price -> {
                 binding.clPrice.visibility=View.VISIBLE
-                binding.rvColorRecyclarview.visibility=View.GONE
+                binding.tvPrice.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_spinner_down_aero, 0);
+                binding.tvColor.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_back_icon, 0);
+                binding.tvSize.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_back_icon, 0);
+                binding.tvGender.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_back_icon, 0);
+                binding.tvAge.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_back_icon, 0);
+
+
                 binding.rvGenderRecyclarview.visibility=View.GONE
                 binding.rvSizeRecyclarview.visibility=View.GONE
                 binding.rvAgeRecyclarview.visibility=View.GONE
@@ -346,10 +365,42 @@ val data=ArrayList<String>()
             R.id.iv_drawer_back -> {
                 onBackPressed()
             }
+            R.id.btn_Applay -> {
+             finish()
+            }
         }
     }
 
-  //  private fun goneHide(clickRecyclerview: RecyclerView,doubleClickEvent:Boolean,defaboolean: Boolean = false) {
+    private fun iconGoneHide(clickFilterItem: TextView) {
+        binding.tvPrice.setCompoundDrawablesWithIntrinsicBounds(
+            0,
+            0,
+            R.drawable.ic_back_icon,
+            0
+        );
+        for (textview in filterIconItem){
+
+            if (textview == clickFilterItem){
+                textview.setCompoundDrawablesWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.ic_spinner_down_aero,
+                    0
+                );
+            }else{
+                textview.setCompoundDrawablesWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.ic_back_icon,
+                    0
+                );
+            }
+        }
+
+
+    }
+
+    //  private fun goneHide(clickRecyclerview: RecyclerView,doubleClickEvent:Boolean,defaboolean: Boolean = false) {
         private fun goneHide(clickRecyclerview: RecyclerView) {
               binding.clPrice.visibility=View.GONE
             for (recyclerview in recyvlerviewItemList) {
