@@ -94,6 +94,7 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="9dp"
     android:text="@string/xyz"
+    android:lines="1"
     app:layout_constraintStart_toEndOf="@+id/tv_Address"
     app:layout_constraintTop_toBottomOf="@+id/tv_Houseno"
     app:layout_constraintTop_toTopOf="@+id/tv_Address" />
@@ -148,7 +149,7 @@
     app:layout_constraintTop_toBottomOf="@+id/view2" />
 
 <TextView
-    android:id="@+id/textView"
+    android:id="@+id/tvRemove"
     style="@style/AppTheme.Text_16_Bold_dp"
     android:layout_width="0dp"
     android:layout_height="0dp"

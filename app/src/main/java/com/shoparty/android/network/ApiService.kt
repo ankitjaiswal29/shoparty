@@ -4,12 +4,14 @@ package com.shoparty.android.network
 import com.shoparty.android.ui.address.addaddress.addaddress.AddAddressRequestModel
 import com.shoparty.android.ui.address.addaddress.addaddress.AddAddressResponse
 import com.shoparty.android.ui.address.addaddress.addaddress.getCountryResponse
+import com.shoparty.android.ui.address.addaddress.getaddress.DeleteAddressRequestModel
+import com.shoparty.android.ui.address.addaddress.getaddress.DeleteAddressResponse
+import com.shoparty.android.ui.address.addaddress.getaddress.GetAddressListResponse
 import com.shoparty.android.ui.login.LoginRequestModel
 import com.shoparty.android.ui.login.LoginResponse
 import com.shoparty.android.ui.main.myaccount.logout.LogoutResponse
 import com.shoparty.android.ui.main.myaccount.getprofile.getProfileResponse
 import com.shoparty.android.ui.main.myaccount.myprofileupdate.MyProfileUpdateResponse
-import com.shoparty.android.ui.main.myaccount.myprofileupdate.UpdateProfileRequestModel
 import com.shoparty.android.ui.register.RegisterRequestModel
 import com.shoparty.android.ui.register.RegisterResponseModel
 import com.shoparty.android.ui.verificationotp.ResendOtpResponse
@@ -71,5 +73,15 @@ interface ApiService {
     @GET("list-countries")     //
     suspend fun getcountryAsync():
             Response<getCountryResponse>
+
+
+    @GET("list-addresses")     //
+    suspend fun getaddressAsync():
+            Response<GetAddressListResponse>
+
+    @POST("delete-address")                //
+    suspend fun deleteAddressAsync(
+        @Body deleteAddressRequestModel: DeleteAddressRequestModel
+    ): Response<DeleteAddressResponse>
 
 }
