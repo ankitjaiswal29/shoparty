@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.shoparty.android.R
 import com.shoparty.android.databinding.MyaccountItemBinding
 import com.shoparty.android.interfaces.RecyclerViewClickListener

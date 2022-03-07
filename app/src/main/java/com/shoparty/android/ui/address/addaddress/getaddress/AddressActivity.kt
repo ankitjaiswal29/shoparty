@@ -5,43 +5,38 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.core.content.ContentProviderCompat.requireContext
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityAddressBinding
-import com.shoparty.android.interfaces.RecyclerViewClickListener
+import com.shoparty.android.interfaces.RecyclerViewAddressClickListener
+import com.shoparty.android.ui.address.addaddress.AddressViewModel
 import com.shoparty.android.ui.address.addaddress.addaddress.AddNewAddressActivity
-import com.shoparty.android.ui.main.myaccount.MyAccountAdapter
-import com.shoparty.android.ui.returnpolicy.ReturnPolicyAdapter
-import com.shoparty.android.ui.returnpolicy.ReturnPolicyModel
 import com.shoparty.android.utils.Constants
-import com.shoparty.android.utils.PrefManager
-import com.shoparty.android.utils.Utils
-
-
-class AddressActivity : AppCompatActivity(), View.OnClickListener,RecyclerViewClickListener{
+import com.shoparty.android.utils.apiutils.Resource
+import com.shoparty.android.utils.apiutils.ViewModalFactory
+class AddressActivity : AppCompatActivity(), View.OnClickListener,
+    RecyclerViewAddressClickListener {
+    private lateinit var adapter: AddressAdapter
     private lateinit var binding: ActivityAddressBinding
+    private lateinit var viewModel: AddressViewModel
+    private var addresslist: ArrayList<GetAddressListResponse.Data> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= DataBindingUtil.setContentView(this, R.layout.activity_address)
+        viewModel = ViewModelProvider(this, ViewModalFactory(application))[AddressViewModel::class.java]
         initialise()
+        viewModel.getaddresslist()    //api call
+        setObserver()
     }
 
-    private fun initialise() {
+    private fun initialise()
+    {
         binding.infoTool.tvTitle.text = getString(R.string.addresstitle)
         binding.tvAddnewaddress.setOnClickListener(this)
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
-        val data = ArrayList<ReturnPolicyModel>()
-        data.add(ReturnPolicyModel("1","Shipping Details"))
-        data.add(ReturnPolicyModel("2","Shipping Details"))
-        data.add(ReturnPolicyModel("3","Shipping Details"))
-
-        var  adapter = AddressAdapter(data,this)
-        binding.rvAddressrecyclarview.layoutManager = LinearLayoutManager(this)
-        binding.rvAddressrecyclarview.adapter = adapter
-
     }
 
     override fun onClick(v: View?) {
@@ -57,6 +52,85 @@ class AddressActivity : AppCompatActivity(), View.OnClickListener,RecyclerViewCl
     }
 
 
+    private fun setObserver()
+    {
+        viewModel.getaddress.observe(this, { response ->
+            when (response)
+            {
+                is Resource.Success -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+
+                    addresslist.clear()
+                    addresslist= response.data as ArrayList<GetAddressListResponse.Data>
+                    setAddressListAdapter(addresslist)
+                }
+                is Resource.Loading -> {
+                    com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
+                }
+                is Resource.Error -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        })
+
+
+
+        viewModel.deleteaddress.observe(this, { response ->
+            when (response)
+            {
+                is Resource.Success -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                  //  viewModel.getaddresslist()  //api call
+                }
+                is Resource.Loading -> {
+                    com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
+                }
+                is Resource.Error -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        })
+
+    }
+
+    private fun setAddressListAdapter(data: List<GetAddressListResponse.Data>?)
+    {
+        adapter = AddressAdapter(data!!,this)
+        binding.rvAddressrecyclarview.layoutManager = LinearLayoutManager(this)
+        binding.rvAddressrecyclarview.adapter = adapter
+    }
+
 
     override fun onBackPressed() {
         super.onBackPressed()
@@ -67,12 +141,20 @@ class AddressActivity : AppCompatActivity(), View.OnClickListener,RecyclerViewCl
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == Constants.ADDADDRESS_CODE && resultCode == Activity.RESULT_OK)
         {
-            Utils.showShortToast(this,"api call")
+           // Utils.showShortToast(this,"api call")
+               viewModel.getaddresslist()    //api call
         }
     }
 
-    override fun click(pos: String) {
+
+    override fun editclick(address_id: Int) {
         val intent = Intent(this, AddNewAddressActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun removeclick(address_id: Int, position: Int) {
+        viewModel.deleteAddress(address_id)
+        addresslist.removeAt(position)
+        adapter.notifyDataSetChanged()
     }
 }
