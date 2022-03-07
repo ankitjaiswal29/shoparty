@@ -18,6 +18,8 @@ import android.view.Gravity
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -35,6 +37,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.shoparty.android.R
 
 import com.shoparty.android.databinding.ActivityMyProfileBinding
+import com.shoparty.android.ui.address.addaddress.AddressViewModel
 import com.shoparty.android.ui.login.LoginActivity
 import com.shoparty.android.ui.main.myaccount.MyAccountViewModel
 import com.shoparty.android.ui.register.RegisterViewModel
@@ -53,7 +56,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
+class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
     private lateinit var binding: ActivityMyProfileBinding
     var cal = Calendar.getInstance()
     private lateinit var viewModel: MyAccountViewModel
@@ -62,15 +65,21 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
     var dialog: Dialog? = null
     private val REQUEST_IMAGE = 999
     private var imageZipperFile: File? = null
+    private lateinit var addressviewModel: AddressViewModel
+    private var countrylist: ArrayList<String> = ArrayList()
+    private var countryidlist: ArrayList<String> = ArrayList()
+
+    private var citylist: ArrayList<String> = ArrayList()
+    private var cityidlist: ArrayList<String> = ArrayList()
+    private var selectedcountryid=""
+    private var selectedcityid=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= DataBindingUtil.setContentView(this, R.layout.activity_my_profile)
-        viewModel = ViewModelProvider(
-            this,
-            ViewModalFactory(application)
-        )[MyAccountViewModel::class.java]
-
+        viewModel = ViewModelProvider(this, ViewModalFactory(application))[MyAccountViewModel::class.java]
+        addressviewModel = ViewModelProvider(this, ViewModalFactory(application))[AddressViewModel::class.java]
         initialise()
+        addressviewModel.getcountrylist()      //api call
         setObserver()
     }
 
@@ -130,6 +139,77 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         })
+
+        addressviewModel.getcountry.observe(this, { response ->
+            when (response)
+            {
+                is Resource.Success -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    countrylist.clear()
+                    countryidlist.clear()
+                    response.data?.forEachIndexed { index, data ->
+                        countrylist.add(response.data[index].country_name)
+                        countryidlist.add(response.data[index].country_id.toString())
+                    }
+                    setupCountryData(countrylist)
+                }
+                is Resource.Loading -> {
+                    com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
+                }
+                is Resource.Error -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        })
+
+
+        addressviewModel.getcity.observe(this, { response ->
+            when (response)
+            {
+                is Resource.Success -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    citylist.clear()
+                    cityidlist.clear()
+                    response.data?.forEachIndexed { index, data ->
+                        citylist.add(response.data[index].city_name)
+                        cityidlist.add(response.data[index].city_id.toString())
+                    }
+                    setupCityData(citylist)
+                }
+                is Resource.Loading -> {
+                    com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
+                }
+                is Resource.Error -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        })
     }
 
     private fun setPrefrenceData()
@@ -154,10 +234,6 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
             femaleGenderSet()
         }
     }
-
-
-
-
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.btnSave -> {
@@ -171,6 +247,13 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
                                 "image",
                                 imageZipperFile?.name,
                                 RequestBody.create("image/*".toMediaTypeOrNull(), imageZipperFile!!))
+                        }
+                    else
+                        {
+                            builder.addFormDataPart(
+                                "image",
+                                imageZipperFile?.name,
+                                RequestBody.create("image/*".toMediaTypeOrNull(), ""))
                         }
                         builder.addFormDataPart("name", binding.etFirstname.text.toString())
                         builder.addFormDataPart("email", binding.etEmail.text.toString())
@@ -264,6 +347,9 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
 
 
     }
+
+
+
 
 
     fun openDialogToUpdateProfilePIC() {
@@ -416,7 +502,35 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener {
         }
         return true
     }
+
+    private fun setupCountryData(data: ArrayList<String>)
+    {
+        val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, data)
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.etCity.adapter = arrayAdapter
+
+        binding.etCity.setOnItemClickListener { parent, view, position, id ->
+            selectedcountryid=countryidlist[position]
+            addressviewModel.getcitylist(selectedcountryid)      //api call
+        }
+    }
+
+
+
+
+    private fun setupCityData(data: ArrayList<String>)
+    {
+        val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, data)
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.etCity.adapter = arrayAdapter
+        binding.etCity.setOnItemClickListener { parent, view, position, id ->
+            selectedcityid=citylist[position]
+        }
+    }
+
+
 }
+
 
 
 

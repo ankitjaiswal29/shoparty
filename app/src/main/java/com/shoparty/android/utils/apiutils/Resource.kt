@@ -1,8 +1,5 @@
 package com.shoparty.android.utils.apiutils
 
-import com.shoparty.android.ui.address.addaddress.addaddress.getCountryResponse
-import com.shoparty.android.ui.login.LoginResponse
-
 
 sealed class Resource<T>(
     val message: String? = null,

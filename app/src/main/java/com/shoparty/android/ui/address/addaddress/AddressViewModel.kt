@@ -8,9 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shoparty.android.R
-import com.shoparty.android.ui.address.addaddress.addaddress.AddAddressResponse
-import com.shoparty.android.ui.address.addaddress.addaddress.AddAddressRequestModel
-import com.shoparty.android.ui.address.addaddress.addaddress.getCountryResponse
+import com.shoparty.android.ui.address.addaddress.addaddress.*
 import com.shoparty.android.ui.address.addaddress.getaddress.DeleteAddressRequestModel
 import com.shoparty.android.ui.address.addaddress.getaddress.DeleteAddressResponse
 import com.shoparty.android.ui.address.addaddress.getaddress.GetAddressListResponse
@@ -36,8 +34,9 @@ class AddressViewModel(private val app: Application) : ViewModel()
     private val maddaddress = MutableLiveData<Resource<AddAddressResponse.Data>>()
     val address: LiveData<Resource<AddAddressResponse.Data>> = maddaddress
 
-    private val mgetcountry = MutableLiveData<Resource<List<getCountryResponse.Data>>>()
-    val getcountry: LiveData<Resource<List<getCountryResponse.Data>>> = mgetcountry
+    private val mgetcountry = MutableLiveData<Resource<List<GetCountryResponse.Data>>>()
+    val getcountry: LiveData<Resource<List<GetCountryResponse.Data>>> = mgetcountry
+
 
 
     private val mgetaddresslist = MutableLiveData<Resource<List<GetAddressListResponse.Data>>>()
@@ -46,6 +45,10 @@ class AddressViewModel(private val app: Application) : ViewModel()
 
     private val mdeleteaddress = MutableLiveData<Resource<DeleteAddressResponse>>()
     val deleteaddress: LiveData<Resource<DeleteAddressResponse>> = mdeleteaddress
+
+
+    private val mgetcity = MutableLiveData<Resource<List<GetCityResponse.Data>>>()
+    val getcity: LiveData<Resource<List<GetCityResponse.Data>>> = mgetcity
 
     fun postaddAddress(country_id:String) = viewModelScope.launch {
         if(validation())
@@ -111,6 +114,22 @@ class AddressViewModel(private val app: Application) : ViewModel()
                 mdeleteaddress.postValue(Resource.Error(app.resources.getString(R.string.no_internet)))
             }
 
+
+    }
+
+
+    fun getcitylist(country_id: String) = viewModelScope.launch {
+        val request = GetCityRequestModel(country_id)
+        if(Utils.hasInternetConnection(app.applicationContext))
+        {
+            mgetcity.postValue(Resource.Loading())
+            val response = repository.getcityapi(request)
+            mgetcity.postValue(handlegetCityResponse(response!!))
+        }
+        else
+        {
+            mgetcity.postValue(Resource.Error(app.resources.getString(R.string.no_internet)))
+        }
 
     }
     
@@ -183,7 +202,7 @@ class AddressViewModel(private val app: Application) : ViewModel()
         return Resource.Error(response.message())
     }
 
-    private fun handlegetCountryResponse(response: Response<getCountryResponse>): Resource<List<getCountryResponse.Data>>? {
+    private fun handlegetCountryResponse(response: Response<GetCountryResponse>): Resource<List<GetCountryResponse.Data>>? {
         if (response?.isSuccessful)
         {
             response.body()?.let { res ->
@@ -200,6 +219,23 @@ class AddressViewModel(private val app: Application) : ViewModel()
     }
 
     private fun handlegetAddressResponse(response: Response<GetAddressListResponse>): Resource<List<GetAddressListResponse.Data>>? {
+        if (response?.isSuccessful)
+        {
+            response.body()?.let { res ->
+                return if (res.response_code==200)
+                {
+                    Resource.Success(res.message,res.result)
+                }
+                else {
+                    Resource.Error(res.message)
+                }
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+
+    private fun handlegetCityResponse(response: Response<GetCityResponse>): Resource<List<GetCityResponse.Data>>? {
         if (response?.isSuccessful)
         {
             response.body()?.let { res ->

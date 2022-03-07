@@ -1,9 +1,7 @@
 package com.shoparty.android.network
 
 
-import com.shoparty.android.ui.address.addaddress.addaddress.AddAddressRequestModel
-import com.shoparty.android.ui.address.addaddress.addaddress.AddAddressResponse
-import com.shoparty.android.ui.address.addaddress.addaddress.getCountryResponse
+import com.shoparty.android.ui.address.addaddress.addaddress.*
 import com.shoparty.android.ui.address.addaddress.getaddress.DeleteAddressRequestModel
 import com.shoparty.android.ui.address.addaddress.getaddress.DeleteAddressResponse
 import com.shoparty.android.ui.address.addaddress.getaddress.GetAddressListResponse
@@ -72,7 +70,7 @@ interface ApiService {
 
     @GET("list-countries")     //
     suspend fun getcountryAsync():
-            Response<getCountryResponse>
+            Response<GetCountryResponse>
 
 
     @GET("list-addresses")     //
@@ -83,5 +81,12 @@ interface ApiService {
     suspend fun deleteAddressAsync(
         @Body deleteAddressRequestModel: DeleteAddressRequestModel
     ): Response<DeleteAddressResponse>
+
+
+    @GET("list-cities")     //
+    suspend fun getcityAsync(
+        @Body requestModel: GetCityRequestModel):
+            Response<GetCityResponse>
+
 
 }
