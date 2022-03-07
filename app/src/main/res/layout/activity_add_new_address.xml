@@ -29,23 +29,22 @@
         <ScrollView
             android:id="@+id/scrollMain"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:fillViewport="true"
             android:layout_marginTop="5dp"
-           android:layout_marginBottom="60dp"
+            android:background="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            android:paddingBottom="30dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/info_tool">
+            app:layout_constraintTop_toBottomOf="@id/info_tool"
+            app:layout_constraintBottom_toTopOf="@+id/cons_button">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:paddingBottom="30dp"
-                android:paddingTop="10dp">
+                android:paddingTop="10dp"
+                android:paddingBottom="@dimen/_20sdp">
                 <TextView
                     android:id="@+id/tvFirstName"
                     style="@style/AppTheme.Title"
@@ -172,6 +171,7 @@
                     android:imeOptions="actionNext"
                     android:digits="0123456789"
                     android:inputType="number"
+                    android:paddingBottom="@dimen/_10sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     android:text="@={AddressViewModel.etMobile}"
@@ -196,24 +196,20 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-
-
-
-
         </ScrollView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cons_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-         android:paddingLeft="20dp"
+            android:paddingLeft="20dp"
+            android:background="@color/lightgraybackground"
             android:paddingRight="20dp"
-            android:paddingBottom="30dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scrollMain">
+            android:paddingTop="@dimen/_20ssp"
+           android:paddingBottom="@dimen/_20ssp"
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <Button
                 android:id="@+id/btn_can"
@@ -227,13 +223,12 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-               />
+                />
 
             <Button
                 android:id="@+id/btn_sav"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-
                 android:background="@drawable/signout_dialog_save_btn"
                 android:text="@string/save"
                 android:textAllCaps="false"

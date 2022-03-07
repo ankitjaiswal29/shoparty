@@ -33,6 +33,12 @@ class AddressActivity : AppCompatActivity(), View.OnClickListener,RecyclerViewCl
         binding.infoTool.tvTitle.text = getString(R.string.addresstitle)
         binding.tvAddnewaddress.setOnClickListener(this)
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
+        Addresslisting()
+
+
+    }
+
+    private fun Addresslisting() {
         val data = ArrayList<ReturnPolicyModel>()
         data.add(ReturnPolicyModel("1","Shipping Details"))
         data.add(ReturnPolicyModel("2","Shipping Details"))
@@ -41,7 +47,6 @@ class AddressActivity : AppCompatActivity(), View.OnClickListener,RecyclerViewCl
         var  adapter = AddressAdapter(data,this)
         binding.rvAddressrecyclarview.layoutManager = LinearLayoutManager(this)
         binding.rvAddressrecyclarview.adapter = adapter
-
     }
 
     override fun onClick(v: View?) {

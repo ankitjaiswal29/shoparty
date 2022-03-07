@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="@color/white"
         android:gravity="center"
         tools:context=".ui.fragment.HomeFragment">
 
@@ -545,8 +546,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:padding="20dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/white"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/social_login_background"
                 app:layout_constraintTop_toBottomOf="@+id/constraint10">
 
                 <TextView

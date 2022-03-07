@@ -22,6 +22,7 @@ import com.shoparty.android.ui.main.categories.CategoriesFragment
 import com.shoparty.android.ui.main.deals.DealsFragment
 import com.shoparty.android.ui.main.home.HomeCategoriesModel
 import com.shoparty.android.ui.main.myaccount.MyAccountFragment
+import com.shoparty.android.ui.main.myaccount.myprofileupdate.MyProfileActivity
 import com.shoparty.android.ui.main.wishlist.WishListFragment
 import com.shoparty.android.ui.search.SearchActivity
 import com.shoparty.android.ui.shoppingbag.ShopingBagActivity
@@ -60,6 +61,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
         binding.btnSigninSignout.setOnClickListener(this)
         binding.infoTools.ivBagBtn.setOnClickListener(this)
         binding.infoTools.ivBtnsearch.setOnClickListener(this)
+        binding.clProfile.setOnClickListener(this)
 
 
 
@@ -77,18 +79,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
         val dealsFragment=DealsFragment()
         val wishListFragment= WishListFragment()
         val myAccountFragment= MyAccountFragment()
-
-        val drawerItemList = listOf<HomeCategoriesModel>(
-            HomeCategoriesModel("Products"),
-            HomeCategoriesModel("Services"),
-            HomeCategoriesModel("Flowers"),
-            HomeCategoriesModel("Rentals"),
-            HomeCategoriesModel("New Arrivals"),
-            HomeCategoriesModel("Best Selling"))
-
-        binding.rvDrawerHomerecyclarview.layoutManager = LinearLayoutManager(this)
-        val adapter = DrawerAdapter(this,drawerItemList)
-        binding.rvDrawerHomerecyclarview.adapter = adapter
+        Drawerlisting()
 
         setCurrentFragment(homeFragment)
 
@@ -102,6 +93,20 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
             }
             true
         }
+    }
+
+    private fun Drawerlisting() {
+        val drawerItemList = listOf<HomeCategoriesModel>(
+            HomeCategoriesModel("Products"),
+            HomeCategoriesModel("Services"),
+            HomeCategoriesModel("Flowers"),
+            HomeCategoriesModel("Rentals"),
+            HomeCategoriesModel("New Arrivals"),
+            HomeCategoriesModel("Best Selling"))
+
+        binding.rvDrawerHomerecyclarview.layoutManager = LinearLayoutManager(this)
+        val adapter = DrawerAdapter(this,drawerItemList)
+        binding.rvDrawerHomerecyclarview.adapter = adapter
     }
 
     private fun setCurrentFragment(fragment: Fragment)=
@@ -147,6 +152,10 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
             }
             R.id.iv_btnsearch->{
                 val intent = Intent (this, SearchActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.cl_profile->{
+                val intent = Intent (this, MyProfileActivity::class.java)
                 startActivity(intent)
             }
         }

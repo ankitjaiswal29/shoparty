@@ -8,7 +8,7 @@ import com.shoparty.android.utils.inflate
 
 import kotlinx.android.synthetic.main.search_item_lay.view.*
 
-class SearchHistoryAdapter(private val itemList: List<SearchHistoryModel>): RecyclerView.Adapter<SearchHistoryAdapter.SearchHistoryViewHolder>() {
+class SearchHistoryAdapter(private var itemList: List<SearchHistoryModel>): RecyclerView.Adapter<SearchHistoryAdapter.SearchHistoryViewHolder>() {
     inner class SearchHistoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchHistoryViewHolder {
@@ -22,5 +22,10 @@ class SearchHistoryAdapter(private val itemList: List<SearchHistoryModel>): Recy
         holder.itemView.apply {
             search_item_name_tv.text = items.name
         }
+    }
+
+    fun setDataList(itemList: List<SearchHistoryModel>) {
+        this.itemList = itemList
+        notifyDataSetChanged()
     }
 }

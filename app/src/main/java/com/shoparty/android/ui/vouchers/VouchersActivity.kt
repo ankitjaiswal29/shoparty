@@ -13,21 +13,18 @@ class VouchersActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityVouchersBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-     //   setContentView(R.layout.activity_vouchers)
         binding= DataBindingUtil.setContentView(this, R.layout.activity_vouchers)
         initialise()
     }
 
     private fun initialise() {
-
-        // val recyclerview = findViewById<RecyclerView>(R.id.myorder_recyclerview)
-
-        // this creates a vertical layout Manager
         binding.infoTool.tvTitle.setText(getString(R.string.vouchers))
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
         binding.vouchersRecyclerview.layoutManager = LinearLayoutManager(this)
+        voucherListing()
+    }
 
-        // ArrayList of class ItemsViewModel
+    private fun voucherListing() {
         val data = ArrayList<String>()
         data.add("On Minimum Purchase Of $. 200")
         data.add("On Minimum Purchase Of $. 200")
@@ -37,22 +34,15 @@ class VouchersActivity : AppCompatActivity(), View.OnClickListener {
         data.add("On Minimum Purchase Of $. 200")
         data.add("On Minimum Purchase Of $. 200")
         data.add("On Minimum Purchase Of $. 200")
-
-
-
-
         val adapter = VouchersAdapter(data)
         binding.vouchersRecyclerview.adapter = adapter
     }
+
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.iv_drawer_back -> {
                 onBackPressed()
             }
-           /* R.id.btnSave -> {
-                val intent = Intent(this, MyOrdersActivity::class.java)
-                startActivity(intent)
-            }*/
         }
     }
 

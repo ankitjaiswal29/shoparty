@@ -91,6 +91,11 @@
         <item name="android:textSize">15dp</item>
         <item name="android:textStyle">bold</item>
     </style>
+    <style name="AppTheme.Text_15__dp" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">15dp</item>
+
+    </style>
 
     <style name="AppTheme.Text_16_Bold_dp" parent="Widget.AppCompat.TextView">
         <item name="android:layout_height">wrap_content</item>
@@ -100,6 +105,11 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">16dp</item>
+    </style>
+    <style name="AppTheme.Text_20_Bold_dp" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20dp</item>
     </style>
 
 
@@ -159,6 +169,15 @@
         <item name="android:textColor">@color/lightgraysubtitle</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">12dp</item>
+    </style>
+
+    <style name="AppTheme.Text_13_graydp2" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/lightgraysubtitle</item>
+        <item name="android:textSize">13dp</item>
+    </style>
+    <style name="AppTheme.Text_13_graydpPink" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/pink</item>
+        <item name="android:textSize">13dp</item>
     </style>
 
     <style name="AppTheme.Text_12_graydp_bold" parent="Widget.AppCompat.TextView">
@@ -305,5 +324,31 @@
         <item name="colorAccent">@color/pink</item>
     </style>
 
+    <style name="Otp">
+        <item name="android:background">@drawable/background_edittext_gray</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingBottom">2dp</item>
+    </style>
+
+    <style name="CustomAlertDialogWithMargin" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/alertdialog_backgound_gray</item>
+        <item name="android:windowMinWidthMinor">85%</item>
+    </style>
+    <style name="BottomSheetModalStyle"
+        parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bottomsheet_corner_background</item>
+    </style>
+
+
+    <style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/bottomSheetStyleWrapper</item>
+    </style>
+
+    <style name="bottomSheetStyleWrapper" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
 
 </resources>

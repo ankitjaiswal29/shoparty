@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/search_item_root"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
+
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -13,8 +12,11 @@
         android:id="@+id/search_item_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:text="@string/birthday_cap"
+        android:drawableStart="@drawable/ic_search_watch_icon"
         app:layout_constraintStart_toStartOf="parent"
+        android:drawablePadding="8dp"
         app:layout_constraintTop_toTopOf="parent"
         style="@style/AppTheme.Text_16_black_dp"
         android:textColor="@color/black"
@@ -25,7 +27,7 @@
         android:layout_height="20dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+        android:src="@drawable/ic_search_aero_icon"
         app:tint="@color/black"
         android:layout_alignParentEnd="true"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

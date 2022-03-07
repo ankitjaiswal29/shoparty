@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import com.shoparty.android.R
+import com.shoparty.android.ui.login.LoginActivity
 import com.shoparty.android.ui.main.mainactivity.MainActivity
+import com.shoparty.android.ui.register.RegisterActivity
+import com.shoparty.android.ui.verificationotp.VerificationActivity
 
 
 class SplashActivity : AppCompatActivity() {

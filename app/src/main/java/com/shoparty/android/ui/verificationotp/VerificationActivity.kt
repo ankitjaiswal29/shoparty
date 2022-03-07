@@ -1,10 +1,13 @@
 package com.shoparty.android.ui.verificationotp
 
+import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -13,6 +16,7 @@ import com.shoparty.android.databinding.ActivityVerificationBinding
 import com.shoparty.android.ui.main.mainactivity.MainActivity
 
 import com.shoparty.android.utils.Constants
+import com.shoparty.android.utils.OtpTextWatcher
 import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
@@ -35,7 +39,15 @@ class VerificationActivity : AppCompatActivity() {
     }
     private fun initialise()
     {
-        binding.tvMobileno.text= intent.getStringExtra(Constants.MOBILE)
+       // binding.tvMobileno.text= intent.getStringExtra(Constants.MOBILE)
+
+        verificationSuccessDialog()
+        binding.editTextNumberPassword.addTextChangedListener(OtpTextWatcher(binding.editTextNumberPassword2, binding.editTextNumberPassword))
+        binding.editTextNumberPassword2.addTextChangedListener(OtpTextWatcher(binding.editTextNumberPassword3, binding.editTextNumberPassword))
+        binding.editTextNumberPassword3.addTextChangedListener(OtpTextWatcher(binding.editTextNumberPassword4, binding.editTextNumberPassword2))
+        binding.editTextNumberPassword4.addTextChangedListener(OtpTextWatcher(binding.editTextNumberPassword5, binding.editTextNumberPassword3))
+        binding.editTextNumberPassword5.addTextChangedListener(OtpTextWatcher(binding.editTextNumberPassword5, binding.editTextNumberPassword4))
+
         Utils.showShortToast(this,intent.getStringExtra(Constants.OTP))
         userid= intent.getStringExtra(Constants.USERID)!!
         startTimer()
@@ -47,8 +59,25 @@ class VerificationActivity : AppCompatActivity() {
         binding.txtotpcount.setOnClickListener {
             Utils.hideKeyboard(this)
             viewModel.postResend(userid)      //api call
-            binding.etOtp.setText("")
+          //  binding.etOtp.setText("")
         }
+
+    }
+
+    private fun verificationSuccessDialog() {
+        val builder = AlertDialog.Builder(this, R.style.CustomAlertDialogWithMargin)
+        val inflater = layoutInflater
+        val dialogLayout: View =
+            inflater.inflate(R.layout.verification_dialog_layout, null)
+        val btn_done = dialogLayout.findViewById<Button>(R.id.btnDone)
+          builder.setView(dialogLayout)
+        val builderinstance= builder.show()
+        btn_done.setOnClickListener {
+            builder.setCancelable(true)
+            Toast.makeText(this, "done", Toast.LENGTH_LONG).show()
+            builderinstance.dismiss()
+        }
+
 
     }
 

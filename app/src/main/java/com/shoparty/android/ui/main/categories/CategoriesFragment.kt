@@ -24,8 +24,7 @@ class CategoriesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-      //  return inflater.inflate(R.layout.fragment_categories, container, false)
+
         binding= DataBindingUtil.inflate(inflater,R.layout.fragment_categories, container, false)
 
         return binding.root
@@ -35,23 +34,10 @@ class CategoriesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initialise()
-
-       /* category_search_btn.setOnClickListener {
-            val intent = Intent (getActivity(), SearchActivity::class.java)
-            getActivity()?.startActivity(intent)
-        }
-
-        category_bag_btn.setOnClickListener {
-            val intent = Intent (getActivity(), ShopingBagActivity::class.java)
-            getActivity()?.startActivity(intent)
-        }*/
     }
 
     private fun initialise() {
 
-       /* home_shoparty_icon2  visible
-        tv_title
-        home_shoparty_icon*/
         (activity as MainActivity).info_tools.tv_title.visibility=View.INVISIBLE
         (activity as MainActivity).info_tools.home_shoparty_icon.visibility=View.INVISIBLE
         (activity as MainActivity).info_tools.home_shoparty_icon2.visibility=View.VISIBLE
@@ -74,11 +60,6 @@ class CategoriesFragment : Fragment() {
              HomeCategoriesModel("Ballons")
 
             )
-
-
             binding.categoryListRecycler.adapter = CategoryAdapter1(categoryItemList)
-
     }
-
-
 }

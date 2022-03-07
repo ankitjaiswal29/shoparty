@@ -5,6 +5,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_parentlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white">
@@ -33,26 +34,26 @@
 
         <ImageView
             android:id="@+id/arrow_striet"
-            android:layout_width="@dimen/_15sdp"
-            android:layout_height="@dimen/_15sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/_5sdp"
-            android:src="@drawable/ic_forword_icon">
+            android:src="@drawable/ic_icon_aeroright">
 
         </ImageView>
 
 
         <ImageView
             android:id="@+id/arrow_up"
-            android:layout_width="@dimen/_15sdp"
-            android:layout_height="@dimen/_15sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/_5sdp"
             android:rotation="-90"
             android:visibility="gone"
-            android:src="@drawable/ic_forword_icon">
+            android:src="@drawable/ic_icon_aeroright">
         </ImageView>
 
 

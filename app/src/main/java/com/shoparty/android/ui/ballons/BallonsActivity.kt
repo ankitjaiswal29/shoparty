@@ -5,11 +5,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.shoparty.android.R
+import com.shoparty.android.databinding.ActivityBallonsBinding
 import com.shoparty.android.databinding.ActivityReturnPolicyBinding
 
 
 class BallonsActivity : AppCompatActivity(), View.OnClickListener{
-    private lateinit var binding: ActivityReturnPolicyBinding
+    private lateinit var binding: ActivityBallonsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
      //   setContentView(R.layout.activity_ballons)
@@ -18,7 +19,7 @@ class BallonsActivity : AppCompatActivity(), View.OnClickListener{
     }
 
     private fun initialise() {
-        binding.infoTool.tvTitle.setText(getString(R.string.return_policy))
+        binding.infoTool.tvTitle.setText(getString(R.string.ballons))
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
     }
 

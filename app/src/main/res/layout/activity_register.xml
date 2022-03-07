@@ -234,11 +234,45 @@
                     android:src="@drawable/dob_icon" />
             </RelativeLayout>
 
+            <CheckBox
+                android:id="@+id/cb_termconditon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/pink"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/signUp_dob_relative_lay"
+                android:layout_marginTop="40dp"/>
+
+            <TextView
+                android:id="@+id/tv_iagree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/cb_termconditon"
+                app:layout_constraintTop_toBottomOf="@+id/signUp_dob_relative_lay"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="2dp"
+                style="@style/AppTheme.Text_13_graydp2"
+                app:layout_constraintTop_toTopOf="@+id/cb_termconditon"
+                app:layout_constraintBottom_toBottomOf="@+id/cb_termconditon"
+                android:text="@string/i_agree_to"/>
+
+            <TextView
+                android:id="@+id/tv_termcondition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/tv_iagree"
+                app:layout_constraintTop_toBottomOf="@+id/signUp_dob_relative_lay"
+                style="@style/AppTheme.Text_13_graydpPink"
+                app:layout_constraintTop_toTopOf="@+id/tv_iagree"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_iagree"
+                android:text="@string/terms_and_conditions"/>
+
+
             <Button
                 android:id="@+id/signUp_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/signUp_dob_relative_lay"
+                app:layout_constraintTop_toBottomOf="@+id/cb_termconditon"
                 android:layout_marginTop="85dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

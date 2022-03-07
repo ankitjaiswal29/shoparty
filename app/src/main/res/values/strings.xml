@@ -48,7 +48,7 @@
     <string name="rate_our_app">Rate Our App</string>
     <string name="contact_us">Contact Us</string>
     <string name="about_us">About Us</string>
-    <string name="terms_and_conditions">Terms And Conditions</string>
+    <string name="terms_and_conditions"><u>Terms And Conditions</u></string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="return_policy">Return Policy</string>
     <string name="cancellation_confirmed">Cancellation Confirmed</string>
@@ -206,8 +206,7 @@
     <string name="add_card">+Add Card</string>
     <string name="pay_now">Pay Now</string>
     <string name="lorem_ipsum_is_simply_dummy">Lorem Ipsum is simply dummy</string>
-    <string name="clear_history">Clear History</string>
-    <string name="seasons">Seasons</string>
+     <string name="seasons">Seasons</string>
     <string name="new_year">New Year</string>
     <string name="valentines_day">Valentines Day</string>
     <string name="eid_fiter">Eid Fiter</string>
@@ -362,7 +361,7 @@
     <string name="shippingbag">Shipping bag</string>
     <string name="are_sure_exit">Are you sure you want to exit?</string>
     <string name="no">No</string>
-    <string name="sort_by">Sort By</string>
+    <string name="sort_by">Sort by</string>
     <string name="Search">Search</string>
     <string name="read_more_withforword"><![CDATA[Read More  >]]></string>
     <string name="your_photo">Your Photo</string>
@@ -383,6 +382,16 @@
     <string name="entercity">Please enter city name</string>
     <string name="enterlandmark">Please enter landmark</string>
     <string name="enterbuilding">Please enter building number</string>
+    <string name="_45b_uhansjo_industry_alinfornia_uk">45B Uhansjo Industry, Alinfornia UK</string>
+    <string name="_8km">8km</string>
+    <string name="verify">Verify</string>
+    <string name="i_agree_to">I agree to</string>
+    <string name="allow_shoparty_app_to_use_your_location">Allow Shoparty App to use your location?</string>
+    <string name="verification_successfull">Verification Successfull!</string>
+    <string name="lorem_ipsum_dolor_sit_amet_sadip_scing_elitr_sed_diam_nonum">Lorem ipsum dolor sit amet, sadip scing elitr, sed diam nonum.</string>
+    <string name="recent_searches">Recent Searches</string>
+    <string name="clear_history">Clear History</string>
+    <string name="price_range">Price Range</string>
 
 
 </resources>

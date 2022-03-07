@@ -418,8 +418,6 @@
                         app:layout_constraintTop_toBottomOf="@+id/bag_item_linear1"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
                         android:layout_marginTop="10dp"
                         tools:itemCount="2"
                         tools:listitem="@layout/bag_pickup_item_layout"
@@ -442,11 +440,11 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="@+id/signUp_btn"
-                        app:layout_constraintTop_toTopOf="@id/signUp_btn"
+                        app:layout_constraintStart_toStartOf="@+id/btn_ProcessTocheckOut"
+                        app:layout_constraintTop_toTopOf="@id/btn_ProcessTocheckOut"
                         android:elevation="10dp"
                         android:layout_marginLeft="80dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/signUp_btn"
+                        app:layout_constraintBottom_toBottomOf="@+id/btn_ProcessTocheckOut"
                         android:src="@drawable/ic_bag_white" />
 
                     <!-- <LinearLayout

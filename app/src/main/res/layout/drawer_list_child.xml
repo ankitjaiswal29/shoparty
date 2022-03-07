@@ -21,7 +21,7 @@
         style="@style/AppTheme.Text_16_black_dp"
         android:background="@color/white"
         android:padding="@dimen/_10sdp"
-        android:drawableEnd="@drawable/ic_forword_icon"/>
+        android:drawableEnd="@drawable/right_arrow_icon"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
