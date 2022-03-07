@@ -3,63 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/drawable-v24/ic_myaccountlist_icon.xml" value="0.21614583333333334" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/drawable/gallery_image_icon.xml" value="0.21614583333333334" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/drawable/ic_address_icon.xml" value="0.21614583333333334" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/drawable/ic_baseline_check_24.xml" value="0.21614583333333334" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/drawable/ic_myaccount_icon.xml" value="0.21614583333333334" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/drawable/ic_myprofile_icon.xml" value="0.21614583333333334" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/drawable/ic_pink_check.xml" value="0.21614583333333334" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/drawable/ic_wishlist.xml" value="0.21614583333333334" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/drawable/ic_wishlist_icon.xml" value="0.21614583333333334" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_about_us.xml" value="0.16621376811594202" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_add_card.xml" value="0.161231884057971" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_add_new_address.xml" value="0.22" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_address.xml" value="0.25" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_ballons.xml" value="0.22" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_cancel_confirm.xml" value="0.16" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_cancel_order.xml" value="0.2" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_colours.xml" value="0.22" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_contact_us.xml" value="0.161231884057971" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_costumes.xml" value="0.2" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_customize.xml" value="0.18" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_filter.xml" value="0.22" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_login.xml" value="0.16" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_main.xml" value="0.12273550724637682" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_my_account.xml" value="0.15625" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_my_orders.xml" value="0.22" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_my_profile.xml" value="0.2" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_order_cancel.xml" value="0.151268115942029" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_party_supply.xml" value="0.18" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_register.xml" value="0.25" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_sign_in.xml" value="0.161231884057971" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_sign_up.xml" value="0.22" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_verification.xml" value="0.14" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/address_item_recyclar_layout.xml" value="0.1480978260869565" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/category_item1.xml" value="0.16259057971014493" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/dashboard_toolbar.xml" value="0.15670289855072464" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/dialog_select.xml" value="0.16621376811594202" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/drawer_list_child.xml" value="0.15670289855072464" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/drawer_list_item_layout.xml" value="0.2" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/fragment_categories.xml" value="0.16259057971014493" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/fragment_home.xml" value="0.15172101449275363" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/fragment_my_account.xml" value="0.1" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/fragment_sort_bottomsheet.xml" value="0.18" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/fragment_top_selling_item_list.xml" value="0.18" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/home_seasons_item.xml" value="0.15172101449275363" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/layout_progress_dialog.xml" value="0.13768115942028986" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/my_account_item_layout.xml" value="0.15172101449275363" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/myaccount_item.xml" value="0.16" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/privacy_policy_list_item.xml" value="0.13768115942028986" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/toolbar_info.xml" value="0.1480978260869565" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/toolbar_layout.xml" value="0.1480978260869565" />
+        <entry key="..\:/Users/Amit Gupta/Documents/QuyTech/shoparty_android/app/src/main/res/layout/activity_my_profile.xml" value="0.1046875" />
+        <entry key="..\:/Users/Amit Gupta/Documents/QuyTech/shoparty_android/app/src/main/res/layout/fragment_my_account.xml" value="0.1046875" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/build/classes" />
-  </component>
-  <component name="ProjectType">
-    <option name="id" value="Android" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

@@ -18,8 +18,10 @@ import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
+
     private lateinit var binding: ActivityLoginBinding
     private lateinit var viewModel: LoginViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= DataBindingUtil.setContentView(this, R.layout.activity_login)
@@ -49,16 +51,15 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun setObserver()
     {
-        viewModel.login.observe(this, { response ->
-            when (response)
-            {
+        viewModel.login.observe(this) { response ->
+            when (response) {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     PrefManager.write(PrefManager.AUTH_TOKEN, response.data?.token!!)
                     val intent = Intent(this, VerificationActivity::class.java)
-                    intent.putExtra(Constants.MOBILE,response.data.mobile)
-                    intent.putExtra(Constants.USERID,response.data.user_id.toString())
-                    intent.putExtra(Constants.OTP,response.data.otp.toString())
+                    intent.putExtra(Constants.MOBILE, response.data.mobile)
+                    intent.putExtra(Constants.USERID, response.data.user_id.toString())
+                    intent.putExtra(Constants.OTP, response.data.otp.toString())
                     startActivity(intent)
 
                     Toast.makeText(
@@ -87,6 +88,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                     ).show()
                 }
             }
-        })
+        }
     }
 }
