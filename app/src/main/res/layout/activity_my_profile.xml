@@ -203,7 +203,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/tvAddress" />
 
 
-                    <EditText
+                  <!--  <EditText
                         android:id="@+id/etCountry"
                         style="@style/AppTheme.editText_gray"
                         android:layout_width="0dp"
@@ -215,6 +215,23 @@
                         app:layout_constraintHorizontal_chainStyle="spread_inside"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvCountry" />
+-->
+
+
+                    <Spinner
+                        android:id="@+id/etCountry"
+                        android:background="@drawable/spinner_backgroundgray"
+                        android:layout_width="0dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_height="@dimen/_40sdp"
+                        app:layout_constraintEnd_toStartOf="@+id/guideline"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvCountry" />
+
+
+
+
 
                     <TextView
                         android:id="@+id/tvCity"
@@ -226,12 +243,11 @@
                         app:layout_constraintTop_toBottomOf="@+id/tvAddress" />
 
 
-                    <EditText
+                    <!--<EditText
                         android:id="@+id/etCity"
                         style="@style/AppTheme.editText_gray"
                         android:layout_width="0dp"
                         android:hint="@string/xyz"
-
                         android:imeOptions="actionNext"
                         android:inputType="text"
                         android:layout_marginLeft="5dp"
@@ -240,6 +256,27 @@
                         app:layout_constraintHorizontal_chainStyle="spread_inside"
                         app:layout_constraintStart_toEndOf="@+id/guideline"
                         app:layout_constraintTop_toBottomOf="@+id/tvCountry" />
+-->
+
+                    <Spinner
+                        android:id="@+id/etCity"
+                        android:background="@drawable/spinner_backgroundgray"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginLeft="5dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintStart_toEndOf="@+id/guideline"
+                        app:layout_constraintTop_toBottomOf="@+id/tvCountry" />
+
+
+
+
+
+
+
+
 
                     <TextView
                         android:id="@+id/tvStreet"
@@ -270,7 +307,7 @@
                         style="@style/AppTheme.Title"
                         android:layout_width="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:text="@string/country"
+                        android:text="@string/house_number"
                         app:layout_constraintStart_toStartOf="@id/etHouseno"
                         app:layout_constraintTop_toBottomOf="@+id/etCity" />
 
@@ -307,9 +344,9 @@
                         android:layout_marginTop="10dp"
                         android:background="@drawable/background_rectangular_white"
                         android:drawableStart="@drawable/ic_pink_check"
-                        android:drawablePadding="10dp"
+                        android:drawablePadding="5dp"
                         android:gravity="center"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginRight="2dp"
                         android:text="@string/male"
                         android:paddingLeft="45dp"
                         android:paddingRight="43dp"
@@ -328,7 +365,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/background_rectangular_white"
-                        android:drawablePadding="15dp"
+                        android:drawablePadding="10dp"
                         android:gravity="center"
                         android:text="@string/female"
                         android:textColor="@color/black"

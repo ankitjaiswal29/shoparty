@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import com.shoparty.android.R
 import com.smarteist.autoimageslider.SliderViewAdapter
-import com.squareup.picasso.Picasso
 
 class MySliderImageAdapter() :
     SliderViewAdapter<MySliderImageAdapter.VH>() {
@@ -28,7 +27,7 @@ class MySliderImageAdapter() :
 
     override fun onBindViewHolder(viewHolder: VH, position: Int) {
         //load image into view
-        Picasso.get().load(mSliderItems[position]).fit().into(viewHolder.imageView)
+//        Picasso.get().load(mSliderItems[position]).fit().into(viewHolder.imageView)
     }
 
     override fun getCount(): Int {

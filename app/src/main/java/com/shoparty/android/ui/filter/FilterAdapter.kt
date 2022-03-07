@@ -82,7 +82,7 @@ class FilterAdapter(
                 binding.cardLayout.setOnClickListener {
                     this.expand = !this.expand
                     //notifyDataSetChanged()
-                    notifyItemChanged(holder.bindingAdapterPosition)
+                    notifyItemChanged(adapterPosition)
                 }
 
            //     binding.tvDescription.setOnTagClickListener(TagView.OnTagClickListener)

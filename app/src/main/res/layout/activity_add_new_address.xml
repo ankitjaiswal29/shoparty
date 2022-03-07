@@ -208,7 +208,7 @@
             android:background="@color/lightgraybackground"
             android:paddingRight="20dp"
             android:paddingTop="@dimen/_20ssp"
-           android:paddingBottom="@dimen/_20ssp"
+            android:paddingBottom="@dimen/_20ssp"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <Button

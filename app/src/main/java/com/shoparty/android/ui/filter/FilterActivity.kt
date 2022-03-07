@@ -14,14 +14,12 @@ import com.mohammedalaa.seekbar.OnDoubleValueSeekBarChangeListener
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityFilterBinding
 import com.shoparty.android.utils.SpacesItemDecoration
-import kotlinx.android.synthetic.main.activity_filter.*
-import kotlinx.android.synthetic.main.fragment_home.*
-import org.w3c.dom.Text
 
 
 class FilterActivity : AppCompatActivity(),View.OnClickListener {
+
     private lateinit var binding: ActivityFilterBinding
-   // var array = arrayOf("rvColorRecyclarview","rvSizeRecyclarview", "rvAgeRecyclarview","rvGenderRecyclarview", "clPrice")
+
     private var recyvlerviewItemList=ArrayList<RecyclerView>()
     private var filterIconItem=ArrayList<TextView>()
     private lateinit var rvAdapter: FilterAdapter
@@ -30,6 +28,7 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener {
     var age=false
     var gender=false
     var price=false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
          binding= DataBindingUtil.setContentView(this, R.layout.activity_filter)

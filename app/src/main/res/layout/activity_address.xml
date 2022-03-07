@@ -76,7 +76,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            />
+            tools:itemCount="3"
+            tools:listitem="@layout/address_item_recyclar_layout"/>
 
 
 
