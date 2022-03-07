@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
@@ -202,18 +203,29 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
         binding.ivMyaccount.setImageResource(R.drawable.ic_user);
         binding.tvMyaccount.setTextColor(getColor(R.color.black))
 
-        val builder = AlertDialog.Builder(this , R.style.CustomAlertDialog)
+        val builder = android.app.AlertDialog.Builder(this, R.style.CustomAlertDialogWithMargin)
         val inflater = layoutInflater
         val dialogLayout: View =
             inflater.inflate(R.layout.alert_dialog_signout, null)
         val btn_cancel = dialogLayout.findViewById<Button>(R.id.cancel_btn)
         val btn_save = dialogLayout.findViewById<Button>(R.id.save_btn)
 
-        btn_cancel.setOnClickListener {
-
-        }
         builder.setView(dialogLayout)
-        builder.show()
+        val builderinstance= builder.show()
+
+
+        btn_cancel.setOnClickListener {
+            builder.setCancelable(true)
+           // Toast.makeText(this, "done", Toast.LENGTH_LONG).show()
+            builderinstance.dismiss()
+        }
+
+
+
+
+        //----------------------------------
+
+
     }
 
     private fun manageMyaccountAccountSidebar() {

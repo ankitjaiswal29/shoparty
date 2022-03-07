@@ -73,7 +73,9 @@ class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerVie
             }
             R.id.tv_filter -> {
 
-                showBottomsheetFilter()
+               // showBottomsheetFilter()
+                val intent = Intent(this, FilterActivity::class.java)
+                startActivity(intent)
             }
             R.id.ivBagBtn -> {
                 val intent = Intent(this, ShopingBagActivity::class.java)

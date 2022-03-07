@@ -21,7 +21,7 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+android:layout_marginTop="1dp"
             app:layout_constraintTop_toBottomOf="@+id/info_tool"
             >
 
@@ -56,6 +56,8 @@
                     android:layout_height="wrap_content"
                     android:padding="20dp"
                     android:id="@+id/cl_constrain_lay1"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageSliderr">
@@ -116,9 +118,21 @@
                         android:text="@string/read_more_withforword"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_product_details_descr" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:id="@+id/cl_constrain_lay2"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cl_constrain_lay1">
 
 
-                    <TextView
+            <TextView
                         android:id="@+id/tv_choesframecolor"
                         style="@style/AppTheme.Text_14dp_Bold"
                         android:layout_width="0dp"
@@ -126,7 +140,7 @@
                         android:layout_marginTop="10dp"
                         android:text="@string/choose_frame_color"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_readmore" />
+                       app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_colorrecyclarview"
@@ -139,15 +153,15 @@
 
                     <TextView
                         android:id="@+id/tv_ordernow"
-                        style="@style/AppTheme.Text_14_dp_bold_pink"
+                        style="@style/AppTheme.Text_14dp_Bold"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="@string/order_now"
+                        android:text="@string/order_now_get_it_by_mar_24_2022"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/rv_colorrecyclarview" />
 
-                    <TextView
+                   <!-- <TextView
                         android:id="@+id/tv_ordernow_data"
                         style="@style/AppTheme.Text_14_graydp"
                         android:layout_width="0dp"
@@ -157,7 +171,7 @@
                         android:text="@string/order_now"
                         app:layout_constraintStart_toEndOf="@+id/tv_ordernow"
                         app:layout_constraintTop_toBottomOf="@+id/rv_colorrecyclarview" />
-
+-->
 
                     <Button
                         android:id="@+id/btn_costomizeit"
@@ -170,14 +184,14 @@
                         android:textColor="@color/white"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_ordernow_data" />
+                        app:layout_constraintTop_toBottomOf="@+id/tv_ordernow" />
 
                     <TextView
                         android:id="@+id/tv_wishlist"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:layout_marginRight="5dp"
-                        android:background="@drawable/background_rectangular_white"
+                        android:background="@drawable/background_rectangular_gray"
                         android:drawableStart="@drawable/wishlist_icon"
                         android:drawablePadding="10dp"
                         android:gravity="center"
@@ -187,7 +201,7 @@
                         android:paddingRight="33dp"
                         android:paddingBottom="12dp"
                         android:text="@string/wishlist"
-                        android:textColor="@color/pink"
+                        android:textColor="@color/black"
                         app:layout_constraintEnd_toStartOf="@+id/tv_addtobag"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
@@ -215,8 +229,8 @@
                         app:layout_constraintStart_toEndOf="@+id/tv_wishlist"
                         app:layout_constraintTop_toBottomOf="@+id/btn_costomizeit" />
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_constraint2"
@@ -225,8 +239,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:padding="20dp"
+                android:layout_marginTop="1dp"
                 android:background="@color/white"
-                app:layout_constraintTop_toBottomOf="@+id/cl_constrain_lay1">
+                app:layout_constraintTop_toBottomOf="@+id/cl_constrain_lay2">
 
 
                 <TextView
@@ -260,7 +275,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:padding="20dp"
-                    android:layout_marginTop="5dp"
 
                     android:background="@color/white"
                     app:layout_constraintTop_toBottomOf="@+id/cl_constraint2">

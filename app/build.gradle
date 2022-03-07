@@ -131,4 +131,9 @@ dependencies {
 //seekbar
     implementation 'com.github.MohammedAlaaMorsi:RangeSeekBar:1.0.6'
 
+    //expandable
+
+        implementation 'com.github.kamrul3288:Expandable-Recyclerview-List-Android:1.0.2'
+
+
 }

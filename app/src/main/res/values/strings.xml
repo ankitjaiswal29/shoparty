@@ -285,14 +285,14 @@
     <string name="_10_7">$10.7</string>
     <string name="_14_4">$14.4</string>
     <string name="product_description">Product Description</string>
-    <string name="lorem_ipsum_is_a_placeholder_text_commonly_used_to_demonstrate_the_visual_form_of_a_document_the_visual_form_of_a_document">Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document the visual form of a document</string>
+    <string name="lorem_ipsum_is_a_placeholder_text_commonly_used_to_demonstrate_the_visual_form_of_a_document_the_visual_form_of_a_document">Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document the visual form of a document...</string>
     <string name="read_more">Read More</string>
     <string name="choose_frame_color">Choose Frame Color</string>
     <string name="order_now">Order Now:</string>
     <string name="and_get_it_by_august_27">And Get It By August 27</string>
     <string name="ship_to">Ship To:</string>
     <string name="dubai">Dubai</string>
-    <string name="add_to_bag">Add to bag</string>
+    <string name="add_to_bag">Add to Bag</string>
     <string name="you_may_also_like">You may also like</string>
     <string name="customer_also_bought">Customer Also Bought</string>
     <string name="newest_to_oldest">Newest To Oldest</string>
@@ -392,6 +392,7 @@
     <string name="recent_searches">Recent Searches</string>
     <string name="clear_history">Clear History</string>
     <string name="price_range">Price Range</string>
+    <string name="order_now_get_it_by_mar_24_2022"><![CDATA[Order Now, & Get it by Mar 24, 2022]]></string>
 
 
 </resources>

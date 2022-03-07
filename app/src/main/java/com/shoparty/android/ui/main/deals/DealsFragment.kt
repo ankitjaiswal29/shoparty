@@ -1,5 +1,6 @@
 package com.shoparty.android.ui.main.deals
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -121,9 +122,9 @@ class DealsFragment : Fragment(),View.OnClickListener, RecyclerViewClickListener
         when(v?.id) {
              R.id.tv_filter -> {
 
-                 showBottomsheetFilter()
-                /* val intent = Intent(requireContext(), FilterActivity::class.java)
-                 startActivity(intent)*/
+                // showBottomsheetFilter()
+                 val intent = Intent(requireContext(), FilterActivity::class.java)
+                 startActivity(intent)
              }
             R.id.tv_sort -> {
                 showBottomsheetDialog()
