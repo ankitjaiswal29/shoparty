@@ -71,8 +71,6 @@ class HomeFragment : Fragment(),RecyclerViewClickListener,View.OnClickListener {
         setImageInSlider(imageList, binding.imageSliderr)
 
 
-
-
         Topselling()
         HomeCategory()
         season()

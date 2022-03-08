@@ -6,9 +6,11 @@ import android.view.ViewGroup
 import com.iamkamrul.expandablerecyclerviewlist.adapter.ExpandableRecyclerAdapter
 import com.iamkamrul.expandablerecyclerviewlist.model.ParentListItem
 
+
 import com.shoparty.android.R
 
-class CategoryAdapter(var context: Context) : ExpandableRecyclerAdapter<CategoryViewHolder, CategoryListViewHolder>(){
+class CategoryAdapter(var context: Context) :
+    ExpandableRecyclerAdapter<CategoryViewHolder, CategoryListViewHolder>(){
 
     override fun onCreateParentViewHolder(parentViewGroup: ViewGroup
     ): CategoryViewHolder {

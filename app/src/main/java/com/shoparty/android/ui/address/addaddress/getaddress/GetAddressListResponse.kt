@@ -9,12 +9,13 @@ data class GetAddressListResponse(
     data class Data(
         val address_id: Int,
         val building_no: String,
-        val city: String,
+        val city_name: String,
         val country_id: Int,
         val created_at: String,
         val first_name: String,
         val last_name: String,
         val mobile: String,
-        val street_no: String
+        val street_no: String,
+        val country_name: String,
     )
 }

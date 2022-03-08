@@ -25,7 +25,8 @@ class AddressAdapter(private val mList: List<GetAddressListResponse.Data>,
         val ItemsViewModel = mList[position]
         holder.tvNamedata.text = ItemsViewModel.first_name+" "+ItemsViewModel.last_name
         holder.tv_HousenoData.text = ItemsViewModel.building_no
-        holder.tv_AddressData.text = ItemsViewModel.building_no+","+ItemsViewModel.street_no+","+ItemsViewModel.city
+        holder.tv_AddressData.text = ItemsViewModel.building_no+","+
+                ItemsViewModel.street_no+","+ItemsViewModel.city_name+","+ItemsViewModel.country_name
         holder.tv_PhonenoData.text = ItemsViewModel.mobile
 
         holder.tvEdit.setOnClickListener {
