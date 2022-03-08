@@ -15,13 +15,15 @@ import com.shoparty.android.ui.address.addaddress.AddressViewModel
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
-class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener,
-    AdapterView.OnItemSelectedListener {
+class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener{
     private var selectedcountryid=""
     private lateinit var binding: ActivityAddNewAddressBinding
     private lateinit var viewModel: AddressViewModel
     private var countrylist: ArrayList<String> = ArrayList()
     private var countryidlist: ArrayList<String> = ArrayList()
+    private var citylist: java.util.ArrayList<String> = java.util.ArrayList()
+    private var cityidlist: java.util.ArrayList<String> = java.util.ArrayList()
+    private var selectedcityid=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +48,7 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener,
                 finish()
             }
             R.id.btn_sav -> {
-               viewModel.postaddAddress(selectedcountryid)   //api call
+               viewModel.postaddAddress(selectedcountryid,selectedcityid)   //api call
             }
             R.id.iv_drawer_back -> {
              onBackPressed()
@@ -72,6 +74,42 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener,
                         countryidlist.add(response.data[index].country_id.toString())
                     }
                     setupCountryData(countrylist)
+                }
+                is Resource.Loading -> {
+                    com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
+                }
+                is Resource.Error -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        })
+
+
+        viewModel.getcity.observe(this, { response ->
+            when (response)
+            {
+                is Resource.Success -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    citylist.clear()
+                    cityidlist.clear()
+                    response.data?.forEachIndexed { index, data ->
+                        citylist.add(response.data[index].city_name)
+                        cityidlist.add(response.data[index].city_id.toString())
+                    }
+                    setupCityData(citylist)
                 }
                 is Resource.Loading -> {
                     com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
@@ -140,17 +178,41 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener,
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, data)
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spLasttName.adapter = arrayAdapter
-        binding.spLasttName.onItemSelectedListener = this
+
+        binding.spLasttName.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View,
+                position: Int,
+                id: Long) {
+                selectedcountryid=countryidlist[position]
+                viewModel.getcitylist(selectedcountryid)      //api call
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
     }
 
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        selectedcountryid=countryidlist[position]
-       // Utils.showShortToast(this,selectedcountryid)
+
+    private fun setupCityData(data: java.util.ArrayList<String>)
+    {
+        val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, data)
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.etCity.adapter = arrayAdapter
+
+        binding.etCity.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View,
+                position: Int,
+                id: Long)
+            {
+                selectedcityid=cityidlist[position]
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
     }
 
-    override fun onNothingSelected(parent: AdapterView<*>?) {
-
-    }
 
 
 }

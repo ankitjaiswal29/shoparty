@@ -12,7 +12,9 @@ data class MyProfileUpdateResponse(
         val image: String,
         val mobile: String,
         val name: String,
-        val user_id: Int
+        val street_no: String,
+        val building_no: String,
+
 
     )
 }

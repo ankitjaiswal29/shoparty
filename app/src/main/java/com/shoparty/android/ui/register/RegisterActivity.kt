@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityRegisterBinding
 import com.shoparty.android.ui.login.LoginActivity
-import com.shoparty.android.ui.termsandcondition.TermAndConditionActivity
+import com.shoparty.android.ui.main.myaccount.termandcondition.TermAndConditionActivity
 import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory

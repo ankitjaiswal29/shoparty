@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-   <!-- <data>
+    <data>
 
-    </data>-->
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.aboutus.AboutUsActivity">
+        android:background="@color/white"
+        tools:context=".ui.main.myaccount.privacypolicy.PrivacyPolicyActivity">
 
         <include
             android:id="@+id/info_tool"
@@ -18,97 +19,37 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ScrollView
-            android:id="@+id/scrollMain"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:fillViewport="true"
-            android:background="@color/white"
+            android:layout_marginBottom="@dimen/_20sdp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/info_tool">
+            app:layout_constraintTop_toBottomOf="@+id/info_tool">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+
+
+
+
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="20dp">
+                android:layout_height="match_parent"
+                android:fillViewport="true"
+                app:layout_constraintTop_toBottomOf="@+id/info_tool">
 
-                <TextView
-                    android:id="@+id/tv_Generalsite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                 style="@style/AppTheme.Text_15_Bold_dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:text="@string/general_site_usage"/>
-
-
-                <View
-                    android:id="@+id/view1"
+                <WebView
+                    android:id="@+id/webView"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="15dp"
-                    android:background="@color/lightgray"
-                    app:layout_constraintStart_toStartOf="parent"
-                    style="@style/AppTheme.Text_15_Bold_dp"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_Generalsite"
-                    android:text="@string/general_site_usage"/>
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:textAlignment="center">
 
+                </WebView>
+            </ScrollView>
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_LoremIspulLabel"
-                    android:layout_width="0dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    style="@style/AppTheme.Text_15_Bold_dp"
-                    app:layout_constraintTop_toBottomOf="@+id/view1"
-                    android:text="@string/lorem_ipsum_is_simply_sep_16_2021"/>
-
-
-
-                <TextView
-                    android:id="@+id/tv_LoremIspul"
-                    android:layout_width="0dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    style="@style/AppTheme.Text_13_graydp"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_LoremIspulLabel"
-                    android:text="@string/lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry_lorem_ipsum_has_been_the_industry_s_standard_dummy_text_ever_since_the_1500s_when_an_unknown_printer_took_a_galley_of_type_and_scrambled_it_to_make_a_type_specimen_book_it_has_survived_not_only"/>
-
-
-
-                <TextView
-                    android:id="@+id/tv_Agreementlabel"
-                    android:layout_width="0dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    style="@style/AppTheme.Text_15_Bold_dp"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_LoremIspul"
-                    android:text="@string/_1_your_agreement"/>
-
-
-
-                <TextView
-                    android:id="@+id/tv_Agreement"
-                    android:layout_width="0dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    style="@style/AppTheme.Text_13_graydp"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_Agreementlabel"
-                    android:text="@string/lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry_lorem_ipsum_has_been_the_industry_s_standard_dummy_text_ever_since_the_1500s_when_an_unknown_printer_took_a_galley_of_type_and_scrambled_it_to_make_a_type_specimen_book_it_has_survived_not_only"/>
-
-
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

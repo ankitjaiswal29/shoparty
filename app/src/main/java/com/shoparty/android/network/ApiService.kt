@@ -83,7 +83,7 @@ interface ApiService {
     ): Response<DeleteAddressResponse>
 
 
-    @GET("list-cities")     //
+    @POST("list-cities")     //
     suspend fun getcityAsync(
         @Body requestModel: GetCityRequestModel):
             Response<GetCityResponse>

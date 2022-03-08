@@ -18,13 +18,13 @@ import com.shoparty.android.R
 import com.shoparty.android.app.MyApp.Companion.application
 import com.shoparty.android.databinding.FragmentMyAccountBinding
 
-import com.shoparty.android.ui.aboutus.AboutUsActivity
+import com.shoparty.android.ui.main.myaccount.aboutus.AboutUsActivity
 import com.shoparty.android.ui.address.addaddress.getaddress.AddressActivity
 import com.shoparty.android.ui.contactus.ContactUsActivity
 import com.shoparty.android.ui.myorders.myorder.MyOrdersActivity
-import com.shoparty.android.ui.privacypolicy.PrivacyPolicyActivity
-import com.shoparty.android.ui.returnpolicy.ReturnPolicyActivity
-import com.shoparty.android.ui.termsandcondition.TermAndConditionActivity
+import com.shoparty.android.ui.main.myaccount.privacypolicy.PrivacyPolicyActivity
+import com.shoparty.android.ui.main.myaccount.returnpolicy.ReturnPolicyActivity
+import com.shoparty.android.ui.main.myaccount.termandcondition.TermAndConditionActivity
 import com.shoparty.android.ui.vouchers.VouchersActivity
 import com.shoparty.android.ui.wishlist.WishListActivity
 import com.shoparty.android.interfaces.RecyclerViewClickListener
@@ -248,13 +248,13 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
                 val intent = Intent (getActivity(), TermAndConditionActivity::class.java)
                 getActivity()?.startActivity(intent)
             }
-               // startActivity(Intent(this, TermAndConditionActivity::class.java))
+
             "iprivacypolicy" ->{
                 val intent = Intent (getActivity(), PrivacyPolicyActivity::class.java)
                 getActivity()?.startActivity(intent)
             }
             "idreturnpolicy" ->{
-                val intent = Intent (getActivity(), ReturnPolicyActivity::class.java)
+                val intent = Intent (activity, ReturnPolicyActivity::class.java)
                 getActivity()?.startActivity(intent)
             }
             "idsignout" ->{

@@ -94,8 +94,9 @@ dependencies {
     implementation 'org.florescu.android.rangeseekbar:rangeseekbar-library:0.3.0'
 
     //expandable
+    implementation 'com.github.kamrul3288:Expandable-Recyclerview-List-Android:1.0.2'
 
-        implementation 'com.github.kamrul3288:Expandable-Recyclerview-List-Android:1.0.2'
+
 
 
 }

@@ -92,7 +92,7 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
         binding.tvFemale.setOnClickListener(this)
         binding.ivEditProfile.setOnClickListener(this)
         binding.infoTool.back.visibility=View.VISIBLE
-        binding.infoTool.tvTitle.setText(getString(R.string.my_account))
+        binding.infoTool.tvTitle.text = getString(R.string.my_account)
         binding.infoTool.back.setOnClickListener(this)
     }
 
@@ -109,6 +109,8 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
                     PrefManager.write(PrefManager.EMAIL, response.data?.email!!)
                     PrefManager.write(PrefManager.DOB, binding.tvDateBirth.text.toString().trim())
                     PrefManager.write(PrefManager.GENDER, response.data?.gender!!)
+                    PrefManager.write(PrefManager.STREET, response.data?.street_no)
+                    PrefManager.write(PrefManager.HOUSENO, response.data?.building_no)
                     setResult(Activity.RESULT_OK, intent)
                     finish()
 
@@ -221,8 +223,12 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
         binding.etMobile.setText(PrefManager.read(PrefManager.MOBILE,""))
         binding.etEmail.setText(PrefManager.read(PrefManager.EMAIL,""))
         binding.tvDateBirth.text = PrefManager.read(PrefManager.DOB,"")
+        binding.etStreet.setText(PrefManager.read(PrefManager.STREET,""))
+        binding.etHouseno.setText(PrefManager.read(PrefManager.HOUSENO,""))
 
         binding.etFirstname.setSelection(binding.etFirstname.length())
+       /* binding.etStreet.setSelection(binding.etFirstname.length())
+        binding.etHouseno.setSelection(binding.etFirstname.length())*/
         binding.etMobile.isEnabled = false
         binding.etEmail.setSelection(binding.etEmail.length())
         if(PrefManager.read(PrefManager.GENDER,"") == Constants.MALE)
@@ -260,6 +266,10 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
                         builder.addFormDataPart("mobile",binding.etMobile.text.toString())
                         builder.addFormDataPart("dob",binding.tvDateBirth.text.toString())
                         builder.addFormDataPart("gender",  selectedgender)
+                        builder.addFormDataPart("country_id",  selectedcountryid)
+                        builder.addFormDataPart("city_id",  selectedcityid)
+                        builder.addFormDataPart("street_no",  binding.etStreet.text.toString())
+                        builder.addFormDataPart("building_no",  binding.etHouseno.text.toString())
                         val body = builder.build()
 
                         viewModel.postupdateProfile(body)   //api call
@@ -412,8 +422,6 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
         intent.putExtra(ImagePickerActivity.INTENT_BITMAP_MAX_WIDTH, 1000)
         intent.putExtra(ImagePickerActivity.INTENT_BITMAP_MAX_HEIGHT, 1000)
         startActivityForResult(intent, REQUEST_IMAGE)
-
-
     }
     private fun launchGalleryIntent() {
         val intent = Intent(this, ImagePickerActivity::class.java)
@@ -507,24 +515,38 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
     {
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, data)
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.etCity.adapter = arrayAdapter
+        binding.etCountry.adapter = arrayAdapter
 
-        binding.etCity.setOnItemClickListener { parent, view, position, id ->
-            selectedcountryid=countryidlist[position]
-            addressviewModel.getcitylist(selectedcountryid)      //api call
+        binding.etCountry.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View,
+                position: Int,
+                id: Long) {
+                selectedcountryid=countryidlist[position]
+                addressviewModel.getcitylist(selectedcountryid)      //api call
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
     }
-
-
-
 
     private fun setupCityData(data: ArrayList<String>)
     {
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, data)
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.etCity.adapter = arrayAdapter
-        binding.etCity.setOnItemClickListener { parent, view, position, id ->
-            selectedcityid=citylist[position]
+        binding.etCity.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View,
+                position: Int,
+                id: Long)
+            {
+                selectedcityid=cityidlist[position]
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
     }
 

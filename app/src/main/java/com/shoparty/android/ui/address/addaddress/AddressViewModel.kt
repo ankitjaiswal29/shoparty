@@ -27,7 +27,6 @@ class AddressViewModel(private val app: Application) : ViewModel()
     val etFirstname: ObservableField<String> = ObservableField()
     val etLasttName: ObservableField<String> = ObservableField()
     val etStreatLandmark: ObservableField<String> = ObservableField()
-    val etCity: ObservableField<String> = ObservableField()
     val etBuildingnoApartment: ObservableField<String> = ObservableField()
     val etMobile: ObservableField<String> = ObservableField()
 
@@ -50,12 +49,12 @@ class AddressViewModel(private val app: Application) : ViewModel()
     private val mgetcity = MutableLiveData<Resource<List<GetCityResponse.Data>>>()
     val getcity: LiveData<Resource<List<GetCityResponse.Data>>> = mgetcity
 
-    fun postaddAddress(country_id:String) = viewModelScope.launch {
+    fun postaddAddress(country_id:String,city_id:String) = viewModelScope.launch {
         if(validation())
         {
             val request = AddAddressRequestModel(etFirstname.get()!!,etLasttName.get()!!,country_id,
-                     etStreatLandmark.get()!!
-                    ,etCity.get()!!,etBuildingnoApartment.get()!!,etMobile.get()!!)
+                     city_id,
+                     etStreatLandmark.get()!!,etBuildingnoApartment.get()!!,etMobile.get()!!)
             if(Utils.hasInternetConnection(app.applicationContext))
             {
                 maddaddress.postValue(Resource.Loading())
@@ -142,10 +141,6 @@ class AddressViewModel(private val app: Application) : ViewModel()
         }
         if(etLasttName.get().isNullOrBlank()) {
             Utils.showShortToast(mContext,mContext.getString(R.string.enterlastname))
-            return false
-        }
-        if(etCity.get().isNullOrBlank()) {
-            Utils.showShortToast(mContext,mContext.getString(R.string.entercity))
             return false
         }
         if(etStreatLandmark.get().isNullOrBlank()) {
