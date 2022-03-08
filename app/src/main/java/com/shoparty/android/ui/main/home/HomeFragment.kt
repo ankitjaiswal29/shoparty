@@ -60,9 +60,10 @@ class HomeFragment : Fragment(),RecyclerViewClickListener,View.OnClickListener {
     }
     private fun initialise() {
 
-        showdialog()
+      //  showdialog()
 
         binding.tvHomeSearch.setOnClickListener(this)
+        binding.tvViewall.setOnClickListener(this)
         val imageList: ArrayList<String> = ArrayList()
         imageList.add("https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg")
         imageList.add("https://images.ctfassets.net/hrltx12pl8hq/4plHDVeTkWuFMihxQnzBSb/aea2f06d675c3d710d095306e377382f/shutterstock_554314555_copy.jpg")
@@ -176,7 +177,7 @@ class HomeFragment : Fragment(),RecyclerViewClickListener,View.OnClickListener {
                 layoutManager = gridLayoutManager
                 setHasFixedSize(true)
                 isFocusable = false
-                adapter = NewArrivalsHomeAdapter(newArrivalsList)
+                adapter = NewArrivalsHomeAdapter(newArrivalsList,requireContext())
             }
 
 
@@ -196,7 +197,7 @@ class HomeFragment : Fragment(),RecyclerViewClickListener,View.OnClickListener {
                 layoutManager = gridLayoutManager
                 setHasFixedSize(true)
                 isFocusable = false
-                adapter = HomeCategoriesAdapter(themesList)
+                adapter = HomeCategoriesAdapter(themesList,requireContext())
             }
 
 
@@ -214,7 +215,7 @@ class HomeFragment : Fragment(),RecyclerViewClickListener,View.OnClickListener {
             )
 
 
-            binding.seasonsRecycler.adapter = HomeSeasonsAdapter(seasonsItemList)
+            binding.seasonsRecycler.adapter = HomeSeasonsAdapter(seasonsItemList,requireContext())
 
     }
 
@@ -229,7 +230,7 @@ class HomeFragment : Fragment(),RecyclerViewClickListener,View.OnClickListener {
                 layoutManager = gridLayoutManager
                 setHasFixedSize(true)
                 isFocusable = false
-                adapter = HomeCategoriesAdapter(categoryList)
+                adapter = HomeCategoriesAdapter(categoryList, requireContext())
             }
 
     }
@@ -247,7 +248,7 @@ class HomeFragment : Fragment(),RecyclerViewClickListener,View.OnClickListener {
     }
 
     private fun setImageInSlider(images: ArrayList<String>, imageSlider: SliderView) {
-        val adapter = MySliderImageAdapter()
+        val adapter = MySliderImageAdapter(requireContext())
         adapter.renewItems(images)
         imageSlider.setSliderAdapter(adapter)
         imageSlider.isAutoCycle = true
@@ -264,7 +265,10 @@ class HomeFragment : Fragment(),RecyclerViewClickListener,View.OnClickListener {
            R.id.tv_home_search->{
                val intent = Intent(activity, SearchActivity::class.java)
                startActivity(intent)
-           }
+           } R.id.tv_viewall->{
+            val intent = Intent(activity, TopSellingActivity::class.java)
+            startActivity(intent)
+        }
         }
 
     }

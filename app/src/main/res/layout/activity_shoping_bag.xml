@@ -301,44 +301,141 @@
                     android:id="@+id/bag_item_cons_lay5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/cly_summary"
-                    app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginTop="5dp"
                     android:background="@color/white"
+                    android:padding="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:padding="20dp">
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cly_summary">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/bag_item_relative_lay1"
-                        app:layout_constraintStart_toStartOf="parent"
+                    <View
+                        android:id="@+id/vw_purchasguest"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/bag_item_relative_lay_bg"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:paddingTop="12dp"
-                        android:paddingBottom="11dp"
-                        android:background="@drawable/bag_item_relative_lay_bg">
+                    </View>
 
-                        <TextView
-                            style="@style/AppTheme.Text_12dp_Bold"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="10dp"
-                            android:text="@string/purchase_as_a_guest" />
+                    <TextView
+                        style="@style/AppTheme.Text_12dp_Bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:text="@string/purchase_as_a_guest"
+                        app:layout_constraintBottom_toBottomOf="@id/vw_purchasguest"
+                        app:layout_constraintStart_toStartOf="@+id/vw_purchasguest"
+                        app:layout_constraintTop_toTopOf="@+id/vw_purchasguest" />
 
-                        <CheckBox
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:buttonTint="@color/pink" />
-                    </RelativeLayout>
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/pink"
+                        android:paddingEnd="10dp"
+                        app:layout_constraintBottom_toBottomOf="@id/vw_purchasguest"
+                        app:layout_constraintEnd_toEndOf="@id/vw_purchasguest"
+                        app:layout_constraintTop_toTopOf="@+id/vw_purchasguest" />
 
-                    <LinearLayout
+                    <View
+                        android:id="@+id/vw_branch"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/bag_item_relative_lay_bg"
+                        app:layout_constraintEnd_toStartOf="@+id/vw_home"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/vw_purchasguest">
+
+                    </View>
+                    <TextView
+                        style="@style/AppTheme.Text_12dp_Bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pickup_for_branch"
+                        android:paddingStart="10dp"
+                        app:layout_constraintBottom_toBottomOf="@id/vw_branch"
+                        app:layout_constraintStart_toStartOf="@+id/vw_branch"
+                        app:layout_constraintTop_toTopOf="@+id/vw_branch" />
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/pink"
+                        android:paddingEnd="10dp"
+                        app:layout_constraintBottom_toBottomOf="@id/vw_branch"
+                        app:layout_constraintEnd_toEndOf="@id/vw_branch"
+                        app:layout_constraintTop_toTopOf="@+id/vw_branch" />
+
+
+
+                    <View
+                        android:id="@+id/vw_home"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/bag_item_relative_lay_bg"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/vw_branch"
+                        app:layout_constraintTop_toBottomOf="@+id/vw_purchasguest">
+
+                    </View>
+
+                    <TextView
+                        style="@style/AppTheme.Text_12dp_Bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/delivered_for_home"
+                        android:paddingStart="10dp"
+                        app:layout_constraintBottom_toBottomOf="@id/vw_home"
+                        app:layout_constraintStart_toStartOf="@+id/vw_home"
+                        app:layout_constraintTop_toTopOf="@+id/vw_home" />
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/pink"
+                        android:paddingEnd="10dp"
+                        app:layout_constraintBottom_toBottomOf="@id/vw_home"
+                        app:layout_constraintEnd_toEndOf="@id/vw_home"
+                        app:layout_constraintTop_toTopOf="@+id/vw_home" />
+
+
+                    <!--  <RelativeLayout
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:id="@+id/bag_item_relative_lay1"
+                          app:layout_constraintStart_toStartOf="parent"
+                          app:layout_constraintEnd_toEndOf="parent"
+                          app:layout_constraintTop_toTopOf="parent"
+
+                          android:paddingLeft="10dp"
+                          android:paddingRight="10dp"
+                          android:paddingTop="12dp"
+                          android:paddingBottom="11dp"
+                          android:background="@drawable/bag_item_relative_lay_bg">
+
+                          <TextView
+                              style="@style/AppTheme.Text_12dp_Bold"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_centerVertical="true"
+                              android:layout_marginStart="10dp"
+                              android:text="@string/purchase_as_a_guest" />
+
+                          <CheckBox
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_alignParentEnd="true"
+                              android:layout_centerVertical="true"
+                              android:buttonTint="@color/pink" />
+                      </RelativeLayout>-->
+
+                    <!-- <LinearLayout
                         android:id="@+id/bag_item_linear1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -409,43 +506,44 @@
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true" />
                         </RelativeLayout>
-                    </LinearLayout>
+                    </LinearLayout>-->
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/bag_item_pickup_recycler"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@+id/bag_item_linear1"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
                         android:layout_marginTop="10dp"
-                        tools:itemCount="2"
-                        tools:listitem="@layout/bag_pickup_item_layout"
                         android:orientation="vertical"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                        android:visibility="visible"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/vw_branch"
+                        tools:itemCount="2"
+                        tools:listitem="@layout/bag_pickup_item_layout" />
 
                     <Button
                         android:id="@+id/btn_ProcessTocheckOut"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@+id/bag_item_pickup_recycler"
                         android:layout_marginTop="85dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:text="@string/proceed_to_checkout"
-                        android:textColor="@color/white"
                         android:background="@drawable/customize_btn_bg"
-                        android:textAllCaps="false" />
+                        android:text="@string/proceed_to_checkout"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/bag_item_pickup_recycler" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="@+id/btn_ProcessTocheckOut"
-                        app:layout_constraintTop_toTopOf="@id/btn_ProcessTocheckOut"
-                        android:elevation="10dp"
                         android:layout_marginLeft="80dp"
+                        android:elevation="10dp"
+                        android:src="@drawable/ic_bag_white"
                         app:layout_constraintBottom_toBottomOf="@+id/btn_ProcessTocheckOut"
-                        android:src="@drawable/ic_bag_white" />
+                        app:layout_constraintStart_toStartOf="@+id/btn_ProcessTocheckOut"
+                        app:layout_constraintTop_toTopOf="@id/btn_ProcessTocheckOut" />
 
                     <!-- <LinearLayout
                          android:id="@+id/bag_item_checkout_btn"
