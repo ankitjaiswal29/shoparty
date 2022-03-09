@@ -141,15 +141,16 @@ class AddressActivity : AppCompatActivity(), View.OnClickListener,
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == Constants.ADDADDRESS_CODE && resultCode == Activity.RESULT_OK)
         {
-           // Utils.showShortToast(this,"api call")
                viewModel.getaddresslist()    //api call
         }
     }
 
 
-    override fun editclick(address_id: Int) {
+    override fun editclick(address_id: Int, addressData: GetAddressListResponse.Data) {
         val intent = Intent(this, AddNewAddressActivity::class.java)
-        startActivity(intent)
+        intent.putExtra(Constants.ADDRESSSDATA,addressData)
+        intent.putExtra(Constants.PAGESTATUS,Constants.UPDATEADDRESSSTATUS)
+        startActivityForResult(intent, Constants.ADDADDRESS_CODE)
     }
 
     override fun removeclick(address_id: Int, position: Int) {

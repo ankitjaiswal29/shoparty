@@ -1,11 +1,15 @@
 package com.shoparty.android.ui.address.addaddress.getaddress
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+@Parcelize
 data class GetAddressListResponse(
     val message: String,
     val response_code: Int,
     val result: List<Data>
-)
+): Parcelable
 {
+    @Parcelize
     data class Data(
         val address_id: Int,
         val building_no: String,
@@ -17,5 +21,5 @@ data class GetAddressListResponse(
         val mobile: String,
         val street_no: String,
         val country_name: String,
-    )
+    ):Parcelable
 }

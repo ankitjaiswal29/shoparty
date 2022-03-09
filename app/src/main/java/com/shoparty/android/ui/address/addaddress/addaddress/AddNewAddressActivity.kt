@@ -12,11 +12,13 @@ import androidx.lifecycle.ViewModelProvider
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityAddNewAddressBinding
 import com.shoparty.android.ui.address.addaddress.AddressViewModel
-import com.shoparty.android.utils.Utils
+import com.shoparty.android.ui.address.addaddress.getaddress.GetAddressListResponse
+import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener{
     private var selectedcountryid=""
+    private var updatepagestatus=""
     private lateinit var binding: ActivityAddNewAddressBinding
     private lateinit var viewModel: AddressViewModel
     private var countrylist: ArrayList<String> = ArrayList()
@@ -24,6 +26,7 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener{
     private var citylist: java.util.ArrayList<String> = java.util.ArrayList()
     private var cityidlist: java.util.ArrayList<String> = java.util.ArrayList()
     private var selectedcityid=""
+    private var addressid=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,10 +39,22 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener{
     }
 
     private fun initialise() {
+        if(intent.extras != null)
+        {
+            var addressdata = intent.getParcelableExtra<GetAddressListResponse.Data>(Constants.ADDRESSSDATA)!!
+            updatepagestatus = intent.getStringExtra(Constants.PAGESTATUS)!!
+            addressid = addressdata.address_id.toString()
+            viewModel.etFirstname.set(addressdata.first_name)
+            viewModel.etLasttName.set(addressdata.last_name)
+            viewModel.etStreatLandmark.set(addressdata.street_no)
+            viewModel.etBuildingnoApartment.set(addressdata.building_no)
+            viewModel.etMobile.set(addressdata.mobile)
+        }
         binding.infoTool.tvTitle.text = getString(R.string.add_new_address)
         binding.btnCan.setOnClickListener(this)
         binding.btnSav.setOnClickListener(this)
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
+
     }
 
     override fun onClick(v: View?) {
@@ -48,7 +63,15 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener{
                 finish()
             }
             R.id.btn_sav -> {
-               viewModel.postaddAddress(selectedcountryid,selectedcityid)   //api call
+                if(updatepagestatus == "1")
+                {
+                    viewModel.updateAddress(selectedcountryid,selectedcityid,addressid)   //api call
+                }
+                else
+                {
+                    viewModel.addAddress(selectedcountryid,selectedcityid)   //api call
+                }
+
             }
             R.id.iv_drawer_back -> {
              onBackPressed()
@@ -134,6 +157,42 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener{
         })
 
         viewModel.address.observe(this, { response ->
+            when (response)
+            {
+                is Resource.Success -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    setResult(Activity.RESULT_OK, intent)
+                    finish()
+                }
+                is Resource.Loading -> {
+                    com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
+                }
+                is Resource.Error -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        })
+
+
+        viewModel.updateaddress.observe(this, { response ->
             when (response)
             {
                 is Resource.Success -> {

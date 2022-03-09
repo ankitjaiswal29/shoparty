@@ -30,7 +30,7 @@ class AddressAdapter(private val mList: List<GetAddressListResponse.Data>,
         holder.tv_PhonenoData.text = ItemsViewModel.mobile
 
         holder.tvEdit.setOnClickListener {
-            recyclerViewaddressClickListener.editclick(ItemsViewModel.address_id)
+            recyclerViewaddressClickListener.editclick(ItemsViewModel.address_id,ItemsViewModel)
         }
 
         holder.tvRemove.setOnClickListener {

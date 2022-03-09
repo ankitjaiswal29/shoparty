@@ -17,6 +17,13 @@ import com.shoparty.android.utils.apiutils.Resource
 
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import android.text.Editable
+
+import com.google.android.material.internal.TextWatcherAdapter
+
+import android.text.TextWatcher
+import java.util.*
+
 
 class AddressViewModel(private val app: Application) : ViewModel()
 {
@@ -49,7 +56,13 @@ class AddressViewModel(private val app: Application) : ViewModel()
     private val mgetcity = MutableLiveData<Resource<List<GetCityResponse.Data>>>()
     val getcity: LiveData<Resource<List<GetCityResponse.Data>>> = mgetcity
 
-    fun postaddAddress(country_id:String,city_id:String) = viewModelScope.launch {
+    private val mupdateaddaddress = MutableLiveData<Resource<UpdateAddressResponse.Data>>()
+    val updateaddress: LiveData<Resource<UpdateAddressResponse.Data>> = mupdateaddaddress
+
+
+
+
+    fun addAddress(country_id:String, city_id:String) = viewModelScope.launch {
         if(validation())
         {
             val request = AddAddressRequestModel(etFirstname.get()!!,etLasttName.get()!!,country_id,
@@ -64,6 +77,27 @@ class AddressViewModel(private val app: Application) : ViewModel()
             else
             {
                 maddaddress.postValue(Resource.Error(app.resources.getString(R.string.no_internet)))
+            }
+        }
+
+    }
+
+
+    fun updateAddress(country_id:String, city_id:String,address_id:String) = viewModelScope.launch {
+        if(validation())
+        {
+            val request = UpdateAddressRequestModel(etFirstname.get()!!,etLasttName.get()!!,country_id,
+                city_id,
+                etStreatLandmark.get()!!,etBuildingnoApartment.get()!!,etMobile.get()!!,address_id)
+            if(Utils.hasInternetConnection(app.applicationContext))
+            {
+                mupdateaddaddress.postValue(Resource.Loading())
+                val response = repository.updateaddressapi(request)
+                mupdateaddaddress.postValue(handleUpdateAddressResponse(response!!))
+            }
+            else
+            {
+                mupdateaddaddress.postValue(Resource.Error(app.resources.getString(R.string.no_internet)))
             }
         }
 
@@ -166,6 +200,22 @@ class AddressViewModel(private val app: Application) : ViewModel()
     }
 
     private fun handleAddAddressResponse(response: Response<AddAddressResponse>): Resource<AddAddressResponse.Data> {
+        if (response?.isSuccessful)
+        {
+            response.body()?.let { res ->
+                return if (res.response_code==200)
+                {
+                    Resource.Success(res.message,res.result)
+                }
+                else {
+                    Resource.Error(res.message)
+                }
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    private fun handleUpdateAddressResponse(response: Response<UpdateAddressResponse>): Resource<UpdateAddressResponse.Data> {
         if (response?.isSuccessful)
         {
             response.body()?.let { res ->

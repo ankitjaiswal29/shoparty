@@ -68,6 +68,12 @@ interface ApiService {
     ): Response<AddAddressResponse>
 
 
+    @POST("edit-address")                //
+    suspend fun updateAddressAsync(
+        @Body updateAddressRequestModel: UpdateAddressRequestModel
+    ): Response<UpdateAddressResponse>
+
+
     @GET("list-countries")     //
     suspend fun getcountryAsync():
             Response<GetCountryResponse>
