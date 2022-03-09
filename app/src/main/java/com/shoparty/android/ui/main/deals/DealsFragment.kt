@@ -92,7 +92,7 @@ class DealsFragment : Fragment(),View.OnClickListener, RecyclerViewClickListener
                 layoutManager = gridLayoutManager
                 setHasFixedSize(true)
                 isFocusable = false
-                adapter = DealsAdapter(naItemList)
+                adapter = DealsAdapter(naItemList,requireContext())
             }
 
     }

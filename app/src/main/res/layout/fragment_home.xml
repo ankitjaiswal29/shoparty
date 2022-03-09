@@ -133,6 +133,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_viewall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/view_all"

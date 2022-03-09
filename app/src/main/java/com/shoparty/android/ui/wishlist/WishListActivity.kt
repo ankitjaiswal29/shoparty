@@ -8,9 +8,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityWishListBinding
+import com.shoparty.android.ui.main.topselling.TopSellingActivity
 import com.shoparty.android.ui.main.wishlist.WishListAdapter
 import com.shoparty.android.ui.search.SearchActivity
 import com.shoparty.android.ui.shipping.ShippingActivity
+import com.shoparty.android.ui.shoppingbag.ShopingBagActivity
 
 
 class WishListActivity : AppCompatActivity(), View.OnClickListener {
@@ -58,8 +60,9 @@ class WishListActivity : AppCompatActivity(), View.OnClickListener {
                 onBackPressed()
             }
             R.id.ivBagBtn -> {
-                val intent = Intent(this, ShippingActivity::class.java)
+                val intent = Intent(this, ShopingBagActivity::class.java)
                 startActivity(intent)
+
             }
             R.id.iv_btnsearch -> {
                 val intent = Intent(this, SearchActivity::class.java)

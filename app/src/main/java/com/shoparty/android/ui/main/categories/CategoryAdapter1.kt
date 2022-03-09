@@ -1,15 +1,18 @@
 package com.shoparty.android.ui.main.categories
 
+import android.content.Context
+import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.shoparty.android.R
 import com.shoparty.android.utils.inflate
 import com.shoparty.android.ui.main.home.HomeCategoriesModel
+import com.shoparty.android.ui.main.topselling.TopSellingActivity
 
 import kotlinx.android.synthetic.main.category_item1.view.*
 
-class CategoryAdapter1(private val itemList: List<HomeCategoriesModel>): RecyclerView.Adapter<CategoryAdapter1.CategoryViewModel>() {
+class CategoryAdapter1(private val itemList: List<HomeCategoriesModel>, val requireContext: Context): RecyclerView.Adapter<CategoryAdapter1.CategoryViewModel>() {
 
     inner class CategoryViewModel(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -26,6 +29,10 @@ class CategoryAdapter1(private val itemList: List<HomeCategoriesModel>): Recycle
             category_root_lay.setOnClickListener {
               //  findNavController().navigate(R.id.categoryItemListFragment)
             }
+        }
+        holder.itemView.category_root_lay.setOnClickListener {
+            val intent = Intent(requireContext, TopSellingActivity::class.java)
+           requireContext.startActivity(intent)
         }
     }
 }

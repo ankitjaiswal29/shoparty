@@ -42,5 +42,36 @@
         style="@style/AppTheme.Text_12dp_Bold"/>
 
 
+    <ImageView
+        android:id="@+id/iv_unselect"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:elevation="10dp"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="@id/iv_background"
+        app:layout_constraintEnd_toEndOf="@id/iv_background"
+        app:layout_constraintTop_toTopOf="@id/iv_background"
+        app:layout_constraintBottom_toBottomOf="@id/iv_background"
+        android:src="@drawable/ic_icon_fav_gray"/>
+
+    <ImageView
+        android:id="@+id/iv_select"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:elevation="10dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/iv_background"
+        app:layout_constraintEnd_toEndOf="@id/iv_background"
+        app:layout_constraintTop_toTopOf="@id/iv_background"
+        app:layout_constraintBottom_toBottomOf="@id/iv_background"
+        android:src="@drawable/ic_icon_fav_pink"/>
+    <ImageView
+        android:id="@+id/iv_background"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_favourite_gray"
+        android:layout_margin="5dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

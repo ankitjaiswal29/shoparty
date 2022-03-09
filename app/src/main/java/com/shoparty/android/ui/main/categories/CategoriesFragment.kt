@@ -60,6 +60,6 @@ class CategoriesFragment : Fragment() {
              HomeCategoriesModel("Ballons")
 
             )
-            binding.categoryListRecycler.adapter = CategoryAdapter1(categoryItemList)
+            binding.categoryListRecycler.adapter = CategoryAdapter1(categoryItemList,requireContext())
     }
 }

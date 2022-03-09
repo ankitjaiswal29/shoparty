@@ -1,13 +1,17 @@
 package com.shoparty.android.ui.main.deals
 
+import android.content.Context
+import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.shoparty.android.R
+import com.shoparty.android.ui.main.topselling.TopSellingActivity
+import com.shoparty.android.ui.productdetails.ProductDetailsActivity
 import com.shoparty.android.utils.inflate
 import kotlinx.android.synthetic.main.deals_item_layout.view.*
 
-class DealsAdapter(private val itemList: List<TopSellingHomeModel>): RecyclerView.Adapter<DealsAdapter.NewArrivalItemLIstViewHolder>() {
+class DealsAdapter(private val itemList: List<TopSellingHomeModel>,val requireContext: Context): RecyclerView.Adapter<DealsAdapter.NewArrivalItemLIstViewHolder>() {
 
     var fav=false;
     inner class NewArrivalItemLIstViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -40,6 +44,10 @@ class DealsAdapter(private val itemList: List<TopSellingHomeModel>): RecyclerVie
                 holder.itemView.iv_unselect.visibility=View.VISIBLE
                 fav=true
             }
+        }
+        holder.itemView.top_selling_item_root.setOnClickListener {
+            val intent = Intent(requireContext, ProductDetailsActivity::class.java)
+           requireContext.startActivity(intent)
         }
 
 
