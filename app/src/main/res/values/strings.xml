@@ -394,6 +394,7 @@
     <string name="price_range">Price Range</string>
     <string name="order_now_get_it_by_mar_24_2022"><![CDATA[Order Now, & Get it by Mar 24, 2022]]></string>
     <string name="something_went_wrong">Something Went Wrong!!</string>
+    <string name="please_enter_the_otp_sent_to_mobile_number">Please Enter the OTP sent to mobile number</string>
 
 
 </resources>

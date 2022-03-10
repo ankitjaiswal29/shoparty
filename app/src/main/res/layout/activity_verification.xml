@@ -17,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingStart="20dp"
+        android:background="@color/white"
         android:paddingEnd="20dp">
 
 
@@ -35,17 +36,28 @@
         android:layout_marginTop="76dp" />
     <TextView
         android:id="@+id/verificationDescTv"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/verification_htv"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
      style="@style/AppTheme.Text_14dp"
         android:lines="1"
         android:layout_marginTop="10dp"
-        android:text="Please Enter the OTP sent to mobile number 999 9999 999"/>
+        android:text="@string/please_enter_the_otp_sent_to_mobile_number"/>
+
 
         <TextView
+            android:id="@+id/tv_mobileno"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/verificationDescTv"
+       app:layout_constraintStart_toStartOf="parent"
+            android:textSize="16dp"
+              android:lines="1"
+            style="@style/AppTheme.Text_14dp"
+            android:text="@string/_999_9999_999"/>
+
+        <!--<TextView
             android:id="@+id/tv_mobileno"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,6 +67,7 @@
             android:textSize="16dp"
             android:lines="1"
             android:text="@string/_999_9999_999"/>
+-->
    <!-- <TextView
         android:id="@+id/verification_mobile_htv"
         android:layout_width="wrap_content"
@@ -65,19 +78,19 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="49dp"/>
 -->
-    <EditText
+    <!--<EditText
         android:id="@+id/etOtp"
         style="@style/AppTheme.editText_gray"
         android:imeOptions="actionNext"
         android:singleLine="true"
-        app:layout_constraintTop_toBottomOf="@+id/reOtp"
+        app:layout_constraintTop_toBottomOf="@+id/verification_mobile_htv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="10dp"
         android:inputType="phone"
-        android:text="@={verifiyViewModel.etOtp}" />
+        android:text="@={verifiyViewModel.etOtp}" />-->
 
-       <!-- <EditText
+        <EditText
             android:id="@+id/editTextNumberPassword"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -94,8 +107,6 @@
             android:id="@+id/editTextNumberPassword2"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="40dp"
             style="@style/Otp"
 
@@ -109,8 +120,6 @@
             android:id="@+id/editTextNumberPassword3"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="40dp"
             style="@style/Otp"
             android:maxLength="1"
@@ -124,18 +133,16 @@
             android:id="@+id/editTextNumberPassword4"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="40dp"
             style="@style/Otp"
             android:maxLength="1"
             android:inputType="number"
-            app:layout_constraintEnd_toStartOf="@+id/editTextNumberPassword5"
-            app:layout_constraintStart_toEndOf="@+id/editTextNumberPassword3"
+            app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toEndOf="@+id/editTextNumberPassword3"
             app:layout_constraintTop_toBottomOf="@+id/verificationDescTv"
             />
 
-        <EditText
+        <!--<EditText
             android:id="@+id/editTextNumberPassword5"
             style="@style/Otp"
             android:layout_width="50dp"
@@ -147,8 +154,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/editTextNumberPassword4"
             app:layout_constraintTop_toBottomOf="@+id/verificationDescTv" />
--->
 
+-->
 
         <RelativeLayout
             android:id="@+id/reOtp"
@@ -156,7 +163,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/verification_htv"
+            app:layout_constraintTop_toBottomOf="@+id/editTextNumberPassword"
             android:layout_marginTop="30dp">
 
             <TextView
@@ -184,7 +191,7 @@
         android:id="@+id/signin_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/etOtp"
+        app:layout_constraintTop_toBottomOf="@+id/reOtp"
         android:layout_marginTop="41dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
