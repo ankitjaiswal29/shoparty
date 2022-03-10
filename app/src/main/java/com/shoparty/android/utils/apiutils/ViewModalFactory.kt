@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.shoparty.android.ui.address.addaddress.AddressViewModel
 import com.shoparty.android.ui.login.LoginViewModel
+import com.shoparty.android.ui.main.categories.CategoryViewModel
+import com.shoparty.android.ui.main.home.HomeViewModel
 import com.shoparty.android.ui.main.myaccount.MyAccountViewModel
 import com.shoparty.android.ui.register.RegisterViewModel
 import com.shoparty.android.ui.verificationotp.VerifiyViewModel
@@ -28,6 +30,14 @@ class ViewModalFactory(private val app: Application) : ViewModelProvider.Factory
 
         if (modelClass.isAssignableFrom(AddressViewModel::class.java)) {
             return AddressViewModel(app) as T
+        }
+
+        if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
+            return HomeViewModel(app) as T
+        }
+
+        if (modelClass.isAssignableFrom(CategoryViewModel::class.java)) {
+            return CategoryViewModel(app) as T
         }
 
         throw IllegalArgumentException("Unknown class name")

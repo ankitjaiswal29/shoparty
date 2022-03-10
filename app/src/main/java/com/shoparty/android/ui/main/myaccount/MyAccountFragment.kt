@@ -37,16 +37,16 @@ import com.shoparty.android.utils.PrefManager.clearAllPref
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.dashboard_toolbar.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
 class MyAccountFragment : Fragment(), RecyclerViewClickListener {
+
     private lateinit var binding: FragmentMyAccountBinding
     private lateinit var myaccountAdapter: MyAccountAdapter
     var dialog: Dialog? = null
     private lateinit var viewModel: MyAccountViewModel
+
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
@@ -67,11 +67,11 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
     {
         viewModel.getProfle()      //api call
 
-        (activity as MainActivity).info_tools.tv_title.visibility=View.INVISIBLE
-        (activity as MainActivity).info_tools.home_shoparty_icon.visibility=View.INVISIBLE
-        (activity as MainActivity).info_tools.home_shoparty_icon2.visibility=View.VISIBLE
-        (activity as MainActivity).info_tools.ivBagBtn.visibility=View.INVISIBLE
-        (activity as MainActivity).info_tools.iv_btnsearch.visibility=View.INVISIBLE
+//        (activity as MainActivity).info_tools.tv_title.visibility=View.INVISIBLE
+//        (activity as MainActivity).info_tools.home_shoparty_icon.visibility=View.INVISIBLE
+//        (activity as MainActivity).info_tools.home_shoparty_icon2.visibility=View.VISIBLE
+//        (activity as MainActivity).info_tools.ivBagBtn.visibility=View.INVISIBLE
+//        (activity as MainActivity).info_tools.iv_btnsearch.visibility=View.INVISIBLE
 
         dataaddsetAdapter()
     }

@@ -1,14 +1,17 @@
 package com.shoparty.android.network
 
-
 import com.shoparty.android.ui.address.addaddress.addaddress.*
 import com.shoparty.android.ui.address.addaddress.getaddress.DeleteAddressRequestModel
 import com.shoparty.android.ui.address.addaddress.getaddress.DeleteAddressResponse
 import com.shoparty.android.ui.address.addaddress.getaddress.GetAddressListResponse
 import com.shoparty.android.ui.login.LoginRequestModel
 import com.shoparty.android.ui.login.LoginResponse
-import com.shoparty.android.ui.main.myaccount.logout.LogoutResponse
+import com.shoparty.android.ui.main.categories.CategoryRequestModel
+import com.shoparty.android.ui.main.categories.CategoryResponse
+import com.shoparty.android.ui.main.home.HomeRequestModel
+import com.shoparty.android.ui.main.home.HomeResponse
 import com.shoparty.android.ui.main.myaccount.getprofile.getProfileResponse
+import com.shoparty.android.ui.main.myaccount.logout.LogoutResponse
 import com.shoparty.android.ui.main.myaccount.myprofileupdate.MyProfileUpdateResponse
 import com.shoparty.android.ui.register.RegisterRequestModel
 import com.shoparty.android.ui.register.RegisterResponseModel
@@ -18,51 +21,48 @@ import com.shoparty.android.ui.verificationotp.VerifiyOtpResponse
 import com.shoparty.android.ui.verificationotp.VerifiyRequestModel
 import okhttp3.RequestBody
 import retrofit2.Response
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
+
 interface ApiService {
 
-    //hemraj dangi api
-
-    @POST("signup")                //
+    @POST("signup")
     suspend fun registerAccountAsync(
         @Body registerRequestModel: RegisterRequestModel
     ): Response<RegisterResponseModel>
 
 
-    @POST("login")                //
+    @POST("login")
     suspend fun loginAsync(
         @Body loginRequestModel: LoginRequestModel
     ): Response<LoginResponse>
 
-    @POST("verify-otp")                //
+    @POST("verify-otp")
     suspend fun verifiyAsync(
         @Body verifiyRequestModel: VerifiyRequestModel
     ): Response<VerifiyOtpResponse>
 
-
-    @POST("resend-otp")                //
+    @POST("resend-otp")
     suspend fun resendAsync(
         @Body resendRequestModel: ResendRequestModel
     ): Response<ResendOtpResponse>
 
-
-
-    @GET("logout")     //
+    @GET("logout")
     suspend fun logoutAsync():
             Response<LogoutResponse>
 
-    @GET("profile-details")     //
+    @GET("profile-details")
     suspend fun getProfileAsync():
             Response<getProfileResponse>
 
-    @POST("update-profile")              //
+    @POST("update-profile")
     suspend fun updateprofileAsync(
         @Body requestBody: RequestBody
     ): Response<MyProfileUpdateResponse>
 
 
-    @POST("add-address")                //
+    @POST("add-address")
     suspend fun addAddressAsync(
         @Body addAddressRequestModel: AddAddressRequestModel
     ): Response<AddAddressResponse>
@@ -74,25 +74,33 @@ interface ApiService {
     ): Response<UpdateAddressResponse>
 
 
-    @GET("list-countries")     //
-    suspend fun getcountryAsync():
-            Response<GetCountryResponse>
+    @GET("list-countries")
+    suspend fun getcountryAsync(): Response<GetCountryResponse>
 
 
-    @GET("list-addresses")     //
+    @GET("list-addresses")
     suspend fun getaddressAsync():
             Response<GetAddressListResponse>
 
-    @POST("delete-address")                //
+    @POST("delete-address")
     suspend fun deleteAddressAsync(
         @Body deleteAddressRequestModel: DeleteAddressRequestModel
     ): Response<DeleteAddressResponse>
 
 
-    @POST("list-cities")     //
+    @POST("list-cities")
     suspend fun getcityAsync(
-        @Body requestModel: GetCityRequestModel):
-            Response<GetCityResponse>
+        @Body requestModel: GetCityRequestModel
+    ): Response<GetCityResponse>
 
+    @POST("home-screen")
+    suspend fun getHomeData(
+        @Body requestModel: HomeRequestModel
+    ): Response<HomeResponse>
+
+    @POST("list-categories")
+    suspend fun getCategory(
+        @Body requestModel: CategoryRequestModel
+    ): Response<CategoryResponse>
 
 }

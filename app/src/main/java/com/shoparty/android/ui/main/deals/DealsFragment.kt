@@ -19,13 +19,10 @@ import com.shoparty.android.R
 import com.shoparty.android.databinding.FragmentDealsBinding
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.ui.filter.*
-import com.shoparty.android.ui.main.mainactivity.MainActivity
 import com.shoparty.android.ui.main.categories.NewArrivalItemLIstAdapter
 import com.shoparty.android.ui.main.topselling.TopSellingBottomSheetAdapter
 import com.shoparty.android.utils.SpacesItemDecoration
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.bottomsheet_filter_layout.view.*
-import kotlinx.android.synthetic.main.dashboard_toolbar.view.*
 
 import kotlinx.android.synthetic.main.fragment_deals.*
 
@@ -59,12 +56,12 @@ class DealsFragment : Fragment(),View.OnClickListener, RecyclerViewClickListener
         super.onViewCreated(view, savedInstanceState)
 
 
-        (activity as MainActivity).info_tools.tv_title.visibility=View.INVISIBLE
-        (activity as MainActivity).info_tools.home_shoparty_icon.visibility=View.INVISIBLE
-        (activity as MainActivity).info_tools.home_shoparty_icon2.visibility=View.VISIBLE
-
-        (activity as MainActivity).info_tools.ivBagBtn.visibility=View.VISIBLE
-        (activity as MainActivity).info_tools.iv_btnsearch.visibility=View.VISIBLE
+//        (activity as MainActivity).info_tools.tv_title.visibility=View.INVISIBLE
+//        (activity as MainActivity).info_tools.home_shoparty_icon.visibility=View.INVISIBLE
+//        (activity as MainActivity).info_tools.home_shoparty_icon2.visibility=View.VISIBLE
+//
+//        (activity as MainActivity).info_tools.ivBagBtn.visibility=View.VISIBLE
+//        (activity as MainActivity).info_tools.iv_btnsearch.visibility=View.VISIBLE
 
         fillDealsRecyclerView(dealsItemList)
         Deals()

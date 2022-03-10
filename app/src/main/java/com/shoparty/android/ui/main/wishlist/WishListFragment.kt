@@ -9,9 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shoparty.android.R
 import com.shoparty.android.databinding.FragmentWishListBinding
-import com.shoparty.android.ui.main.mainactivity.MainActivity
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.dashboard_toolbar.view.*
+
 
 class WishListFragment : Fragment() {
 
@@ -37,12 +35,12 @@ class WishListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as MainActivity).info_tools.tv_title.visibility = View.INVISIBLE
-        (activity as MainActivity).info_tools.home_shoparty_icon.visibility = View.INVISIBLE
-        (activity as MainActivity).info_tools.home_shoparty_icon2.visibility = View.VISIBLE
-
-        (activity as MainActivity).info_tools.ivBagBtn.visibility = View.VISIBLE
-        (activity as MainActivity).info_tools.iv_btnsearch.visibility = View.VISIBLE
+//        (activity as MainActivity).info_tools.tv_title.visibility = View.INVISIBLE
+//        (activity as MainActivity).info_tools.home_shoparty_icon.visibility = View.INVISIBLE
+//        (activity as MainActivity).info_tools.home_shoparty_icon2.visibility = View.VISIBLE
+//
+//        (activity as MainActivity).info_tools.ivBagBtn.visibility = View.VISIBLE
+//        (activity as MainActivity).info_tools.iv_btnsearch.visibility = View.VISIBLE
         WishListListing()
     }
 
