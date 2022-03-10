@@ -41,6 +41,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         when(v?.id){
             R.id.btnGetOtp -> {
                 viewModel.postLogin()  //api call
+
             }
             R.id.txtSignUp -> {
                 val intent = Intent(this, RegisterActivity::class.java)
