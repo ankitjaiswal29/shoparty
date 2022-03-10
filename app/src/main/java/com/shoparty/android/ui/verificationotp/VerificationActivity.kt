@@ -41,7 +41,7 @@ class VerificationActivity : AppCompatActivity() {
     {
         binding.tvMobileno.text= intent.getStringExtra(Constants.MOBILE)
 
-        verificationSuccessDialog()
+       // verificationSuccessDialog()
        /* binding.editTextNumberPassword.addTextChangedListener(OtpTextWatcher(binding.editTextNumberPassword2, binding.editTextNumberPassword))
         binding.editTextNumberPassword2.addTextChangedListener(OtpTextWatcher(binding.editTextNumberPassword3, binding.editTextNumberPassword))
         binding.editTextNumberPassword3.addTextChangedListener(OtpTextWatcher(binding.editTextNumberPassword4, binding.editTextNumberPassword2))
