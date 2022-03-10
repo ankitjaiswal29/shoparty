@@ -99,6 +99,7 @@
             android:textAlignment="center"
             android:maxLength="1"
             android:inputType="number"
+            android:text="@={verifiyViewModel.editTextNumberPassword}"
              app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/verificationDescTv"
             />
@@ -109,6 +110,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="40dp"
             style="@style/Otp"
+            android:text="@={verifiyViewModel.editTextNumberPassword2}"
 
             android:maxLength="1"
             android:inputType="number"
@@ -124,6 +126,8 @@
             style="@style/Otp"
             android:maxLength="1"
             android:inputType="number"
+            android:text="@={verifiyViewModel.editTextNumberPassword3}"
+
             app:layout_constraintEnd_toStartOf="@+id/editTextNumberPassword4"
             app:layout_constraintStart_toEndOf="@+id/editTextNumberPassword2"
             app:layout_constraintTop_toBottomOf="@+id/verificationDescTv"
@@ -137,6 +141,8 @@
             style="@style/Otp"
             android:maxLength="1"
             android:inputType="number"
+            android:text="@={verifiyViewModel.editTextNumberPassword4}"
+
             app:layout_constraintEnd_toEndOf="parent"
              app:layout_constraintStart_toEndOf="@+id/editTextNumberPassword3"
             app:layout_constraintTop_toBottomOf="@+id/verificationDescTv"

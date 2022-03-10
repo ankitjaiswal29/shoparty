@@ -19,7 +19,11 @@ class VerifiyViewModel(private val app: Application) : ViewModel()
     private var mContext:Context = app.applicationContext
     private val repository = VerifiyRepository()
 
-    val etOtp: ObservableField<String> = ObservableField()
+ //   val etOtp: ObservableField<String> = ObservableField()
+    val editTextNumberPassword:ObservableField<String> = ObservableField()
+   val editTextNumberPassword2:ObservableField<String> = ObservableField()
+   val editTextNumberPassword3:ObservableField<String> = ObservableField()
+    val editTextNumberPassword4:ObservableField<String> = ObservableField()
     private val mverifiy = MutableLiveData<Resource<VerifiyOtpResponse.User>>()
     val verifiyotp: LiveData<Resource<VerifiyOtpResponse.User>> = mverifiy
 
@@ -31,7 +35,9 @@ class VerifiyViewModel(private val app: Application) : ViewModel()
     fun postVerifiy(userid:String) = viewModelScope.launch {
         if(validation())
         {
-            val request = VerifiyRequestModel(etOtp.get()!!,userid)
+           // val request = VerifiyRequestModel(etOtp.get()!!,userid)
+            val request = VerifiyRequestModel(editTextNumberPassword.get()+editTextNumberPassword2.get()+editTextNumberPassword3.get()+editTextNumberPassword4.get()!!,userid)
+
             if(Utils.hasInternetConnection(app.applicationContext))
             {
                 mverifiy.postValue(Resource.Loading())
@@ -65,7 +71,23 @@ class VerifiyViewModel(private val app: Application) : ViewModel()
     
     private fun validation():Boolean
     {
-        if (etOtp.get().isNullOrBlank()) {
+       /* if (etOtp.get().isNullOrBlank()) {
+            Utils.showShortToast(mContext,mContext.getString(R.string.enterotp))
+            return false
+        }*/
+        if (editTextNumberPassword.get().isNullOrBlank()) {
+            Utils.showShortToast(mContext,mContext.getString(R.string.enterotp))
+            return false
+        }
+        if (editTextNumberPassword2.get().isNullOrBlank()) {
+            Utils.showShortToast(mContext,mContext.getString(R.string.enterotp))
+            return false
+        }
+        if (editTextNumberPassword3.get().isNullOrBlank()) {
+            Utils.showShortToast(mContext,mContext.getString(R.string.enterotp))
+            return false
+        }
+        if (editTextNumberPassword4.get().isNullOrBlank()) {
             Utils.showShortToast(mContext,mContext.getString(R.string.enterotp))
             return false
         }
