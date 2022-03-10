@@ -43,7 +43,7 @@
      style="@style/AppTheme.Text_14dp"
         android:lines="1"
         android:layout_marginTop="10dp"
-        android:text="@string/please_enter_the_otp_sent_to_mobile_number"/>
+        android:text="@string/pleaseenterotp"/>
 
 
         <TextView
@@ -51,11 +51,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/verificationDescTv"
-       app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             android:textSize="16dp"
               android:lines="1"
             style="@style/AppTheme.Text_14dp"
-            android:text="@string/_999_9999_999"/>
+            android:text=""/>
 
         <!--<TextView
             android:id="@+id/tv_mobileno"
@@ -193,6 +193,7 @@
                 android:textSize="15dp"
                 android:visibility="visible" />
         </RelativeLayout>
+
     <Button
         android:id="@+id/signin_btn"
         android:layout_width="match_parent"

@@ -35,9 +35,7 @@ class VerifiyViewModel(private val app: Application) : ViewModel()
     fun postVerifiy(userid:String) = viewModelScope.launch {
         if(validation())
         {
-           // val request = VerifiyRequestModel(etOtp.get()!!,userid)
             val request = VerifiyRequestModel(editTextNumberPassword.get()+editTextNumberPassword2.get()+editTextNumberPassword3.get()+editTextNumberPassword4.get()!!,userid)
-
             if(Utils.hasInternetConnection(app.applicationContext))
             {
                 mverifiy.postValue(Resource.Loading())

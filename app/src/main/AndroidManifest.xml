@@ -25,18 +25,27 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
         <activity
+            android:name=".ui.contactus.WebViewActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity
             android:name=".ui.productdetails.ProductDetailsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
             android:name=".ui.main.topselling.TopSellingActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
             android:name=".ui.ongoingorder.OngoingOrderActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.shoparty.android.ui.main.myaccount.privacypolicy.PrivacyPolicyActivity"
+            android:name=".ui.main.myaccount.privacypolicy.PrivacyPolicyActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
@@ -110,7 +119,6 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-
         <activity
             android:name=".ui.myorders.myorder.MyOrdersActivity"
             android:exported="false"
@@ -126,8 +134,6 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-
-
         <activity
             android:name=".ui.shipping.ShippingActivity"
             android:exported="false"
@@ -193,14 +199,11 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-
-
         <activity
             android:name=".ui.theme.ThemesActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-
         <activity
             android:name=".ui.main.myaccount.myprofileupdate.MyProfileActivity"
             android:exported="false"
@@ -216,16 +219,12 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".utils.ImagePickerActivity"
             android:screenOrientation="portrait"
@@ -234,11 +233,7 @@
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"
-            />
-
-
-
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
         <activity
             android:name=".ui.main.mainactivity.MainActivity"
             android:exported="true"

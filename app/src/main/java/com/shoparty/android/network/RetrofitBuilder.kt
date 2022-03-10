@@ -36,7 +36,6 @@ object RetrofitBuilder {
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         }
         val authInterceptor = AuthInterceptor(context)
-     //   val authToken = PrefManager.read(PrefManager.AUTH_TOKEN,"")
         val client = OkHttpClient.Builder()
             .addInterceptor(logging)
             .addInterceptor(authInterceptor)

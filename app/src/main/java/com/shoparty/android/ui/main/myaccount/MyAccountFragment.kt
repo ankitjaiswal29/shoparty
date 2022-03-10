@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -37,6 +38,9 @@ import com.shoparty.android.utils.PrefManager.clearAllPref
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.dashboard_toolbar.view.*
+import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -66,13 +70,6 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
     private fun init()
     {
         viewModel.getProfle()      //api call
-
-//        (activity as MainActivity).info_tools.tv_title.visibility=View.INVISIBLE
-//        (activity as MainActivity).info_tools.home_shoparty_icon.visibility=View.INVISIBLE
-//        (activity as MainActivity).info_tools.home_shoparty_icon2.visibility=View.VISIBLE
-//        (activity as MainActivity).info_tools.ivBagBtn.visibility=View.INVISIBLE
-//        (activity as MainActivity).info_tools.iv_btnsearch.visibility=View.INVISIBLE
-
         dataaddsetAdapter()
     }
 
@@ -234,15 +231,25 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
                 val intent = Intent (getActivity(), AddressActivity::class.java)
                 getActivity()?.startActivity(intent)
             }
-            //  "idrate" -> startActivity(Intent(this, Ra::class.java))
+            "idrate" -> {
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse(Constants.MARKETPLACE+Constants.PACKAGENAME)
+                try
+                {
+                    startActivity(intent)
+                } catch (e: Exception) {
+                    intent.data =
+                        Uri.parse(Constants.PLAYSTORE + Constants.PACKAGENAME)
+                }
+            }
             "idcontact" ->{
-                val intent = Intent (getActivity(), ContactUsActivity::class.java)
+                val intent = Intent (activity, ContactUsActivity::class.java)
                 getActivity()?.startActivity(intent)
-            } //startActivity(Intent(this, ContactUsActivity::class.java))
+            }
             "idabout" ->{
                 val intent = Intent (getActivity(), AboutUsActivity::class.java)
                 getActivity()?.startActivity(intent)
-            }//startActivity(Intent(this, AboutUsActivity::class.java))
+            }
 
             "idtermcondition" -> {
                 val intent = Intent (getActivity(), TermAndConditionActivity::class.java)

@@ -9,6 +9,9 @@ object Constants {
         const val ABOUTUS = "https://quytech.net/shoparty/public/about-us"
         const val TERMANDCONDITION = "https://quytech.net/shoparty/public/terms-n-condition"
         const val RETURNPOLICY = "https://quytech.net/shoparty/public/return-policy"
+        const val MARKETPLACE = "market://details?id="
+        const val PACKAGENAME = "com.shoparty.android"
+        const val PLAYSTORE = "https://play.google.com/store/apps/details?id="
         const val DEVICE_TYPE= "ANDROID"
         const val DEVICE_TOKEN = "Adssdnsdcnsdcknsdckjn"
         const val TYPE = "1"
@@ -21,6 +24,12 @@ object Constants {
         const val UPDATEADDRESSSTATUS = "1"
         const val ADDRESSSDATA = "ADDRESSSDATA"
         const val PAGESTATUS = "PAGESTATUS"
+         const val LINKSTATUS = "LINKSTATUS"
+         const val FACEBOOKLINK = "FACEBOOKLINK"
+         const val TWITTERLINK = "TWITTERLINK"
+         const val YOUTUBELINK = "YOUTUBELINK"
+         const val INSTAGRAMELINK = "INSTAGRAMELINK"
+
 
 
 

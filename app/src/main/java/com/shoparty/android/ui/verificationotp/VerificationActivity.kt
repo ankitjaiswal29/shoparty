@@ -58,8 +58,6 @@ class VerificationActivity : AppCompatActivity() {
         binding.txtotpcount.setOnClickListener {
             Utils.hideKeyboard(this)
             viewModel.postResend(userid)      //api call
-          //  binding.etOtp.setText("")
-           // binding.editTextNumberPassword.setText("")
         }
 
     }
@@ -121,14 +119,15 @@ class VerificationActivity : AppCompatActivity() {
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
 
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-
                     Toast.makeText(
                         applicationContext,
                         response.message,
                         Toast.LENGTH_SHORT
                     ).show()
+
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+
                 }
                 is Resource.Loading -> {
                     ProgressDialog.showProgressBar(this)

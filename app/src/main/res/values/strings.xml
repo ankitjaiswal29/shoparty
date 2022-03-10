@@ -206,7 +206,7 @@
     <string name="add_card">+Add Card</string>
     <string name="pay_now">Pay Now</string>
     <string name="lorem_ipsum_is_simply_dummy">Lorem Ipsum is simply dummy</string>
-     <string name="seasons">Seasons</string>
+    <string name="seasons">Seasons</string>
     <string name="new_year">New Year</string>
     <string name="valentines_day">Valentines Day</string>
     <string name="eid_fiter">Eid Fiter</string>
@@ -394,7 +394,9 @@
     <string name="price_range">Price Range</string>
     <string name="order_now_get_it_by_mar_24_2022"><![CDATA[Order Now, & Get it by Mar 24, 2022]]></string>
     <string name="something_went_wrong">Something Went Wrong!!</string>
-    <string name="please_enter_the_otp_sent_to_mobile_number">Please Enter the OTP sent to mobile number</string>
+    <string name="pleaseenterotp">Enter otp sent to mobile number</string>
+    <string name="txtto">To</string>
+    <string name="ksatime">KSA Time</string>
 
 
 </resources>

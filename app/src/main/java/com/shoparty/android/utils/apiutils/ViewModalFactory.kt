@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.shoparty.android.ui.address.addaddress.AddressViewModel
+import com.shoparty.android.ui.contactus.ContactUsViewModel
 import com.shoparty.android.ui.login.LoginViewModel
 import com.shoparty.android.ui.main.categories.CategoryViewModel
 import com.shoparty.android.ui.main.home.HomeViewModel
@@ -38,6 +39,10 @@ class ViewModalFactory(private val app: Application) : ViewModelProvider.Factory
 
         if (modelClass.isAssignableFrom(CategoryViewModel::class.java)) {
             return CategoryViewModel(app) as T
+        }
+
+        if (modelClass.isAssignableFrom(ContactUsViewModel::class.java)) {
+            return ContactUsViewModel(app) as T
         }
 
         throw IllegalArgumentException("Unknown class name")

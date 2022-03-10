@@ -4,6 +4,7 @@ import com.shoparty.android.ui.address.addaddress.addaddress.*
 import com.shoparty.android.ui.address.addaddress.getaddress.DeleteAddressRequestModel
 import com.shoparty.android.ui.address.addaddress.getaddress.DeleteAddressResponse
 import com.shoparty.android.ui.address.addaddress.getaddress.GetAddressListResponse
+import com.shoparty.android.ui.contactus.ContactUsResponse
 import com.shoparty.android.ui.login.LoginRequestModel
 import com.shoparty.android.ui.login.LoginResponse
 import com.shoparty.android.ui.main.categories.CategoryRequestModel
@@ -19,6 +20,7 @@ import com.shoparty.android.ui.verificationotp.ResendOtpResponse
 import com.shoparty.android.ui.verificationotp.ResendRequestModel
 import com.shoparty.android.ui.verificationotp.VerifiyOtpResponse
 import com.shoparty.android.ui.verificationotp.VerifiyRequestModel
+import com.shoparty.android.ui.vouchers.VoucherListResponse
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.Body
@@ -52,9 +54,20 @@ interface ApiService {
     suspend fun logoutAsync():
             Response<LogoutResponse>
 
+    @GET("list-vouchers")
+    suspend fun VoucherAsync():
+            Response<VoucherListResponse>
+
+
+
     @GET("profile-details")
     suspend fun getProfileAsync():
             Response<getProfileResponse>
+
+
+    @GET("contact_us")
+    suspend fun getContactUsAsync():
+            Response<ContactUsResponse>
 
     @POST("update-profile")
     suspend fun updateprofileAsync(

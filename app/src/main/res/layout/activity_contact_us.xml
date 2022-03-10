@@ -3,9 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-   <!-- <data>
-
-    </data>-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -79,6 +76,7 @@
             app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
+        android:id="@+id/txt_number"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -91,7 +89,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <TextView
-        android:id="@+id/tv_time"
+        android:id="@+id/txtPhone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -119,7 +117,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@drawable/background_topleft_topright_corner_white"
-        app:layout_constraintTop_toBottomOf="@+id/tv_time">
+        app:layout_constraintTop_toBottomOf="@+id/txtPhone">
 
 
 
@@ -146,6 +144,7 @@
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
+            android:id="@+id/txtWhatsappNo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -158,6 +157,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <TextView
+        android:id="@+id/txtWhatsapp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
