@@ -39,15 +39,15 @@ class VerificationActivity : AppCompatActivity() {
     }
     private fun initialise()
     {
-       // binding.tvMobileno.text= intent.getStringExtra(Constants.MOBILE)
+        binding.tvMobileno.text= intent.getStringExtra(Constants.MOBILE)
 
         verificationSuccessDialog()
-        binding.editTextNumberPassword.addTextChangedListener(OtpTextWatcher(binding.editTextNumberPassword2, binding.editTextNumberPassword))
+       /* binding.editTextNumberPassword.addTextChangedListener(OtpTextWatcher(binding.editTextNumberPassword2, binding.editTextNumberPassword))
         binding.editTextNumberPassword2.addTextChangedListener(OtpTextWatcher(binding.editTextNumberPassword3, binding.editTextNumberPassword))
         binding.editTextNumberPassword3.addTextChangedListener(OtpTextWatcher(binding.editTextNumberPassword4, binding.editTextNumberPassword2))
         binding.editTextNumberPassword4.addTextChangedListener(OtpTextWatcher(binding.editTextNumberPassword5, binding.editTextNumberPassword3))
         binding.editTextNumberPassword5.addTextChangedListener(OtpTextWatcher(binding.editTextNumberPassword5, binding.editTextNumberPassword4))
-
+*/
         Utils.showShortToast(this,intent.getStringExtra(Constants.OTP))
         userid= intent.getStringExtra(Constants.USERID)!!
         startTimer()
@@ -59,7 +59,7 @@ class VerificationActivity : AppCompatActivity() {
         binding.txtotpcount.setOnClickListener {
             Utils.hideKeyboard(this)
             viewModel.postResend(userid)      //api call
-          //  binding.etOtp.setText("")
+            binding.etOtp.setText("")
         }
 
     }
