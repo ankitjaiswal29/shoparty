@@ -8,10 +8,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityWishListBinding
-import com.shoparty.android.ui.main.topselling.TopSellingActivity
-import com.shoparty.android.ui.main.wishlist.WishListAdapter
+import com.shoparty.android.ui.main.wishlist.WishListDummyAdapter
 import com.shoparty.android.ui.search.SearchActivity
-import com.shoparty.android.ui.shipping.ShippingActivity
 import com.shoparty.android.ui.shoppingbag.ShopingBagActivity
 
 
@@ -50,7 +48,7 @@ class WishListActivity : AppCompatActivity(), View.OnClickListener {
         data.add("Princess Dress")
         data.add("Princess Dress")
         data.add("Princess Dress")
-        val adapter = WishListAdapter(data)
+        val adapter = WishListDummyAdapter(data)
         binding.vouchersRecyclerview.adapter = adapter
     }
 

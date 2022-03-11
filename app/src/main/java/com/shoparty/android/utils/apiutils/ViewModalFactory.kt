@@ -9,6 +9,8 @@ import com.shoparty.android.ui.login.LoginViewModel
 import com.shoparty.android.ui.main.categories.CategoryViewModel
 import com.shoparty.android.ui.main.home.HomeViewModel
 import com.shoparty.android.ui.main.myaccount.MyAccountViewModel
+import com.shoparty.android.ui.main.wishlist.WishListViewModel
+import com.shoparty.android.ui.myorders.myorder.MyOrderViewModel
 import com.shoparty.android.ui.register.RegisterViewModel
 import com.shoparty.android.ui.verificationotp.VerifiyViewModel
 
@@ -40,6 +42,13 @@ class ViewModalFactory(private val app: Application) : ViewModelProvider.Factory
         if (modelClass.isAssignableFrom(CategoryViewModel::class.java)) {
             return CategoryViewModel(app) as T
         }
+        if (modelClass.isAssignableFrom(MyOrderViewModel::class.java)) {
+            return MyOrderViewModel(app) as T
+        }
+        if (modelClass.isAssignableFrom(WishListViewModel::class.java)) {
+            return WishListViewModel(app) as T
+        }
+
 
         if (modelClass.isAssignableFrom(ContactUsViewModel::class.java)) {
             return ContactUsViewModel(app) as T

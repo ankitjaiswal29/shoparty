@@ -1,4 +1,4 @@
-package com.shoparty.android.ui.myorders.myorder
+package com.shoparty.android.ui.main.wishlist
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,17 +6,18 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.shoparty.android.R
-import com.shoparty.android.interfaces.RecyclerViewClickListener
+import kotlinx.android.synthetic.main.deals_item_layout.view.*
 
 
-class MyOrderAdapter(private val mList: ArrayList<String> ,var recyclerViewClickListener: RecyclerViewClickListener) : RecyclerView.Adapter<MyOrderAdapter.ViewHolder>() {
+class WishListDummyAdapter(private val mList: ArrayList<String>) : RecyclerView.Adapter<WishListDummyAdapter.ViewHolder>() {
 
     // create new views
+    var fav=false
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // inflates the card_view_design view
         // that is used to hold list item
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.myorder_item_layout, parent, false)
+            .inflate(R.layout.wishlist_item_layout, parent, false)
 
         return ViewHolder(view)
     }
@@ -31,9 +32,18 @@ class MyOrderAdapter(private val mList: ArrayList<String> ,var recyclerViewClick
 
         // sets the text to the textview from our itemHolder class
         holder.tv_ItemName.text = ItemsViewModel;
-        holder.itemView.setOnClickListener {
-            recyclerViewClickListener.click(ItemsViewModel.toString())
+        holder.itemView.iv_background.setOnClickListener {
+            if (fav){
+                holder.itemView.iv_unselect.visibility=View.GONE
+                holder.itemView.iv_select.visibility=View.VISIBLE
+                fav=false
+            }else{
+                holder.itemView.iv_select.visibility=View.GONE
+                holder.itemView.iv_unselect.visibility=View.VISIBLE
+                fav=true
+            }
         }
+
 
 
 

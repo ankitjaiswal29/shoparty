@@ -11,6 +11,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/cl_myorder_root_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="10dp"
@@ -42,6 +43,7 @@
         app:layout_constraintStart_toEndOf="@+id/iv_Productimg"/>
 
     <TextView
+        android:id="@+id/tv_productdetailsData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/AppTheme.Text_12_graydp"

@@ -1,19 +1,36 @@
 package com.shoparty.android.ui.main.wishlist
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shoparty.android.R
 import com.shoparty.android.databinding.FragmentWishListBinding
+import com.shoparty.android.interfaces.RecyclerViewClickListener
+import com.shoparty.android.interfaces.RecyclerViewWishListClickListener
+import com.shoparty.android.ui.main.categories.CategoryAdapter1
+import com.shoparty.android.ui.main.categories.CategoryRequestModel
+import com.shoparty.android.ui.main.categories.CategoryResponse
+import com.shoparty.android.ui.main.categories.CategoryViewModel
+import com.shoparty.android.ui.main.topselling.TopSellingActivity
+import com.shoparty.android.utils.ProgressDialog
+import com.shoparty.android.utils.apiutils.Resource
+import com.shoparty.android.utils.apiutils.ViewModalFactory
 
 
-class WishListFragment : Fragment() {
+class WishListFragment : Fragment(),RecyclerViewWishListClickListener {
 
     private lateinit var binding: FragmentWishListBinding
+    private lateinit var viewModel: WishListViewModel
+    private lateinit var adapterWishlist: WishListAdapter
+    private val listWishlistt: ArrayList<WishListResponse.Data> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -29,19 +46,74 @@ class WishListFragment : Fragment() {
             inflater,
             R.layout.fragment_wish_list, container, false
         )
+        viewModel = ViewModelProvider(
+            this,
+            ViewModalFactory(activity?.application!!)
+        )[WishListViewModel::class.java]
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        initialise()
+        setObserver()
+        val request = WishListRequestModel("1")
+        viewModel.getWishlist(request)
 //        (activity as MainActivity).info_tools.tv_title.visibility = View.INVISIBLE
 //        (activity as MainActivity).info_tools.home_shoparty_icon.visibility = View.INVISIBLE
 //        (activity as MainActivity).info_tools.home_shoparty_icon2.visibility = View.VISIBLE
 //
 //        (activity as MainActivity).info_tools.ivBagBtn.visibility = View.VISIBLE
 //        (activity as MainActivity).info_tools.iv_btnsearch.visibility = View.VISIBLE
-        WishListListing()
+      //  WishListListing()
+
+    }
+
+    fun initialise() {
+        adapterWishlist = WishListAdapter(listWishlistt, this)
+
+        val gridLayoutManager = GridLayoutManager(requireActivity(), 1)
+        binding.wishlistRecyclerview.apply {
+            layoutManager = gridLayoutManager
+            setHasFixedSize(true)
+            isFocusable = false
+            adapter = adapterWishlist
+        }
+
+
+    }
+
+    private fun setObserver() {
+
+        viewModel.wishlist.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Success -> {
+                    ProgressDialog.hideProgressBar()
+                    listWishlistt.clear()
+                    listWishlistt.addAll(response.data!! as ArrayList<WishListResponse.Data>)
+                    adapterWishlist.notifyDataSetChanged()
+                }
+                is Resource.Loading -> {
+                    ProgressDialog.showProgressBar(requireContext())
+                }
+                is Resource.Error -> {
+                    ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        requireContext(),
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        requireContext(),
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
     }
 
     private fun WishListListing() {
@@ -59,8 +131,13 @@ class WishListFragment : Fragment() {
         data.add("Princess Dress")
         data.add("Princess Dress")
         // binding.wishlistRecyclerview.adapter = WishListAdapter(data)
-        val adapter = WishListAdapter(data)
+        val adapter = WishListDummyAdapter(data)
         binding.wishlistRecyclerview.adapter = adapter
     }
+
+    override fun itemclick(id: String, ItemsViewModel: WishListResponse.Data) {
+        Toast.makeText(requireContext(),id.toString(),Toast.LENGTH_LONG).show()
+    }
+
 
 }

@@ -1,62 +1,72 @@
 package com.shoparty.android.ui.main.wishlist
 
+
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.shoparty.android.R
-import kotlinx.android.synthetic.main.deals_item_layout.view.*
+import com.shoparty.android.databinding.WishlistItemLayoutBinding
+import com.shoparty.android.interfaces.RecyclerViewWishListClickListener
 
+class WishListAdapter(
+    private val list: List<WishListResponse.Data>,
+    var recyclerViewWishListClickListener: RecyclerViewWishListClickListener
+) : RecyclerView.Adapter<WishListAdapter.ViewHolder>() {
 
-class WishListAdapter(private val mList: ArrayList<String>) : RecyclerView.Adapter<WishListAdapter.ViewHolder>() {
+ /*   var listener: RecyclerViewClickListener? = null
 
-    // create new views
-    var fav=false
+    fun onItemClick(listener: RecyclerViewClickListener) {
+        this.listener = listener
+    }*/
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        // inflates the card_view_design view
-        // that is used to hold list item
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.wishlist_item_layout, parent, false)
-
-        return ViewHolder(view)
+            .inflate(R.layout.wishlist_item_layout, parent, false) as View
+        return ViewHolder(
+            view = view,
+            listener = recyclerViewWishListClickListener
+           /* listener = listener,
+            context = context*/
+        )
     }
 
-    // binds the list items to a view
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
-        val ItemsViewModel = mList[position]
-
-        // sets the image to the imageview from our itemHolder class
-       // holder.ivIcon.setImageResource(ItemsViewModel.image)
-
-        // sets the text to the textview from our itemHolder class
-        holder.tv_ItemName.text = ItemsViewModel;
-        holder.itemView.iv_background.setOnClickListener {
-            if (fav){
-                holder.itemView.iv_unselect.visibility=View.GONE
-                holder.itemView.iv_select.visibility=View.VISIBLE
-                fav=false
-            }else{
-                holder.itemView.iv_select.visibility=View.GONE
-                holder.itemView.iv_unselect.visibility=View.VISIBLE
-                fav=true
-            }
-        }
-
-
-
-
-    }
-
-    // return the number of the items in the list
     override fun getItemCount(): Int {
-        return mList.size
+        return list.size
     }
 
-    // Holds the views for adding it to image and text
-    class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
-        val tv_ItemName: TextView = itemView.findViewById(R.id.tv_ItemName)
-
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        list[position].let { holder.bind(it) }
     }
+
+    class ViewHolder(val view: View, val listener: RecyclerViewWishListClickListener) :
+        RecyclerView.ViewHolder(view) {
+
+        private val binding: WishlistItemLayoutBinding? = DataBindingUtil.bind(view)
+
+       /* init {
+            view.setOnClickListener { listener?.itemclick(listadapterPosition.toString()) }
+        }*/
+
+        fun bind(modal: WishListResponse.Data ) {
+            binding?.tvItemName?.text = modal.product_name
+            binding?.clWishlistRootItem?.setOnClickListener {
+                listener.itemclick(modal.id,modal)
+            }
+           // Glide.with(context).asBitmap().load(modal.category_image).into(binding?.ivCategoryItem!!)
+//        holder.itemView.apply {
+//            category_name.text = items.name
+//            category_root_lay.setOnClickListener {
+//                //  findNavController().navigate(R.id.categoryItemListFragment)
+//            }
+//        }
+//
+//        holder.itemView.category_root_lay.setOnClickListener {
+//            val intent = Intent(context, TopSellingActivity::class.java)
+//            context.startActivity(intent)
+        }
+    }
+
 }

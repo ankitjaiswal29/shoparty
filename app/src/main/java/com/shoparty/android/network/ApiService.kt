@@ -14,6 +14,10 @@ import com.shoparty.android.ui.main.home.HomeResponse
 import com.shoparty.android.ui.main.myaccount.getprofile.getProfileResponse
 import com.shoparty.android.ui.main.myaccount.logout.LogoutResponse
 import com.shoparty.android.ui.main.myaccount.myprofileupdate.MyProfileUpdateResponse
+import com.shoparty.android.ui.main.wishlist.WishListRequestModel
+import com.shoparty.android.ui.main.wishlist.WishListResponse
+import com.shoparty.android.ui.myorders.myorder.MyOrderRequestModel
+import com.shoparty.android.ui.myorders.myorder.MyOrderResponse
 import com.shoparty.android.ui.register.RegisterRequestModel
 import com.shoparty.android.ui.register.RegisterResponseModel
 import com.shoparty.android.ui.verificationotp.ResendOtpResponse
@@ -115,5 +119,15 @@ interface ApiService {
     suspend fun getCategory(
         @Body requestModel: CategoryRequestModel
     ): Response<CategoryResponse>
+
+    @POST("list-orders")
+    suspend fun getMyOrderDataAsync(
+        @Body myOrderRequestModel: MyOrderRequestModel
+    ): Response<MyOrderResponse>
+
+    @POST("my-wishlist")
+    suspend fun getWishlist(
+        @Body wishListRequestModel: WishListRequestModel
+    ): Response<WishListResponse>
 
 }
