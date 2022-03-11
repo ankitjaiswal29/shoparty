@@ -1,7 +1,6 @@
 package com.shoparty.android.ui.myorders.myorder
 
 import android.annotation.SuppressLint
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +10,11 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 
 import com.shoparty.android.R
-import com.shoparty.android.interfaces.RecyclerViewAddressClickListener
-import com.shoparty.android.interfaces.RecyclerViewMyOrderClickListener
+import com.shoparty.android.interfaces.RecyclerViewClickListener
 
 
 class MyOrderAdapters(private val mList: List<MyOrderResponse.Data>,
-                      var recyclerViewMyOrderClickListener: RecyclerViewMyOrderClickListener) : RecyclerView.Adapter<MyOrderAdapters.ViewHolder>() {
+                      var recyclerViewClickListener: RecyclerViewClickListener) : RecyclerView.Adapter<MyOrderAdapters.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -31,7 +29,7 @@ class MyOrderAdapters(private val mList: List<MyOrderResponse.Data>,
         holder.tv_productdetailsData.text = ItemsViewModel.order_name
 
         holder.cl_myorder_root_item.setOnClickListener {
-            recyclerViewMyOrderClickListener.itemclick(ItemsViewModel.order_id,ItemsViewModel)
+            recyclerViewClickListener.click(ItemsViewModel.order_id.toString())
         }
 
 

@@ -10,12 +10,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityMyOrdersBinding
-import com.shoparty.android.interfaces.RecyclerViewMyOrderClickListener
+import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 
 class MyOrdersActivity : AppCompatActivity(), View.OnClickListener,
-    RecyclerViewMyOrderClickListener {
+    RecyclerViewClickListener {
     private lateinit var binding: ActivityMyOrdersBinding
     private lateinit var adapter: MyOrderAdapters
     private lateinit var viewModel: MyOrderViewModel
@@ -131,7 +131,8 @@ class MyOrdersActivity : AppCompatActivity(), View.OnClickListener,
         super.onBackPressed()
     }
 
-    override fun itemclick(order_id: Int, ItemsViewModel: MyOrderResponse.Data) {
-        TODO("Not yet implemented")
+
+    override fun click(pos: String) {
+
     }
 }
