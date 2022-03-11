@@ -13,6 +13,7 @@ import com.shoparty.android.ui.main.wishlist.WishListViewModel
 import com.shoparty.android.ui.myorders.myorder.MyOrderViewModel
 import com.shoparty.android.ui.register.RegisterViewModel
 import com.shoparty.android.ui.verificationotp.VerifiyViewModel
+import com.shoparty.android.ui.vouchers.VoucherViewModel
 
 class ViewModalFactory(private val app: Application) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -52,6 +53,10 @@ class ViewModalFactory(private val app: Application) : ViewModelProvider.Factory
 
         if (modelClass.isAssignableFrom(ContactUsViewModel::class.java)) {
             return ContactUsViewModel(app) as T
+        }
+
+        if (modelClass.isAssignableFrom(VoucherViewModel::class.java)) {
+            return VoucherViewModel(app) as T
         }
 
         throw IllegalArgumentException("Unknown class name")

@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shoparty.android.R
-import com.shoparty.android.ui.main.myaccount.getprofile.getProfileResponse
+import com.shoparty.android.ui.main.myaccount.getprofile.GetProfileResponse
 import com.shoparty.android.ui.main.myaccount.logout.LogoutResponse
 import com.shoparty.android.ui.main.myaccount.myprofileupdate.MyProfileUpdateResponse
 import com.shoparty.android.utils.Utils
@@ -25,8 +25,8 @@ class MyAccountViewModel(private val app: Application) : ViewModel()
     private val mlogout = MutableLiveData<Resource<LogoutResponse>>()
     val logout: LiveData<Resource<LogoutResponse>> = mlogout
 
-    private val mgetprofile = MutableLiveData<Resource<getProfileResponse.User>>()
-    val getprofile: LiveData<Resource<getProfileResponse.User>> = mgetprofile
+    private val mgetprofile = MutableLiveData<Resource<GetProfileResponse.User>>()
+    val getprofile: LiveData<Resource<GetProfileResponse.User>> = mgetprofile
 
     private val mprofileupdate = MutableLiveData<Resource<MyProfileUpdateResponse.User>>()
     val profileupdate: LiveData<Resource<MyProfileUpdateResponse.User>> = mprofileupdate
@@ -94,7 +94,7 @@ class MyAccountViewModel(private val app: Application) : ViewModel()
         return Resource.Error(response.message())
     }
 
-    private fun handlegetProfileResponse(response: Response<getProfileResponse>): Resource<getProfileResponse.User> {
+    private fun handlegetProfileResponse(response: Response<GetProfileResponse>): Resource<GetProfileResponse.User> {
         if (response?.isSuccessful)
         {
             response.body()?.let { res ->

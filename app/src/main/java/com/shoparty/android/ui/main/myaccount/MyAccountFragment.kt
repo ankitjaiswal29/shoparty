@@ -2,6 +2,7 @@ package com.shoparty.android.ui.main.myaccount
 
 import android.app.Activity
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -19,6 +20,7 @@ import com.shoparty.android.R
 import com.shoparty.android.app.MyApp.Companion.application
 import com.shoparty.android.databinding.FragmentMyAccountBinding
 
+
 import com.shoparty.android.ui.main.myaccount.aboutus.AboutUsActivity
 import com.shoparty.android.ui.address.addaddress.getaddress.AddressActivity
 import com.shoparty.android.ui.contactus.ContactUsActivity
@@ -30,7 +32,7 @@ import com.shoparty.android.ui.vouchers.VouchersActivity
 import com.shoparty.android.ui.wishlist.WishListActivity
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.ui.main.mainactivity.MainActivity
-import com.shoparty.android.ui.main.myaccount.getprofile.getProfileResponse
+import com.shoparty.android.ui.main.myaccount.getprofile.GetProfileResponse
 import com.shoparty.android.ui.main.myaccount.myprofileupdate.MyProfileActivity
 import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.PrefManager
@@ -38,8 +40,6 @@ import com.shoparty.android.utils.PrefManager.clearAllPref
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.dashboard_toolbar.view.*
 import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
@@ -50,6 +50,7 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
     private lateinit var myaccountAdapter: MyAccountAdapter
     var dialog: Dialog? = null
     private lateinit var viewModel: MyAccountViewModel
+    private var mContext: Context? = null
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -57,17 +58,32 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
         arguments?.let {
         }
     }
+
+
+    override fun onAttach(activity: Activity) {
+        super.onAttach(activity!!)
+        mContext = context
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        mContext = null
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_account, container, false)
-        viewModel = ViewModelProvider(this, ViewModalFactory(application))[MyAccountViewModel::class.java]
-          init()
-          setObserver()
-          return binding.root
+           binding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_account, container, false)
+           viewModel = ViewModelProvider(this, ViewModalFactory(application))[MyAccountViewModel::class.java]
+           setObserver()
+           return binding.root
     }
 
-    private fun init()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        apiCall()
+    }
+
+    private fun apiCall()
     {
         viewModel.getProfle()      //api call
         dataaddsetAdapter()
@@ -120,15 +136,15 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
             when (response)
             {
                 is Resource.Success -> {
-                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                  //  com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     setupUI(response.data)
                 }
 
                 is Resource.Loading -> {
-                    com.shoparty.android.utils.ProgressDialog.showProgressBar(requireContext())
+                  //  com.shoparty.android.utils.ProgressDialog.showProgressBar(requireContext())
                 }
                 is Resource.Error -> {
-                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                 //   com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         requireActivity(),
                         response.message,
@@ -136,7 +152,7 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
                     ).show()
                 }
                 else -> {
-                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                //   com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         requireActivity(),
                         response.message,
@@ -145,13 +161,13 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
                 }
             }
         })
-
-
     }
 
-    private fun setupUI(data: getProfileResponse.User?)
+
+
+    private fun setupUI(data: GetProfileResponse.User?)
     {
-        Glide.with(this).load(data?.image).error(R.drawable.person_img).into(binding.imgProfile)
+        Glide.with(context!!).load(data?.image).error(R.drawable.person_img).into(binding.imgProfile)
         binding.tvName.text = data?.name?.replaceFirstChar {
             if (it.isLowerCase()) it.titlecase(
                 Locale.getDefault()
@@ -165,6 +181,8 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
         PrefManager.write(PrefManager.EMAIL, data?.email.toString())
         PrefManager.write(PrefManager.DOB, data?.dob.toString())
         PrefManager.write(PrefManager.GENDER, data?.gender.toString())
+       /* PrefManager.write(PrefManager.STREET, data?..toString())
+        PrefManager.write(PrefManager.HOUSENO, data?.gender.toString())*/
 
     }
 

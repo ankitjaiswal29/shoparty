@@ -7,14 +7,12 @@ data class MyProfileUpdateResponse(
 )
 {
     data class User(
-        val email: String,
-        val gender: String,
-        val image: String,
-        val mobile: String,
-        val name: String,
-        val street_no: String,
-        val building_no: String,
-
-
-    )
+        val email: String="",
+        val gender: String="",
+        val image: String="",
+        val mobile: String="",
+        val name: String="",
+        val street_no: String="",
+        val building_no: String="",
+        )
 }

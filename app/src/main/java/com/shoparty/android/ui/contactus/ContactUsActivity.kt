@@ -1,23 +1,27 @@
 package com.shoparty.android.ui.contactus
 
 import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
+import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-
+import android.telephony.PhoneNumberUtils
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.shoparty.android.R
 import com.shoparty.android.app.MyApp
 import com.shoparty.android.databinding.ActivityContactUsBinding
-import com.shoparty.android.ui.main.myaccount.termandcondition.TermAndConditionActivity
 import com.shoparty.android.utils.Constants
-
-import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
-import java.lang.ProcessBuilder.Redirect.to
+import java.lang.Exception
+import java.util.*
+import android.widget.Toast
+import com.shoparty.android.utils.Utils
 
 
 class ContactUsActivity : AppCompatActivity(){
@@ -48,7 +52,7 @@ class ContactUsActivity : AppCompatActivity(){
         }
 
         binding.txtWhatsappNo.setOnClickListener {
-            Utils.showShortToast(this,"Coming Soon")
+            openWhatsAppConversation(binding.txtWhatsappNo.text.toString(),"hi")
         }
 
         binding.ivFacebook.setOnClickListener {
@@ -82,6 +86,26 @@ class ContactUsActivity : AppCompatActivity(){
 
 
     }
+
+    private fun openWhatsAppConversation(number: String, message: String?) {
+        var number = number
+        number = number.replace(" ", "").replace("+", "")
+        val sendIntent = Intent("android.intent.action.MAIN")
+        sendIntent.type = "text/plain"
+        sendIntent.putExtra(Intent.EXTRA_TEXT, message)
+        sendIntent.component = ComponentName("com.whatsapp", "com.whatsapp.Conversation")
+        sendIntent.putExtra("jid", PhoneNumberUtils.stripSeparators(number) + "@s.whatsapp.net")
+        try {
+            startActivity(sendIntent)
+        } catch (ex: ActivityNotFoundException) {
+            Toast.makeText(
+                this,
+                "Whatsapp have not been installed.",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
 
 
 
@@ -122,12 +146,25 @@ class ContactUsActivity : AppCompatActivity(){
                 }
             }
         })
-
-
-
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
     }
+
+    override fun onResume() {
+        super.onResume()
+        Utils.hideKeyboard(this)
+    }
+
+
+
+
+
+
+
+
+
+
+
 }

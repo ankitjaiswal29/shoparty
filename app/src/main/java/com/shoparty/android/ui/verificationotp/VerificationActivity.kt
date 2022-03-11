@@ -41,7 +41,6 @@ class VerificationActivity : AppCompatActivity() {
     {
         binding.tvMobileno.text= intent.getStringExtra(Constants.MOBILE)
 
-       // verificationSuccessDialog()
         binding.editTextNumberPassword.addTextChangedListener(OtpTextWatcher(binding.editTextNumberPassword2, binding.editTextNumberPassword))
         binding.editTextNumberPassword2.addTextChangedListener(OtpTextWatcher(binding.editTextNumberPassword3, binding.editTextNumberPassword))
         binding.editTextNumberPassword3.addTextChangedListener(OtpTextWatcher(binding.editTextNumberPassword4, binding.editTextNumberPassword2))
@@ -89,7 +88,7 @@ class VerificationActivity : AppCompatActivity() {
 
             override fun onFinish()
             {
-                binding.txtTimecount.visibility = View.INVISIBLE
+                binding.txtTimecount.visibility = View.GONE
                 binding.txtotpcount.visibility = View.VISIBLE
             }
         }
@@ -97,7 +96,7 @@ class VerificationActivity : AppCompatActivity() {
     private fun startTimer()
     {
         binding.txtTimecount.visibility = View.VISIBLE
-        binding.txtotpcount.visibility = View.INVISIBLE
+        binding.txtotpcount.visibility = View.GONE
         var timeleft = 2.toDouble().toString()
         binding.txtTimecount.text = timeleft
 
@@ -106,7 +105,7 @@ class VerificationActivity : AppCompatActivity() {
 
     private fun stopTimer()
     {
-        binding.txtTimecount.visibility = View.INVISIBLE
+        binding.txtTimecount.visibility = View.GONE
         binding.txtotpcount.visibility = View.VISIBLE
         countDownTimer?.cancel()
     }

@@ -109,11 +109,17 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
                     PrefManager.write(PrefManager.EMAIL, response.data?.email!!)
                     PrefManager.write(PrefManager.DOB, binding.tvDateBirth.text.toString().trim())
                     PrefManager.write(PrefManager.GENDER, response.data?.gender!!)
-                    PrefManager.write(PrefManager.STREET, response.data?.street_no)
-                    PrefManager.write(PrefManager.HOUSENO, response.data?.building_no)
+
+                    if(!response.data?.street_no.isNullOrEmpty())
+                    {
+                        PrefManager.write(PrefManager.STREET, response.data?.street_no)
+                    }
+                    if(!response.data?.building_no.isNullOrEmpty())
+                    {
+                        PrefManager.write(PrefManager.HOUSENO, response.data?.building_no)
+                    }
                     setResult(Activity.RESULT_OK, intent)
                     finish()
-
                     Toast.makeText(
                         applicationContext,
                         response.message,
@@ -229,6 +235,7 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
         binding.etFirstname.setSelection(binding.etFirstname.length())
        /* binding.etStreet.setSelection(binding.etFirstname.length())
         binding.etHouseno.setSelection(binding.etFirstname.length())*/
+
         binding.etMobile.isEnabled = false
         binding.etEmail.setSelection(binding.etEmail.length())
         if(PrefManager.read(PrefManager.GENDER,"") == Constants.MALE)

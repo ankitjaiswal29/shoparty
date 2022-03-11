@@ -11,7 +11,7 @@ import com.shoparty.android.ui.main.categories.CategoryRequestModel
 import com.shoparty.android.ui.main.categories.CategoryResponse
 import com.shoparty.android.ui.main.home.HomeRequestModel
 import com.shoparty.android.ui.main.home.HomeResponse
-import com.shoparty.android.ui.main.myaccount.getprofile.getProfileResponse
+import com.shoparty.android.ui.main.myaccount.getprofile.GetProfileResponse
 import com.shoparty.android.ui.main.myaccount.logout.LogoutResponse
 import com.shoparty.android.ui.main.myaccount.myprofileupdate.MyProfileUpdateResponse
 import com.shoparty.android.ui.main.wishlist.WishListRequestModel
@@ -66,7 +66,7 @@ interface ApiService {
 
     @GET("profile-details")
     suspend fun getProfileAsync():
-            Response<getProfileResponse>
+            Response<GetProfileResponse>
 
 
     @GET("contact_us")

@@ -42,7 +42,7 @@ class VouchersAdapter(private val mList: ArrayList<String>) : RecyclerView.Adapt
 
     // Holds the views for adding it to image and text
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
-        val tv_MinimulPurchase: TextView = itemView.findViewById(R.id.tv_MinimulPurchase)
+        val tv_MinimulPurchase: TextView = itemView.findViewById(R.id.tvMinimulPurchase)
 
     }
 }

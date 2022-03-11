@@ -20,16 +20,33 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <!-- <ScrollView
-             android:id="@+id/scrollMain"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:fillViewport="true"
-             android:layout_marginTop="5dp"
-             app:layout_constraintEnd_toEndOf="parent"
-             app:layout_constraintStart_toStartOf="parent"
-             app:layout_constraintTop_toBottomOf="@id/info_tool">
- -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_no_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/info_tool"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+            <ImageView
+                android:id="@+id/iv_no_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/ic_no_data"/>
+            <TextView
+                android:id="@+id/tv_no_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_data"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_no_data"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -44,8 +61,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                  />
 
-
-       <!-- </ScrollView>-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,16 +26,13 @@ import com.shoparty.android.utils.apiutils.ViewModalFactory
 
 
 class WishListFragment : Fragment(),RecyclerViewWishListClickListener {
-
     private lateinit var binding: FragmentWishListBinding
     private lateinit var viewModel: WishListViewModel
     private lateinit var adapterWishlist: WishListAdapter
     private val listWishlistt: ArrayList<WishListResponse.Data> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
+        arguments?.let {}
     }
 
     override fun onCreateView(
@@ -59,14 +56,6 @@ class WishListFragment : Fragment(),RecyclerViewWishListClickListener {
         setObserver()
         val request = WishListRequestModel("1")
         viewModel.getWishlist(request)
-//        (activity as MainActivity).info_tools.tv_title.visibility = View.INVISIBLE
-//        (activity as MainActivity).info_tools.home_shoparty_icon.visibility = View.INVISIBLE
-//        (activity as MainActivity).info_tools.home_shoparty_icon2.visibility = View.VISIBLE
-//
-//        (activity as MainActivity).info_tools.ivBagBtn.visibility = View.VISIBLE
-//        (activity as MainActivity).info_tools.iv_btnsearch.visibility = View.VISIBLE
-      //  WishListListing()
-
     }
 
     fun initialise() {
@@ -84,14 +73,30 @@ class WishListFragment : Fragment(),RecyclerViewWishListClickListener {
     }
 
     private fun setObserver() {
-
         viewModel.wishlist.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
+
                     listWishlistt.clear()
                     listWishlistt.addAll(response.data!! as ArrayList<WishListResponse.Data>)
                     adapterWishlist.notifyDataSetChanged()
+
+                  /* if(response.data.isNullOrEmpty())
+                   {
+                       binding.constraintRecycler.visibility=View.GONE
+                       binding.clNoData.visibility=View.VISIBLE
+                   }
+                   else
+                   {
+                       binding.constraintRecycler.visibility=View.VISIBLE
+                       binding.clNoData.visibility=View.GONE
+
+                       listWishlistt.clear()
+                       listWishlistt.addAll(response.data!! as ArrayList<WishListResponse.Data>)
+                       adapterWishlist.notifyDataSetChanged()
+                   }*/
+
                 }
                 is Resource.Loading -> {
                     ProgressDialog.showProgressBar(requireContext())

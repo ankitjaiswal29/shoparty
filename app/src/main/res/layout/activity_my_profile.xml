@@ -4,10 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <!--<variable
-            name="myAccountViewModel"
-            type="com.shoparty.android.ui.main.myaccount.MyAccountViewModel" />
--->
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -292,7 +289,7 @@
                         android:id="@+id/etStreet"
                         style="@style/AppTheme.editText_gray"
                         android:layout_width="0dp"
-                        android:hint="@string/xyz"
+                        android:hint=""
                         android:imeOptions="actionNext"
                         android:layout_marginRight="5dp"
                         android:inputType="text"
@@ -316,7 +313,7 @@
                         android:id="@+id/etHouseno"
                         style="@style/AppTheme.editText_gray"
                         android:layout_width="0dp"
-                        android:hint="@string/_756"
+                        android:hint=""
                         android:imeOptions="actionNext"
                         android:inputType="text"
                         android:layout_marginLeft="5dp"
