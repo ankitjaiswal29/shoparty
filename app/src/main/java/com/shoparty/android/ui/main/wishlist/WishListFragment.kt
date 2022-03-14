@@ -59,13 +59,7 @@ class WishListFragment : Fragment(),RecyclerViewClickListener {
         setObserver()
         val request = WishListRequestModel("1")
         viewModel.getWishlist(request)
-//        (activity as MainActivity).info_tools.tv_title.visibility = View.INVISIBLE
-//        (activity as MainActivity).info_tools.home_shoparty_icon.visibility = View.INVISIBLE
-//        (activity as MainActivity).info_tools.home_shoparty_icon2.visibility = View.VISIBLE
-//
-//        (activity as MainActivity).info_tools.ivBagBtn.visibility = View.VISIBLE
-//        (activity as MainActivity).info_tools.iv_btnsearch.visibility = View.VISIBLE
-      //  WishListListing()
+
 
     }
 

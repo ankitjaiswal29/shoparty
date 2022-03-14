@@ -174,7 +174,6 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
             ) else it.toString()
         }
         binding.tvMobile.text = data?.mobile.toString()
-
         PrefManager.write(PrefManager.NAME, binding.tvName.text.toString())
         PrefManager.write(PrefManager.IMAGE,data?.image.toString())
         PrefManager.write(PrefManager.MOBILE, data?.mobile.toString())
@@ -183,7 +182,6 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
         PrefManager.write(PrefManager.GENDER, data?.gender.toString())
        /* PrefManager.write(PrefManager.STREET, data?..toString())
         PrefManager.write(PrefManager.HOUSENO, data?.gender.toString())*/
-
     }
 
 

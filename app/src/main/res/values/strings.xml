@@ -398,6 +398,9 @@
     <string name="txtto">To</string>
     <string name="ksatime">KSA Time</string>
     <string name="please_enter_the_otp_sent_to_mobile_number">Please Enter the OTP sent to mobile number</string>
+    <string name="no_data">No Data</string>
+    <string name="strexpiry">Expire On : </string>
+    <string name="copytoclipboard">"Copy to clipboard "</string>
 
 
 </resources>
