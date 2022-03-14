@@ -25,11 +25,11 @@ import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 
 
-class WishListFragment : Fragment(),RecyclerViewWishListClickListener {
+class WishListFragment : Fragment(),RecyclerViewClickListener {
 
     private lateinit var binding: FragmentWishListBinding
     private lateinit var viewModel: WishListViewModel
-    private lateinit var adapterWishlist: WishListAdapter
+    private lateinit var adapterWishlist: WishListAdapters
     private val listWishlistt: ArrayList<WishListResponse.Data> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,7 +70,7 @@ class WishListFragment : Fragment(),RecyclerViewWishListClickListener {
     }
 
     fun initialise() {
-        adapterWishlist = WishListAdapter(listWishlistt, this)
+        adapterWishlist = WishListAdapters(listWishlistt, this,requireActivity())
 
         val gridLayoutManager = GridLayoutManager(requireActivity(), 1)
         binding.wishlistRecyclerview.apply {
@@ -135,8 +135,10 @@ class WishListFragment : Fragment(),RecyclerViewWishListClickListener {
         binding.wishlistRecyclerview.adapter = adapter
     }
 
-    override fun itemclick(id: String, ItemsViewModel: WishListResponse.Data) {
-        Toast.makeText(requireContext(),id.toString(),Toast.LENGTH_LONG).show()
+
+
+    override fun click(pos: String) {
+
     }
 
 
