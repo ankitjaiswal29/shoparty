@@ -233,9 +233,6 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
         binding.etHouseno.setText(PrefManager.read(PrefManager.HOUSENO,""))
 
         binding.etFirstname.setSelection(binding.etFirstname.length())
-       /* binding.etStreet.setSelection(binding.etFirstname.length())
-        binding.etHouseno.setSelection(binding.etFirstname.length())*/
-
         binding.etMobile.isEnabled = false
         binding.etEmail.setSelection(binding.etEmail.length())
         if(PrefManager.read(PrefManager.GENDER,"") == Constants.MALE)

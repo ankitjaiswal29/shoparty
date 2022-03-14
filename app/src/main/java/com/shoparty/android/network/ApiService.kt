@@ -14,6 +14,8 @@ import com.shoparty.android.ui.main.home.HomeResponse
 import com.shoparty.android.ui.main.myaccount.getprofile.GetProfileResponse
 import com.shoparty.android.ui.main.myaccount.logout.LogoutResponse
 import com.shoparty.android.ui.main.myaccount.myprofileupdate.MyProfileUpdateResponse
+import com.shoparty.android.ui.main.wishlist.RemoveWishListRequestModel
+import com.shoparty.android.ui.main.wishlist.RemoveWishlistResponse
 import com.shoparty.android.ui.main.wishlist.WishListRequestModel
 import com.shoparty.android.ui.main.wishlist.WishListResponse
 import com.shoparty.android.ui.myorders.myorder.MyOrderRequestModel
@@ -129,5 +131,11 @@ interface ApiService {
     suspend fun getWishlist(
         @Body wishListRequestModel: WishListRequestModel
     ): Response<WishListResponse>
+
+
+    @POST("add-wishlist")
+    suspend fun removeWishlist(
+        @Body removeWishListRequestModel: RemoveWishListRequestModel
+    ): Response<RemoveWishlistResponse>
 
 }

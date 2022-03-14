@@ -8,24 +8,19 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityOrderDetailsBinding
-import com.shoparty.android.ui.cancelorder.cancelorder.CancelOrderActivity
+import com.shoparty.android.ui.myorders.cancelorder.cancelorder.CancelOrderActivity
 
 class OrderDetailsActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityOrderDetailsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_order_details)
-
         binding = DataBindingUtil.setContentView(this, R.layout.activity_order_details)
         initialise()
-
     }
 
     private fun initialise() {
         val message = intent.getStringExtra("data")
-        if (message.equals("1")) {
-
-        } else {
+        if (message.equals("1")) { } else {
             binding.group1.visibility = View.GONE
             binding.group2.visibility = View.GONE
             binding.ivOrderDelivered.setImageDrawable(

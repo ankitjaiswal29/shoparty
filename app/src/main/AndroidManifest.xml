@@ -110,7 +110,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".ui.wishlist.WishListActivity"
+            android:name=".ui.main.wishlist.WishListActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
@@ -125,12 +125,12 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".ui.cancelorder.cancelorder.OrderCancelActivity"
+            android:name=".ui.myorders.cancelorder.cancelorder.OrderCancelActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".ui.cancelorder.cancelconfirm.CancelConfirmActivity"
+            android:name=".ui.myorders.cancelorder.cancelconfirm.CancelConfirmActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
@@ -145,7 +145,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".ui.cancelorder.cancelorder.CancelOrderActivity"
+            android:name=".ui.myorders.cancelorder.cancelorder.CancelOrderActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />

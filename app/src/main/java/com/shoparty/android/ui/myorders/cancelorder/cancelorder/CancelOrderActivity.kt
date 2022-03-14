@@ -1,4 +1,4 @@
-package com.shoparty.android.ui.cancelorder.cancelorder
+package com.shoparty.android.ui.myorders.cancelorder.cancelorder
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityCancelOrderBinding
 
-import com.shoparty.android.ui.cancelorder.cancelconfirm.CancelConfirmActivity
+import com.shoparty.android.ui.myorders.cancelorder.cancelconfirm.CancelConfirmActivity
 
 
 class CancelOrderActivity : AppCompatActivity(), View.OnClickListener {
