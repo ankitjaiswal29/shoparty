@@ -25,9 +25,8 @@ class MyOrdersActivity : AppCompatActivity(), View.OnClickListener,
         binding = DataBindingUtil.setContentView(this, R.layout.activity_my_orders)
         viewModel =
             ViewModelProvider(this, ViewModalFactory(application))[MyOrderViewModel::class.java]
-        viewModel.myOrders()//api call
+        viewModel.myOrders()          //api call
         initialise()
-
         setObserver()
     }
 
@@ -46,9 +45,19 @@ class MyOrdersActivity : AppCompatActivity(), View.OnClickListener,
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
 
-                    myorderlist.clear()
-                    myorderlist = response.data as ArrayList<MyOrderResponse.Data>
-                    setMyOrderListAdapter(myorderlist)
+                    if(response.data.isNullOrEmpty())
+                    {
+                        binding.clNoData.visibility=View.VISIBLE
+                        binding.myorderRecyclerview.visibility=View.GONE
+                    }
+                    else
+                    {
+                        binding.clNoData.visibility=View.GONE
+                        binding.myorderRecyclerview.visibility=View.VISIBLE
+                        myorderlist.clear()
+                        myorderlist = response.data as ArrayList<MyOrderResponse.Data>
+                        setMyOrderListAdapter(myorderlist)
+                    }
                 }
                 is Resource.Loading -> {
                     com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
@@ -82,21 +91,7 @@ class MyOrdersActivity : AppCompatActivity(), View.OnClickListener,
     }
 
 
-    private fun myOrderListing() {
-        val data = ArrayList<String>()
-        data.add("Delivered On Jul 07")
-        data.add("Ongoing On Aug 05")
-        data.add("Cancelled On Aug 05")
-        data.add("Cancelled On Aug 05")
-        data.add("Cancelled On Aug 05")
-        data.add("Cancelled On Aug 05")
-        data.add("Cancelled On Aug 05")
-        data.add("Cancelled On Aug 05")
 
-
-        /*  val adapter = MyOrderAdapter(data, this)
-          binding.myorderRecyclerview.adapter = adapter*/
-    }
 
     override fun onClick(v: View?) {
         when (v?.id) {
@@ -107,26 +102,6 @@ class MyOrdersActivity : AppCompatActivity(), View.OnClickListener,
         }
     }
 
-    /*  override fun click(pos: String) {
-          when (pos) {
-              "Delivered On Jul 07" -> {
-                  var intent = Intent(this, OrderDetailsActivity::class.java)
-                  intent.putExtra("data", "myorder")
-                  startActivity(intent)
-                  *//*  Intent intent =  Intent(context, DestinationActivityName.class);
-                  intent.putExtra(Key, Value);
-                  startActivity(intent)*//*
-            }
-            "Ongoing On Aug 05" -> startActivity(Intent(this, OngoingOrderActivity::class.java))
-            "Cancelled On Aug 05" -> {
-                val intent = Intent(this, CancelOrderActivity::class.java)
-                intent.putExtra("key", "Myorder")
-                startActivity(intent)
-            } //startActivity(Intent(this, CancelOrderActivity::class.java))
-
-        }
-    }
-*/
     override fun onBackPressed() {
         super.onBackPressed()
     }

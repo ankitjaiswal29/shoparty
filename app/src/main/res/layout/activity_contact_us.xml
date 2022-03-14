@@ -151,9 +151,7 @@
             android:text="@string/_999_9999_999"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            style="@style/AppTheme.Text_12_graydp_bold"
-
-            />
+            style="@style/AppTheme.Text_12_graydp_bold" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <TextView

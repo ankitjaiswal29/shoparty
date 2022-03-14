@@ -1,6 +1,6 @@
 package com.shoparty.android.ui.main.myaccount.getprofile
 
-data class getProfileResponse(
+data class GetProfileResponse(
     val message: String,
     val response_code: Int,
     val result: User
@@ -14,7 +14,7 @@ data class getProfileResponse(
         val mobile: Long,
         val name: String,
         val role: Int,
-        val user_id: Int
+        val user_id: Int,
     )
 
 

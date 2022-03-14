@@ -30,6 +30,17 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.Period
 import java.util.*
+import android.telephony.PhoneNumberUtils
+
+import android.content.ComponentName
+
+import android.content.Intent
+import android.net.Uri
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
+
+
+
 
 
 object Utils {
@@ -58,6 +69,16 @@ object Utils {
 
     fun showShortToast(context: Context?, message: String?) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
+
+      fun convertToCustomFormat(dateStr: String?): String {
+        val utc = TimeZone.getTimeZone("UTC")
+        val sourceFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val destFormat = SimpleDateFormat("dd MMM,YYYY HH:mm aa")
+        sourceFormat.timeZone = utc
+        val convertedDate = sourceFormat.parse(dateStr)
+        return destFormat.format(convertedDate)
     }
 
    fun checkValidMobile(mobile:String):Boolean{
@@ -128,6 +149,33 @@ object Utils {
     fun isValidEmail(email: String): Boolean {
         return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
+
+
+   /* fun openWhatsAppConversation(context: Context, number: String, message: String?) {
+        var number = number
+        number = number.replace(" ", "").replace("+", "")
+        val sendIntent = Intent("android.intent.action.MAIN")
+        sendIntent.type = "text/plain"
+        sendIntent.putExtra(Intent.EXTRA_TEXT, message)
+        sendIntent.component = ComponentName("com.whatsapp", "com.whatsapp.Conversation")
+        sendIntent.putExtra("jid", PhoneNumberUtils.stripSeparators(number) + "@s.whatsapp.net")
+        context.startActivity(sendIntent)
+    }
+
+
+    fun openWhatsAppConversationUsingUri(
+        context: Context,
+        numberWithCountryCode: String,
+        message: String
+    ) {
+        val uri: Uri =
+            Uri.parse("https://api.whatsapp.com/send?phone=$numberWithCountryCode&text=$message")
+        val sendIntent = Intent(Intent.ACTION_VIEW, uri)
+        context.startActivity(sendIntent)
+    }*/
+
+
+
 
 
 

@@ -16,6 +16,7 @@
         android:src="@drawable/ic_pink_voucher_curve_shape"/>
 
     <TextView
+        android:id="@+id/txtDiscount"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -29,7 +30,7 @@
         android:textSize="25dp"/>
 
     <TextView
-        android:id="@+id/tv_MinimulPurchase"
+        android:id="@+id/tvMinimulPurchase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@+id/ivShape"
@@ -43,22 +44,40 @@
         android:id="@+id/view_dotted"
         android:layout_width="0dp"
         android:layout_height="35dp"
-       app:layout_constraintStart_toStartOf="@+id/tv_MinimulPurchase"
-        app:layout_constraintTop_toBottomOf="@+id/tv_MinimulPurchase"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="19dp"
+        android:background="@drawable/background_vouchers_dotted_gray"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/background_vouchers_dotted_gray"/>
-<TextView
-    android:id="@+id/tv_Code"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tvMinimulPurchase"
+        app:layout_constraintTop_toBottomOf="@+id/tvMinimulPurchase" />
+
+    <TextView
+    android:id="@+id/txtCode"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="@string/code_123wefxtra10"
     style="@style/AppTheme.Text_12dp"
- android:layout_marginLeft="5dp"
+    android:layout_marginLeft="5dp"
     app:layout_constraintStart_toStartOf="@+id/view_dotted"
     app:layout_constraintTop_toTopOf="@+id/view_dotted"
     app:layout_constraintBottom_toBottomOf="@+id/view_dotted"/>
+
+    <TextView
+        android:id="@+id/tvCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        style="@style/AppTheme.Text_12dp"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintLeft_toRightOf="@+id/txtCode"
+        app:layout_constraintTop_toTopOf="@+id/view_dotted"
+        app:layout_constraintBottom_toBottomOf="@+id/view_dotted"/>
+
+
+
+
+
 
     <TextView
         android:id="@+id/tv_Copy"
@@ -68,7 +87,7 @@
         android:paddingBottom="10dp"
         android:paddingEnd="10dp"
         style="@style/AppTheme.Text_pink_12ssp"
-    app:layout_constraintEnd_toEndOf="@+id/view_dotted"
+        app:layout_constraintEnd_toEndOf="@+id/view_dotted"
         app:layout_constraintTop_toTopOf="@+id/view_dotted"
         app:layout_constraintBottom_toBottomOf="@+id/view_dotted"/>
 
@@ -85,12 +104,13 @@ android:layout_marginRight="10dp"
     app:layout_constraintEnd_toStartOf="@+id/tv_Copy"/>
 
     <TextView
+        android:id="@+id/txtExpiry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableStart="@drawable/ic_ic_icon_calender"
         app:layout_constraintStart_toStartOf="@+id/view_dotted"
         app:layout_constraintTop_toBottomOf="@+id/view_dotted"
-        android:text="@string/expire_on_30_sep_2021_11_45_pm"
+        android:text="@string/strexpiry"
         style="@style/AppTheme.Text_12dp"
         android:drawablePadding="10dp"
         android:layout_marginTop="11dp"/>
