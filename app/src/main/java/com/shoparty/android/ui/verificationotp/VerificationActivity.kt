@@ -189,11 +189,10 @@ class VerificationActivity : AppCompatActivity() {
     }
     private fun setupUI(data: VerifiyOtpResponse.Data?)
     {
-
         PrefManager.write(PrefManager.IMAGE,data?.image.toString())
         PrefManager.write(PrefManager.MOBILE, data?.mobile.toString())
         PrefManager.write(PrefManager.NAME, data?.name.toString())
-
+        PrefManager.write(PrefManager.IS_LOGIN, true)
     }
 
     override fun onStop() {
