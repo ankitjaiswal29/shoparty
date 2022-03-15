@@ -57,27 +57,15 @@ class VerificationActivity : AppCompatActivity() {
         }
         binding.txtotpcount.setOnClickListener {
             Utils.hideKeyboard(this)
-            viewModel.postResend(userid)      //api call
+           if(clickabletrue.equals("true"))
+           {
+               viewModel.postResend(userid)      //api call
+           }
+
         }
 
     }
 
-    private fun verificationSuccessDialog() {
-        val builder = AlertDialog.Builder(this, R.style.CustomAlertDialogWithMargin)
-        val inflater = layoutInflater
-        val dialogLayout: View =
-            inflater.inflate(R.layout.verification_dialog_layout, null)
-        val btn_done = dialogLayout.findViewById<Button>(R.id.btnDone)
-          builder.setView(dialogLayout)
-        val builderinstance= builder.show()
-        btn_done.setOnClickListener {
-            builder.setCancelable(true)
-            Toast.makeText(this, "done", Toast.LENGTH_LONG).show()
-            builderinstance.dismiss()
-        }
-
-
-    }
 
     private var countDownTimer =
         object : CountDownTimer(60000 * 2, 1000) {
@@ -89,7 +77,7 @@ class VerificationActivity : AppCompatActivity() {
 
             override fun onFinish()
             {
-                binding.txtTimecount.setClickable(true)
+              //  binding.txtTimecount.setClickable(true)
                 clickabletrue="true"
             }
         }

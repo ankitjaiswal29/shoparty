@@ -77,10 +77,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_color_recyclarview"
-                android:drawableEnd="@drawable/ic_back_icon"
+                android:drawableEnd="@drawable/ic_spinner_down_aero"
                 style="@style/AppTheme.Text_14dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"/>
+
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_size_recyclarview"
                 android:layout_width="match_parent"
@@ -105,7 +107,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_size_recyclarview"
-                android:drawableEnd="@drawable/ic_back_icon"
+                android:drawableEnd="@drawable/ic_spinner_down_aero"
                 style="@style/AppTheme.Text_14dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"/>
@@ -134,7 +136,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_age_recyclarview"
-                android:drawableEnd="@drawable/ic_back_icon"
+                android:drawableEnd="@drawable/ic_spinner_down_aero"
                 style="@style/AppTheme.Text_14dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"/>
@@ -161,7 +163,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_gender_recyclarview"
-                android:drawableEnd="@drawable/ic_back_icon"
+                android:drawableEnd="@drawable/ic_spinner_down_aero"
                 style="@style/AppTheme.Text_14dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"/>
