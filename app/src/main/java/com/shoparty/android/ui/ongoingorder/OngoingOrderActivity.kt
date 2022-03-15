@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityOngoingOrderBinding
-import com.shoparty.android.ui.cancelorder.cancelorder.CancelOrderActivity
+import com.shoparty.android.ui.myorders.cancelorder.cancelorder.CancelOrderActivity
 
 
 class OngoingOrderActivity : AppCompatActivity(), View.OnClickListener {

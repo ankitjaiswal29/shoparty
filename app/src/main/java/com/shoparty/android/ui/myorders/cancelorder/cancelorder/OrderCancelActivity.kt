@@ -1,4 +1,4 @@
-package com.shoparty.android.ui.cancelorder.cancelorder
+package com.shoparty.android.ui.myorders.cancelorder.cancelorder
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,8 +12,6 @@ class OrderCancelActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityOrderCancelBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_order_cancel)
-
         binding= DataBindingUtil.setContentView(this,R.layout.activity_order_cancel)
         initialise()
 

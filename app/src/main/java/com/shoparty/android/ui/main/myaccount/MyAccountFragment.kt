@@ -29,7 +29,7 @@ import com.shoparty.android.ui.main.myaccount.privacypolicy.PrivacyPolicyActivit
 import com.shoparty.android.ui.main.myaccount.returnpolicy.ReturnPolicyActivity
 import com.shoparty.android.ui.main.myaccount.termandcondition.TermAndConditionActivity
 import com.shoparty.android.ui.vouchers.VouchersActivity
-import com.shoparty.android.ui.wishlist.WishListActivity
+import com.shoparty.android.ui.main.wishlist.WishListActivity
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.ui.main.mainactivity.MainActivity
 import com.shoparty.android.ui.main.myaccount.getprofile.GetProfileResponse

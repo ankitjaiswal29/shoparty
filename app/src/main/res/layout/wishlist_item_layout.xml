@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="20dp"
-
         android:paddingRight="20dp"
         android:paddingTop="11dp"
         android:paddingBottom="11dp"
@@ -21,56 +20,68 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_100sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:background="@drawable/background_edittext"
             app:layout_constraintBottom_toBottomOf="parent">
 
-            <ImageView
-                android:id="@+id/iv_Productimg"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
-                android:paddingLeft="3dp"
-                android:src="@mipmap/wishlist_image"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+
+           <RelativeLayout
+               android:id="@+id/relative_img"
+               android:layout_width="@dimen/_100sdp"
+               android:layout_height="wrap_content"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toTopOf="parent" >
+
+               <ImageView
+                   android:id="@+id/iv_Productimg"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:scaleType="fitXY"
+                   android:src="@drawable/person_img" />
+           </RelativeLayout>
 
 
-            <ImageView
-                android:id="@+id/iv_unselect"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:elevation="10dp"
-                android:visibility="visible"
-                app:layout_constraintStart_toStartOf="@id/iv_background"
-                app:layout_constraintEnd_toEndOf="@id/iv_background"
-                app:layout_constraintTop_toTopOf="@id/iv_background"
-                app:layout_constraintBottom_toBottomOf="@id/iv_background"
-                android:src="@drawable/ic_icon_fav_gray" />
 
-            <ImageView
-                android:id="@+id/iv_select"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:elevation="10dp"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="@id/iv_background"
-                app:layout_constraintEnd_toEndOf="@id/iv_background"
-                app:layout_constraintTop_toTopOf="@id/iv_background"
-                app:layout_constraintBottom_toBottomOf="@id/iv_background"
-                android:src="@drawable/ic_icon_fav_pink" />
 
-            <ImageView
-                android:id="@+id/iv_background"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                app:layout_constraintEnd_toEndOf="@+id/iv_Productimg"
-                app:layout_constraintTop_toTopOf="@+id/iv_Productimg"
-                android:src="@drawable/ic_favourite_gray"
-                android:layout_margin="10dp" />
+
+
+
+            <RelativeLayout
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:layout_constraintEnd_toEndOf="@+id/relative_img"
+                app:layout_constraintTop_toTopOf="@+id/relative_img"
+                android:background="@drawable/ic_favourite_gray"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp">
+
+
+                <ImageView
+                    android:id="@+id/iv_select"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_centerInParent="true"
+                    android:elevation="10dp"
+                    android:src="@drawable/ic_icon_fav_pink" />
+
+
+                <ImageView
+                    android:id="@+id/iv_unselect"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:elevation="10dp"
+                    android:src="@drawable/ic_icon_fav_gray"
+                    android:visibility="gone" />
+
+
+
+
+            </RelativeLayout>
+
 
 
             <TextView
@@ -81,7 +92,7 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/princess_dress"
                 android:layout_marginLeft="5dp"
-                app:layout_constraintStart_toEndOf="@+id/iv_Productimg" />
+                app:layout_constraintStart_toEndOf="@+id/relative_img" />
 
             <TextView
                 android:id="@+id/tv_Offer"

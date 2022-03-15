@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/pink"
-        tools:context=".ui.cancelorder.cancelconfirm.CancelConfirmActivity">
+        tools:context=".ui.myorders.cancelorder.cancelconfirm.CancelConfirmActivity">
 
 
         <ImageView
