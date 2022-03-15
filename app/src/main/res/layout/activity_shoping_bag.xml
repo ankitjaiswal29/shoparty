@@ -362,6 +362,7 @@
                         app:layout_constraintTop_toTopOf="@+id/vw_branch" />
 
                     <CheckBox
+                        android:id="@+id/cb_pickup_branch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/pink"
@@ -514,7 +515,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:orientation="vertical"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
