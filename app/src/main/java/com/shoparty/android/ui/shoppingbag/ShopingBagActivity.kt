@@ -14,6 +14,7 @@ import com.shoparty.android.ui.shipping.ShippingActivity
 
 class ShopingBagActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityShopingBagBinding
+    private var pickup_branch=false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_shoping_bag)
@@ -24,6 +25,13 @@ class ShopingBagActivity : AppCompatActivity(), View.OnClickListener {
         binding.infoTool.tvTitle.setText(getString(R.string.shippingbag))
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
         binding.btnProcessTocheckOut.setOnClickListener(this)
+        binding.cbPickupBranch.setOnCheckedChangeListener { compoundButton, isChecked ->
+            if (isChecked) {
+                binding.bagItemPickupRecycler.visibility=View.VISIBLE
+            }else{
+                binding.bagItemPickupRecycler.visibility=View.GONE
+            }
+        }
         shoppingBagList()
        shoppingBagPickup()
     }
