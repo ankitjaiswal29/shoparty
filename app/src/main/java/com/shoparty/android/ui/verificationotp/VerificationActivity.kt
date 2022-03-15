@@ -28,6 +28,7 @@ class VerificationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityVerificationBinding
     private lateinit var viewModel: VerifiyViewModel
     private var userid=""
+    private var clickabletrue=""
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
@@ -88,15 +89,14 @@ class VerificationActivity : AppCompatActivity() {
 
             override fun onFinish()
             {
-                binding.txtTimecount.visibility = View.GONE
-                binding.txtotpcount.visibility = View.VISIBLE
+                binding.txtTimecount.setClickable(true)
+                clickabletrue="true"
             }
         }
 
     private fun startTimer()
     {
-        binding.txtTimecount.visibility = View.VISIBLE
-        binding.txtotpcount.visibility = View.GONE
+        clickabletrue="false"
         var timeleft = 2.toDouble().toString()
         binding.txtTimecount.text = timeleft
 

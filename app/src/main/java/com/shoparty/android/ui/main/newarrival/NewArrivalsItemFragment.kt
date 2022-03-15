@@ -25,13 +25,11 @@ class NewArrivalsItemFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_new_arrivals_item, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         fillNewArrivalItemRecyclerView(naItemList)
 
         na_filter_btn.setOnClickListener {
