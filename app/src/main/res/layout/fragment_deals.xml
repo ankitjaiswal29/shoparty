@@ -106,8 +106,6 @@ android:layout_marginStart="1dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:drawableStart="@drawable/ic_short_pink_icon"
                   app:layout_constraintTop_toTopOf="parent" />
-            <!--  </LinearLayout>-->
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -119,9 +117,9 @@ android:layout_marginStart="1dp"
             app:layout_constraintEnd_toEndOf="parent"
             tools:listitem="@layout/top_selling_item2"
             app:spanCount="2"
-            android:paddingBottom="40dp"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-          />
+            android:paddingBottom="@dimen/_60sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -84,6 +84,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             tools:listitem="@layout/category_item1"
             android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="@dimen/_40sdp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

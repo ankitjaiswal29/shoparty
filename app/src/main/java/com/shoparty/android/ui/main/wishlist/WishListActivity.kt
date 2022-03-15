@@ -27,7 +27,10 @@ class WishListActivity : AppCompatActivity(), View.OnClickListener, RecyclerView
         binding = DataBindingUtil.setContentView(this, R.layout.activity_wish_list)
         initialise()
         viewModel = ViewModelProvider(this, ViewModalFactory(this.application!!))[WishListViewModel::class.java]
-        viewModel.getWishlist("1")      //api call
+
+        binding.ivNoData.visibility=View.VISIBLE
+        binding.tvNoData.visibility=View.VISIBLE
+        //   viewModel.getWishlist("1")    //api call
         setObserver()
     }
 
@@ -64,6 +67,7 @@ class WishListActivity : AppCompatActivity(), View.OnClickListener, RecyclerView
             when (response) {
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
+                    listWishlistt.clear()
                     listWishlistt=response.data!! as ArrayList<WishListResponse.Data>
                     setWishListAdapter(listWishlistt)
                 }

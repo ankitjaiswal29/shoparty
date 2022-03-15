@@ -38,13 +38,10 @@ class AddressAdapter(private val mList: List<GetAddressListResponse.Data>,
         }
 
     }
-
-    // return the number of the items in the list
     override fun getItemCount(): Int {
         return mList.size
     }
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
-       // val tv_Shippinglabel: TextView = itemView.findViewById(R.id.tv_Shippinglabel)
         val tvEdit: TextView = itemView.findViewById(R.id.tvEdit)
         val tvNamedata: TextView = itemView.findViewById(R.id.tv_Namedata)
         val tv_HousenoData: TextView = itemView.findViewById(R.id.tv_HousenoData)

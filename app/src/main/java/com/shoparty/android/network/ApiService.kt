@@ -36,11 +36,9 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface ApiService {
-
     @POST("signup")
     suspend fun registerAccountAsync(
-        @Body registerRequestModel: RegisterRequestModel
-    ): Response<RegisterResponseModel>
+        @Body registerRequestModel: RegisterRequestModel): Response<RegisterResponseModel>
 
 
     @POST("login")

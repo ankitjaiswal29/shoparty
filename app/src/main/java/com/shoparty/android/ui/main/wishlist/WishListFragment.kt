@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shoparty.android.R
 import com.shoparty.android.databinding.FragmentWishListBinding
+
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.apiutils.Resource
@@ -34,7 +35,9 @@ class WishListFragment : Fragment(),RecyclerViewClickListener {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_wish_list, container, false)
         viewModel = ViewModelProvider(this, ViewModalFactory(activity?.application!!))[WishListViewModel::class.java]
         setObserver()
-        viewModel.getWishlist("1")                          //api call
+        binding.clNoData.visibility=View.VISIBLE
+        binding.constraintRecycler.visibility=View.GONE
+        //   viewModel.getWishlist("1")                          //api call
         return binding.root
     }
 
@@ -78,6 +81,11 @@ class WishListFragment : Fragment(),RecyclerViewClickListener {
             when (response) {
                 is Resource.Success -> {
                   //  ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        requireContext(),
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
                     viewModel.getWishlist("1")                          //api call
                 }
                 is Resource.Loading -> {

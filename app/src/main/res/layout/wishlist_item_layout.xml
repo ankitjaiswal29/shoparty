@@ -51,6 +51,7 @@
 
 
             <RelativeLayout
+                android:id="@+id/relative_like"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 app:layout_constraintEnd_toEndOf="@+id/relative_img"
