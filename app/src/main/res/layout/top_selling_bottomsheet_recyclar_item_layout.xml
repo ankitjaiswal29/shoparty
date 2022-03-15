@@ -4,6 +4,7 @@
     android:id="@+id/cl_bottomitemlayout"
     android:layout_height="wrap_content"
     android:background="@color/white"
+    android:layout_marginBottom="1dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
@@ -14,7 +15,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:text="Newest To Oldest"
         android:paddingTop="10dp"
-        android:drawableEnd="@drawable/ic_icon_aeroright"
         android:paddingBottom="10dp"
         style="@style/AppTheme.Text_15__dp"
         app:layout_constraintTop_toTopOf="parent"/>

@@ -27,6 +27,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var viewModel: RegisterViewModel
     private var selecteddate = ""
     private var selectedgender = ""
+    private var condition_checkable=false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,6 +70,16 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
             ).show()
         }
 
+        binding.cbTermconditon.setOnCheckedChangeListener { compoundButton, isChecked ->
+
+            if (isChecked) {
+               condition_checkable=true
+            }else{
+                condition_checkable=false
+            }
+
+        }
+
     }
 
 
@@ -95,7 +106,9 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             binding.signUpBtn.id -> {
-                viewModel.postSignUp(selectedgender)
+
+                    viewModel.postSignUp(selectedgender,condition_checkable)
+
             }
             binding.tvTermcondition.id -> {
                 val intent = Intent(this, TermAndConditionActivity::class.java)

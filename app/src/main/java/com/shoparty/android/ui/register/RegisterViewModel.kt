@@ -26,8 +26,8 @@ class RegisterViewModel(private val app: Application) : ViewModel()
     val tvDateOfBirth: ObservableField<String> = ObservableField()
     private val mSignUp = MutableLiveData<Resource<RegisterResponseModel.User>>()
     val signUp: LiveData<Resource<RegisterResponseModel.User>> = mSignUp
-    fun postSignUp(selectedGender: String) = viewModelScope.launch {
-        if(validation())
+    fun postSignUp(selectedGender: String, condition_checkable: Boolean) = viewModelScope.launch {
+        if(validation(condition_checkable))
         {
             val request = RegisterRequestModel(fullName.get()!!,etEmail.get()!!,etMobileNo.get()!!,tvDateOfBirth.get()!!,selectedGender,Constants.DEVICE_TYPE,Constants.DEVICE_TOKEN)
             if(Utils.hasInternetConnection(app.applicationContext))
@@ -45,8 +45,10 @@ class RegisterViewModel(private val app: Application) : ViewModel()
     }
     
     
-    private fun validation():Boolean
+    private fun validation(condition_checkable: Boolean):Boolean
     {
+
+
         if (fullName.get().isNullOrBlank())
         {
             Utils.showShortToast(mContext,mContext.getString(R.string.enterfullname))
@@ -71,6 +73,13 @@ class RegisterViewModel(private val app: Application) : ViewModel()
         }
         if(tvDateOfBirth.get().isNullOrBlank()){
             Utils.showShortToast(mContext,mContext.getString(R.string.pleaseselectdob))
+            return false
+        }
+        if (condition_checkable)
+        {
+           return true
+        }else{
+            Utils.showShortToast(mContext,mContext.getString(R.string.pleasechecktermacondition))
             return false
         }
         return true
