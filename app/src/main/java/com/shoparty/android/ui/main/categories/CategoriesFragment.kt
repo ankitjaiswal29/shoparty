@@ -14,11 +14,12 @@ import com.shoparty.android.R
 import com.shoparty.android.databinding.FragmentCategoriesBinding
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.ui.main.topselling.TopSellingActivity
+import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 
-class CategoriesFragment : Fragment() {
+class CategoriesFragment : Fragment() ,RecyclerViewClickListener{
 
     lateinit var binding: FragmentCategoriesBinding
     private lateinit var viewModel: CategoryViewModel
@@ -54,7 +55,7 @@ class CategoriesFragment : Fragment() {
     }
 
     fun initialise() {
-        adapterCategory = CategoryAdapter1(listCategory, requireContext())
+        adapterCategory = CategoryAdapter1( requireContext(),listCategory,this)
 
         val gridLayoutManager = GridLayoutManager(requireActivity(), 1)
         binding.categoryListRecycler.apply {
@@ -64,11 +65,11 @@ class CategoriesFragment : Fragment() {
             adapter = adapterCategory
         }
 
-        adapterCategory.onItemClick(object :  RecyclerViewClickListener{
+       /* adapterCategory.onItemClick(object :  RecyclerViewClickListener{
             override fun click(pos: String) {
                 startActivity(Intent(activity, TopSellingActivity::class.java))
             }
-        })
+        })*/
 
     }
 
@@ -103,6 +104,13 @@ class CategoriesFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun click(Proudct_id: String) {
+       // Toast.makeText(requireContext(),Proudct_id.toString(),Toast.LENGTH_LONG).show()
+        val intent = Intent(requireActivity(), TopSellingActivity::class.java)
+        intent.putExtra(Constants.PRODUCTID,Proudct_id )
+        startActivity(intent)
     }
 }
 

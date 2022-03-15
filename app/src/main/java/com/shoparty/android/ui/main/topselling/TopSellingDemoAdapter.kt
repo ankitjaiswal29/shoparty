@@ -1,22 +1,15 @@
 package com.shoparty.android.ui.main.topselling
 
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.shoparty.android.R
-import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.interfaces.RecyclerViewTopSellingClickListener
 import com.shoparty.android.utils.inflate
 import com.shoparty.android.ui.main.deals.TopSellingHomeModel
-import com.shoparty.android.ui.productdetails.ProductDetailsActivity
-import com.shoparty.android.ui.vouchers.VouchersActivity
 import kotlinx.android.synthetic.main.deals_item_layout.view.*
 
-class TopSellingAdapter(private val itemList: List<TopSellingHomeModel>,val recyclerViewTopSellingClickListener: RecyclerViewTopSellingClickListener): RecyclerView.Adapter<TopSellingAdapter.NewArrivalItemLIstViewHolder>() {
+class TopSellingDemoAdapter(private val itemList: List<TopSellingHomeModel>, val recyclerViewTopSellingClickListener: RecyclerViewTopSellingClickListener): RecyclerView.Adapter<TopSellingDemoAdapter.NewArrivalItemLIstViewHolder>() {
 
     var fav=false;
     inner class NewArrivalItemLIstViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)

@@ -19,7 +19,6 @@ import com.shoparty.android.ui.main.categories.CategoryAdapter1
 import com.shoparty.android.ui.main.categories.CategoryRequestModel
 import com.shoparty.android.ui.main.categories.CategoryResponse
 import com.shoparty.android.ui.main.categories.CategoryViewModel
-import com.shoparty.android.ui.main.topselling.TopSellingActivity
 import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory

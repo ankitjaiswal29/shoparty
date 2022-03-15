@@ -29,7 +29,7 @@ object Constants {
          const val TWITTERLINK = "TWITTERLINK"
          const val YOUTUBELINK = "YOUTUBELINK"
          const val INSTAGRAMELINK = "INSTAGRAMELINK"
-
+    const val PRODUCTID = "1"
 
 
 

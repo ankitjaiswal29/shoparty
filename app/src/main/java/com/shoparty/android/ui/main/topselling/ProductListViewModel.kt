@@ -1,4 +1,4 @@
-package com.shoparty.android.ui.myorders.myorder
+package com.shoparty.android.ui.main.topselling
 
 import android.app.Application
 import android.content.Context
@@ -25,35 +25,35 @@ import android.text.TextWatcher
 import java.util.*
 
 
-class MyOrderViewModel(private val app: Application) : ViewModel()
+class ProductListViewModel(private val app: Application) : ViewModel()
 {
 
-    private val repository = MyOrderRepository()
+    private val repository = ProductListRepository()
 
-    private val mMyOrders = MutableLiveData<Resource<List<MyOrderResponse.OrderHistory>>>()
-    val myOrder: LiveData<Resource<List<MyOrderResponse.OrderHistory>>> = mMyOrders
+    private val mProductList = MutableLiveData<Resource<List<ProductListResponse.ProductList>>>()
+    val productList: LiveData<Resource<List<ProductListResponse.ProductList>>> = mProductList
 
 
 
-    fun myOrders() = viewModelScope.launch {
+    fun myOrders(productlist:String) = viewModelScope.launch {
 
-        val request = MyOrderRequestModel("1")
+        val request = ProductListRequestModel("1",productlist,"2")
         if(Utils.hasInternetConnection(app.applicationContext))
         {
-            mMyOrders.postValue(Resource.Loading())
-            val response = repository.getmyorderapi(request)
-            mMyOrders.postValue(handleMyOrderResponse(response!!))
+            mProductList.postValue(Resource.Loading())
+            val response = repository.getProductListApi(request)
+            mProductList.postValue(handleMyOrderResponse(response!!))
         }
         else
         {
-            mMyOrders.postValue(Resource.Error(app.resources.getString(R.string.no_internet)))
+            mProductList.postValue(Resource.Error(app.resources.getString(R.string.no_internet)))
         }
 
     }
 
 
 
-    private fun handleMyOrderResponse(response: Response<MyOrderResponse>): Resource<List<MyOrderResponse.OrderHistory>>? {
+    private fun handleMyOrderResponse(response: Response<ProductListResponse>): Resource<List<ProductListResponse.ProductList>>? {
         if (response?.isSuccessful)
         {
             response.body()?.let { res ->

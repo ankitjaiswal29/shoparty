@@ -9,7 +9,7 @@ data class CategoryResponse(
     val result: List<Category>
 ) {
     data class Category(
-        val category_id: String,
+        val id: String,
         val category_name: String,
         val category_image: String,
     )

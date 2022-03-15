@@ -4,10 +4,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,17 +20,24 @@ import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.interfaces.RecyclerViewTopSellingClickListener
 import com.shoparty.android.ui.filter.*
 import com.shoparty.android.ui.main.deals.TopSellingHomeModel
+import com.shoparty.android.ui.myorders.myorder.MyOrderAdapters
 
 import com.shoparty.android.ui.productdetails.ProductDetailsActivity
 import com.shoparty.android.ui.search.SearchActivity
 import com.shoparty.android.ui.shoppingbag.ShopingBagActivity
+import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.SpacesItemDecoration
+import com.shoparty.android.utils.apiutils.Resource
+import com.shoparty.android.utils.apiutils.ViewModalFactory
 import kotlinx.android.synthetic.main.bottomsheet_filter_layout.view.*
 import kotlinx.android.synthetic.main.fragment_deals.*
 import kotlinx.android.synthetic.main.toolbar_layout.view.*
 
 class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerViewClickListener,RecyclerViewTopSellingClickListener {
     private lateinit var binding: ActivityTopSellingBinding
+    private lateinit var adapter: ProductListAdapters
+    private lateinit var viewModel: ProductListViewModel
+    private var productlist: ArrayList<ProductListResponse.ProductList> = ArrayList()
     lateinit var dialog:BottomSheetDialog
     var color=false
     var size=false
@@ -43,7 +50,14 @@ class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerVie
         super.onCreate(savedInstanceState)
        // setContentView(R.layout.activity_top_selling)
         binding= DataBindingUtil.setContentView(this, R.layout.activity_top_selling)
+        viewModel = ViewModelProvider(this, ViewModalFactory(application))[ProductListViewModel::class.java]
+
+        if (getIntent().getStringExtra(Constants.PRODUCTID)!=null){
+            val sessionId = intent.getStringExtra(Constants.PRODUCTID)
+            viewModel.myOrders(sessionId.toString())//api call
+        }
         initialise()
+        setObserver()
 
     }
     private fun initialise() {
@@ -54,9 +68,70 @@ class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerVie
         binding.infoTool.ivBtnsearch.setOnClickListener(this)
         binding.tvFilter.setOnClickListener(this)
         binding.tvSort.setOnClickListener(this)
-        Topsellingitem()
 
 
+      //  Topsellingitem()
+
+
+    }
+
+    private fun setObserver() {
+        viewModel.productList.observe(this, { response ->
+            when (response) {
+                is Resource.Success -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+
+                    if(response.data.isNullOrEmpty())
+                    {
+                      //  binding.clNoData.visibility=View.VISIBLE
+                       // binding.myorderRecyclerview.visibility=View.GONE
+                    }
+                    else
+                    {
+                      //  binding.clNoData.visibility=View.GONE
+                        //binding.myorderRecyclerview.visibility=View.VISIBLE
+                       // myorderlist.clear()
+                        productlist = response.data as ArrayList<ProductListResponse.ProductList>
+                        setMyOrderListAdapter(productlist)
+                    }
+                }
+                is Resource.Loading -> {
+                    com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
+                }
+                is Resource.Error -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        })
+
+
+    }
+    private fun setMyOrderListAdapter(data: ArrayList<ProductListResponse.ProductList>) {
+
+        val gridLayoutManager = GridLayoutManager(this, 2)
+        deals_item_recycler.apply {
+            layoutManager = gridLayoutManager
+            setHasFixedSize(true)
+            isFocusable = false
+            adapter = ProductListAdapters(this@TopSellingActivity,data!!,this@TopSellingActivity)
+        }
+/*
+        adapter = ProductListAdapters(data!!, this)
+        binding.myorderRecyclerview.layoutManager = LinearLayoutManager(this)
+        binding.myorderRecyclerview.adapter = adapter*/
     }
     override fun onClick(v: View?) {
         when(v?.id){
@@ -400,7 +475,7 @@ class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerVie
             layoutManager = gridLayoutManager
             setHasFixedSize(true)
             isFocusable = false
-            adapter = TopSellingAdapter(naItemList,this@TopSellingActivity)
+            adapter = TopSellingDemoAdapter(naItemList,this@TopSellingActivity)
         }
 
     }
@@ -411,7 +486,9 @@ class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerVie
 
     override fun click(pos: String) {
         Toast.makeText(this,pos,Toast.LENGTH_LONG).show()
-        dialog.dismiss();
+        val intent = Intent (this, ProductDetailsActivity::class.java)
+        startActivity(intent)
+       // dialog.dismiss();
     }
 
     override fun itemclick(pos: String) {

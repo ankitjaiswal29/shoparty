@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.shoparty.android.R
-import com.shoparty.android.ui.main.topselling.TopSellingActivity
 import com.shoparty.android.ui.productdetails.ProductDetailsActivity
 import com.shoparty.android.utils.inflate
 import kotlinx.android.synthetic.main.deals_item_layout.view.*

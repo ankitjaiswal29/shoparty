@@ -12,6 +12,7 @@ import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityMainBinding
 import com.shoparty.android.ui.login.LoginActivity
@@ -25,6 +26,7 @@ import com.shoparty.android.ui.main.wishlist.WishListFragment
 import com.shoparty.android.ui.search.SearchActivity
 import com.shoparty.android.ui.shoppingbag.ShopingBagActivity
 import com.shoparty.android.utils.PrefManager
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -41,8 +43,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.rlSignout.visibility = View.GONE
         if (PrefManager.read(PrefManager.AUTH_TOKEN, "").isEmpty()) {
             binding.btnSigninSignout.visibility = View.VISIBLE
+            binding.clProfile.visibility=View.GONE
         } else {
             binding.btnSigninSignout.visibility = View.GONE
+           // binding.ivProfilePic
+            binding.tvName.setText(PrefManager.read(PrefManager.NAME,""))
+            binding.tvPhoneno.setText(PrefManager.read(PrefManager.MOBILE,""))
+            Glide.with(this).load(PrefManager.read(PrefManager.IMAGE,"")).error(R.drawable.person_img)
+                .into(iv_ProfilePic!!)
         }
 
         binding.navigationView.bringToFront()

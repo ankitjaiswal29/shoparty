@@ -24,7 +24,7 @@ class TopSellingBottomSheetAdapter(private val itemList: List<String>,val recycl
 
         }
         holder.itemView.cl_bottomitemlayout.setOnClickListener {
-            recyclerViewClickListener.click(items)
+          //  recyclerViewClickListener.click(items)
         }
 
     }

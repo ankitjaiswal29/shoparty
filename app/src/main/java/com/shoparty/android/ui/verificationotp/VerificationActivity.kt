@@ -11,18 +11,18 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityVerificationBinding
 import com.shoparty.android.ui.main.mainactivity.MainActivity
+import com.shoparty.android.ui.main.myaccount.getprofile.GetProfileResponse
+import com.shoparty.android.utils.*
 
-import com.shoparty.android.utils.Constants
-import com.shoparty.android.utils.OtpTextWatcher
-import com.shoparty.android.utils.ProgressDialog
-import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 
 import kotlinx.android.synthetic.main.activity_verification.*
+import java.util.*
 
 class VerificationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityVerificationBinding
@@ -117,7 +117,7 @@ class VerificationActivity : AppCompatActivity() {
             {
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
-
+                    setupUI(response.data?.data)
                     Toast.makeText(
                         applicationContext,
                         response.message,
@@ -186,6 +186,14 @@ class VerificationActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+    private fun setupUI(data: VerifiyOtpResponse.Data?)
+    {
+
+        PrefManager.write(PrefManager.IMAGE,data?.image.toString())
+        PrefManager.write(PrefManager.MOBILE, data?.mobile.toString())
+        PrefManager.write(PrefManager.NAME, data?.name.toString())
+
     }
 
     override fun onStop() {

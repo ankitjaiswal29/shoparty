@@ -13,14 +13,14 @@ import com.shoparty.android.R
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 
 
-class MyOrderAdapters(private val mList: List<MyOrderResponse.Data>,
+class MyOrderAdapters(private val mList: List<MyOrderResponse.OrderHistory>,
                       var recyclerViewClickListener: RecyclerViewClickListener) : RecyclerView.Adapter<MyOrderAdapters.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.myorder_item_layout, parent, false)
         return ViewHolder(view)
     }
-    @SuppressLint("SetTextI18n")
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val ItemsViewModel = mList[position]
         holder.tv_ItemName.text = ItemsViewModel.order_title

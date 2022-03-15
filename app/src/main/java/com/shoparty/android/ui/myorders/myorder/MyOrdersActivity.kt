@@ -19,7 +19,7 @@ class MyOrdersActivity : AppCompatActivity(), View.OnClickListener,
     private lateinit var binding: ActivityMyOrdersBinding
     private lateinit var adapter: MyOrderAdapters
     private lateinit var viewModel: MyOrderViewModel
-    private var myorderlist: ArrayList<MyOrderResponse.Data> = ArrayList()
+    private var myorderlist: ArrayList<MyOrderResponse.OrderHistory> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_my_orders)
@@ -28,19 +28,18 @@ class MyOrdersActivity : AppCompatActivity(), View.OnClickListener,
         viewModel.myOrders()          //api call
         initialise()
         setObserver()
+
     }
 
     private fun initialise() {
-        // this creates a vertical layout Manager
         binding.infoTool.tvTitle.setText(getString(R.string.my_orders))
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
         binding.myorderRecyclerview.layoutManager = LinearLayoutManager(this)
-        //  myOrderListing()
 
     }
 
     private fun setObserver() {
-        viewModel.myorder.observe(this, { response ->
+        viewModel.myOrder.observe(this, { response ->
             when (response) {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
@@ -55,7 +54,7 @@ class MyOrdersActivity : AppCompatActivity(), View.OnClickListener,
                         binding.clNoData.visibility=View.GONE
                         binding.myorderRecyclerview.visibility=View.VISIBLE
                         myorderlist.clear()
-                        myorderlist = response.data as ArrayList<MyOrderResponse.Data>
+                        myorderlist = response.data as ArrayList<MyOrderResponse.OrderHistory>
                         setMyOrderListAdapter(myorderlist)
                     }
                 }
@@ -84,7 +83,7 @@ class MyOrdersActivity : AppCompatActivity(), View.OnClickListener,
 
     }
 
-    private fun setMyOrderListAdapter(data: List<MyOrderResponse.Data>?) {
+    private fun setMyOrderListAdapter(data: List<MyOrderResponse.OrderHistory>?) {
         adapter = MyOrderAdapters(data!!, this)
         binding.myorderRecyclerview.layoutManager = LinearLayoutManager(this)
         binding.myorderRecyclerview.adapter = adapter
