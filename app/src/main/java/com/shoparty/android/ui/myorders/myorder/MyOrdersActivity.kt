@@ -90,15 +90,11 @@ class MyOrdersActivity : AppCompatActivity(), View.OnClickListener,
         binding.myorderRecyclerview.adapter = adapter
     }
 
-
-
-
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.iv_drawer_back -> {
                 onBackPressed()
             }
-
         }
     }
 

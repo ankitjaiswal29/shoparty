@@ -222,10 +222,10 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener {
             R.id.tv_price -> {
                 binding.clPrice.visibility=View.VISIBLE
                 binding.tvPrice.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_spinner_down_aero, 0);
-                binding.tvColor.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_back_icon, 0);
-                binding.tvSize.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_back_icon, 0);
-                binding.tvGender.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_back_icon, 0);
-                binding.tvAge.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_back_icon, 0);
+                binding.tvColor.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_spinner_down_aero, 0);
+                binding.tvSize.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_spinner_down_aero, 0);
+                binding.tvGender.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_spinner_down_aero, 0);
+                binding.tvAge.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_spinner_down_aero, 0);
 
 
                 binding.rvGenderRecyclarview.visibility=View.GONE
@@ -247,7 +247,7 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener {
         binding.tvPrice.setCompoundDrawablesWithIntrinsicBounds(
             0,
             0,
-            R.drawable.ic_back_icon,
+            R.drawable.ic_spinner_down_aero,
             0
         );
         for (textview in filterIconItem){
@@ -263,7 +263,7 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener {
                 textview.setCompoundDrawablesWithIntrinsicBounds(
                     0,
                     0,
-                    R.drawable.ic_back_icon,
+                    R.drawable.ic_spinner_down_aero,
                     0
                 );
             }
@@ -272,8 +272,7 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener {
 
     }
 
-    //  private fun goneHide(clickRecyclerview: RecyclerView,doubleClickEvent:Boolean,defaboolean: Boolean = false) {
-        private fun goneHide(clickRecyclerview: RecyclerView) {
+    private fun goneHide(clickRecyclerview: RecyclerView) {
               binding.clPrice.visibility=View.GONE
             for (recyclerview in recyvlerviewItemList) {
 
