@@ -75,10 +75,8 @@ class RegisterViewModel(private val app: Application) : ViewModel()
             Utils.showShortToast(mContext,mContext.getString(R.string.pleaseselectdob))
             return false
         }
-        if (condition_checkable)
+        if (!condition_checkable)
         {
-           return true
-        }else{
             Utils.showShortToast(mContext,mContext.getString(R.string.pleasechecktermacondition))
             return false
         }
