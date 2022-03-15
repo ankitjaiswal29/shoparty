@@ -9,6 +9,7 @@ import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityShopingBagBinding
 import com.shoparty.android.ui.login.LoginActivity
 import com.shoparty.android.ui.main.home.HomeCategoriesModel
+import com.shoparty.android.ui.shipping.ShippingActivity
 
 
 class ShopingBagActivity : AppCompatActivity(), View.OnClickListener {
@@ -60,10 +61,8 @@ class ShopingBagActivity : AppCompatActivity(), View.OnClickListener {
                 onBackPressed()
             }
             R.id.btn_ProcessTocheckOut -> {
-                val intent = Intent(applicationContext, LoginActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                val intent = Intent(applicationContext, ShippingActivity::class.java)
                 startActivity(intent)
-
             }
         }
     }

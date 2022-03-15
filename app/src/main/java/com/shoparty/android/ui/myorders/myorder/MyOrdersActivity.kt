@@ -1,6 +1,7 @@
 package com.shoparty.android.ui.myorders.myorder
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityMyOrdersBinding
 import com.shoparty.android.interfaces.RecyclerViewClickListener
+import com.shoparty.android.ui.myorders.orderdetails.OrderDetailsActivity
+import com.shoparty.android.ui.register.RegisterActivity
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 
@@ -23,16 +26,14 @@ class MyOrdersActivity : AppCompatActivity(), View.OnClickListener,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_my_orders)
-        viewModel =
-            ViewModelProvider(this, ViewModalFactory(application))[MyOrderViewModel::class.java]
+        viewModel = ViewModelProvider(this, ViewModalFactory(application))[MyOrderViewModel::class.java]
         viewModel.myOrders()          //api call
         initialise()
         setObserver()
-
     }
 
     private fun initialise() {
-        binding.infoTool.tvTitle.setText(getString(R.string.my_orders))
+        binding.infoTool.tvTitle.text = getString(R.string.my_orders)
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
         binding.myorderRecyclerview.layoutManager = LinearLayoutManager(this)
 
@@ -106,7 +107,9 @@ class MyOrdersActivity : AppCompatActivity(), View.OnClickListener,
     }
 
 
-    override fun click(pos: String) {
-
+    override fun click(pos: String)
+    {
+        val intent = Intent(this, OrderDetailsActivity::class.java)
+        startActivity(intent)
     }
 }

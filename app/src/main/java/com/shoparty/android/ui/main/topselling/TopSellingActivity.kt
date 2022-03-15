@@ -48,13 +48,13 @@ class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerVie
     private var filterIconItem=ArrayList<TextView>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       // setContentView(R.layout.activity_top_selling)
         binding= DataBindingUtil.setContentView(this, R.layout.activity_top_selling)
         viewModel = ViewModelProvider(this, ViewModalFactory(application))[ProductListViewModel::class.java]
-
-        if (getIntent().getStringExtra(Constants.PRODUCTID)!=null){
+        binding.infoTool.tvTitle.text=getString(R.string.new_arrivals)
+        if (intent.getStringExtra(Constants.PRODUCTID)!=null)
+        {
             val sessionId = intent.getStringExtra(Constants.PRODUCTID)
-            viewModel.myOrders(sessionId.toString())//api call
+            viewModel.myOrders(sessionId.toString())   //api call
         }
         initialise()
         setObserver()
