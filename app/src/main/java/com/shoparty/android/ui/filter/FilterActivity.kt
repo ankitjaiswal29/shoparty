@@ -5,20 +5,28 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mohammedalaa.seekbar.DoubleValueSeekBarView
 import com.mohammedalaa.seekbar.OnDoubleValueSeekBarChangeListener
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityFilterBinding
+import com.shoparty.android.interfaces.RecyclerViewClickListener
+import com.shoparty.android.ui.myorders.myorder.MyOrderAdapters
 import com.shoparty.android.utils.SpacesItemDecoration
+import com.shoparty.android.utils.apiutils.Resource
+import com.shoparty.android.utils.apiutils.ViewModalFactory
 
 
-class FilterActivity : AppCompatActivity(),View.OnClickListener {
+class FilterActivity : AppCompatActivity(),View.OnClickListener, RecyclerViewClickListener {
 
     private lateinit var binding: ActivityFilterBinding
+    private lateinit var adapter: ColorsAdapters
+    private lateinit var viewModel: ColorsViewModel
+    private var colorlist: ArrayList<ColorsResponse.Colors> = ArrayList()
 
     private var recyvlerviewItemList=ArrayList<RecyclerView>()
     private var filterIconItem=ArrayList<TextView>()
@@ -32,7 +40,10 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
          binding= DataBindingUtil.setContentView(this, R.layout.activity_filter)
+        viewModel = ViewModelProvider(this, ViewModalFactory(application))[ColorsViewModel::class.java]
+        viewModel.Colors()
         initialise()
+        setObserver()
     }
 
     private fun initialise() {
@@ -89,9 +100,62 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener {
         size()
         age()
         gender()
-        filtercolor()
+      //  filtercolor()
 
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
+
+    }
+
+
+    private fun setObserver() {
+        viewModel.mColor.observe(this, { response ->
+            when (response) {
+                is Resource.Success -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+
+                    if(response.data.isNullOrEmpty())
+                    {
+                      //no data
+                    }
+                    else
+                    {
+                        colorlist.clear()
+                        colorlist = response.data as ArrayList<ColorsResponse.Colors>
+                        setColorsListAdapter(colorlist)
+                    }
+                }
+                is Resource.Loading -> {
+                    com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
+                }
+                is Resource.Error -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        })
+
+
+    }
+    private fun setColorsListAdapter(data: ArrayList<ColorsResponse.Colors>) {
+        val gridLayoutManager = GridLayoutManager(this, 9)
+        binding.rvColorRecyclarview.apply {
+            layoutManager = gridLayoutManager
+            setHasFixedSize(true)
+            isFocusable = false
+            adapter = ColorsAdapters(data,this@FilterActivity)
+        }
 
     }
 
@@ -126,7 +190,6 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener {
         data.add("Girl")
         data.add("Unisex")
         data.add("Women")
-
 
         val gridLayoutManager = GridLayoutManager(this, 3)
         binding.rvGenderRecyclarview.apply {
@@ -221,11 +284,11 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener {
             }
             R.id.tv_price -> {
                 binding.clPrice.visibility=View.VISIBLE
-                binding.tvPrice.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_spinner_down_aero, 0);
-                binding.tvColor.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_spinner_down_aero, 0);
-                binding.tvSize.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_spinner_down_aero, 0);
-                binding.tvGender.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_spinner_down_aero, 0);
-                binding.tvAge.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_spinner_down_aero, 0);
+                binding.tvPrice.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_aero_new_downs, 0);
+                binding.tvColor.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_aerou_new_up, 0);
+                binding.tvSize.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_aerou_new_up, 0);
+                binding.tvGender.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_aerou_new_up, 0);
+                binding.tvAge.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_aerou_new_up, 0);
 
 
                 binding.rvGenderRecyclarview.visibility=View.GONE
@@ -247,7 +310,7 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener {
         binding.tvPrice.setCompoundDrawablesWithIntrinsicBounds(
             0,
             0,
-            R.drawable.ic_spinner_down_aero,
+            R.drawable.ic_aerou_new_up,
             0
         );
         for (textview in filterIconItem){
@@ -256,14 +319,14 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener {
                 textview.setCompoundDrawablesWithIntrinsicBounds(
                     0,
                     0,
-                    R.drawable.ic_spinner_down_aero,
+                    R.drawable.ic_aero_new_downs,
                     0
                 );
             }else{
                 textview.setCompoundDrawablesWithIntrinsicBounds(
                     0,
                     0,
-                    R.drawable.ic_spinner_down_aero,
+                    R.drawable.ic_aerou_new_up,
                     0
                 );
             }
@@ -286,5 +349,9 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener {
 
     override fun onBackPressed() {
         super.onBackPressed()
+    }
+
+    override fun click(pos: String) {
+    Toast.makeText(this,pos,Toast.LENGTH_LONG).show()
     }
 }

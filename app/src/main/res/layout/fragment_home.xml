@@ -10,7 +10,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
         android:gravity="center"
         android:orientation="vertical"
         tools:context=".ui.fragment.HomeFragment">
@@ -36,7 +35,6 @@
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/_12sdp"
             app:layout_constraintTop_toBottomOf="@+id/tvSearch">
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/home_constrain_lay2"
                 android:layout_width="match_parent"
@@ -74,6 +72,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
+                    android:layout_marginTop="5dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageSlider">
@@ -125,6 +124,7 @@
                     android:layout_marginTop="@dimen/_12sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+
                     app:layout_constraintTop_toBottomOf="@+id/constraint1" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -240,6 +240,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
+                    android:layout_marginTop="5dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraint4">
@@ -482,10 +483,9 @@
                     android:id="@+id/constraint11"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@color/social_login_background"
-                    android:padding="20dp"
+                      android:padding="20dp"
+                    android:background="@color/white"
+                    android:layout_marginTop="5dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraint10">

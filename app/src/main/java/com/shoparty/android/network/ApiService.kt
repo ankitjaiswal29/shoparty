@@ -5,6 +5,8 @@ import com.shoparty.android.ui.address.addaddress.getaddress.DeleteAddressReques
 import com.shoparty.android.ui.address.addaddress.getaddress.DeleteAddressResponse
 import com.shoparty.android.ui.address.addaddress.getaddress.GetAddressListResponse
 import com.shoparty.android.ui.contactus.ContactUsResponse
+import com.shoparty.android.ui.filter.ColorsRequestModel
+import com.shoparty.android.ui.filter.ColorsResponse
 import com.shoparty.android.ui.login.LoginRequestModel
 import com.shoparty.android.ui.login.LoginResponse
 import com.shoparty.android.ui.main.categories.CategoryRequestModel
@@ -142,5 +144,10 @@ interface ApiService {
     suspend fun removeWishlist(
         @Body removeWishListRequestModel: RemoveWishListRequestModel
     ): Response<RemoveWishlistResponse>
+
+    @POST("list-colors")
+    suspend fun colorsList(
+        @Body colorsRequestModel: ColorsRequestModel
+    ): Response<ColorsResponse>
 
 }
