@@ -90,11 +90,12 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/tv_viewall"
+                        android:id="@+id/tvViewAllTopSelling"
                         style="@style/AppTheme.Text_12dp_Bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/view_all"
+                        android:layout_marginEnd="@dimen/_12sdp"
                         app:layout_constraintBottom_toBottomOf="@+id/top_selling_htv"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/top_selling_htv" />
@@ -105,6 +106,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:paddingStart="@dimen/_12sdp"
+                        android:paddingEnd="0dp"
                         android:orientation="horizontal"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -115,7 +118,6 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvBanner2"
                     android:layout_width="0dp"
@@ -125,9 +127,8 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraint1" />
 
-
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/imgProfile"
+                    android:id="@+id/constraint2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -156,9 +157,17 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/home_categories_htv" />
 
+                    <TextView
+                        android:id="@+id/tvViewCategories"
+                        style="@style/AppTheme.Text_12dp_Bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/view_all"
+                        android:layout_marginEnd="@dimen/_12sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraint3"
@@ -169,8 +178,7 @@
                     android:padding="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imgProfile">
-
+                    app:layout_constraintTop_toBottomOf="@+id/constraint2">
 
                     <TextView
                         android:id="@+id/home_seasons_htv"
@@ -182,7 +190,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/seasons_recycler"
+                        android:id="@+id/rvSeason"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -207,7 +215,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraint3">
 
-
                     <TextView
                         android:id="@+id/home_themes_htv"
                         style="@style/AppTheme.Text_14dp_Bold"
@@ -218,14 +225,13 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/home_themes_recycler"
+                        android:id="@+id/rvThemes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/_12sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/home_themes_htv" />
-
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -233,25 +239,23 @@
                     android:id="@+id/constraint5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:background="@color/white"
-                    android:padding="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraint4">
-
 
                     <TextView
                         android:id="@+id/home_useason_htv"
                         style="@style/AppTheme.Text_14dp_Bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12sdp"
                         android:text="@string/upcoming_season"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
-                        android:id="@+id/home_banner_three"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvBanner3"
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
                         android:layout_marginTop="10dp"
@@ -259,7 +263,6 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/home_useason_htv" />
-
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,58 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="124dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cl_new_arrival_item_root"
-    android:padding="5dp"
-    android:layout_marginBottom="10dp"
-    android:layout_marginRight="10dp"
-    android:background="@drawable/home_top_selling_items_bg">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/new_arrival_item_img"
-        android:layout_width="wrap_content"
-        android:layout_height="80dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/icon_shippingbag"/>
+    <data>
 
+    </data>
 
-    <TextView
-        android:id="@+id/new_arrival_item_name_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/new_arrival_item_img"
-        android:text="@string/toys_kid"
-        app:layout_constraintStart_toStartOf="@id/new_arrival_item_img"
-        app:layout_constraintEnd_toEndOf="@+id/new_arrival_item_img"
-       style="@style/AppTheme.Text_13_graydp" />
-
-    <TextView
-        android:id="@+id/new_arrival_item_price_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/new_arrival_item_name_tv"
-        android:text="@string/_399_0"
-        app:layout_constraintTop_toBottomOf="@+id/new_arrival_item_name_tv"
-        app:layout_constraintStart_toStartOf="@id/new_arrival_item_name_tv"
-        app:layout_constraintEnd_toEndOf="@+id/new_arrival_item_name_tv"
-     style="@style/AppTheme.Text_12dp_Bold" />
-
-
-
-   <!-- <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="124dp"
+        android:padding="5dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/home_top_selling_items_bg">
+
         <ImageView
             android:id="@+id/new_arrival_item_img"
-            android:layout_width="200dp"
-            android:layout_height="150dp"
-            android:background="@drawable/top_selling_item_img" />
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/icon_shippingbag" />
+
+
+        <TextView
+            android:id="@+id/new_arrival_item_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/new_arrival_item_img"
+            android:text="@string/toys_kid"
+            app:layout_constraintStart_toStartOf="@id/new_arrival_item_img"
+            app:layout_constraintEnd_toEndOf="@+id/new_arrival_item_img"
+            style="@style/AppTheme.Text_13_graydp" />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/new_arrival_item_name_tv"
+            android:text="@string/_0"
+            app:layout_constraintTop_toBottomOf="@+id/new_arrival_item_name_tv"
+            app:layout_constraintStart_toStartOf="@id/new_arrival_item_name_tv"
+            app:layout_constraintEnd_toEndOf="@+id/new_arrival_item_name_tv"
+            style="@style/AppTheme.Text_12dp_Bold" />
+
+
+        <!-- <RelativeLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+             <ImageView
+                 android:id="@+id/new_arrival_item_img"
+                 android:layout_width="200dp"
+                 android:layout_height="150dp"
+                 android:background="@drawable/top_selling_item_img" />
 
 
 
 
-    </RelativeLayout>-->
-</androidx.constraintlayout.widget.ConstraintLayout>
+         </RelativeLayout>-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

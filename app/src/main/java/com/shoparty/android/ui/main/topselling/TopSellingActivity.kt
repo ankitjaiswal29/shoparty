@@ -17,10 +17,10 @@ import com.mohammedalaa.seekbar.OnDoubleValueSeekBarChangeListener
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityTopSellingBinding
 import com.shoparty.android.interfaces.RecyclerViewClickListener
-import com.shoparty.android.interfaces.RecyclerViewTopSellingClickListener
+import com.shoparty.android.interfaces.RecyclerViewItemClickListener
+
 import com.shoparty.android.ui.filter.*
 import com.shoparty.android.ui.main.deals.TopSellingHomeModel
-import com.shoparty.android.ui.myorders.myorder.MyOrderAdapters
 
 import com.shoparty.android.ui.productdetails.ProductDetailsActivity
 import com.shoparty.android.ui.search.SearchActivity
@@ -31,9 +31,8 @@ import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 import kotlinx.android.synthetic.main.bottomsheet_filter_layout.view.*
 import kotlinx.android.synthetic.main.fragment_deals.*
-import kotlinx.android.synthetic.main.toolbar_layout.view.*
 
-class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerViewClickListener,RecyclerViewTopSellingClickListener {
+class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerViewClickListener,RecyclerViewItemClickListener {
     private lateinit var binding: ActivityTopSellingBinding
     private lateinit var adapter: ProductListAdapters
     private lateinit var viewModel: ProductListViewModel
@@ -491,7 +490,8 @@ class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerVie
        // dialog.dismiss();
     }
 
-    override fun itemclick(pos: String) {
+
+    override fun onClick(pos: String, view: View?) {
         val intent = Intent (this, ProductDetailsActivity::class.java)
         startActivity(intent)
     }

@@ -8,13 +8,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.shoparty.android.R
-import com.shoparty.android.databinding.NewArrivalItemBinding
+import com.shoparty.android.databinding.HomeCategoriesLayoutItemBinding
 import com.shoparty.android.interfaces.RecyclerViewItemClickListener
 
-class NewArrivalsHomeAdapter(
-    private val list: ArrayList<HomeResponse.Home.Arrival>,
+class BrandsAdapter(
+    private val list: ArrayList<HomeResponse.Home.Brand>,
     val context: Context
-) : RecyclerView.Adapter<NewArrivalsHomeAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<BrandsAdapter.ViewHolder>() {
 
     var listener: RecyclerViewItemClickListener? = null
 
@@ -24,7 +24,7 @@ class NewArrivalsHomeAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.new_arrival_item, parent, false) as View
+            .inflate(R.layout.home_categories_layout_item, parent, false) as View
         return ViewHolder(
             view = view,
             listener = listener,
@@ -47,21 +47,16 @@ class NewArrivalsHomeAdapter(
     ) :
         RecyclerView.ViewHolder(view) {
 
-        private val binding: NewArrivalItemBinding? = DataBindingUtil.bind(view)
+        private val binding: HomeCategoriesLayoutItemBinding? = DataBindingUtil.bind(view)
 
         init {
             view.setOnClickListener { listener?.onClick(adapterPosition.toString()) }
         }
 
-        fun bind(modal: HomeResponse.Home.Arrival) {
-            binding?.newArrivalItemNameTv?.text = modal.arrival_name
-            if (modal.price != null)
-                binding?.tvPrice?.text = modal.price
-            Glide.with(context).asBitmap().load(modal.arrival_image)
-                .into(binding?.newArrivalItemImg!!)
-
+        fun bind(modal: HomeResponse.Home.Brand) {
+            binding?.homeCategoriesItemNameTv?.text = modal.brand_name
+            Glide.with(context).asBitmap().load(modal.brand_image).into(binding?.imgBanner!!)
         }
     }
 
 }
-

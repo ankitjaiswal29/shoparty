@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="AppTheme.Title" parent="Widget.AppCompat.TextView">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
@@ -24,6 +25,7 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/_12ssp</item>
     </style>
+
     <style name="AppTheme.Text_12ssp" parent="Widget.AppCompat.TextView">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
@@ -38,14 +40,13 @@
     </style>
 
 
-   <!-- <style name="SpinnerTheme" parent="android:Widget.Spinner">
-        <item name="android:background">@drawable/spinner_background</item>
+    <!-- <style name="SpinnerTheme" parent="android:Widget.Spinner">
+         <item name="android:background">@drawable/spinner_background</item>
 
-    </style>-->
+     </style>-->
     <style name="SpinnerTheme" parent="android:Widget.Spinner">
         <item name="android:background">@drawable/spinner_background_2</item>
     </style>
-
 
 
     <style name="AppTheme.Text_23_white_bold_ssp" parent="Widget.AppCompat.TextView">
@@ -91,6 +92,7 @@
         <item name="android:textSize">15dp</item>
         <item name="android:textStyle">bold</item>
     </style>
+
     <style name="AppTheme.Text_15__dp" parent="Widget.AppCompat.TextView">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">15dp</item>
@@ -106,6 +108,7 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">16dp</item>
     </style>
+
     <style name="AppTheme.Text_20_Bold_dp" parent="Widget.AppCompat.TextView">
         <item name="android:textColor">@color/black</item>
         <item name="android:textStyle">bold</item>
@@ -143,12 +146,14 @@
 
         <item name="android:textSize">11dp</item>
     </style>
+
     <style name="AppTheme.Text_12_dp_bold_pink" parent="Widget.AppCompat.TextView">
         <item name="android:textColor">@color/pink</item>
         <item name="android:textStyle">bold</item>
 
         <item name="android:textSize">12dp</item>
     </style>
+
     <style name="AppTheme.Text_14_dp_bold_pink" parent="Widget.AppCompat.TextView">
         <item name="android:textColor">@color/pink</item>
         <item name="android:textStyle">bold</item>
@@ -161,6 +166,7 @@
 
         <item name="android:textSize">16dp</item>
     </style>
+
     <style name="AppTheme.Text_12_graydp" parent="Widget.AppCompat.TextView">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
@@ -175,6 +181,7 @@
         <item name="android:textColor">@color/lightgraysubtitle</item>
         <item name="android:textSize">13dp</item>
     </style>
+
     <style name="AppTheme.Text_13_graydpPink" parent="Widget.AppCompat.TextView">
         <item name="android:textColor">@color/pink</item>
         <item name="android:textSize">13dp</item>
@@ -222,8 +229,6 @@
     </style>
 
 
-
-
     <style name="AppTheme.Text_pink_12ssp" parent="Widget.AppCompat.TextView">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
@@ -234,9 +239,6 @@
         <item name="android:textColor">@color/pink</item>
         <item name="android:textSize">@dimen/_12ssp</item>
     </style>
-
-
-
 
 
     <style name="AppTheme.editText" parent="Widget.AppCompat.EditText">
@@ -298,6 +300,7 @@
         <item name="android:textSize">14dp</item>
 
     </style>
+
     <style name="AppTheme.Text_14dp_Bold" parent="Widget.AppCompat.TextView">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
@@ -312,6 +315,7 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">12dp</item>
     </style>
+
     <style name="AppTheme.Text_12dp_Bold" parent="Widget.AppCompat.TextView">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
@@ -337,8 +341,8 @@
         <item name="android:windowBackground">@drawable/alertdialog_backgound_gray</item>
         <item name="android:windowMinWidthMinor">85%</item>
     </style>
-    <style name="BottomSheetModalStyle"
-        parent="Widget.Design.BottomSheet.Modal">
+
+    <style name="BottomSheetModalStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/bottomsheet_corner_background</item>
     </style>
 

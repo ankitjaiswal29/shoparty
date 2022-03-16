@@ -25,6 +25,7 @@ object PrefManager {
     const val HOUSENO: String = "HOUSENO"
     const val GENDER: String = "GENDER"
     const val MALE: String = "Male"
+    const val IS_LOGIN: String = "isLogin"
 
 
 

@@ -11,30 +11,30 @@ import com.smarteist.autoimageslider.SliderViewAdapter
 
 class MySliderImageAdapter(val context: Context) :
     SliderViewAdapter<MySliderImageAdapter.VH>() {
-    private var mSliderItems = ArrayList<String>()
-    fun renewItems(sliderItems: ArrayList<String>) {
+
+    private var mSliderItems = ArrayList<HomeResponse.Home.Banner>()
+
+    fun renewItems(sliderItems: ArrayList<HomeResponse.Home.Banner>) {
         mSliderItems = sliderItems
         notifyDataSetChanged()
     }
 
-    fun addItem(sliderItem: String) {
-        mSliderItems.add(sliderItem)
-        notifyDataSetChanged()
-    }
+//    fun addItem(sliderItem: String) {
+//        mSliderItems.add(sliderItem)
+//        notifyDataSetChanged()
+//    }
 
     override fun onCreateViewHolder(parent: ViewGroup): VH {
-        val inflate: View = LayoutInflater.from(parent.context).inflate(R.layout.slider_layout, null)
+        val inflate: View =
+            LayoutInflater.from(parent.context).inflate(R.layout.slider_layout, null)
         return VH(inflate)
     }
 
     override fun onBindViewHolder(viewHolder: VH, position: Int) {
-
-        Glide.with(context).load(mSliderItems[position])
+        Glide.with(context).load(mSliderItems[position].image)
             .placeholder(R.drawable.ic_launcher_background)
             .error(R.drawable.ic_launcher_background)
-            .into(viewHolder.imageView);
-        //load image into view
-//        Picasso.get().load(mSliderItems[position]).fit().into(viewHolder.imageView)
+            .into(viewHolder.imageView)
     }
 
     override fun getCount(): Int {

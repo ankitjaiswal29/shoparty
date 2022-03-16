@@ -12,9 +12,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.shoparty.android.R
 import com.shoparty.android.databinding.FragmentHomeBinding
-import com.shoparty.android.interfaces.RecyclerViewClickListener
+import com.shoparty.android.interfaces.RecyclerViewItemClickListener
 import com.shoparty.android.ui.main.deals.TopSellingHomeModel
 import com.shoparty.android.ui.main.mainactivity.MainActivity
 import com.shoparty.android.ui.main.topselling.TopSellingActivity
@@ -22,17 +23,32 @@ import com.shoparty.android.ui.search.SearchActivity
 import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
-import com.smarteist.autoimageslider.SliderView
 
-class HomeFragment : Fragment(), RecyclerViewClickListener, View.OnClickListener {
+class HomeFragment : Fragment(), View.OnClickListener {
 
     lateinit var binding: FragmentHomeBinding
     private lateinit var viewModel: HomeViewModel
 
-    private val topBannerList: ArrayList<HomeResponse.TopBanner> = ArrayList()
-    private lateinit var adapterContest: HomeCategoriesAdapter
+    private val listTopBanner: ArrayList<HomeResponse.Home.Banner> = ArrayList()
+    private val listMiddleBanner: ArrayList<HomeResponse.Home.Banner> = ArrayList()
+    private val listBottomBanner: ArrayList<HomeResponse.Home.Banner> = ArrayList()
+    private lateinit var adapterBannerMiddle: BannerAdapter
+    private lateinit var adapterBannerBottom: BannerAdapter
 
-    private val bottomBannerList: ArrayList<HomeResponse.BottomBanner> = ArrayList()
+    private val listCategory: ArrayList<HomeResponse.Home.Category> = ArrayList()
+    private lateinit var adapterCategory: HomeCategoriesAdapter
+
+    private lateinit var adapterBrands: BrandsAdapter
+    private val listBrand: ArrayList<HomeResponse.Home.Brand> = ArrayList()
+
+    private lateinit var adapterSeason: HomeSeasonsAdapter
+    private val listSeason: ArrayList<HomeResponse.Home.Season> = ArrayList()
+
+    private lateinit var adapterTheme: ThemeAdapter
+    private val listTheme: ArrayList<HomeResponse.Home.Theme> = ArrayList()
+
+    private lateinit var adapterArrival: NewArrivalsHomeAdapter
+    private val listArrival: ArrayList<HomeResponse.Home.Arrival> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,42 +71,73 @@ class HomeFragment : Fragment(), RecyclerViewClickListener, View.OnClickListener
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        (activity as MainActivity).manageUi(ivLogo = true, ivBag = true)
         initialise()
+        (activity as MainActivity).manageUi(ivLogo = true, ivBag = true)
     }
 
     private fun initialise() {
         binding.tvSearch.setOnClickListener(this)
-        binding.tvViewall.setOnClickListener(this)
-        val imageList: ArrayList<String> = ArrayList()
-        imageList.add("https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg")
-        imageList.add("https://images.ctfassets.net/hrltx12pl8hq/4plHDVeTkWuFMihxQnzBSb/aea2f06d675c3d710d095306e377382f/shutterstock_554314555_copy.jpg")
-        imageList.add("https://media.istockphoto.com/photos/child-hands-formig-heart-shape-picture-id951945718?k=6&m=951945718&s=612x612&w=0&h=ih-N7RytxrTfhDyvyTQCA5q5xKoJToKSYgdsJ_mHrv0=")
-        setImageInSlider(imageList, binding.imageSliderr)
+        binding.tvViewAllTopSelling.setOnClickListener(this)
+        binding.tvViewCategories.setOnClickListener(this)
 
-        Topselling()
-        HomeCategory()
+        setTopSelling()
+        setBanner2()
+        setHomeCategory()
         season()
-        HomeTheamRecyclar()
-        NewArrival()
+        setTheme()
+        setBanner3()
+        setNewArrival()
         TopsellingSubcategories()
         OfferDiscoutItem()
-        Brands()
+        setBrands()
+
         setObserver()
+
         val request = HomeRequestModel("1")
         viewModel.getDashboardData(request)
     }
 
     private fun setObserver() {
-
         viewModel.dashboardResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
-                    ProgressDialog.hideProgressBar()
-                    topBannerList.clear()
-                    topBannerList.addAll(response.data?.top_banner!! as ArrayList<HomeResponse.TopBanner>)
-                    adapterContest.notifyDataSetChanged()
+                    try {
+                        ProgressDialog.hideProgressBar()
+
+                        listTopBanner.clear()
+                        listTopBanner.addAll(response.data?.top_banner!! as ArrayList<HomeResponse.Home.Banner>)
+                        setImageInSlider(response.data?.top_banner!! as ArrayList<HomeResponse.Home.Banner>)
+
+                        listMiddleBanner.clear()
+                        listMiddleBanner.addAll(response.data?.bottom_banner!! as ArrayList<HomeResponse.Home.Banner>)
+                        adapterBannerMiddle.notifyDataSetChanged()
+
+                        listBottomBanner.clear()
+                        listBottomBanner.addAll(response.data?.upcoming_banner!! as ArrayList<HomeResponse.Home.Banner>)
+                        adapterBannerBottom.notifyDataSetChanged()
+
+                        listBrand.clear()
+                        listBrand.addAll(response.data?.brand_response!! as ArrayList<HomeResponse.Home.Brand>)
+                        adapterBrands.notifyDataSetChanged()
+
+                        listCategory.clear()
+                        listCategory.addAll(response.data?.category_response!! as ArrayList<HomeResponse.Home.Category>)
+                        adapterCategory.notifyDataSetChanged()
+
+                        listSeason.clear()
+                        listSeason.addAll(response.data?.season_response!! as ArrayList<HomeResponse.Home.Season>)
+                        adapterSeason.notifyDataSetChanged()
+
+                        listTheme.clear()
+                        listTheme.addAll(response.data?.theame_response!! as ArrayList<HomeResponse.Home.Theme>)
+                        adapterTheme.notifyDataSetChanged()
+
+                        listArrival.clear()
+                        listArrival.addAll(response.data?.arrival_response!! as ArrayList<HomeResponse.Home.Arrival>)
+                        adapterArrival.notifyDataSetChanged()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
                 }
                 is Resource.Loading -> {
                     ProgressDialog.showProgressBar(requireContext())
@@ -115,21 +162,131 @@ class HomeFragment : Fragment(), RecyclerViewClickListener, View.OnClickListener
         }
     }
 
-    private fun Brands() {
-//        val homeOffersList = listOf<HomeCategoriesModel>(
-//            HomeCategoriesModel("Up To 10% Off"),
-//            HomeCategoriesModel("Up To 10% Off"),
-//            HomeCategoriesModel("Up To 10% Off"),
-//            HomeCategoriesModel("Up To 10% Off")
-//        )
+    private fun setImageInSlider(list: ArrayList<HomeResponse.Home.Banner>) {
+        val adapter = MySliderImageAdapter(requireContext())
+        adapter.renewItems(list)
+        binding.imageSlider.setSliderAdapter(adapter)
+        binding.imageSlider.isAutoCycle = true
+        binding.imageSlider.startAutoCycle()
+    }
 
-        adapterContest = HomeCategoriesAdapter(topBannerList, requireContext())
-        val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
-        binding.homeBondsRecycler.apply {
+    private fun setTopSelling() {
+        val topSellingItemList = listOf<TopSellingHomeModel>(
+            TopSellingHomeModel("Princess Dress", "$10.2"),
+            TopSellingHomeModel("Princess Dress", "$10.2"),
+            TopSellingHomeModel("Princess Dress", "$10.2"),
+            TopSellingHomeModel("Princess Dress", "$10.2"),
+            TopSellingHomeModel("Princess Dress", "$10.2"),
+            TopSellingHomeModel("Princess Dress", "$10.2"),
+        )
+        binding.topSellingRecycler.adapter =
+            TopSellingHomeAdapter(topSellingItemList, requireContext())
+    }
+
+    private fun setBanner2() {
+        adapterBannerMiddle = BannerAdapter(listMiddleBanner, requireContext())
+        val gridLayoutManager =
+            GridLayoutManager(requireActivity(), 1, RecyclerView.HORIZONTAL, false)
+        binding.rvBanner2.apply {
             layoutManager = gridLayoutManager
             setHasFixedSize(true)
             isFocusable = false
-            adapter = adapterContest
+            adapter = adapterBannerMiddle
+        }
+        adapterBannerMiddle.onItemClick(object : RecyclerViewItemClickListener {
+            override fun onClick(pos: String, view: View?) {
+                //TODO("Not yet implemented")
+            }
+        })
+    }
+
+    private fun setHomeCategory() {
+        val gridLayoutManager =
+            GridLayoutManager(requireActivity(), 1, RecyclerView.HORIZONTAL, false)
+        adapterCategory = HomeCategoriesAdapter(listCategory, requireContext())
+
+        binding.rvCategories.apply {
+            layoutManager = gridLayoutManager
+            setHasFixedSize(true)
+            isFocusable = false
+            adapter = adapterCategory
+        }
+        adapterCategory.onItemClick(object : RecyclerViewItemClickListener {
+            override fun onClick(pos: String, view: View?) {
+                //TODO("Not yet implemented")
+            }
+        })
+    }
+
+    private fun season() {
+        adapterSeason = HomeSeasonsAdapter(listSeason, requireContext())
+        val gridLayoutManager =
+            GridLayoutManager(requireActivity(), 1, RecyclerView.HORIZONTAL, false)
+        binding.rvSeason.apply {
+            layoutManager = gridLayoutManager
+            setHasFixedSize(true)
+            isFocusable = false
+            adapter = adapterSeason
+        }
+        adapterSeason.onItemClick(object : RecyclerViewItemClickListener {
+            override fun onClick(pos: String, view: View?) {
+                //TODO("Not yet implemented")
+            }
+        })
+    }
+
+    private fun setTheme() {
+        val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
+        adapterTheme = ThemeAdapter(listTheme, requireContext())
+        binding.rvThemes.apply {
+            layoutManager = gridLayoutManager
+            setHasFixedSize(true)
+            isFocusable = false
+            adapter = adapterTheme
+        }
+    }
+
+    private fun setBanner3() {
+        adapterBannerBottom = BannerAdapter(listBottomBanner, requireContext())
+        val gridLayoutManager =
+            GridLayoutManager(requireActivity(), 1, RecyclerView.HORIZONTAL, false)
+        binding.rvBanner3.apply {
+            layoutManager = gridLayoutManager
+            setHasFixedSize(true)
+            isFocusable = false
+            adapter = adapterBannerBottom
+        }
+        adapterBannerBottom.onItemClick(object : RecyclerViewItemClickListener {
+            override fun onClick(pos: String, view: View?) {
+                //TODO("Not yet implemented")
+            }
+        })
+    }
+
+    private fun setNewArrival() {
+        adapterArrival = NewArrivalsHomeAdapter(listArrival, requireContext())
+        val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
+        binding.homeNewArrivalsRecycler.apply {
+            layoutManager = gridLayoutManager
+            setHasFixedSize(true)
+            isFocusable = false
+            adapter = adapterArrival
+        }
+        adapterArrival.onItemClick(object : RecyclerViewItemClickListener {
+            override fun onClick(pos: String, view: View?) {
+                //TODO("Not yet implemented")
+            }
+        })
+    }
+
+    private fun setBrands() {
+        adapterBrands = BrandsAdapter(listBrand, requireContext())
+        val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
+        binding.rvBrands.apply {
+            layoutManager = gridLayoutManager
+            setHasFixedSize(true)
+            isFocusable = false
+            adapter = adapterBrands
         }
     }
 
@@ -165,113 +322,20 @@ class HomeFragment : Fragment(), RecyclerViewClickListener, View.OnClickListener
         }
     }
 
-    private fun NewArrival() {
-        val newArrivalsList = listOf<HomeCategoriesModel>(
-            HomeCategoriesModel("Toys Kids"),
-            HomeCategoriesModel("Toys Kids"),
-            HomeCategoriesModel("Toys Kids"),
-            HomeCategoriesModel("Toys Kids")
-        )
-
-        val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
-        binding.homeNewArrivalsRecycler.apply {
-            layoutManager = gridLayoutManager
-            setHasFixedSize(true)
-            isFocusable = false
-            adapter = NewArrivalsHomeAdapter(newArrivalsList, requireContext())
-        }
-    }
-
-    private fun HomeTheamRecyclar() {
-
-        val themesList = listOf<HomeCategoriesModel>(
-            HomeCategoriesModel("Unicorn"),
-            HomeCategoriesModel("Mermaid"),
-            HomeCategoriesModel("Unicorn"),
-            HomeCategoriesModel("Mermaid"),
-        )
-
-        val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
-//        binding.homeThemesRecycler.apply {
-//            layoutManager = gridLayoutManager
-//            setHasFixedSize(true)
-//            isFocusable = false
-//            adapter = HomeCategoriesAdapter(themesList, requireContext())
-//        }
-
-
-    }
-
-    private fun season() {
-        val seasonsItemList = listOf<HomeCategoriesModel>(
-            HomeCategoriesModel("Ballons"),
-            HomeCategoriesModel("Ballons"),
-            HomeCategoriesModel("Ballons"),
-            HomeCategoriesModel("Ballons"),
-            HomeCategoriesModel("Ballons")
-        )
-
-        binding.seasonsRecycler.adapter = HomeSeasonsAdapter(seasonsItemList, requireContext())
-
-    }
-
-    private fun HomeCategory() {
-        val categoryList = listOf<HomeCategoriesModel>(
-            HomeCategoriesModel("Ballons"),
-            HomeCategoriesModel("Party Supply"),
-        )
-
-        val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
-//        binding.homeCategoriesRecycler.apply {
-//            layoutManager = gridLayoutManager
-//            setHasFixedSize(true)
-//            isFocusable = false
-//            adapter = HomeCategoriesAdapter(categoryList, requireContext())
-//        }
-
-    }
-
-    private fun Topselling() {
-        val topSellingItemList = listOf<TopSellingHomeModel>(
-            TopSellingHomeModel("Princess Dress", "$10.2"),
-            TopSellingHomeModel("Princess Dress", "$10.2"),
-            TopSellingHomeModel("Princess Dress", "$10.2"),
-            TopSellingHomeModel("Princess Dress", "$10.2"),
-            TopSellingHomeModel("Princess Dress", "$10.2"),
-            TopSellingHomeModel("Princess Dress", "$10.2"),
-        )
-        binding.topSellingRecycler.adapter = TopSellingHomeAdapter(topSellingItemList, this)
-    }
-
-    private fun setImageInSlider(images: ArrayList<String>, imageSlider: SliderView) {
-        val adapter = MySliderImageAdapter(requireContext())
-        adapter.renewItems(images)
-        imageSlider.setSliderAdapter(adapter)
-        imageSlider.isAutoCycle = true
-        imageSlider.startAutoCycle()
-    }
-
-    override fun click(pos: String) {
-        val intent = Intent(activity, TopSellingActivity::class.java)
-        startActivity(intent)
-    }
-
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.tvSearch -> {
                 val intent = Intent(activity, SearchActivity::class.java)
                 startActivity(intent)
             }
-            R.id.tv_viewall -> {
+            R.id.tvViewAllTopSelling -> {
                 val intent = Intent(activity, TopSellingActivity::class.java)
                 startActivity(intent)
             }
         }
-
     }
 
-
-    private fun showdialog() {
+    private fun showDialog() {
         val builder = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialogWithMargin)
         val inflater = layoutInflater
         val dialogLayout: View =
@@ -281,6 +345,7 @@ class HomeFragment : Fragment(), RecyclerViewClickListener, View.OnClickListener
         val tv_dont_allow = dialogLayout.findViewById<TextView>(R.id.tv_dont_allow)
         builder.setView(dialogLayout)
         val builderinstance = builder.show()
+
         tvallow.setOnClickListener {
             builder.setCancelable(true)
             Toast.makeText(requireContext(), "done", Toast.LENGTH_LONG).show()
@@ -290,6 +355,6 @@ class HomeFragment : Fragment(), RecyclerViewClickListener, View.OnClickListener
             Toast.makeText(requireContext(), "dfdsf", Toast.LENGTH_LONG).show()
             builderinstance.dismiss()
         }
-
     }
+
 }

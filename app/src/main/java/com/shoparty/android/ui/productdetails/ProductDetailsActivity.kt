@@ -123,7 +123,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun setImageInSlider(images: ArrayList<String>, imageSlider: SliderView) {
         val adapter = MySliderImageAdapter(this)
-        adapter.renewItems(images)
+     //   adapter.renewItems(images)
         imageSlider.setSliderAdapter(adapter)
         imageSlider.isAutoCycle = true
         imageSlider.startAutoCycle()
