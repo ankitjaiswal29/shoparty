@@ -17,6 +17,7 @@ import com.mohammedalaa.seekbar.OnDoubleValueSeekBarChangeListener
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityTopSellingBinding
 import com.shoparty.android.interfaces.RecyclerViewClickListener
+import com.shoparty.android.interfaces.RecyclerViewFavouriteListener
 import com.shoparty.android.interfaces.RecyclerViewItemClickListener
 
 import com.shoparty.android.ui.filter.*
@@ -32,7 +33,7 @@ import com.shoparty.android.utils.apiutils.ViewModalFactory
 import kotlinx.android.synthetic.main.bottomsheet_filter_layout.view.*
 import kotlinx.android.synthetic.main.fragment_deals.*
 
-class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerViewClickListener,RecyclerViewItemClickListener {
+class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerViewClickListener,RecyclerViewItemClickListener,RecyclerViewFavouriteListener {
     private lateinit var binding: ActivityTopSellingBinding
     private lateinit var adapter: ProductListAdapters
     private lateinit var viewModel: ProductListViewModel
@@ -91,7 +92,7 @@ class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerVie
                         //binding.myorderRecyclerview.visibility=View.VISIBLE
                        // myorderlist.clear()
                         productlist = response.data as ArrayList<ProductListResponse.ProductList>
-                        setMyOrderListAdapter(productlist)
+                        setProductListAdapter(productlist)
                     }
                 }
                 is Resource.Loading -> {
@@ -118,14 +119,14 @@ class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerVie
 
 
     }
-    private fun setMyOrderListAdapter(data: ArrayList<ProductListResponse.ProductList>) {
+    private fun setProductListAdapter(data: ArrayList<ProductListResponse.ProductList>) {
 
         val gridLayoutManager = GridLayoutManager(this, 2)
         deals_item_recycler.apply {
             layoutManager = gridLayoutManager
             setHasFixedSize(true)
             isFocusable = false
-            adapter = ProductListAdapters(this@TopSellingActivity,data!!,this@TopSellingActivity)
+            adapter = ProductListAdapters(this@TopSellingActivity,data!!,this@TopSellingActivity,this@TopSellingActivity)
         }
 /*
         adapter = ProductListAdapters(data!!, this)
@@ -494,6 +495,10 @@ class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerVie
     override fun onClick(pos: String, view: View?) {
         val intent = Intent (this, ProductDetailsActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun favourite(pos: String, status: String) {
+        Toast.makeText(this,pos+" "+status,Toast.LENGTH_LONG).show()
     }
 
 }

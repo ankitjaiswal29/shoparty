@@ -13,12 +13,14 @@ import com.bumptech.glide.Glide
 
 import com.shoparty.android.R
 import com.shoparty.android.interfaces.RecyclerViewClickListener
+import com.shoparty.android.interfaces.RecyclerViewFavouriteListener
 import kotlinx.android.synthetic.main.deals_item_layout.view.*
 
 
 class ProductListAdapters(val  context: Context,private val mList: List<ProductListResponse.ProductList>,
-                          var recyclerViewClickListener: RecyclerViewClickListener) : RecyclerView.Adapter<ProductListAdapters.ViewHolder>() {
+                          var recyclerViewClickListener: RecyclerViewClickListener,var recyclerViewFavouriteListener: RecyclerViewFavouriteListener) : RecyclerView.Adapter<ProductListAdapters.ViewHolder>() {
 
+var fav_select=false
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.deals_item_layout, parent, false)
@@ -35,7 +37,25 @@ class ProductListAdapters(val  context: Context,private val mList: List<ProductL
         holder.cl_productlist_root_item.setOnClickListener {
             recyclerViewClickListener.click(ItemsViewModel.product_id.toString())
         }
+
+
         holder.itemView.iv_background.setOnClickListener {
+            if (fav_select){
+                holder.itemView.iv_unselect.visibility=View.VISIBLE
+                holder.itemView.iv_select.visibility=View.GONE
+                fav_select=false
+                recyclerViewFavouriteListener.favourite(ItemsViewModel.product_id.toString(),"unselected")
+
+            }else{
+                holder.itemView.iv_select.visibility=View.VISIBLE
+                holder.itemView.iv_unselect.visibility=View.GONE
+                fav_select=true
+                recyclerViewFavouriteListener.favourite(ItemsViewModel.product_id.toString(),"selected")
+
+            }
+        }
+
+       /* holder.itemView.iv_background.setOnClickListener {
             if (ItemsViewModel.fav_status.equals("1")){
                 holder.itemView.iv_unselect.visibility=View.GONE
                 holder.itemView.iv_select.visibility=View.VISIBLE
@@ -45,7 +65,7 @@ class ProductListAdapters(val  context: Context,private val mList: List<ProductL
                 holder.itemView.iv_unselect.visibility=View.VISIBLE
 
             }
-        }
+        }*/
     }
     override fun getItemCount(): Int {
         return mList.size
@@ -54,7 +74,7 @@ class ProductListAdapters(val  context: Context,private val mList: List<ProductL
         val cl_productlist_root_item: ConstraintLayout = itemView.findViewById(R.id.cl_productlist_root_item)
         val tv_productname: TextView = itemView.findViewById(R.id.tv_productname)
         val iv_dealsimg: ImageView = itemView.findViewById(R.id.iv_dealsimg)
-       val  iv_background: ImageView = itemView.findViewById(R.id.iv_background)
+       val  iv_background: ConstraintLayout = itemView.findViewById(R.id.iv_background)
         val  iv_unselect: ImageView = itemView.findViewById(R.id.iv_unselect)
         val  iv_select: ImageView = itemView.findViewById(R.id.iv_select)
         val tv_product_subtitle: TextView = itemView.findViewById(R.id.tv_product_subtitle)
