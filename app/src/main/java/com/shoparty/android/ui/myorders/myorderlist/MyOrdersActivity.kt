@@ -1,7 +1,6 @@
-package com.shoparty.android.ui.myorders.myorder
+package com.shoparty.android.ui.myorders.myorderlist
 
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -11,14 +10,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityMyOrdersBinding
-import com.shoparty.android.interfaces.RecyclerViewClickListener
-import com.shoparty.android.ui.myorders.orderdetails.OrderDetailsActivity
-import com.shoparty.android.ui.register.RegisterActivity
+import com.shoparty.android.ui.myorders.MyOrderViewModel
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 
-class MyOrdersActivity : AppCompatActivity(), View.OnClickListener,
-    RecyclerViewClickListener {
+class MyOrdersActivity : AppCompatActivity(), View.OnClickListener{
     private lateinit var binding: ActivityMyOrdersBinding
     private lateinit var adapter: MyOrderAdapters
     private lateinit var viewModel: MyOrderViewModel
@@ -27,7 +23,7 @@ class MyOrdersActivity : AppCompatActivity(), View.OnClickListener,
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_my_orders)
         viewModel = ViewModelProvider(this, ViewModalFactory(application))[MyOrderViewModel::class.java]
-        viewModel.myOrders()          //api call
+        viewModel.myOrders()      //api call
         initialise()
         setObserver()
     }
@@ -36,7 +32,6 @@ class MyOrdersActivity : AppCompatActivity(), View.OnClickListener,
         binding.infoTool.tvTitle.text = getString(R.string.my_orders)
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
         binding.myorderRecyclerview.layoutManager = LinearLayoutManager(this)
-
     }
 
     private fun setObserver() {
@@ -85,7 +80,7 @@ class MyOrdersActivity : AppCompatActivity(), View.OnClickListener,
     }
 
     private fun setMyOrderListAdapter(data: List<MyOrderResponse.OrderHistory>?) {
-        adapter = MyOrderAdapters(data!!, this)
+        adapter = MyOrderAdapters(this,data!!)
         binding.myorderRecyclerview.layoutManager = LinearLayoutManager(this)
         binding.myorderRecyclerview.adapter = adapter
     }
@@ -100,12 +95,5 @@ class MyOrdersActivity : AppCompatActivity(), View.OnClickListener,
 
     override fun onBackPressed() {
         super.onBackPressed()
-    }
-
-
-    override fun click(pos: String)
-    {
-        val intent = Intent(this, OrderDetailsActivity::class.java)
-        startActivity(intent)
     }
 }

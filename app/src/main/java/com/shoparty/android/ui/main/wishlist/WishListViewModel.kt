@@ -16,8 +16,8 @@ class WishListViewModel(private val app: Application) : ViewModel() {
     private val mWishlist = MutableLiveData<Resource<List<WishListResponse.Data>>>()
     val wishlist: LiveData<Resource<List<WishListResponse.Data>>> = mWishlist
 
-    private val mremoveWishlist = MutableLiveData<Resource<RemoveWishlistResponse>>()
-    val removewishlist: LiveData<Resource<RemoveWishlistResponse>> = mremoveWishlist
+    private val maddremoveWishlist = MutableLiveData<Resource<RemoveWishlistResponse>>()
+    val addremovewishlist: LiveData<Resource<RemoveWishlistResponse>> = maddremoveWishlist
 
     fun getWishlist(language:String) = viewModelScope.launch {
         if (Utils.hasInternetConnection(app.applicationContext))
@@ -32,15 +32,15 @@ class WishListViewModel(private val app: Application) : ViewModel() {
 
     }
 
-    fun removeWishlist(product_id:String,type:String) = viewModelScope.launch {
+    fun addremoveWishlist(product_id:String, type:Int) = viewModelScope.launch {
         if (Utils.hasInternetConnection(app.applicationContext))
         {
             val request = RemoveWishListRequestModel(product_id,type)
-            mremoveWishlist.postValue(Resource.Loading())
+            maddremoveWishlist.postValue(Resource.Loading())
             val response = repository.removewishListApi(request)
-            mremoveWishlist.postValue(handleremoveWishlistResponse(response!!))
+            maddremoveWishlist.postValue(handleremoveWishlistResponse(response!!))
         } else {
-            mremoveWishlist.postValue(Resource.Error(app.resources.getString(R.string.no_internet)))
+            maddremoveWishlist.postValue(Resource.Error(app.resources.getString(R.string.no_internet)))
         }
 
     }
@@ -50,7 +50,12 @@ class WishListViewModel(private val app: Application) : ViewModel() {
             response.body()?.let { res ->
                 return if (res.response_code == 200) {
                     Resource.Success(res.message, res.result)
-                } else {
+                }
+                else if(res.response_code == 204)
+                {
+                    Resource.Success(res.message, res.result)
+                }
+                else {
                     Resource.Error(res.message)
                 }
             }

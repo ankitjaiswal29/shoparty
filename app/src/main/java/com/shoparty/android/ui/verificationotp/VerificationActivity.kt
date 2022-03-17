@@ -16,6 +16,7 @@ import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityVerificationBinding
 import com.shoparty.android.ui.main.mainactivity.MainActivity
 import com.shoparty.android.ui.main.myaccount.getprofile.GetProfileResponse
+import com.shoparty.android.ui.shipping.ShippingActivity
 import com.shoparty.android.utils.*
 
 import com.shoparty.android.utils.apiutils.Resource
@@ -28,7 +29,6 @@ class VerificationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityVerificationBinding
     private lateinit var viewModel: VerifiyViewModel
     private var userid=""
-    private var clickabletrue=""
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
@@ -55,13 +55,9 @@ class VerificationActivity : AppCompatActivity() {
             Utils.hideKeyboard(this)
             viewModel.postVerifiy(userid)     //api call
         }
-        binding.txtotpcount.setOnClickListener {
+        binding.txtotpcountvisible.setOnClickListener {
             Utils.hideKeyboard(this)
-           if(clickabletrue.equals("true"))
-           {
-               viewModel.postResend(userid)      //api call
-           }
-
+            viewModel.postResend(userid)      //api call
         }
 
     }
@@ -77,14 +73,18 @@ class VerificationActivity : AppCompatActivity() {
 
             override fun onFinish()
             {
-              //  binding.txtTimecount.setClickable(true)
-                clickabletrue="true"
+                txtotpcountvisible.visibility=View.VISIBLE
+                txtotpcount.visibility=View.GONE
+                txtTimecount.visibility=View.GONE
             }
         }
 
     private fun startTimer()
     {
-        clickabletrue="false"
+        txtotpcountvisible.visibility=View.GONE
+        txtotpcount.visibility=View.VISIBLE
+        txtTimecount.visibility=View.VISIBLE
+
         var timeleft = 2.toDouble().toString()
         binding.txtTimecount.text = timeleft
 
@@ -112,9 +112,16 @@ class VerificationActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
 
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-
+                    if(PrefManager.read(PrefManager.IS_SHIPPING_PAGE,"") == "1")
+                    {
+                        val intent = Intent(this, ShippingActivity::class.java)
+                        startActivity(intent)
+                    }
+                    else
+                    {
+                        val intent = Intent(this, ShippingActivity::class.java)
+                        startActivity(intent)
+                    }
                 }
                 is Resource.Loading -> {
                     ProgressDialog.showProgressBar(this)

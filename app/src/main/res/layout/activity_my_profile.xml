@@ -122,7 +122,7 @@
 
 
                     <TextView
-                        android:id="@+id/tvFirstName"
+                        android:id="@+id/tvOrderid"
                         style="@style/AppTheme.Title"
                         android:text="@string/first_name"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -138,7 +138,7 @@
                         android:text=""
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvFirstName" />
+                        app:layout_constraintTop_toBottomOf="@+id/tvOrderid" />
 
                     <TextView
                         android:id="@+id/tvEmail"

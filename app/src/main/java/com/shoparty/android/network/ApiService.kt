@@ -25,8 +25,10 @@ import com.shoparty.android.ui.main.wishlist.RemoveWishListRequestModel
 import com.shoparty.android.ui.main.wishlist.RemoveWishlistResponse
 import com.shoparty.android.ui.main.wishlist.WishListRequestModel
 import com.shoparty.android.ui.main.wishlist.WishListResponse
-import com.shoparty.android.ui.myorders.myorder.MyOrderRequestModel
-import com.shoparty.android.ui.myorders.myorder.MyOrderResponse
+import com.shoparty.android.ui.myorders.myorderlist.MyOrderRequestModel
+import com.shoparty.android.ui.myorders.myorderlist.MyOrderResponse
+import com.shoparty.android.ui.myorders.orderdetails.OrderDetailsRequestModel
+import com.shoparty.android.ui.myorders.orderdetails.OrderDetailsResponse
 import com.shoparty.android.ui.register.RegisterRequestModel
 import com.shoparty.android.ui.register.RegisterResponseModel
 import com.shoparty.android.ui.verificationotp.ResendOtpResponse
@@ -154,5 +156,10 @@ interface ApiService {
         @Body requestModel: CategoryRequestModel):
             Response<DrawerResponse>
 
+
+    @POST("order-details")
+    suspend fun orderdetails(
+        @Body orderDetailsRequestModel: OrderDetailsRequestModel
+    ): Response<OrderDetailsResponse>
 
 }

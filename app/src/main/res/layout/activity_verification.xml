@@ -185,6 +185,16 @@
                 android:text="@string/resend_otp_sent_in"
                 android:visibility="visible" />
 
+
+            <TextView
+                android:id="@+id/txtotpcountvisible"
+                style="@style/AppTheme.Text_14dp_Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/resend_otp_sent_in"
+                android:visibility="gone" />
+
             <TextView
                 android:id="@+id/txtTimecount"
                 android:layout_width="wrap_content"

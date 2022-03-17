@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shoparty.android.R
 import com.shoparty.android.databinding.FragmentWishListBinding
@@ -34,10 +33,8 @@ class WishListFragment : Fragment(),RecyclerViewClickListener {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_wish_list, container, false)
         viewModel = ViewModelProvider(this, ViewModalFactory(activity?.application!!))[WishListViewModel::class.java]
+        viewModel.getWishlist("1")                          //api call
         setObserver()
-        binding.clNoData.visibility=View.VISIBLE
-        binding.constraintRecycler.visibility=View.GONE
-        //   viewModel.getWishlist("1")                          //api call
         return binding.root
     }
 
@@ -45,14 +42,24 @@ class WishListFragment : Fragment(),RecyclerViewClickListener {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    private fun setObserver() {
+    private fun setObserver()
+    {
         viewModel.wishlist.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
-                    listWishlistt.clear()
                     listWishlistt=response.data!! as ArrayList<WishListResponse.Data>
-                    setWishListAdapter(listWishlistt)
+                    if(listWishlistt.isNullOrEmpty())
+                    {
+                        binding.clNoData.visibility=View.VISIBLE
+                        binding.wishlistRecyclerview.visibility=View.GONE
+                    }
+                    else
+                    {
+                        binding.clNoData.visibility=View.GONE
+                        binding.wishlistRecyclerview.visibility=View.VISIBLE
+                        setWishListAdapter(listWishlistt)
+                    }
                 }
                 is Resource.Loading -> {
                     ProgressDialog.showProgressBar(requireContext())
@@ -77,7 +84,7 @@ class WishListFragment : Fragment(),RecyclerViewClickListener {
         }
 
 
-        viewModel.removewishlist.observe(viewLifecycleOwner) { response ->
+        viewModel.addremovewishlist.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
                   //  ProgressDialog.hideProgressBar()
@@ -122,6 +129,6 @@ class WishListFragment : Fragment(),RecyclerViewClickListener {
     }
 
     override fun click(product_id: String) {
-     viewModel.removeWishlist(product_id,"0")
+     viewModel.addremoveWishlist(product_id,0)
     }
 }

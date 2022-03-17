@@ -15,7 +15,7 @@ import com.mohammedalaa.seekbar.OnDoubleValueSeekBarChangeListener
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityFilterBinding
 import com.shoparty.android.interfaces.RecyclerViewClickListener
-import com.shoparty.android.ui.myorders.myorder.MyOrderAdapters
+
 import com.shoparty.android.utils.SpacesItemDecoration
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory

@@ -44,14 +44,13 @@ var fav_select=false
                 holder.itemView.iv_unselect.visibility=View.VISIBLE
                 holder.itemView.iv_select.visibility=View.GONE
                 fav_select=false
-                recyclerViewFavouriteListener.favourite(ItemsViewModel.product_id.toString(),"unselected")
-
-            }else{
+                recyclerViewFavouriteListener.favourite(ItemsViewModel.product_id,"0")
+            }
+            else{
                 holder.itemView.iv_select.visibility=View.VISIBLE
                 holder.itemView.iv_unselect.visibility=View.GONE
                 fav_select=true
-                recyclerViewFavouriteListener.favourite(ItemsViewModel.product_id.toString(),"selected")
-
+                recyclerViewFavouriteListener.favourite(ItemsViewModel.product_id,"1")
             }
         }
 

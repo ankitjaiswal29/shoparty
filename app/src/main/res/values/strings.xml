@@ -21,7 +21,7 @@
     <string name="expirydate">ExpiryDate</string>
     <string name="mm_yyyy">MM/YYYY</string>
     <string name="view_order"><![CDATA[view order >]]></string>
-    <string name="order_id_od12345678901">Order ID: OD12345678901</string>
+    <string name="orderId">Order ID:</string>
     <string name="tesla_toys_kids_6_bundle_color_pack">Tesla Toys Kids 6+ Bundle Color Pack</string>
     <string name="order_placed">Order Placed</string>
     <string name="order_confirmed">Order Confirmed</string>
