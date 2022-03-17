@@ -8,7 +8,9 @@ import com.shoparty.android.ui.contactus.ContactUsViewModel
 import com.shoparty.android.ui.filter.ColorsViewModel
 import com.shoparty.android.ui.login.LoginViewModel
 import com.shoparty.android.ui.main.categories.CategoryViewModel
+import com.shoparty.android.ui.main.deals.DealsViewModel
 import com.shoparty.android.ui.main.home.HomeViewModel
+import com.shoparty.android.ui.main.mainactivity.MainViewModal
 import com.shoparty.android.ui.main.myaccount.MyAccountViewModel
 import com.shoparty.android.ui.main.topselling.ProductListViewModel
 import com.shoparty.android.ui.main.wishlist.WishListViewModel
@@ -60,6 +62,7 @@ class ViewModalFactory(private val app: Application) : ViewModelProvider.Factory
         if (modelClass.isAssignableFrom(VoucherViewModel::class.java)) {
             return VoucherViewModel(app) as T
         }
+
         if (modelClass.isAssignableFrom(ProductListViewModel::class.java)) {
             return ProductListViewModel(app) as T
         }
@@ -67,6 +70,13 @@ class ViewModalFactory(private val app: Application) : ViewModelProvider.Factory
             return ColorsViewModel(app) as T
         }
 
+        if (modelClass.isAssignableFrom(DealsViewModel::class.java)) {
+            return DealsViewModel(app) as T
+        }
+
+        if (modelClass.isAssignableFrom(MainViewModal::class.java)) {
+            return MainViewModal(app) as T
+        }
         throw IllegalArgumentException("Unknown class name")
     }
 }

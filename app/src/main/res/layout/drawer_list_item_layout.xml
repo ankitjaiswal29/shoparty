@@ -3,71 +3,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_parentlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white">
-
-
-
-    <RelativeLayout
-        android:id="@+id/relative_men_topwear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:padding="10dp"
-        android:background="@color/white">
-
+        android:background="@color/white"
+        android:padding="@dimen/_12sdp">
 
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tvTitle"
             style="@style/AppTheme.Text_16_black_dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:background="@color/white"
-            android:text="@string/products" />
-
-
-        <ImageView
-            android:id="@+id/arrow_striet"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/_5sdp"
-            android:src="@drawable/right_arrow_icon">
-
-        </ImageView>
-
+            android:text="@string/products"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/arrow_up"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/_5sdp"
-            android:rotation="-90"
+            android:id="@+id/ivArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:src="@drawable/right_arrow_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvChildCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
             android:visibility="gone"
-            android:src="@drawable/right_arrow_icon">
-        </ImageView>
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+            tools:listitem="@layout/drawer_list_child" />
 
-
-    </RelativeLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycle_child"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relative_men_topwear"
-        android:layout_marginRight="@dimen/_10sdp"
-        android:layout_marginLeft="@dimen/_10sdp"
-       tools:listitem="@layout/drawer_list_child">
-    </androidx.recyclerview.widget.RecyclerView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

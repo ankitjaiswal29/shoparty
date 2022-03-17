@@ -6,19 +6,23 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityMainBinding
 import com.shoparty.android.ui.login.LoginActivity
 import com.shoparty.android.ui.main.categories.CategoriesFragment
+import com.shoparty.android.ui.main.categories.CategoryRequestModel
+import com.shoparty.android.ui.main.categories.NewArrivalItemLIstAdapter
 import com.shoparty.android.ui.main.deals.DealsFragment
-import com.shoparty.android.ui.main.home.HomeCategoriesModel
 import com.shoparty.android.ui.main.home.HomeFragment
 import com.shoparty.android.ui.main.myaccount.MyAccountFragment
 import com.shoparty.android.ui.main.myaccount.myprofileupdate.MyProfileActivity
@@ -26,31 +30,49 @@ import com.shoparty.android.ui.main.wishlist.WishListFragment
 import com.shoparty.android.ui.search.SearchActivity
 import com.shoparty.android.ui.shoppingbag.ShopingBagActivity
 import com.shoparty.android.utils.PrefManager
-import kotlinx.android.synthetic.main.activity_main.*
+import com.shoparty.android.utils.ProgressDialog
+import com.shoparty.android.utils.apiutils.Resource
+import com.shoparty.android.utils.apiutils.ViewModalFactory
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityMainBinding
 
+    private lateinit var viewModel: MainViewModal
+    private lateinit var drawerAdapter: DrawerAdapter
+
+    private val listDrawer: ArrayList<DrawerResponse.Category> = ArrayList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        viewModel =
+            ViewModelProvider(this, ViewModalFactory(application)).get(MainViewModal::class.java)
+
         initialise()
+        setObserver()
+
+        val request = CategoryRequestModel("1")
+        viewModel.getCategory(request)
+
+
     }
 
     private fun initialise() {
         binding.rlSignout.visibility = View.GONE
         if (PrefManager.read(PrefManager.AUTH_TOKEN, "").isEmpty()) {
             binding.btnSigninSignout.visibility = View.VISIBLE
-            binding.clProfile.visibility=View.GONE
+            binding.clProfile.visibility = View.GONE
         } else {
             binding.btnSigninSignout.visibility = View.GONE
-           // binding.ivProfilePic
-            binding.tvName.setText(PrefManager.read(PrefManager.NAME,""))
-            binding.tvPhoneno.setText(PrefManager.read(PrefManager.MOBILE,""))
-            Glide.with(this).load(PrefManager.read(PrefManager.IMAGE,"")).error(R.drawable.person_img)
-                .into(iv_ProfilePic!!)
+            // binding.ivProfilePic
+            binding.tvName.setText(PrefManager.read(PrefManager.NAME, ""))
+            binding.tvPhoneno.setText(PrefManager.read(PrefManager.MOBILE, ""))
+            Glide.with(this).load(PrefManager.read(PrefManager.IMAGE, ""))
+                .error(R.drawable.person_img)
+                .into(binding.ivProfilePic)
         }
 
         binding.navigationView.bringToFront()
@@ -87,19 +109,53 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun drawerListing() {
-        val drawerItemList = listOf<HomeCategoriesModel>(
-            HomeCategoriesModel("Products"),
-            HomeCategoriesModel("Services"),
-            HomeCategoriesModel("Flowers"),
-            HomeCategoriesModel("Rentals"),
-            HomeCategoriesModel("New Arrivals"),
-            HomeCategoriesModel("Best Selling")
-        )
 
-        binding.rvDrawerHomerecyclarview.layoutManager = LinearLayoutManager(this)
-        val adapter = DrawerAdapter(this, drawerItemList)
-        binding.rvDrawerHomerecyclarview.adapter = adapter
+    private fun setObserver() {
+
+        viewModel.drawer.observe(this) { response ->
+            when (response) {
+                is Resource.Success -> {
+                    ProgressDialog.hideProgressBar()
+                    listDrawer.clear()
+                    listDrawer.addAll(response?.data!! as ArrayList<DrawerResponse.Category>)
+                    drawerAdapter.notifyDataSetChanged()
+                }
+
+                is Resource.Loading -> {
+                    ProgressDialog.showProgressBar(this)
+                }
+                is Resource.Error -> {
+                    ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        this,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        this,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
+    private fun drawerListing() {
+        //binding.rvDrawerHomerecyclarview.layoutManager = LinearLayoutManager(this)
+        drawerAdapter = DrawerAdapter(this, listDrawer)
+        //binding.rvDrawerHomerecyclarview.adapter = drawerAdapter
+        val gridLayoutManager = GridLayoutManager(this, 1)
+        binding.rvCategories.apply {
+            layoutManager = gridLayoutManager
+            setHasFixedSize(true)
+            isFocusable = false
+            adapter = drawerAdapter
+        }
+
     }
 
     fun manageUi(

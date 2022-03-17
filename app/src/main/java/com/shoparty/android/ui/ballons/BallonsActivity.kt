@@ -10,16 +10,25 @@ import com.iamkamrul.expandablerecyclerviewlist.listener.ExpandCollapseListener
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityBallonsBinding
 import com.shoparty.android.databinding.ActivityReturnPolicyBinding
+import com.shoparty.android.ui.main.mainactivity.DrawerResponse
 
 
 class BallonsActivity : AppCompatActivity(), View.OnClickListener{
+
     private lateinit var binding: ActivityBallonsBinding
     private val adapter = CategoryAdapter(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
      //   setContentView(R.layout.activity_ballons)
         binding= DataBindingUtil.setContentView(this, R.layout.activity_ballons)
         initialise()
+
+
+        val data = intent.extras?.getString("categoryName")
+        binding.infoTool.tvTitle.text = data
+
+        val list = intent?.getParcelableArrayListExtra<DrawerResponse.Category.ChildCategory>("category")
     }
 
     private fun initialise() {
