@@ -1,5 +1,6 @@
 package com.shoparty.android.ui.myorders.orderdetails
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -13,6 +14,7 @@ import com.shoparty.android.databinding.ActivityOrderDetailsBinding
 import com.shoparty.android.ui.myorders.MyOrderViewModel
 
 import com.shoparty.android.ui.myorders.cancelorder.cancelorder.CancelOrderActivity
+import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
@@ -43,7 +45,6 @@ class OrderDetailsActivity : AppCompatActivity(), View.OnClickListener {
                 )
             )
         }*/
-        binding.infoTool.tvTitle.setText(R.string.orderdetails)
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
         binding.btnCancel.setOnClickListener(this)
 
@@ -67,6 +68,7 @@ class OrderDetailsActivity : AppCompatActivity(), View.OnClickListener {
     }
 
 
+    @SuppressLint("SetTextI18n")
     private fun setObserver()
     {
         viewModel.Orderdetails.observe(this) { response ->
@@ -74,9 +76,11 @@ class OrderDetailsActivity : AppCompatActivity(), View.OnClickListener {
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
                     binding.tvOrderid.text=getString(R.string.orderId)+" "+response.data?.order_id
-                    Glide.with(this).asBitmap().load(response.data?.product_response!![0].product_image).into(binding.ivProductImg)
+                    binding.tvSummeryPrice.text=getString(R.string.dollor)+response.data?.amount_to_paid
+                    binding.tvTax.text=getString(R.string.tax_vat_5)+" "+"("+response.data?.tax+"%"+")"
+                    binding.tvTotalPriceDetail.text=getString(R.string.dollor)+response.data?.total_amount
 
-                    response.data.product_response.forEachIndexed { index, productResponse ->
+                    response.data?.product_response?.forEachIndexed { index, productResponse ->
                         if(index==0)
                         {
                             totalitem=response.data?.product_response[index].product_name
@@ -88,6 +92,17 @@ class OrderDetailsActivity : AppCompatActivity(), View.OnClickListener {
                         }
                     }
                     binding.productName.text=totalitem
+                    if(response.data?.action_status.equals(Constants.ONGOING))
+                    {
+                        binding.infoTool.tvTitle.setText(R.string.ongoingorderdetails)
+                        Glide.with(this).asBitmap().load(response.data?.product_response!![0].product_image).into(binding.ivProductImg)
+                        //  binding.tvTotalItem.text=getString(R.string.total_2_item)+"("+response.data.total_qnty+" "+getString(R.string.items)+")"
+                        binding.tvTotalPrice.text=getString(R.string.dollor)+response.data.total_amount
+                    }
+                    else
+                    {
+                        binding.infoTool.tvTitle.setText(R.string.orderdetails)
+                    }
 
                 }
                 is Resource.Loading -> {

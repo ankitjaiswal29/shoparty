@@ -64,7 +64,7 @@ class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerVie
             else if(intent.getStringExtra(Constants.TOP20SELLING).equals("2"))  //top20selling
             {
                 binding.infoTool.tvTitle.text=getString(R.string.top_20_selling_items)
-            //    viewModel.myOrders(intent.getStringExtra(Constants.PRODUCTID).toString())  //api call
+            //  viewModel.myOrders(intent.getStringExtra(Constants.PRODUCTID).toString())  //api call
             }
         }
         initialise()
