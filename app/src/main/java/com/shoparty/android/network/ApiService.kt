@@ -9,8 +9,11 @@ import com.shoparty.android.ui.login.LoginRequestModel
 import com.shoparty.android.ui.login.LoginResponse
 import com.shoparty.android.ui.main.categories.CategoryRequestModel
 import com.shoparty.android.ui.main.categories.CategoryResponse
+import com.shoparty.android.ui.main.deals.DealsRequestModel
+import com.shoparty.android.ui.main.deals.DealsResponse
 import com.shoparty.android.ui.main.home.HomeRequestModel
 import com.shoparty.android.ui.main.home.HomeResponse
+import com.shoparty.android.ui.main.mainactivity.DrawerResponse
 import com.shoparty.android.ui.main.myaccount.getprofile.GetProfileResponse
 import com.shoparty.android.ui.main.myaccount.logout.LogoutResponse
 import com.shoparty.android.ui.main.myaccount.myprofileupdate.MyProfileUpdateResponse
@@ -36,10 +39,10 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface ApiService {
+
     @POST("signup")
     suspend fun registerAccountAsync(
         @Body registerRequestModel: RegisterRequestModel): Response<RegisterResponseModel>
-
 
     @POST("login")
     suspend fun loginAsync(
@@ -64,12 +67,9 @@ interface ApiService {
     suspend fun VoucherAsync():
             Response<VoucherListResponse>
 
-
-
     @GET("profile-details")
     suspend fun getProfileAsync():
             Response<GetProfileResponse>
-
 
     @GET("contact_us")
     suspend fun getContactUsAsync():
@@ -80,22 +80,18 @@ interface ApiService {
         @Body requestBody: RequestBody
     ): Response<MyProfileUpdateResponse>
 
-
     @POST("add-address")
     suspend fun addAddressAsync(
         @Body addAddressRequestModel: AddAddressRequestModel
     ): Response<AddAddressResponse>
-
 
     @POST("edit-address")                //
     suspend fun updateAddressAsync(
         @Body updateAddressRequestModel: UpdateAddressRequestModel
     ): Response<UpdateAddressResponse>
 
-
     @GET("list-countries")
     suspend fun getcountryAsync(): Response<GetCountryResponse>
-
 
     @GET("list-addresses")
     suspend fun getaddressAsync():
@@ -105,7 +101,6 @@ interface ApiService {
     suspend fun deleteAddressAsync(
         @Body deleteAddressRequestModel: DeleteAddressRequestModel
     ): Response<DeleteAddressResponse>
-
 
     @POST("list-cities")
     suspend fun getcityAsync(
@@ -137,10 +132,20 @@ interface ApiService {
         @Body productListRequestModel: ProductListRequestModel
     ): Response<ProductListResponse>
 
-
     @POST("add-wishlist")
     suspend fun removeWishlist(
         @Body removeWishListRequestModel: RemoveWishListRequestModel
     ): Response<RemoveWishlistResponse>
+
+    @POST("list-deals")
+    suspend fun getDeals(
+        @Body requestModel: DealsRequestModel
+    ): Response<DealsResponse>
+
+    @POST("sidebar/product/categories")
+    suspend fun getDrawer(
+        @Body requestModel: CategoryRequestModel):
+            Response<DrawerResponse>
+
 
 }
