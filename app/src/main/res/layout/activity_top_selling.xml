@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        tools:context=".ui.main.topselling.TopSellingActivity">
+        tools:context=".ui.main.product_list.ProductListActivity">
 
 
         <include

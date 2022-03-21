@@ -1,4 +1,4 @@
-package com.shoparty.android.ui.main.topselling
+package com.shoparty.android.ui.main.product_list
 
 import android.app.Application
 import androidx.lifecycle.LiveData
@@ -6,14 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shoparty.android.R
-import com.shoparty.android.ui.address.addaddress.addaddress.*
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 
 import kotlinx.coroutines.launch
 import retrofit2.Response
-
-import java.util.*
 
 
 class ProductListViewModel(private val app: Application) : ViewModel()

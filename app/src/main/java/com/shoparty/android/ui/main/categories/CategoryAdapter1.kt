@@ -1,26 +1,18 @@
 package com.shoparty.android.ui.main.categories
 
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.shoparty.android.R
-import com.shoparty.android.databinding.CategoryItem1Binding
-import com.shoparty.android.interfaces.RecyclerViewAddressClickListener
-import com.shoparty.android.interfaces.RecyclerViewClickListener
-import com.shoparty.android.ui.address.addaddress.getaddress.GetAddressListResponse
-import com.shoparty.android.ui.main.topselling.TopSellingActivity
+import com.shoparty.android.ui.main.product_list.ProductListActivity
 import com.shoparty.android.utils.Constants
 
 class CategoryAdapter1( val context: Context,
@@ -38,7 +30,7 @@ class CategoryAdapter1( val context: Context,
         Glide.with(context).asBitmap().load(modal.category_image).into(holder.ivCategoryItem!!)
 
         holder.category_root_lay?.setOnClickListener {
-            val intent = Intent(context, TopSellingActivity::class.java)
+            val intent = Intent(context, ProductListActivity::class.java)
             intent.putExtra(Constants.PRODUCTID,modal.id)  //categoryid
             intent.putExtra(Constants.CATEGORYFRAGMENT,"1")
             intent.putExtra("categoryname",holder.categoryName?.text.toString())

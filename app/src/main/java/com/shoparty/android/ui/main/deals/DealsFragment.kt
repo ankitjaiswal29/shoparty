@@ -22,7 +22,7 @@ import com.shoparty.android.databinding.FragmentDealsBinding
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.ui.filter.*
 import com.shoparty.android.ui.main.categories.NewArrivalItemLIstAdapter
-import com.shoparty.android.ui.main.topselling.TopSellingBottomSheetAdapter
+import com.shoparty.android.ui.main.product_list.ProductListSortingBottomSheetAdapter
 import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.SpacesItemDecoration
 import com.shoparty.android.utils.apiutils.Resource
@@ -500,7 +500,7 @@ class DealsFragment : Fragment(), View.OnClickListener, RecyclerViewClickListene
         data.add("Oldest To Newest")
         data.add("Price - Low To High")
         data.add("Price - High To Low")
-        val adapter = TopSellingBottomSheetAdapter(data, this)
+        val adapter = ProductListSortingBottomSheetAdapter(data, this)
         recyclerView.adapter = adapter
 
         // below line is use to set cancelable to avoid

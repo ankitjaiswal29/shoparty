@@ -1,4 +1,4 @@
-package com.shoparty.android.ui.main.topselling
+package com.shoparty.android.ui.main.product_list
 
 data class ProductListRequestModel(
     val  filter_id:String="",

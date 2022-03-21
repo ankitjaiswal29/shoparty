@@ -20,8 +20,8 @@ import com.shoparty.android.ui.main.mainactivity.DrawerResponse
 import com.shoparty.android.ui.main.myaccount.getprofile.GetProfileResponse
 import com.shoparty.android.ui.main.myaccount.logout.LogoutResponse
 import com.shoparty.android.ui.main.myaccount.myprofileupdate.MyProfileUpdateResponse
-import com.shoparty.android.ui.main.topselling.ProductListRequestModel
-import com.shoparty.android.ui.main.topselling.ProductListResponse
+import com.shoparty.android.ui.main.product_list.ProductListRequestModel
+import com.shoparty.android.ui.main.product_list.ProductListResponse
 import com.shoparty.android.ui.main.wishlist.RemoveWishListRequestModel
 import com.shoparty.android.ui.main.wishlist.RemoveWishlistResponse
 import com.shoparty.android.ui.main.wishlist.WishListRequestModel

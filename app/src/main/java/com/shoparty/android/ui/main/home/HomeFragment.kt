@@ -22,7 +22,7 @@ import com.shoparty.android.ui.contactus.ContactUsViewModel
 import com.shoparty.android.ui.contactus.WebViewActivity
 import com.shoparty.android.ui.main.deals.TopSellingHomeModel
 import com.shoparty.android.ui.main.mainactivity.MainActivity
-import com.shoparty.android.ui.main.topselling.TopSellingActivity
+import com.shoparty.android.ui.main.product_list.ProductListActivity
 import com.shoparty.android.ui.search.SearchActivity
 import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.ProgressDialog
@@ -371,7 +371,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 startActivity(intent)
             }
             R.id.tvViewAllTopSelling -> {
-                val intent = Intent(activity, TopSellingActivity::class.java)
+                val intent = Intent(activity, ProductListActivity::class.java)
                 intent.putExtra(Constants.PRODUCTID,"")
                 intent.putExtra(Constants.TOP20SELLING,"2")
                 startActivity(intent)

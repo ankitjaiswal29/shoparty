@@ -1,6 +1,5 @@
 package com.shoparty.android.ui.main.categories
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.shoparty.android.R
 import com.shoparty.android.databinding.FragmentCategoriesBinding
-import com.shoparty.android.interfaces.RecyclerViewClickListener
-import com.shoparty.android.ui.main.topselling.TopSellingActivity
-import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory

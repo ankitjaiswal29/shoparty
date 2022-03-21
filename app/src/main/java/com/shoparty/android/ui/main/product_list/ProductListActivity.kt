@@ -1,4 +1,4 @@
-package com.shoparty.android.ui.main.topselling
+package com.shoparty.android.ui.main.product_list
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -31,7 +31,7 @@ import com.shoparty.android.utils.apiutils.ViewModalFactory
 import kotlinx.android.synthetic.main.bottomsheet_filter_layout.view.*
 import kotlinx.android.synthetic.main.fragment_deals.*
 
-class TopSellingActivity : AppCompatActivity(),
+class ProductListActivity : AppCompatActivity(),
     View.OnClickListener,RecyclerViewClickListener,
     RecyclerViewItemClickListener,
     RecyclerViewFavouriteListener {
@@ -163,7 +163,7 @@ class TopSellingActivity : AppCompatActivity(),
             layoutManager = gridLayoutManager
             setHasFixedSize(true)
             isFocusable = false
-            adapter = ProductListAdapters(this@TopSellingActivity,data!!,this@TopSellingActivity,this@TopSellingActivity)
+            adapter = ProductListAdapters(this@ProductListActivity,data!!,this@ProductListActivity,this@ProductListActivity)
         }
 
     }
@@ -205,33 +205,12 @@ class TopSellingActivity : AppCompatActivity(),
         data.add("Oldest To Newest")
         data.add("Price - Low To High")
         data.add("Price - High To Low")
-        val adapter=TopSellingBottomSheetAdapter(data,this)
+        val adapter=ProductListSortingBottomSheetAdapter(data,this)
         recyclerView.adapter=adapter
         dialog.setCancelable(true)
         dialog.setContentView(view)
         dialog.show()
 
-
-    }
-
-    private fun Topsellingitem() {
-        val naItemList = listOf<TopSellingHomeModel>(
-            TopSellingHomeModel("Princess Dress","$10.2"),
-            TopSellingHomeModel("Princess Dress","$10.2"),
-            TopSellingHomeModel("Princess Dress","$10.2"),
-            TopSellingHomeModel("Princess Dress","$10.2"),
-            TopSellingHomeModel("Princess Dress","$10.2"),
-            TopSellingHomeModel("Princess Dress","$10.2"),
-
-            )
-
-        val gridLayoutManager = GridLayoutManager(this, 2)
-        deals_item_recycler.apply {
-            layoutManager = gridLayoutManager
-            setHasFixedSize(true)
-            isFocusable = false
-            adapter = TopSellingDemoAdapter(naItemList,this@TopSellingActivity)
-        }
 
     }
 

@@ -1,6 +1,5 @@
-package com.shoparty.android.ui.main.topselling
+package com.shoparty.android.ui.main.product_list
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
