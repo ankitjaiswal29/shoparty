@@ -513,18 +513,21 @@
                         app:layout_constraintTop_toBottomOf="@+id/home_social_us_htv">
 
                         <ImageView
+                            android:id="@+id/ivFacebook"
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:layout_margin="5dp"
                             android:src="@drawable/fb_icon" />
 
                         <ImageView
+                            android:id="@+id/ivTwitter"
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:layout_margin="5dp"
                             android:src="@drawable/twitter_icon" />
 
                         <ImageView
+                            android:id="@+id/ivYoutube"
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:layout_margin="5dp"

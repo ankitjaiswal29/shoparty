@@ -405,6 +405,8 @@
     <string name="percent">%</string>
     <string name="off">OFF</string>
     <string name="pleasechecktermacondition">Please check term and condition</string>
+    <string name="poppins">Poppins</string>
+    <string name="save_add_to_bag"><![CDATA[Save & Add To Bag]]></string>
 
 
 </resources>

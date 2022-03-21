@@ -1,5 +1,6 @@
 package com.shoparty.android.ui.main.home
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
@@ -14,12 +15,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.shoparty.android.R
+import com.shoparty.android.app.MyApp
 import com.shoparty.android.databinding.FragmentHomeBinding
 import com.shoparty.android.interfaces.RecyclerViewItemClickListener
+import com.shoparty.android.ui.contactus.ContactUsViewModel
+import com.shoparty.android.ui.contactus.WebViewActivity
 import com.shoparty.android.ui.main.deals.TopSellingHomeModel
 import com.shoparty.android.ui.main.mainactivity.MainActivity
 import com.shoparty.android.ui.main.topselling.TopSellingActivity
 import com.shoparty.android.ui.search.SearchActivity
+import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
@@ -28,6 +33,10 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
     lateinit var binding: FragmentHomeBinding
     private lateinit var viewModel: HomeViewModel
+    private lateinit var viewModel_contactus: ContactUsViewModel
+    private var facebookurl: String?=""
+    private var twitter_url: String?=""
+    private var youtube_url: String?=""
 
     private val listTopBanner: ArrayList<HomeResponse.Home.Banner> = ArrayList()
     private val listMiddleBanner: ArrayList<HomeResponse.Home.Banner> = ArrayList()
@@ -65,6 +74,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
             this,
             ViewModalFactory(activity?.application!!)
         )[HomeViewModel::class.java]
+        viewModel_contactus = ViewModelProvider(this, ViewModalFactory(MyApp.application))[ContactUsViewModel::class.java]
+
 
         return binding.root
     }
@@ -77,6 +88,9 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
     private fun initialise() {
         binding.tvSearch.setOnClickListener(this)
+        binding.ivFacebook.setOnClickListener(this)
+        binding.ivTwitter.setOnClickListener(this)
+        binding.ivYoutube.setOnClickListener(this)
         binding.tvViewAllTopSelling.setOnClickListener(this)
         binding.tvViewCategories.setOnClickListener(this)
 
@@ -92,9 +106,11 @@ class HomeFragment : Fragment(), View.OnClickListener {
         setBrands()
 
         setObserver()
+        setContactUsObserver()
 
         val request = HomeRequestModel("1")
         viewModel.getDashboardData(request)
+        viewModel_contactus.getContactus()
     }
 
     private fun setObserver() {
@@ -160,6 +176,32 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 }
             }
         }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setContactUsObserver()
+    {
+        viewModel_contactus.contactus.observe(this, { response ->
+            when (response)
+            {
+                is Resource.Success -> {
+                  ProgressDialog.hideProgressBar()
+                    facebookurl=response.data?.facebook_url
+                    twitter_url=response.data?.twitter_url
+                    youtube_url=response.data?.youtube_url
+
+                }
+                is Resource.Loading -> {
+                   ProgressDialog.showProgressBar(requireActivity())
+                }
+                is Resource.Error -> {
+               ProgressDialog.hideProgressBar()
+                }
+                else -> {
+                 ProgressDialog.hideProgressBar()
+                }
+            }
+        })
     }
 
     private fun setImageInSlider(list: ArrayList<HomeResponse.Home.Banner>) {
@@ -330,6 +372,24 @@ class HomeFragment : Fragment(), View.OnClickListener {
             }
             R.id.tvViewAllTopSelling -> {
                 val intent = Intent(activity, TopSellingActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.ivFacebook -> {
+                val intent = Intent (requireActivity(), WebViewActivity::class.java)
+                intent.putExtra(Constants.LINKSTATUS,"1")
+                intent.putExtra(Constants.FACEBOOKLINK,facebookurl)
+                startActivity(intent)
+            }
+            R.id.ivTwitter -> {
+                val intent = Intent (requireActivity(), WebViewActivity::class.java)
+                intent.putExtra(Constants.LINKSTATUS,"2")
+                intent.putExtra(Constants.TWITTERLINK,twitter_url)
+                startActivity(intent)
+            }
+            R.id.ivYoutube -> {
+                val intent = Intent (requireActivity(), WebViewActivity::class.java)
+                intent.putExtra(Constants.LINKSTATUS,"3")
+                intent.putExtra(Constants.YOUTUBELINK,youtube_url)
                 startActivity(intent)
             }
         }
