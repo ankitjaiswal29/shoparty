@@ -11,23 +11,24 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityWishListBinding
 import com.shoparty.android.interfaces.RecyclerViewClickListener
+import com.shoparty.android.interfaces.RecyclerViewFavouriteListener
 import com.shoparty.android.ui.search.SearchActivity
 import com.shoparty.android.ui.shoppingbag.ShopingBagActivity
 import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 
-class WishListActivity : AppCompatActivity(), View.OnClickListener, RecyclerViewClickListener {
+class WishListActivity : AppCompatActivity(), View.OnClickListener, RecyclerViewFavouriteListener {
     private lateinit var binding: ActivityWishListBinding
     private lateinit var viewModel: WishListViewModel
     private lateinit var adapterWishlist: WishListAdapters
-    private var listWishlistt: ArrayList<WishListResponse.Data> = ArrayList()
+    private var listWishlistt: ArrayList<WishListResponse.Result> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_wish_list)
         initialise()
         viewModel = ViewModelProvider(this, ViewModalFactory(this.application!!))[WishListViewModel::class.java]
-        viewModel.getWishlist("1")    //api call
+        viewModel.getWishlist("1")  //api call
         setObserver()
     }
 
@@ -64,7 +65,7 @@ class WishListActivity : AppCompatActivity(), View.OnClickListener, RecyclerView
             when (response) {
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
-                    listWishlistt=response.data!! as ArrayList<WishListResponse.Data>
+                    listWishlistt=response.data!! as ArrayList<WishListResponse.Result>
                     if(listWishlistt.isNullOrEmpty())
                     {
                         binding.ivNoData.visibility=View.VISIBLE
@@ -130,7 +131,7 @@ class WishListActivity : AppCompatActivity(), View.OnClickListener, RecyclerView
     }
 
 
-    private fun setWishListAdapter(data: List<WishListResponse.Data>?)
+    private fun setWishListAdapter(data: List<WishListResponse.Result>?)
     {
         adapterWishlist = WishListAdapters(this,data!!,this)
         binding.wishlistRecyclerview.layoutManager = LinearLayoutManager(this)
@@ -141,8 +142,7 @@ class WishListActivity : AppCompatActivity(), View.OnClickListener, RecyclerView
         super.onBackPressed()
     }
 
-    override fun click(product_id: String)
-    {
-        viewModel.addremoveWishlist(product_id,0)                    //api call
+    override fun favourite(producat_id: String, type: String, product_detail_id: String) {
+        viewModel.addremoveWishlist(producat_id,type.toInt(),product_detail_id.toInt())
     }
 }

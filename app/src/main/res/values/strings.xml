@@ -409,7 +409,8 @@
     <string name="ongoingorderdetails">Ongoing Order</string>
     <string name="poppins">Poppins</string>
     <string name="save_add_to_bag"><![CDATA[Save & Add To Bag]]></string>
-    <string name="orderId">Order ID</string> orderId
+    <string name="orderId">Order Id</string>
+    <string name="comingsoon">Coming Soon</string>
 
 
 </resources>

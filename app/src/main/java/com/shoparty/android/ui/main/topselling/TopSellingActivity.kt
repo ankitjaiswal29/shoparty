@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -12,8 +11,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.mohammedalaa.seekbar.DoubleValueSeekBarView
-import com.mohammedalaa.seekbar.OnDoubleValueSeekBarChangeListener
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityTopSellingBinding
 import com.shoparty.android.interfaces.RecyclerViewClickListener
@@ -28,25 +25,27 @@ import com.shoparty.android.ui.productdetails.ProductDetailsActivity
 import com.shoparty.android.ui.search.SearchActivity
 import com.shoparty.android.ui.shoppingbag.ShopingBagActivity
 import com.shoparty.android.utils.Constants
-import com.shoparty.android.utils.SpacesItemDecoration
+import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 import kotlinx.android.synthetic.main.bottomsheet_filter_layout.view.*
 import kotlinx.android.synthetic.main.fragment_deals.*
 
-class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerViewClickListener,RecyclerViewItemClickListener,RecyclerViewFavouriteListener {
+class TopSellingActivity : AppCompatActivity(),
+    View.OnClickListener,RecyclerViewClickListener,
+    RecyclerViewItemClickListener,
+    RecyclerViewFavouriteListener {
+    private var itemposition: Int = 0
     private lateinit var binding: ActivityTopSellingBinding
     private lateinit var viewModel: ProductListViewModel
     private lateinit var viewModeladdwishlist: WishListViewModel
-    private var productlist: ArrayList<ProductListResponse.ProductList> = ArrayList()
+    private var productlist: ArrayList<ProductListResponse.Result> = ArrayList()
     lateinit var dialog:BottomSheetDialog
     var color=false
     var size=false
     var age=false
     var gender=false
     var price=false
-    private var recyvlerviewItemList=ArrayList<RecyclerView>()
-    private var filterIconItem=ArrayList<TextView>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= DataBindingUtil.setContentView(this, R.layout.activity_top_selling)
@@ -58,9 +57,9 @@ class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerVie
             if(intent.getStringExtra(Constants.CATEGORYFRAGMENT).equals("1"))
             {
                 binding.infoTool.tvTitle.text=intent.getStringExtra("categoryname")
-                viewModel.myOrders(intent.getStringExtra(Constants.PRODUCTID).toString())   //api call
+                viewModel.producatList(intent.getStringExtra(Constants.PRODUCTID).toString(),"3",
+                    "1",PrefManager.read(PrefManager.USER_ID, ""))   //api call
             }
-
             else if(intent.getStringExtra(Constants.TOP20SELLING).equals("2"))  //top20selling
             {
                 binding.infoTool.tvTitle.text=getString(R.string.top_20_selling_items)
@@ -85,24 +84,24 @@ class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerVie
         viewModel.productList.observe(this, { response ->
             when (response) {
                 is Resource.Success -> {
-                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
-
-                    if(response.data.isNullOrEmpty())
+                  //  com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    productlist.clear()
+                    productlist = response.data as ArrayList<ProductListResponse.Result>
+                    if(productlist.isNullOrEmpty())
                     {
                       //  binding.clNoData.visibility=View.VISIBLE
                        // binding.myorderRecyclerview.visibility=View.GONE
                     }
                     else
                     {
-                        productlist = response.data as ArrayList<ProductListResponse.ProductList>
                         setProductListAdapter(productlist)
                     }
                 }
                 is Resource.Loading -> {
-                    com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
+                 //   com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
                 }
                 is Resource.Error -> {
-                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                  //  com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         applicationContext,
                         response.message,
@@ -110,7 +109,7 @@ class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerVie
                     ).show()
                 }
                 else -> {
-                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                  //  com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         applicationContext,
                         response.message,
@@ -130,6 +129,8 @@ class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerVie
                         response.message,
                         Toast.LENGTH_SHORT
                     ).show()
+                    viewModel.producatList(intent.getStringExtra(Constants.PRODUCTID).toString(),"3",
+                        "1",PrefManager.read(PrefManager.USER_ID, ""))   //api call
                 }
                 is Resource.Loading -> {
                     com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
@@ -155,7 +156,7 @@ class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerVie
 
 
     }
-    private fun setProductListAdapter(data: ArrayList<ProductListResponse.ProductList>) {
+    private fun setProductListAdapter(data: ArrayList<ProductListResponse.Result>) {
 
         val gridLayoutManager = GridLayoutManager(this, 2)
         deals_item_recycler.apply {
@@ -250,9 +251,14 @@ class TopSellingActivity : AppCompatActivity(), View.OnClickListener,RecyclerVie
         startActivity(intent)
     }
 
-    override fun favourite(product_id: String, status: String)
-    {
-        viewModeladdwishlist.addremoveWishlist(product_id,status.toInt())
-    }
+
+
+    override fun favourite(
+        producat_id: String,
+        type: String,
+        product_detail_id: String
+    ) {
+        viewModeladdwishlist.addremoveWishlist(producat_id,type.toInt(),product_detail_id.toInt())
+     }
 
 }

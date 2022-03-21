@@ -30,22 +30,6 @@ class CategoryViewModel(private val app: Application) : ViewModel() {
 
     }
 
-
-//    private fun validation():Boolean
-//    {
-//        if (etMobileNo.get().isNullOrBlank()) {
-//            Utils.showShortToast(mContext,mContext.getString(R.string.entermobileno))
-//            return false
-//        }
-//
-//        if(Utils.checkValidMobile(etMobileNo.get()!!))
-//        {
-//            Utils.showShortToast(mContext,mContext.getString(R.string.entervalidnumber))
-//            return false
-//        }
-//        return true
-//    }
-
     private fun handleCategoryResponse(response: Response<CategoryResponse>): Resource<List<CategoryResponse.Category>> {
         if (response?.isSuccessful) {
             response.body()?.let { res ->

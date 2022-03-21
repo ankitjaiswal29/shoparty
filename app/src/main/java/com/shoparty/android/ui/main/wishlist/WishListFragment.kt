@@ -13,14 +13,15 @@ import com.shoparty.android.R
 import com.shoparty.android.databinding.FragmentWishListBinding
 
 import com.shoparty.android.interfaces.RecyclerViewClickListener
+import com.shoparty.android.interfaces.RecyclerViewFavouriteListener
 import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
-class WishListFragment : Fragment(),RecyclerViewClickListener {
+class WishListFragment : Fragment(), RecyclerViewFavouriteListener {
     private lateinit var binding: FragmentWishListBinding
     private lateinit var viewModel: WishListViewModel
     private lateinit var adapterWishlist: WishListAdapters
-    private var listWishlistt: ArrayList<WishListResponse.Data> = ArrayList()
+    private var listWishlistt: ArrayList<WishListResponse.Result> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -33,7 +34,7 @@ class WishListFragment : Fragment(),RecyclerViewClickListener {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_wish_list, container, false)
         viewModel = ViewModelProvider(this, ViewModalFactory(activity?.application!!))[WishListViewModel::class.java]
-        viewModel.getWishlist("1")                          //api call
+        viewModel.getWishlist("1")        //api call
         setObserver()
         return binding.root
     }
@@ -48,7 +49,7 @@ class WishListFragment : Fragment(),RecyclerViewClickListener {
             when (response) {
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
-                    listWishlistt=response.data!! as ArrayList<WishListResponse.Data>
+                    listWishlistt=response.data!! as ArrayList<WishListResponse.Result>
                     if(listWishlistt.isNullOrEmpty())
                     {
                         binding.clNoData.visibility=View.VISIBLE
@@ -121,14 +122,14 @@ class WishListFragment : Fragment(),RecyclerViewClickListener {
 
 
 
-    private fun setWishListAdapter(data: List<WishListResponse.Data>?)
+    private fun setWishListAdapter(data: List<WishListResponse.Result>?)
     {
         adapterWishlist = WishListAdapters(requireContext(),data!!,this)
         binding.wishlistRecyclerview.layoutManager = LinearLayoutManager(requireContext())
         binding.wishlistRecyclerview.adapter = adapterWishlist
     }
 
-    override fun click(product_id: String) {
-     viewModel.addremoveWishlist(product_id,0)
+    override fun favourite(producat_id: String, type: String, product_detail_id: String) {
+        viewModel.addremoveWishlist(producat_id,type.toInt(),product_detail_id.toInt())
     }
 }

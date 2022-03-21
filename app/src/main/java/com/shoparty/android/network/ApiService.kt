@@ -141,7 +141,7 @@ interface ApiService {
     ): Response<ProductListResponse>
 
     @POST("add-wishlist")
-    suspend fun removeWishlist(
+    suspend fun addremoveWishlist(
         @Body removeWishListRequestModel: RemoveWishListRequestModel
     ): Response<RemoveWishlistResponse>
 

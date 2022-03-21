@@ -7,7 +7,7 @@ class WishListRepository {
     suspend fun wishListApi(request:WishListRequestModel) =
         RetrofitBuilder.apiService?.getWishlist(request)
 
-    suspend fun removewishListApi(request:RemoveWishListRequestModel) =
-        RetrofitBuilder.apiService?.removeWishlist(request)
+    suspend fun addremovewishListApi(request:RemoveWishListRequestModel) =
+        RetrofitBuilder.apiService?.addremoveWishlist(request)
 
 }

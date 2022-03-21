@@ -1,7 +1,7 @@
 package com.shoparty.android.interfaces
 
 interface RecyclerViewFavouriteListener {
-    fun favourite(pos: String,status:String)
+    fun favourite(producat_id: String,type:String,product_detail_id:String)
 
 
 }

@@ -24,8 +24,7 @@ import com.shoparty.android.ui.main.topselling.TopSellingActivity
 import com.shoparty.android.utils.Constants
 
 class CategoryAdapter1( val context: Context,
-                        private val list: List<CategoryResponse.Category>
-) : RecyclerView.Adapter<CategoryAdapter1.ViewHolder>() {
+                        private val list: List<CategoryResponse.Category>) : RecyclerView.Adapter<CategoryAdapter1.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -40,7 +39,7 @@ class CategoryAdapter1( val context: Context,
 
         holder.category_root_lay?.setOnClickListener {
             val intent = Intent(context, TopSellingActivity::class.java)
-            intent.putExtra(Constants.PRODUCTID,modal.id)
+            intent.putExtra(Constants.PRODUCTID,modal.id)  //categoryid
             intent.putExtra(Constants.CATEGORYFRAGMENT,"1")
             intent.putExtra("categoryname",holder.categoryName?.text.toString())
             context.startActivity(intent)

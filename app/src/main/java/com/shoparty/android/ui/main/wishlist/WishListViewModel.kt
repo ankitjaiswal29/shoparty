@@ -13,8 +13,8 @@ import retrofit2.Response
 
 class WishListViewModel(private val app: Application) : ViewModel() {
     private val repository = WishListRepository()
-    private val mWishlist = MutableLiveData<Resource<List<WishListResponse.Data>>>()
-    val wishlist: LiveData<Resource<List<WishListResponse.Data>>> = mWishlist
+    private val mWishlist = MutableLiveData<Resource<List<WishListResponse.Result>>>()
+    val wishlist: LiveData<Resource<List<WishListResponse.Result>>> = mWishlist
 
     private val maddremoveWishlist = MutableLiveData<Resource<RemoveWishlistResponse>>()
     val addremovewishlist: LiveData<Resource<RemoveWishlistResponse>> = maddremoveWishlist
@@ -32,12 +32,12 @@ class WishListViewModel(private val app: Application) : ViewModel() {
 
     }
 
-    fun addremoveWishlist(product_id:String, type:Int) = viewModelScope.launch {
+    fun addremoveWishlist(product_id:String, type:Int,product_detail_id:Int) = viewModelScope.launch {
         if (Utils.hasInternetConnection(app.applicationContext))
         {
-            val request = RemoveWishListRequestModel(product_id,type)
+            val request = RemoveWishListRequestModel(product_id,type,product_detail_id)
             maddremoveWishlist.postValue(Resource.Loading())
-            val response = repository.removewishListApi(request)
+            val response = repository.addremovewishListApi(request)
             maddremoveWishlist.postValue(handleremoveWishlistResponse(response!!))
         } else {
             maddremoveWishlist.postValue(Resource.Error(app.resources.getString(R.string.no_internet)))
@@ -45,7 +45,7 @@ class WishListViewModel(private val app: Application) : ViewModel() {
 
     }
 
-    private fun handleWishlistResponse(response: Response<WishListResponse>): Resource<List<WishListResponse.Data>> {
+    private fun handleWishlistResponse(response: Response<WishListResponse>): Resource<List<WishListResponse.Result>> {
         if (response?.isSuccessful) {
             response.body()?.let { res ->
                 return if (res.response_code == 200) {
