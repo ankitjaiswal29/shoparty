@@ -7,6 +7,7 @@ import com.shoparty.android.ui.address.addaddress.getaddress.GetAddressListRespo
 import com.shoparty.android.ui.contactus.ContactUsResponse
 import com.shoparty.android.ui.filter.ColorsRequestModel
 import com.shoparty.android.ui.filter.ColorsResponse
+import com.shoparty.android.ui.filter.size.SizeResponse
 import com.shoparty.android.ui.login.LoginRequestModel
 import com.shoparty.android.ui.login.LoginResponse
 import com.shoparty.android.ui.main.categories.CategoryRequestModel
@@ -161,5 +162,9 @@ interface ApiService {
     suspend fun orderdetails(
         @Body orderDetailsRequestModel: OrderDetailsRequestModel
     ): Response<OrderDetailsResponse>
+
+    @GET("list-sizes")
+    suspend fun getListSize(
+    ): Response<SizeResponse>
 
 }

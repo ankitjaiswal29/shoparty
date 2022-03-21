@@ -54,7 +54,9 @@ class CustomizeActivity : AppCompatActivity(), View.OnClickListener{
                 binding.ctConstrainEditLay.visibility=View.VISIBLE*/
             }
             R.id.customize_approve_btn -> {
-             finish()
+                val intent = Intent(this, ProductDetailsActivity::class.java)
+
+                startActivity(intent)
             }
             R.id.ivBagBtn -> {
                 val intent = Intent(this, ShopingBagActivity::class.java)

@@ -11,4 +11,7 @@ class ColorsRepository {
     suspend fun getColorsApi(request: ColorsRequestModel) =
         RetrofitBuilder.apiService?.colorsList(request)
 
+    suspend fun getSizeApi() =
+        RetrofitBuilder.apiService?.getListSize()
+
 }

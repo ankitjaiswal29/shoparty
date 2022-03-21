@@ -22,6 +22,7 @@ import android.text.Editable
 import com.google.android.material.internal.TextWatcherAdapter
 
 import android.text.TextWatcher
+import com.shoparty.android.ui.filter.size.SizeResponse
 import java.util.*
 
 
@@ -34,6 +35,8 @@ class ColorsViewModel(private val app: Application) : ViewModel()
     val mColor: LiveData<Resource<List<ColorsResponse.Colors>>> = mColors
 
 
+    private val mSize = MutableLiveData<Resource<List<String>>>()
+    val mSizes: LiveData<Resource<List<String>>> = mSize
 
     fun Colors() = viewModelScope.launch {
 
@@ -51,9 +54,41 @@ class ColorsViewModel(private val app: Application) : ViewModel()
 
     }
 
+    fun Sizes() = viewModelScope.launch {
+
+      //  val request = ColorsRequestModel("1")
+        if(Utils.hasInternetConnection(app.applicationContext))
+        {
+            mSize.postValue(Resource.Loading())
+            val response = repository.getSizeApi()
+            mSize.postValue(handleSizeResponse(response!!))
+        }
+        else
+        {
+            mSize.postValue(Resource.Error(app.resources.getString(R.string.no_internet)))
+        }
+
+    }
+
 
 
     private fun handleColorsResponse(response: Response<ColorsResponse>): Resource<List<ColorsResponse.Colors>>? {
+        if (response?.isSuccessful)
+        {
+            response.body()?.let { res ->
+                return if (res.response_code==200)
+                {
+                    Resource.Success(res.message,res.result)
+                }
+                else {
+                    Resource.Error(res.message)
+                }
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    private fun handleSizeResponse(response: Response<SizeResponse>): Resource<List<String>>? {
         if (response?.isSuccessful)
         {
             response.body()?.let { res ->

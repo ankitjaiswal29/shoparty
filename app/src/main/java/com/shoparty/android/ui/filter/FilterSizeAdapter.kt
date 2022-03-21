@@ -45,6 +45,7 @@ class FilterSizeAdapter(private val itemList: List<String>,var context: Context)
                 holder.itemView.cl_rootitem.setBackground(ContextCompat.getDrawable(context, R.drawable.background_sellected_filter));
 
             }
+
         })
     }
 }

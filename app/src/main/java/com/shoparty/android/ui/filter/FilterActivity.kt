@@ -8,13 +8,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mohammedalaa.seekbar.DoubleValueSeekBarView
 import com.mohammedalaa.seekbar.OnDoubleValueSeekBarChangeListener
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityFilterBinding
 import com.shoparty.android.interfaces.RecyclerViewClickListener
+import com.shoparty.android.ui.filter.size.SizeAdapters
 
 import com.shoparty.android.utils.SpacesItemDecoration
 import com.shoparty.android.utils.apiutils.Resource
@@ -27,7 +27,7 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener, RecyclerViewCli
     private lateinit var adapter: ColorsAdapters
     private lateinit var viewModel: ColorsViewModel
     private var colorlist: ArrayList<ColorsResponse.Colors> = ArrayList()
-
+    private var sizelist: ArrayList<String> = ArrayList()
     private var recyvlerviewItemList=ArrayList<RecyclerView>()
     private var filterIconItem=ArrayList<TextView>()
     private lateinit var rvAdapter: FilterAdapter
@@ -41,7 +41,8 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener, RecyclerViewCli
         super.onCreate(savedInstanceState)
          binding= DataBindingUtil.setContentView(this, R.layout.activity_filter)
         viewModel = ViewModelProvider(this, ViewModalFactory(application))[ColorsViewModel::class.java]
-        viewModel.Colors()
+        viewModel.Colors()//api call
+        viewModel.Sizes()//api call
         initialise()
         setObserver()
     }
@@ -97,7 +98,7 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener, RecyclerViewCli
 
         })
 
-        size()
+      //  size()
         age()
         gender()
       //  filtercolor()
@@ -146,6 +147,44 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener, RecyclerViewCli
             }
         })
 
+        viewModel.mSizes.observe(this, { response ->
+            when (response) {
+                is Resource.Success -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+
+                    if(response.data.isNullOrEmpty())
+                    {
+                        //no data
+                    }
+                    else
+                    {
+                        sizelist.clear()
+                        sizelist = response.data as ArrayList<String>
+                        setSizeListAdapter(sizelist)
+                    }
+                }
+                is Resource.Loading -> {
+                    com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
+                }
+                is Resource.Error -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        })
+
 
     }
     private fun setColorsListAdapter(data: ArrayList<ColorsResponse.Colors>) {
@@ -155,6 +194,19 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener, RecyclerViewCli
             setHasFixedSize(true)
             isFocusable = false
             adapter = ColorsAdapters(data,this@FilterActivity)
+        }
+
+    }
+
+    private fun setSizeListAdapter(data: ArrayList<String>) {
+
+
+        val gridLayoutManager = GridLayoutManager(this, 5)
+        binding.rvSizeRecyclarview.apply {
+            layoutManager = gridLayoutManager
+            setHasFixedSize(true)
+            isFocusable = false
+            adapter = SizeAdapters(this@FilterActivity,data,this@FilterActivity)
         }
 
     }
