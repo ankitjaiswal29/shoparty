@@ -27,10 +27,7 @@ class WishListActivity : AppCompatActivity(), View.OnClickListener, RecyclerView
         binding = DataBindingUtil.setContentView(this, R.layout.activity_wish_list)
         initialise()
         viewModel = ViewModelProvider(this, ViewModalFactory(this.application!!))[WishListViewModel::class.java]
-
-        binding.ivNoData.visibility=View.VISIBLE
-        binding.tvNoData.visibility=View.VISIBLE
-        //   viewModel.getWishlist("1")    //api call
+        viewModel.getWishlist("1")    //api call
         setObserver()
     }
 
@@ -67,9 +64,21 @@ class WishListActivity : AppCompatActivity(), View.OnClickListener, RecyclerView
             when (response) {
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
-                    listWishlistt.clear()
                     listWishlistt=response.data!! as ArrayList<WishListResponse.Data>
-                    setWishListAdapter(listWishlistt)
+                    if(listWishlistt.isNullOrEmpty())
+                    {
+                        binding.ivNoData.visibility=View.VISIBLE
+                        binding.tvNoData.visibility=View.VISIBLE
+
+                        binding.wishlistRecyclerview.visibility=View.GONE
+                    }
+                    else
+                    {
+                        binding.ivNoData.visibility=View.GONE
+                        binding.tvNoData.visibility=View.GONE
+                        binding.wishlistRecyclerview.visibility=View.VISIBLE
+                        setWishListAdapter(listWishlistt)
+                    }
                 }
                 is Resource.Loading -> {
                     ProgressDialog.showProgressBar(this)
@@ -91,7 +100,7 @@ class WishListActivity : AppCompatActivity(), View.OnClickListener, RecyclerView
             }
         }
 
-        viewModel.removewishlist.observe(this) { response ->
+        viewModel.addremovewishlist.observe(this) { response ->
             when (response) {
                 is Resource.Success -> {
                     //  ProgressDialog.hideProgressBar()
@@ -134,6 +143,6 @@ class WishListActivity : AppCompatActivity(), View.OnClickListener, RecyclerView
 
     override fun click(product_id: String)
     {
-        viewModel.removeWishlist(product_id,"0")                    //api call
+        viewModel.addremoveWishlist(product_id,0)                    //api call
     }
 }

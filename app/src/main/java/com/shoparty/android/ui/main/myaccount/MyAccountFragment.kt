@@ -24,7 +24,7 @@ import com.shoparty.android.databinding.FragmentMyAccountBinding
 import com.shoparty.android.ui.main.myaccount.aboutus.AboutUsActivity
 import com.shoparty.android.ui.address.addaddress.getaddress.AddressActivity
 import com.shoparty.android.ui.contactus.ContactUsActivity
-import com.shoparty.android.ui.myorders.myorder.MyOrdersActivity
+import com.shoparty.android.ui.myorders.myorderlist.MyOrdersActivity
 import com.shoparty.android.ui.main.myaccount.privacypolicy.PrivacyPolicyActivity
 import com.shoparty.android.ui.main.myaccount.returnpolicy.ReturnPolicyActivity
 import com.shoparty.android.ui.main.myaccount.termandcondition.TermAndConditionActivity

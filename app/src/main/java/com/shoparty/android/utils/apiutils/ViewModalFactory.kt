@@ -14,7 +14,7 @@ import com.shoparty.android.ui.main.mainactivity.MainViewModal
 import com.shoparty.android.ui.main.myaccount.MyAccountViewModel
 import com.shoparty.android.ui.main.topselling.ProductListViewModel
 import com.shoparty.android.ui.main.wishlist.WishListViewModel
-import com.shoparty.android.ui.myorders.myorder.MyOrderViewModel
+import com.shoparty.android.ui.myorders.MyOrderViewModel
 import com.shoparty.android.ui.register.RegisterViewModel
 import com.shoparty.android.ui.verificationotp.VerifiyViewModel
 import com.shoparty.android.ui.vouchers.VoucherViewModel

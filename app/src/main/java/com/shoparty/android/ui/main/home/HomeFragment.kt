@@ -372,6 +372,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
             }
             R.id.tvViewAllTopSelling -> {
                 val intent = Intent(activity, TopSellingActivity::class.java)
+                intent.putExtra(Constants.PRODUCTID,"")
+                intent.putExtra(Constants.TOP20SELLING,"2")
                 startActivity(intent)
             }
             R.id.ivFacebook -> {

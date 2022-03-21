@@ -170,7 +170,7 @@
     <string name="_26_august_2000">26 August 2000</string>
     <string name="we_have_received_your_order">We have received your order</string>
 
-    <string name="tax_vat_5">Tax (Vat 5%)</string>
+    <string name="tax_vat_5">Tax</string>
     <string name="order_placed_successfully">Order Placed Successfully</string>
     <string name="total_price_for_2_item">Total price for 2 item</string>
     <string name="done">Done</string>
@@ -223,7 +223,7 @@
     <string name="summry">Summry</string>
     <string name="_14_5">$14.5</string>
     <string name="_3_5">$3.5</string>
-    <string name="total_2_item">Total(2 item)</string>
+    <string name="total_2_item">Total</string>
     <string name="_23_5">$23.5</string>
     <string name="purchase_as_a_guest">Purchase As A Guest</string>
     <string name="pickup_for_branch">Pickup For Branch</string>
@@ -405,6 +405,8 @@
     <string name="percent">%</string>
     <string name="off">OFF</string>
     <string name="pleasechecktermacondition">Please check term and condition</string>
+    <string name="items">items</string>
+    <string name="ongoingorderdetails">Ongoing Order</string>
     <string name="poppins">Poppins</string>
     <string name="save_add_to_bag"><![CDATA[Save & Add To Bag]]></string>
 

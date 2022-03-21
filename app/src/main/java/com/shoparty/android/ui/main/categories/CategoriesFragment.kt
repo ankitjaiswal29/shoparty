@@ -19,7 +19,7 @@ import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 
-class CategoriesFragment : Fragment() ,RecyclerViewClickListener{
+class CategoriesFragment : Fragment(){
 
     lateinit var binding: FragmentCategoriesBinding
     private lateinit var viewModel: CategoryViewModel
@@ -55,7 +55,7 @@ class CategoriesFragment : Fragment() ,RecyclerViewClickListener{
     }
 
     fun initialise() {
-        adapterCategory = CategoryAdapter1( requireContext(),listCategory,this)
+        adapterCategory = CategoryAdapter1( requireContext(),listCategory)
 
         val gridLayoutManager = GridLayoutManager(requireActivity(), 1)
         binding.categoryListRecycler.apply {
@@ -64,13 +64,6 @@ class CategoriesFragment : Fragment() ,RecyclerViewClickListener{
             isFocusable = false
             adapter = adapterCategory
         }
-
-       /* adapterCategory.onItemClick(object :  RecyclerViewClickListener{
-            override fun click(pos: String) {
-                startActivity(Intent(activity, TopSellingActivity::class.java))
-            }
-        })*/
-
     }
 
     private fun setObserver() {
@@ -106,39 +99,9 @@ class CategoriesFragment : Fragment() ,RecyclerViewClickListener{
         }
     }
 
-    override fun click(Proudct_id: String) {
-       // Toast.makeText(requireContext(),Proudct_id.toString(),Toast.LENGTH_LONG).show()
-        val intent = Intent(requireActivity(), TopSellingActivity::class.java)
-        intent.putExtra(Constants.PRODUCTID,Proudct_id )
-        startActivity(intent)
-    }
+
 }
 
-//        (activity as MainActivity).info_tools.tv_title.visibility=View.INVISIBLE
-//        (activity as MainActivity).info_tools.home_shoparty_icon.visibility=View.INVISIBLE
-//        (activity as MainActivity).info_tools.home_shoparty_icon2.visibility=View.VISIBLE
-//
-//        (activity as MainActivity).info_tools.ivBagBtn.visibility=View.VISIBLE
-//        (activity as MainActivity).info_tools.iv_btnsearch.visibility=View.VISIBLE
-
-
-//        val categoryItemList = listOf<HomeCategoriesModel>(
-//            HomeCategoriesModel("Costumes"),
-//            HomeCategoriesModel("Themes"),
-//            HomeCategoriesModel("Party Supply"),
-//            HomeCategoriesModel("Ballons"),
-//            HomeCategoriesModel("Birthday Cake"),
-//            HomeCategoriesModel("Toys"),
-//            HomeCategoriesModel("Candles"),
-//            HomeCategoriesModel("Costumes"),
-//            HomeCategoriesModel("Themes"),
-//            HomeCategoriesModel("Party Supply"),
-//            HomeCategoriesModel("Ballons")
-//
-//        )
-
-//    binding.categoryListRecycler.adapter = CategoryAdapter1(categoryItemList,requireContext())
-//}
 
 
 

@@ -62,11 +62,15 @@ class ShopingBagActivity : AppCompatActivity(), View.OnClickListener {
                 onBackPressed()
             }
             R.id.btn_ProcessTocheckOut -> {
-                if (PrefManager.read(PrefManager.AUTH_TOKEN, "").isEmpty()) {
+                if (PrefManager.read(PrefManager.AUTH_TOKEN, "").isEmpty())
+                {
                     val intent = Intent(applicationContext, LoginActivity::class.java)
+                    PrefManager.write(PrefManager.IS_SHIPPING_PAGE,"1")
                     startActivity(intent)
-                } else {
+                }
+                else {
                     val intent = Intent(applicationContext, ShippingActivity::class.java)
+                    PrefManager.write(PrefManager.IS_SHIPPING_PAGE,"2")
                     startActivity(intent)
                 }
             }

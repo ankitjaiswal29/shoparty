@@ -47,7 +47,7 @@ class WishListAdapters(
 
 
         holder.relativeLike.setOnClickListener {
-            recyclerViewClickListener.click(ItemsViewModel.id)
+            recyclerViewClickListener.click(ItemsViewModel.product_id)
         }
     }
     override fun getItemCount(): Int {

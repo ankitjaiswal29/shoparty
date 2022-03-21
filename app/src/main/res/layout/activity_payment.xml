@@ -123,7 +123,7 @@
 
 
                     <TextView
-                        android:id="@+id/tvFirstName"
+                        android:id="@+id/tvOrderid"
                         style="@style/AppTheme.TextBold_12ssp"
                         android:layout_marginTop="@dimen/_50sdp"
                         android:text="@string/billing_details"
@@ -138,7 +138,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         android:background="@color/colorGrey"
                         android:layout_marginTop="@dimen/_10sdp"
-                        app:layout_constraintTop_toBottomOf="@id/tvFirstName"/>
+                        app:layout_constraintTop_toBottomOf="@id/tvOrderid"/>
 
 
                     <TextView

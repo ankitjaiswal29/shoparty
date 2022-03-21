@@ -1,4 +1,4 @@
-package com.shoparty.android.ui.myorders.myorder
+package com.shoparty.android.ui.myorders.myorderlist
 
 data class MyOrderResponse(
     val message: String,

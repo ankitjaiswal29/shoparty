@@ -10,6 +10,7 @@ data class WishListResponse(
         val cost_price: String,
         val discount: String,
         val id: String,
+        val product_id: String,
         val product_image: String,
         val product_name: String,
         val sale_price: String

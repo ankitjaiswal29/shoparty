@@ -3,9 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!--<data>
 
-    </data>-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -50,9 +48,9 @@
                 tools:ignore="MissingConstraints">
 
                 <TextView
-                    android:id="@+id/tvFirstName"
+                    android:id="@+id/tvOrderid"
                     style="@style/AppTheme.Text_12ssp"
-                     android:text="@string/order_id_od12345678901"
+                     android:text="@string/orderId"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -64,7 +62,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     android:background="@color/lightgray"
                     android:layout_marginTop="@dimen/_10sdp"
-                    app:layout_constraintTop_toBottomOf="@id/tvFirstName"/>
+                    app:layout_constraintTop_toBottomOf="@id/tvOrderid"/>
 
                 <View
                     android:id="@+id/vViewractangle"
@@ -76,6 +74,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/view1"
                     android:layout_marginTop="15dp"/>
+
                 <ImageView
                     android:id="@+id/ivProductImg"
                     android:layout_width="50dp"
@@ -85,7 +84,9 @@
                     android:src="@drawable/icon_shippingbag"
                     app:layout_constraintBottom_toBottomOf="@id/vViewractangle"/>
 
+
                 <TextView
+                    android:id="@+id/productName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/AppTheme.Text_12ssp"
@@ -94,40 +95,11 @@
                     app:layout_constraintTop_toTopOf="@+id/ivProductImg"
                     app:layout_constraintBottom_toBottomOf="@id/ivProductImg"
                     android:layout_marginLeft="14dp"
-                    android:paddingRight="@dimen/_41sdp"/>
+                    android:paddingRight="@dimen/_20sdp"/>
 
 
-                <View
-                    android:id="@+id/vViewractangle2"
-                    android:layout_width="match_parent"
-                    android:layout_height="67dp"
-                    android:paddingLeft="5dp"
-                    android:padding="5dp"
-                    android:background="@drawable/background_rectangular_white"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/vViewractangle"
-                    android:layout_marginTop="15dp"/>
-                <ImageView
-                    android:id="@+id/ivProductImg2"
-                    android:layout_width="50dp"
-                    android:layout_height="60dp"
-                    app:layout_constraintStart_toStartOf="@+id/vViewractangle2"
-                    app:layout_constraintTop_toTopOf="@+id/vViewractangle2"
-                    android:src="@drawable/icon_shippingbag"
-                    app:layout_constraintBottom_toBottomOf="@id/vViewractangle2"/>
 
-                <TextView
-                    android:id="@+id/tvList2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/AppTheme.Text_12ssp"
-                    app:layout_constraintStart_toEndOf="@+id/ivProductImg2"
-                    android:text="@string/tesla_toys_kids_6_bundle_color_pack"
-                    app:layout_constraintTop_toTopOf="@+id/ivProductImg2"
-                    app:layout_constraintBottom_toBottomOf="@id/ivProductImg2"
-                    android:layout_marginLeft="14dp"
-                    android:paddingRight="@dimen/_41sdp"/>
+
 
 
 
@@ -138,19 +110,18 @@
                       android:layout_width="wrap_content"
                       android:layout_marginTop="@dimen/_10sdp"
                       app:layout_constraintStart_toStartOf="parent"
-                      app:layout_constraintTop_toBottomOf="@id/vViewractangle2" />
+                      app:layout_constraintTop_toBottomOf="@id/vViewractangle" />
 
 
                   <TextView
                       android:id="@+id/tvTotalItem"
                       style="@style/AppTheme.Text_12ssp"
                       android:text="@string/_2_items"
+                      android:visibility="gone"
                       android:layout_width="wrap_content"
                       app:layout_constraintStart_toEndOf="@+id/tvTotal"
                       app:layout_constraintTop_toTopOf="@+id/tvTotal"
-                      app:layout_constraintBottom_toBottomOf="@id/tvTotal"
-
-                      />
+                      app:layout_constraintBottom_toBottomOf="@id/tvTotal" />
 
                   <TextView
                       android:id="@+id/tvTotalPrice"
@@ -166,9 +137,9 @@
                   <androidx.constraintlayout.widget.Group
                       android:id="@+id/group1"
                       android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:visibility="visible"
-                      app:constraint_referenced_ids="vViewractangle2,ivProductImg2,tvList2,tvTotal,tvTotalItem,tvTotalPrice"/>
+                      android:layout_height="wrap_content">
+
+                  </androidx.constraintlayout.widget.Group>
 
 
 
@@ -486,7 +457,7 @@ android:layout_marginTop="5dp"
                <TextView
                    android:id="@+id/tvTaxPrice"
                    style="@style/AppTheme.Text_14dp"
-                   android:text="@string/_5_0"
+                   android:text=""
                    android:gravity="end"
                    android:paddingLeft="10dp"
                    android:paddingRight="10dp"

@@ -57,6 +57,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     PrefManager.write(PrefManager.AUTH_TOKEN, response.data?.token!!)
+
                     val intent = Intent(this, VerificationActivity::class.java)
                     intent.putExtra(Constants.MOBILE, response.data.mobile)
                     intent.putExtra(Constants.USERID, response.data.user_id.toString())
