@@ -8,8 +8,9 @@ import com.iamkamrul.expandablerecyclerviewlist.model.ParentListItem
 
 
 import com.shoparty.android.R
+import com.shoparty.android.ui.main.mainactivity.DrawerResponse
 
-class CategoryAdapter(var context: Context) :
+class CategoryAdapter(var context: Context,var list:ArrayList<DrawerResponse.Category.ChildCategory>) :
     ExpandableRecyclerAdapter<CategoryViewHolder, CategoryListViewHolder>(){
 
     override fun onCreateParentViewHolder(parentViewGroup: ViewGroup

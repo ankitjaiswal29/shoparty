@@ -1,31 +1,63 @@
 package com.shoparty.android.ui.search
 
+import android.content.Context
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.shoparty.android.R
-import com.shoparty.android.utils.inflate
+import com.shoparty.android.common_modal.Product
+import com.shoparty.android.databinding.SearchItemLayBinding
+import com.shoparty.android.interfaces.RecyclerViewClickListener
 
-import kotlinx.android.synthetic.main.search_item_lay.view.*
+class SearchHistoryAdapter(var context: Context, private var itemList: List<Product>) :
+    RecyclerView.Adapter<SearchHistoryAdapter.ViewHolder>() {
 
-class SearchHistoryAdapter(private var itemList: List<SearchHistoryModel>): RecyclerView.Adapter<SearchHistoryAdapter.SearchHistoryViewHolder>() {
-    inner class SearchHistoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    var listener: RecyclerViewClickListener? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchHistoryViewHolder {
-        return SearchHistoryViewHolder(parent.inflate(R.layout.search_item_lay))
+    fun onItemClick(listener: RecyclerViewClickListener) {
+        this.listener = listener
     }
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): SearchHistoryAdapter.ViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.search_item_lay, parent, false) as View
+        return SearchHistoryAdapter.ViewHolder(
+            view = view,
+            listener = listener,
+            context = context
+        )
+    }
+
     override fun getItemCount(): Int {
         return itemList.size
     }
-    override fun onBindViewHolder(holder: SearchHistoryViewHolder, position: Int) {
-        val items = itemList[position]
-        holder.itemView.apply {
-            search_item_name_tv.text = items.name
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        itemList[position].let { holder.bind(it) }
+    }
+
+    class ViewHolder(
+        val view: View,
+        val listener: RecyclerViewClickListener?,
+        val context: Context
+    ) :
+        RecyclerView.ViewHolder(view) {
+
+        private val binding: SearchItemLayBinding? = DataBindingUtil.bind(view)
+
+        init {
+            view.setOnClickListener { listener?.click(adapterPosition.toString()) }
+        }
+
+        fun bind(modal: Product) {
+            binding?.searchItemNameTv?.text = modal.en_name
+            //Glide.with(context).asBitmap().load(modal.image).into(binding?.!!)
         }
     }
 
-    fun setDataList(itemList: List<SearchHistoryModel>) {
-        this.itemList = itemList
-        notifyDataSetChanged()
-    }
 }

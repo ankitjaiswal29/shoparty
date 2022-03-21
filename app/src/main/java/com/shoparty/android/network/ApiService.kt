@@ -32,6 +32,8 @@ import com.shoparty.android.ui.myorders.orderdetails.OrderDetailsRequestModel
 import com.shoparty.android.ui.myorders.orderdetails.OrderDetailsResponse
 import com.shoparty.android.ui.register.RegisterRequestModel
 import com.shoparty.android.ui.register.RegisterResponseModel
+import com.shoparty.android.ui.search.SearchRequestModel
+import com.shoparty.android.ui.search.SearchResponseModel
 import com.shoparty.android.ui.verificationotp.ResendOtpResponse
 import com.shoparty.android.ui.verificationotp.ResendRequestModel
 import com.shoparty.android.ui.verificationotp.VerifiyOtpResponse
@@ -47,7 +49,8 @@ interface ApiService {
 
     @POST("signup")
     suspend fun registerAccountAsync(
-        @Body registerRequestModel: RegisterRequestModel): Response<RegisterResponseModel>
+        @Body registerRequestModel: RegisterRequestModel
+    ): Response<RegisterResponseModel>
 
     @POST("login")
     suspend fun loginAsync(
@@ -154,9 +157,9 @@ interface ApiService {
 
     @POST("sidebar/product/categories")
     suspend fun getDrawer(
-        @Body requestModel: CategoryRequestModel):
+        @Body requestModel: CategoryRequestModel
+    ):
             Response<DrawerResponse>
-
 
     @POST("order-details")
     suspend fun orderdetails(
@@ -166,5 +169,10 @@ interface ApiService {
     @GET("list-sizes")
     suspend fun getListSize(
     ): Response<SizeResponse>
+
+    @POST("home/screen/search")
+    suspend fun searchProduct(
+        @Body requestModel: SearchRequestModel
+    ): Response<SearchResponseModel>
 
 }

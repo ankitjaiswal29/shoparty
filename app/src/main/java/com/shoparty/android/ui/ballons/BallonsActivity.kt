@@ -1,34 +1,34 @@
 package com.shoparty.android.ui.ballons
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.iamkamrul.expandablerecyclerviewlist.listener.ExpandCollapseListener
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityBallonsBinding
-import com.shoparty.android.databinding.ActivityReturnPolicyBinding
 import com.shoparty.android.ui.main.mainactivity.DrawerResponse
 
 
-class BallonsActivity : AppCompatActivity(), View.OnClickListener{
+class BallonsActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityBallonsBinding
-    private val adapter = CategoryAdapter(this)
+    private var list: ArrayList<DrawerResponse.Category.ChildCategory> = ArrayList()
+    private val adapter = CategoryAdapter(this, list)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-     //   setContentView(R.layout.activity_ballons)
-        binding= DataBindingUtil.setContentView(this, R.layout.activity_ballons)
-        initialise()
 
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_ballons)
+        initialise()
 
         val data = intent.extras?.getString("categoryName")
         binding.infoTool.tvTitle.text = data
 
-        val list = intent?.getParcelableArrayListExtra<DrawerResponse.Category.ChildCategory>("category")
+        list =
+            intent?.getParcelableArrayListExtra<DrawerResponse.Category.ChildCategory>("category") as ArrayList<DrawerResponse.Category.ChildCategory>
     }
 
     private fun initialise() {
@@ -36,26 +36,43 @@ class BallonsActivity : AppCompatActivity(), View.OnClickListener{
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
 
         val data = listOf(
-            Category("New Year", listOf(CategoryList("My Spy"),CategoryList("BloodShot"),CategoryList("Midway"))),
-            Category("Valentines Day", listOf(CategoryList("The Godfather"),CategoryList("The Dark Knight"))),
-            Category("Eid Fiter", listOf(CategoryList("Apocalypse Now"),CategoryList("Saving Private Ryan")))
-
-                   , Category("Eid Adha", listOf(CategoryList("My Spy"),CategoryList("BloodShot"),CategoryList("Midway"))),
-        Category("Halloween", listOf(CategoryList("The Godfather"),CategoryList("The Dark Knight"))),
-        Category("Mother Day", listOf(CategoryList("Apocalypse Now"),CategoryList("Saving Private Ryan")))
+            Category(
+                "New Year",
+                listOf(CategoryList("My Spy"), CategoryList("BloodShot"), CategoryList("Midway"))
+            ),
+            Category(
+                "Valentines Day",
+                listOf(CategoryList("The Godfather"), CategoryList("The Dark Knight"))
+            ),
+            Category(
+                "Eid Fiter",
+                listOf(CategoryList("Apocalypse Now"), CategoryList("Saving Private Ryan"))
+            ),
+            Category(
+                "Eid Adha",
+                listOf(CategoryList("My Spy"), CategoryList("BloodShot"), CategoryList("Midway"))
+            ),
+            Category(
+                "Halloween",
+                listOf(CategoryList("The Godfather"), CategoryList("The Dark Knight"))
+            ),
+            Category(
+                "Mother Day",
+                listOf(CategoryList("Apocalypse Now"), CategoryList("Saving Private Ryan"))
+            )
 
         )
 
 
-       binding.categoryListRv.setHasFixedSize(true)
-       binding. categoryListRv.layoutManager = LinearLayoutManager(this)
+        binding.categoryListRv.setHasFixedSize(true)
+        binding.categoryListRv.layoutManager = LinearLayoutManager(this)
         adapter.setExpandCollapseListener(object : ExpandCollapseListener {
             override fun onListItemExpanded(position: Int) {
-                Toast.makeText(this@BallonsActivity,position.toString(),Toast.LENGTH_LONG).show()
+                Toast.makeText(this@BallonsActivity, position.toString(), Toast.LENGTH_LONG).show()
             }
 
             override fun onListItemCollapsed(position: Int) {
-                Toast.makeText(this@BallonsActivity,position.toString(),Toast.LENGTH_LONG).show()
+                Toast.makeText(this@BallonsActivity, position.toString(), Toast.LENGTH_LONG).show()
 
             }
 
@@ -67,7 +84,7 @@ class BallonsActivity : AppCompatActivity(), View.OnClickListener{
     }
 
     override fun onClick(v: View?) {
-        when(v?.id){
+        when (v?.id) {
             R.id.iv_drawer_back -> {
                 onBackPressed()
             }

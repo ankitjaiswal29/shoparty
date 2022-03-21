@@ -1,67 +1,103 @@
 package com.shoparty.android.ui.search
 
 import android.os.Bundle
-import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import com.shoparty.android.R
-import com.shoparty.android.databinding.ActivitySearchBinding
-import kotlinx.android.synthetic.main.activity_search.*
-import android.text.Editable
-
-import android.text.TextWatcher
 import androidx.core.widget.addTextChangedListener
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import com.shoparty.android.R
+import com.shoparty.android.common_modal.Product
+import com.shoparty.android.databinding.ActivitySearchBinding
+import com.shoparty.android.utils.Constants
+import com.shoparty.android.utils.PrefManager
+import com.shoparty.android.utils.ProgressDialog
+import com.shoparty.android.utils.apiutils.Resource
+import com.shoparty.android.utils.apiutils.ViewModalFactory
 
+class SearchActivity : AppCompatActivity() {
 
-class SearchActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivitySearchBinding
+    private lateinit var viewModel: SearchViewModel
     private lateinit var searchHistoryAdapter: SearchHistoryAdapter
+    private val list: ArrayList<Product> = ArrayList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search)
-        initialise()
+        viewModel =
+            ViewModelProvider(this, ViewModalFactory(application)).get(SearchViewModel::class.java)
 
+        initialise()
     }
 
     private fun initialise() {
-        binding.infoTool.ivDrawerBack.setOnClickListener(this)
+        binding.infoTool.ivDrawerBack.setOnClickListener {
+            onBackPressed()
+        }
         binding.infoTool.tvTitle.setText(getString(R.string.Search))
-        fillSearchHistoryRecyclerView(searchHistoryList)
-        binding.etEdittextsearch.addTextChangedListener {
-            searchBasedOnFAQ(it.toString())
+
+        searchHistoryAdapter = SearchHistoryAdapter(this@SearchActivity, list)
+        val gridLayoutManager = GridLayoutManager(this, 1)
+        binding.searchHistoryListRecycler.apply {
+            layoutManager = gridLayoutManager
+            setHasFixedSize(true)
+            isFocusable = false
+            adapter = searchHistoryAdapter
         }
-    }
-    private fun searchBasedOnFAQ(searchText: String) {
-        val filterDataList = searchHistoryList.filter {
-            it.name.contains(searchText.toString(), true)
+        setObserver()
+        binding.etSearch.addTextChangedListener {
+            if (!it.isNullOrBlank()) {
+                if (it.length >= 3) {
+                    val requestModel = SearchRequestModel(
+                        "0",
+                        "100",
+                        "1",
+                        binding.etSearch.text.toString().trim(),
+                        PrefManager.read(PrefManager.USER_ID, ""),
+                        Constants.DEVICE_TYPE,
+                        Constants.DEVICE_TOKEN
+                    )
+                    viewModel.searchProduct(requestModel)
+                }
+            }
         }
-        searchHistoryAdapter.setDataList(filterDataList);
+
+
     }
 
-    private val searchHistoryList = listOf<SearchHistoryModel>(
-        SearchHistoryModel("Birthday cap"),
-        SearchHistoryModel("Part Caps"),
-        SearchHistoryModel("Part Cap"),
-        SearchHistoryModel("Ballons"),
+    private fun setObserver() {
+        viewModel.productList.observe(this) { response ->
+            when (response) {
+                is Resource.Success -> {
+                    ProgressDialog.hideProgressBar()
+                    list.clear()
+                    list.addAll(response.data!!)
+                    searchHistoryAdapter.notifyDataSetChanged()
+                }
 
-        )
-
-    private fun fillSearchHistoryRecyclerView(searchList: List<SearchHistoryModel>) {
-
-        searchHistoryAdapter = SearchHistoryAdapter(searchHistoryList)
-        search_history_list_recycler.adapter=searchHistoryAdapter
-    }
-
-    override fun onClick(v: View?) {
-
-        when (v?.id) {
-            R.id.iv_drawer_back -> {
-                onBackPressed()
+                is Resource.Loading -> {
+                    ProgressDialog.showProgressBar(this)
+                }
+                is Resource.Error -> {
+                    ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        this,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        this,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-    }
 }
