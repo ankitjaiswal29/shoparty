@@ -2,6 +2,7 @@ package com.shoparty.android.app
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
+import com.shoparty.android.database.MyDatabase
 import com.shoparty.android.utils.PrefManager
 
 class MyApp : Application() {
@@ -18,6 +19,7 @@ class MyApp : Application() {
         super.onCreate()
         application = this
         PrefManager.init(applicationContext)
+        MyDatabase.getInstance(applicationContext)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         // AppDatabase.invoke(applicationContext)
     }
