@@ -14,6 +14,7 @@ import com.shoparty.android.databinding.FragmentWishListBinding
 
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.interfaces.RecyclerViewFavouriteListener
+import com.shoparty.android.ui.main.mainactivity.MainActivity
 import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
@@ -26,6 +27,11 @@ class WishListFragment : Fragment(), RecyclerViewFavouriteListener {
         super.onCreate(savedInstanceState)
         arguments?.let {
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).manageUi(ivLogo = true, ivBag = true,ivSearch = true)
     }
 
     override fun onCreateView(

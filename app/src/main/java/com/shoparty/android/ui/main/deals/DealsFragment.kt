@@ -22,6 +22,7 @@ import com.shoparty.android.databinding.FragmentDealsBinding
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.ui.filter.*
 import com.shoparty.android.ui.main.categories.NewArrivalItemLIstAdapter
+import com.shoparty.android.ui.main.mainactivity.MainActivity
 import com.shoparty.android.ui.main.product_list.ProductListSortingBottomSheetAdapter
 import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.SpacesItemDecoration
@@ -52,6 +53,11 @@ class DealsFragment : Fragment(), View.OnClickListener, RecyclerViewClickListene
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {}
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).manageUi(ivLogo = true, ivBag = true,ivSearch = true)
     }
 
     override fun onCreateView(

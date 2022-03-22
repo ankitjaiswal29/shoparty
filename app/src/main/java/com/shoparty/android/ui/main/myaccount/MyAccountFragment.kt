@@ -59,6 +59,11 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).manageUi(ivLogo = true, ivBag = true,ivSearch = true)
+    }
+
 
     override fun onAttach(activity: Activity) {
         super.onAttach(activity!!)

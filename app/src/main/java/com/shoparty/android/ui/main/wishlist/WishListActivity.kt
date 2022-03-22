@@ -18,7 +18,9 @@ import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 
-class WishListActivity : AppCompatActivity(), View.OnClickListener, RecyclerViewFavouriteListener {
+class WishListActivity : AppCompatActivity(), View.OnClickListener,
+    RecyclerViewFavouriteListener
+{
     private lateinit var binding: ActivityWishListBinding
     private lateinit var viewModel: WishListViewModel
     private lateinit var adapterWishlist: WishListAdapters
@@ -57,8 +59,6 @@ class WishListActivity : AppCompatActivity(), View.OnClickListener, RecyclerView
             }
         }
     }
-
-
 
     private fun setObserver() {
         viewModel.wishlist.observe(this) { response ->

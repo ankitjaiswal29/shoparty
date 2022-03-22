@@ -28,6 +28,7 @@ import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
+import kotlinx.android.synthetic.main.dashboard_toolbar.*
 
 class HomeFragment : Fragment(), View.OnClickListener {
 
@@ -75,14 +76,16 @@ class HomeFragment : Fragment(), View.OnClickListener {
             ViewModalFactory(activity?.application!!)
         )[HomeViewModel::class.java]
         viewModel_contactus = ViewModelProvider(this, ViewModalFactory(MyApp.application))[ContactUsViewModel::class.java]
-
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initialise()
+         initialise()
+    }
+
+    override fun onResume() {
+        super.onResume()
         (activity as MainActivity).manageUi(ivLogo = true, ivBag = true)
     }
 

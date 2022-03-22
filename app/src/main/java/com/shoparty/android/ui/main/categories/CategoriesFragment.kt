@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.shoparty.android.R
 import com.shoparty.android.databinding.FragmentCategoriesBinding
+import com.shoparty.android.ui.main.mainactivity.MainActivity
 import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
@@ -45,9 +46,15 @@ class CategoriesFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initialise()
+        (activity as MainActivity).manageUi(ivLogo = true, ivBag = true,)
         setObserver()
         val request = CategoryRequestModel("1")
         viewModel.getCategory(request)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).manageUi(ivLogo = true, ivBag = true,ivSearch = true)
     }
 
     fun initialise() {

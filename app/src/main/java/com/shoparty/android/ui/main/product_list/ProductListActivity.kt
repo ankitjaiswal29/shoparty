@@ -35,7 +35,6 @@ class ProductListActivity : AppCompatActivity(),
     View.OnClickListener,RecyclerViewClickListener,
     RecyclerViewItemClickListener,
     RecyclerViewFavouriteListener {
-    private var itemposition: Int = 0
     private lateinit var binding: ActivityTopSellingBinding
     private lateinit var viewModel: ProductListViewModel
     private lateinit var viewModeladdwishlist: WishListViewModel

@@ -115,7 +115,7 @@ class VerifiyViewModel(private val app: Application) : ViewModel()
             response.body()?.let { res ->
                 return if (res.response_code==200)
                 {
-                    Resource.Success(res.message)
+                    Resource.Success(res.otp.toString())
                 }
                 else {
                     Resource.Error(res.message)

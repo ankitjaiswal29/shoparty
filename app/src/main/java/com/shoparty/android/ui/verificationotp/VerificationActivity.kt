@@ -38,6 +38,7 @@ class VerificationActivity : AppCompatActivity() {
         initialise()
         setObserver()
     }
+
     private fun initialise()
     {
         binding.tvMobileno.text= intent.getStringExtra(Constants.MOBILE)
@@ -46,7 +47,6 @@ class VerificationActivity : AppCompatActivity() {
         binding.editTextNumberPassword2.addTextChangedListener(OtpTextWatcher(binding.editTextNumberPassword3, binding.editTextNumberPassword))
         binding.editTextNumberPassword3.addTextChangedListener(OtpTextWatcher(binding.editTextNumberPassword4, binding.editTextNumberPassword2))
         binding.editTextNumberPassword4.addTextChangedListener(OtpTextWatcher(binding.editTextNumberPassword4, binding.editTextNumberPassword3))
-      //  binding.editTextNumberPassword5.addTextChangedListener(OtpTextWatcher(binding.editTextNumberPassword5, binding.editTextNumberPassword4))
         Utils.showShortToast(this,intent.getStringExtra(Constants.OTP))
         userid= intent.getStringExtra(Constants.USERID)!!
         startTimer()
@@ -65,16 +65,17 @@ class VerificationActivity : AppCompatActivity() {
 
     private var countDownTimer =
         object : CountDownTimer(60000 * 2, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
+            override fun onTick(millisUntilFinished: Long)
+            {
                 val seconds = millisUntilFinished / 1000
                 val elapsedFormattedString = seconds.toString()
                 binding.txtTimecount.text = elapsedFormattedString+" "+getString(R.string.txtseconds)
             }
-
             override fun onFinish()
             {
                 txtotpcountvisible.visibility=View.VISIBLE
-                txtotpcount.visibility=View.GONE
+               // binding.txtotpcount.isClickable=true
+                 txtotpcount.visibility=View.GONE
                 txtTimecount.visibility=View.GONE
             }
         }
@@ -82,6 +83,7 @@ class VerificationActivity : AppCompatActivity() {
     private fun startTimer()
     {
         txtotpcountvisible.visibility=View.GONE
+       // binding.txtotpcount.isClickable=false
         txtotpcount.visibility=View.VISIBLE
         txtTimecount.visibility=View.VISIBLE
 
@@ -94,6 +96,7 @@ class VerificationActivity : AppCompatActivity() {
     private fun stopTimer()
     {
         binding.txtTimecount.visibility = View.GONE
+       // binding.txtotpcount.isClickable=true
         binding.txtotpcount.visibility = View.VISIBLE
         countDownTimer?.cancel()
     }
@@ -129,10 +132,7 @@ class VerificationActivity : AppCompatActivity() {
                 is Resource.Error -> {
                     ProgressDialog.hideProgressBar()
                     Toast.makeText(
-                        applicationContext,
-                        response.message,
-                        Toast.LENGTH_SHORT
-                    ).show()
+                        applicationContext, response.message, Toast.LENGTH_SHORT).show()
                 }
                 else -> {
                     ProgressDialog.hideProgressBar()
@@ -151,14 +151,16 @@ class VerificationActivity : AppCompatActivity() {
             {
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
-                    Toast.makeText(
+
+                    /*  Toast.makeText(
                         applicationContext,
                         response.message,
-                        Toast.LENGTH_SHORT
-                    ).show()
+                        Toast.LENGTH_SHORT).show()*/
+
+                    Toast.makeText(
+                        applicationContext, response.message, Toast.LENGTH_LONG).show()
 
                     startTimer()
-
                 }
                 is Resource.Loading -> {
                     ProgressDialog.showProgressBar(this)
@@ -190,8 +192,9 @@ class VerificationActivity : AppCompatActivity() {
         PrefManager.write(PrefManager.USER_ID, data?.user_id.toString())
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroy() {
+        super.onDestroy()
         stopTimer()
     }
+
 }
