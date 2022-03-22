@@ -1,20 +1,25 @@
 package com.shoparty.android.ui.search
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.shoparty.android.R
 import com.shoparty.android.common_modal.Product
+import com.shoparty.android.database.MyDatabase
 import com.shoparty.android.databinding.ActivitySearchBinding
+import com.shoparty.android.interfaces.RecyclerViewItemClickListener
 import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
+import kotlinx.coroutines.launch
 
 class SearchActivity : AppCompatActivity() {
 
@@ -30,6 +35,7 @@ class SearchActivity : AppCompatActivity() {
             ViewModelProvider(this, ViewModalFactory(application)).get(SearchViewModel::class.java)
 
         initialise()
+
     }
 
     private fun initialise() {
@@ -37,6 +43,8 @@ class SearchActivity : AppCompatActivity() {
             onBackPressed()
         }
         binding.infoTool.tvTitle.setText(getString(R.string.Search))
+
+
 
         searchHistoryAdapter = SearchHistoryAdapter(this@SearchActivity, list)
         val gridLayoutManager = GridLayoutManager(this, 1)
@@ -46,6 +54,21 @@ class SearchActivity : AppCompatActivity() {
             isFocusable = false
             adapter = searchHistoryAdapter
         }
+
+        lifecycleScope.launch {
+            list.clear()
+            val dbList = MyDatabase.getInstance(this@SearchActivity).getProductDao().getAllProduct()
+            list.addAll(dbList)
+            searchHistoryAdapter.notifyDataSetChanged()
+        }
+        searchHistoryAdapter.onItemClick(object : RecyclerViewItemClickListener{
+            override fun onClick(pos: String, view: View?) {
+                lifecycleScope.launch {
+                    MyDatabase.getInstance(this@SearchActivity).getProductDao()
+                        .insertProduct(list[pos.toInt()])
+                }
+            }
+        })
         setObserver()
         binding.etSearch.addTextChangedListener {
             if (!it.isNullOrBlank()) {
@@ -64,6 +87,14 @@ class SearchActivity : AppCompatActivity() {
             }
         }
 
+        binding.tvClear.setOnClickListener {
+            lifecycleScope.launch {
+                MyDatabase.getInstance(this@SearchActivity).getProductDao()
+                    .deleteAllProduct()
+                list.clear()
+                searchHistoryAdapter.notifyDataSetChanged()
+            }
+        }
 
     }
 
