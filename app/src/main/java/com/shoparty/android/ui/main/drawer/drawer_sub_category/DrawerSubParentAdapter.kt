@@ -1,4 +1,4 @@
-package com.shoparty.android.ui.main.mainactivity
+package com.shoparty.android.ui.main.drawer.drawer_sub_category
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,14 +8,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.shoparty.android.R
-import com.shoparty.android.databinding.DrawerListItemLayoutBinding
+import com.shoparty.android.databinding.DrawerListItemsubParentLayoutBinding
 import com.shoparty.android.interfaces.RecyclerViewItemClickListener
+import com.shoparty.android.ui.main.drawer.drawer_main_category.DrawerResponse
 
-class DrawerAdapter(
+class DrawerSubParentAdapter(
     var context: Context,
-    private val list: ArrayList<DrawerResponse.Category>
-) :
-    RecyclerView.Adapter<DrawerAdapter.MyViewHolder>() {
+    private val list: ArrayList<DrawerResponse.Category.ChildCategory.ChildCategoryX>) :
+    RecyclerView.Adapter<DrawerSubParentAdapter.MyViewHolder>() {
 
     var listener: RecyclerViewItemClickListener? = null
 
@@ -28,7 +28,7 @@ class DrawerAdapter(
         viewType: Int
     ): MyViewHolder {
         val itemView: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.drawer_list_item_layout, parent, false)
+            .inflate(R.layout.drawer_list_itemsub_parent_layout, parent, false)
         return MyViewHolder(itemView, listener, context)
     }
 
@@ -40,15 +40,8 @@ class DrawerAdapter(
         return list.size
     }
 
-    class MyViewHolder(
-        val view: View,
-        val listener: RecyclerViewItemClickListener?,
-        val context: Context
-    ) :
-        RecyclerView.ViewHolder(view) {
-
-        private val binding: DrawerListItemLayoutBinding? = DataBindingUtil.bind(view)
-
+    class MyViewHolder(val view: View, val listener: RecyclerViewItemClickListener?, val context: Context) : RecyclerView.ViewHolder(view) {
+        val binding: DrawerListItemsubParentLayoutBinding? = DataBindingUtil.bind(view)
         init {
             view.setOnClickListener {
                 if (binding?.ivArrow?.rotation == 90f){
@@ -58,22 +51,15 @@ class DrawerAdapter(
                     binding?.ivArrow?.rotation = 90f
                     binding?.rvChildCategory?.visibility = View.VISIBLE
                 }
-                //listener?.onClick(adapterPosition.toString())
-
             }
         }
-
-        fun bind(modal: DrawerResponse.Category) {
+        fun bind(modal: DrawerResponse.Category.ChildCategory.ChildCategoryX) {
             binding?.tvTitle?.text = modal.category_name
-            binding?.rvChildCategory?.setLayoutManager(
-                LinearLayoutManager(
-                    context,
-                    LinearLayoutManager.VERTICAL,
-                    false
-
-                )
-            )
-            val adapter = DrawerChildAdapter(context,modal.child_category)
+            binding?.rvChildCategory?.layoutManager = LinearLayoutManager(
+                context,
+                LinearLayoutManager.VERTICAL,
+                false)
+            val adapter = DrawerSubChildAdapter(context,modal.child_category)
             binding?.rvChildCategory?.adapter = adapter
         }
     }

@@ -13,10 +13,9 @@ import com.shoparty.android.ui.login.LoginResponse
 import com.shoparty.android.ui.main.categories.CategoryRequestModel
 import com.shoparty.android.ui.main.categories.CategoryResponse
 import com.shoparty.android.ui.main.deals.DealsRequestModel
-import com.shoparty.android.ui.main.deals.DealsResponse
 import com.shoparty.android.ui.main.home.HomeRequestModel
 import com.shoparty.android.ui.main.home.HomeResponse
-import com.shoparty.android.ui.main.mainactivity.DrawerResponse
+import com.shoparty.android.ui.main.drawer.drawer_main_category.DrawerResponse
 import com.shoparty.android.ui.main.myaccount.getprofile.GetProfileResponse
 import com.shoparty.android.ui.main.myaccount.logout.LogoutResponse
 import com.shoparty.android.ui.main.myaccount.myprofileupdate.MyProfileUpdateResponse
@@ -153,7 +152,7 @@ interface ApiService {
     @POST("list-deals")
     suspend fun getDeals(
         @Body requestModel: DealsRequestModel
-    ): Response<DealsResponse>
+    ): Response<ProductListResponse>
 
     @POST("sidebar/product/categories")
     suspend fun getDrawer(

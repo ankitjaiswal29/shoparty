@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shoparty.android.R
 import com.shoparty.android.ui.main.categories.CategoryRequestModel
+import com.shoparty.android.ui.main.drawer.drawer_main_category.DrawerResponse
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import kotlinx.coroutines.launch

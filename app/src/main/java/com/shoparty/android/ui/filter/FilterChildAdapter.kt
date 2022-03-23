@@ -1,20 +1,12 @@
 package com.shoparty.android.ui.filter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.shoparty.android.R
 import com.shoparty.android.databinding.FilterRecyclarItemLayoutBinding
-import com.shoparty.android.ui.ballons.BallonsActivity
-import com.shoparty.android.ui.login.LoginActivity
-import com.shoparty.android.ui.main.home.HomeCategoriesModel
-import com.shoparty.android.utils.inflate
-import kotlinx.android.synthetic.main.drawer_list_item_layout.view.*
-import java.util.ArrayList
 
 class FilterChildAdapter(
     var context: Context,

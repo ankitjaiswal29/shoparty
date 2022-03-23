@@ -121,5 +121,31 @@ android:layout_marginStart="1dp"
             android:layout_marginBottom="@dimen/_20sdp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
 
+
+        <LinearLayout
+            android:id="@+id/linearNoData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/_100sdp"
+            android:gravity="center_horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/v_bottom"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+
+            <ImageView
+                android:id="@+id/iv_no_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_no_data"/>
+            <TextView
+                android:id="@+id/tv_no_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_data" />
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

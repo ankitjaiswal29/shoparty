@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shoparty.android.R
+import com.shoparty.android.common_modal.Product
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 
@@ -18,8 +19,8 @@ class ProductListViewModel(private val app: Application) : ViewModel()
 
     private val repository = ProductListRepository()
 
-    private val mProductList = MutableLiveData<Resource<List<ProductListResponse.Result>>>()
-    val productList: LiveData<Resource<List<ProductListResponse.Result>>> = mProductList
+    private val mProductList = MutableLiveData<Resource<List<Product>>>()
+    val productList: LiveData<Resource<List<Product>>> = mProductList
 
     fun producatList(filter_id:String,type:String,langauge_id:String,user_id:String) = viewModelScope.launch {
 
@@ -39,11 +40,15 @@ class ProductListViewModel(private val app: Application) : ViewModel()
 
 
 
-    private fun handleMyOrderResponse(response: Response<ProductListResponse>): Resource<List<ProductListResponse.Result>>? {
+    private fun handleMyOrderResponse(response: Response<ProductListResponse>): Resource<List<Product>>? {
         if (response?.isSuccessful)
         {
             response.body()?.let { res ->
                 return if (res.response_code==200)
+                {
+                    Resource.Success(res.message,res.result)
+                }
+                else if(res.response_code==204)
                 {
                     Resource.Success(res.message,res.result)
                 }

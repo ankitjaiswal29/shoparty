@@ -20,15 +20,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityMainBinding
 import com.shoparty.android.ui.login.LoginActivity
 import com.shoparty.android.ui.main.categories.CategoriesFragment
 import com.shoparty.android.ui.main.categories.CategoryRequestModel
-import com.shoparty.android.ui.main.categories.NewArrivalItemLIstAdapter
 import com.shoparty.android.ui.main.deals.DealsFragment
+import com.shoparty.android.ui.main.drawer.drawer_main_category.DrawerParentAdapter
+import com.shoparty.android.ui.main.drawer.drawer_main_category.DrawerResponse
 import com.shoparty.android.ui.main.home.HomeFragment
 import com.shoparty.android.ui.main.myaccount.MyAccountFragment
 import com.shoparty.android.ui.main.myaccount.MyAccountViewModel
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModal
-    private lateinit var drawerAdapter: DrawerAdapter
+    private lateinit var drawerParentAdapter: DrawerParentAdapter
     private val listDrawer: ArrayList<DrawerResponse.Category> = ArrayList()
     private lateinit var myaccountviewModel: MyAccountViewModel
     var dialog: Dialog? = null
@@ -70,7 +70,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun initialise()
     {
-      //  binding.rlSignout.visibility = View.GONE
         if (PrefManager.read(PrefManager.AUTH_TOKEN, "").isEmpty())
         {
             binding.btnSigninSignout.visibility = View.VISIBLE
@@ -147,7 +146,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     ProgressDialog.hideProgressBar()
                     listDrawer.clear()
                     listDrawer.addAll(response?.data!! as ArrayList<DrawerResponse.Category>)
-                    drawerAdapter.notifyDataSetChanged()
+                    drawerParentAdapter.notifyDataSetChanged()
                 }
 
                 is Resource.Loading -> {
@@ -215,15 +214,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun drawerListing() {
-        //binding.rvDrawerHomerecyclarview.layoutManager = LinearLayoutManager(this)
-        drawerAdapter = DrawerAdapter(this, listDrawer)
-        //binding.rvDrawerHomerecyclarview.adapter = drawerAdapter
+        drawerParentAdapter = DrawerParentAdapter(this, listDrawer)
         val gridLayoutManager = GridLayoutManager(this, 1)
         binding.rvCategories.apply {
             layoutManager = gridLayoutManager
             setHasFixedSize(true)
             isFocusable = false
-            adapter = drawerAdapter
+            adapter = drawerParentAdapter
         }
 
     }
@@ -319,10 +316,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.ivMyaccount.setImageResource(R.drawable.ic_user);
         binding.tvMyaccount.setTextColor(getColor(R.color.black))
         opendialog()
-
     }
 
-    fun opendialog()
+    private fun opendialog()
     {
         dialog = Dialog(this)
         dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)

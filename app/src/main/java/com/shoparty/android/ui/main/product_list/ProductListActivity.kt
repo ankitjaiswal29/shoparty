@@ -12,13 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.shoparty.android.R
+import com.shoparty.android.common_modal.Product
 import com.shoparty.android.databinding.ActivityTopSellingBinding
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.interfaces.RecyclerViewFavouriteListener
 import com.shoparty.android.interfaces.RecyclerViewItemClickListener
 
 import com.shoparty.android.ui.filter.*
-import com.shoparty.android.ui.main.deals.TopSellingHomeModel
+import com.shoparty.android.ui.login.LoginActivity
 import com.shoparty.android.ui.main.wishlist.WishListViewModel
 
 import com.shoparty.android.ui.productdetails.ProductDetailsActivity
@@ -38,7 +39,7 @@ class ProductListActivity : AppCompatActivity(),
     private lateinit var binding: ActivityTopSellingBinding
     private lateinit var viewModel: ProductListViewModel
     private lateinit var viewModeladdwishlist: WishListViewModel
-    private var productlist: ArrayList<ProductListResponse.Result> = ArrayList()
+    private var productlist: ArrayList<Product> = ArrayList()
     lateinit var dialog:BottomSheetDialog
     var color=false
     var size=false
@@ -50,7 +51,6 @@ class ProductListActivity : AppCompatActivity(),
         binding= DataBindingUtil.setContentView(this, R.layout.activity_top_selling)
         viewModel = ViewModelProvider(this, ViewModalFactory(application))[ProductListViewModel::class.java]
         viewModeladdwishlist = ViewModelProvider(this, ViewModalFactory(application))[WishListViewModel::class.java]
-
         if(intent.extras != null)
         {
             if(intent.getStringExtra(Constants.CATEGORYFRAGMENT).equals("1"))
@@ -63,6 +63,13 @@ class ProductListActivity : AppCompatActivity(),
             {
                 binding.infoTool.tvTitle.text=getString(R.string.top_20_selling_items)
             //  viewModel.myOrders(intent.getStringExtra(Constants.PRODUCTID).toString())  //api call
+            }
+
+            else if(intent.getStringExtra(Constants.DRAWERSUBCATEGORY).equals("3"))  //top20selling
+            {
+                binding.infoTool.tvTitle.text=intent.getStringExtra(Constants.CATEGORYNAME)
+                viewModel.producatList(intent.getStringExtra(Constants.PRODUCTID).toString(),"3",
+                    "1",PrefManager.read(PrefManager.USER_ID, ""))   //api call
             }
         }
         initialise()
@@ -79,57 +86,27 @@ class ProductListActivity : AppCompatActivity(),
         binding.tvSort.setOnClickListener(this)
     }
 
-    private fun setObserver() {
+    private fun setObserver()
+    {
         viewModel.productList.observe(this, { response ->
             when (response) {
                 is Resource.Success -> {
-                  //  com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     productlist.clear()
-                    productlist = response.data as ArrayList<ProductListResponse.Result>
+                    productlist = response.data as ArrayList<Product>
                     if(productlist.isNullOrEmpty())
                     {
-                      //  binding.clNoData.visibility=View.VISIBLE
-                       // binding.myorderRecyclerview.visibility=View.GONE
+                        binding.ivNoData.visibility=View.VISIBLE
+                        binding.tvNoData.visibility=View.VISIBLE
+                        binding.dealsItemRecycler.visibility=View.GONE
                     }
                     else
                     {
+                        binding.ivNoData.visibility=View.GONE
+                        binding.dealsItemRecycler.visibility=View.VISIBLE
+                        binding.tvNoData.visibility=View.GONE
                         setProductListAdapter(productlist)
                     }
-                }
-                is Resource.Loading -> {
-                 //   com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
-                }
-                is Resource.Error -> {
-                  //  com.shoparty.android.utils.ProgressDialog.hideProgressBar()
-                    Toast.makeText(
-                        applicationContext,
-                        response.message,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                else -> {
-                  //  com.shoparty.android.utils.ProgressDialog.hideProgressBar()
-                    Toast.makeText(
-                        applicationContext,
-                        response.message,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        })
-
-        viewModeladdwishlist.addremovewishlist.observe(this, { response ->
-            when (response) {
-                is Resource.Success -> {
-                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
-
-                    Toast.makeText(
-                        applicationContext,
-                        response.message,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    viewModel.producatList(intent.getStringExtra(Constants.PRODUCTID).toString(),"3",
-                        "1",PrefManager.read(PrefManager.USER_ID, ""))   //api call
                 }
                 is Resource.Loading -> {
                     com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
@@ -153,9 +130,44 @@ class ProductListActivity : AppCompatActivity(),
             }
         })
 
+        viewModeladdwishlist.addremovewishlist.observe(this, { response ->
+            when (response) {
+                is Resource.Success -> {
+                  //  com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    viewModel.producatList(intent.getStringExtra(Constants.PRODUCTID).toString(),"3",
+                        "1",PrefManager.read(PrefManager.USER_ID, ""))   //api call
+                }
+                is Resource.Loading -> {
+                 //   com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
+                }
+                is Resource.Error -> {
+                  //  com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                  //  com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        })
+
 
     }
-    private fun setProductListAdapter(data: ArrayList<ProductListResponse.Result>) {
+    private fun setProductListAdapter(data: ArrayList<Product>) {
 
         val gridLayoutManager = GridLayoutManager(this, 2)
         deals_item_recycler.apply {
@@ -231,12 +243,17 @@ class ProductListActivity : AppCompatActivity(),
 
 
 
-    override fun favourite(
-        producat_id: String,
-        type: String,
-        product_detail_id: String
-    ) {
-        viewModeladdwishlist.addremoveWishlist(producat_id,type.toInt(),product_detail_id.toInt())
-     }
+    override fun favourite(producat_id: String, type: String, product_detail_id: String)
+    {
+        if(PrefManager.read(PrefManager.AUTH_TOKEN, "").isEmpty())
+        {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
+        else
+        {
+            viewModeladdwishlist.addremoveWishlist(producat_id,type.toInt(),product_detail_id.toInt())
+        }
+    }
 
 }

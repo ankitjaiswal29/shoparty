@@ -1,4 +1,4 @@
-package com.shoparty.android.ui.main.mainactivity
+package com.shoparty.android.ui.main.drawer.drawer_main_category
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

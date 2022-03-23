@@ -11,14 +11,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 import com.shoparty.android.R
+import com.shoparty.android.common_modal.Product
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.interfaces.RecyclerViewFavouriteListener
 import kotlinx.android.synthetic.main.deals_item_layout.view.*
 
 
-class ProductListAdapters(val  context: Context,private val mList: List<ProductListResponse.Result>,
-                          var recyclerViewClickListener: RecyclerViewClickListener,
-                          var recyclerViewFavouriteListener: RecyclerViewFavouriteListener) : RecyclerView.Adapter<ProductListAdapters.ViewHolder>() {
+class ProductListAdapters(
+    val context: Context,
+    private val mList: List<Product>,
+    var recyclerViewClickListener: RecyclerViewClickListener,
+    var recyclerViewFavouriteListener: RecyclerViewFavouriteListener) : RecyclerView.Adapter<ProductListAdapters.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.deals_item_layout, parent, false)

@@ -74,8 +74,7 @@ class VerificationActivity : AppCompatActivity() {
             override fun onFinish()
             {
                 txtotpcountvisible.visibility=View.VISIBLE
-               // binding.txtotpcount.isClickable=true
-                 txtotpcount.visibility=View.GONE
+                txtotpcount.visibility=View.GONE
                 txtTimecount.visibility=View.GONE
             }
         }
@@ -83,7 +82,6 @@ class VerificationActivity : AppCompatActivity() {
     private fun startTimer()
     {
         txtotpcountvisible.visibility=View.GONE
-       // binding.txtotpcount.isClickable=false
         txtotpcount.visibility=View.VISIBLE
         txtTimecount.visibility=View.VISIBLE
 
@@ -96,7 +94,6 @@ class VerificationActivity : AppCompatActivity() {
     private fun stopTimer()
     {
         binding.txtTimecount.visibility = View.GONE
-       // binding.txtotpcount.isClickable=true
         binding.txtotpcount.visibility = View.VISIBLE
         countDownTimer?.cancel()
     }

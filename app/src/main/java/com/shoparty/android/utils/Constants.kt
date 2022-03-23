@@ -33,6 +33,8 @@ object Constants {
           const val CATEGORYFRAGMENT = "CATEGORYFRAGMENT"
           const val TOP20SELLING = "TOP20SELLING"
           const val ONGOING = "1"
+          const val DRAWERSUBCATEGORY = "3"
+          const val CATEGORYNAME = "CATEGORYNAME"
 
 
 

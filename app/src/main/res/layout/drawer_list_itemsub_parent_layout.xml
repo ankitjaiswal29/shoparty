@@ -9,7 +9,6 @@
         android:background="@color/white"
         android:padding="@dimen/_12sdp">
 
-
         <RelativeLayout
             android:id="@+id/relative1"
             android:layout_width="match_parent"
@@ -30,16 +29,13 @@
                 android:id="@+id/ivArrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/_12sdp"
                 android:contentDescription="@null"
-                android:src="@drawable/right_arrow_icon" />
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:src="@drawable/right_arrow_icon"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"/>
 
         </RelativeLayout>
-
-
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvChildCategory"
             android:layout_width="match_parent"

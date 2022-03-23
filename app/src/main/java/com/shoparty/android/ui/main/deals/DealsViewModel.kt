@@ -1,24 +1,23 @@
 package com.shoparty.android.ui.main.deals
 
-/**
- * Created by Amit Gupta on 16-03-2022.
- */
-
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shoparty.android.R
+import com.shoparty.android.common_modal.Product
+import com.shoparty.android.ui.main.product_list.ProductListResponse
+import com.shoparty.android.ui.myorders.orderdetails.OrderDetailsResponse
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
-
 class DealsViewModel(private val app: Application) : ViewModel() {
     private val repository = DealsRepository()
-    private val mDeals = MutableLiveData<Resource<List<DealsResponse.Deals>>>()
-    val deals: LiveData<Resource<List<DealsResponse.Deals>>> = mDeals
+
+    private val mDeals = MutableLiveData<Resource<List<Product>>>()
+    val deals: LiveData<Resource<List<Product>>> = mDeals
 
     fun getDeals(request:DealsRequestModel) = viewModelScope.launch {
         if (Utils.hasInternetConnection(app.applicationContext)) {
@@ -32,12 +31,17 @@ class DealsViewModel(private val app: Application) : ViewModel() {
     }
 
 
-    private fun handleDealsResponse(response: Response<DealsResponse>): Resource<List<DealsResponse.Deals>> {
+    private fun handleDealsResponse(response: Response<ProductListResponse>): Resource<List<Product>> {
         if (response?.isSuccessful) {
             response.body()?.let { res ->
                 return if (res.response_code == 200) {
                     Resource.Success(res.message, res.result)
-                } else {
+                }
+                else if(res.response_code == 204)
+                {
+                    Resource.Success(res.message, res.result)
+                }
+                else {
                     Resource.Error(res.message)
                 }
             }
