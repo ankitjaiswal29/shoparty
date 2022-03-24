@@ -22,23 +22,26 @@ import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.interfaces.RecyclerViewFavouriteListener
 import com.shoparty.android.interfaces.RecyclerViewItemClickListener
 import com.shoparty.android.ui.filter.*
+import com.shoparty.android.ui.login.LoginActivity
 import com.shoparty.android.ui.main.categories.NewArrivalItemLIstAdapter
 import com.shoparty.android.ui.main.mainactivity.MainActivity
 import com.shoparty.android.ui.main.product_list.ProductListAdapters
 import com.shoparty.android.ui.main.product_list.ProductListResponse
 import com.shoparty.android.ui.main.product_list.ProductListSortingBottomSheetAdapter
-import com.shoparty.android.utils.ProgressDialog
-import com.shoparty.android.utils.SpacesItemDecoration
+import com.shoparty.android.ui.main.wishlist.WishListViewModel
+import com.shoparty.android.ui.productdetails.ProductDetailsActivity
+import com.shoparty.android.utils.*
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 import kotlinx.android.synthetic.main.bottomsheet_filter_layout.view.*
 import kotlinx.android.synthetic.main.fragment_deals.*
 
-class DealsFragment : Fragment(),View.OnClickListener ,
-    RecyclerViewItemClickListener{
+class DealsFragment : Fragment(),View.OnClickListener
+   {
     lateinit var binding: FragmentDealsBinding
     lateinit var dialog: BottomSheetDialog
     private lateinit var viewModel: DealsViewModel
+    private lateinit var viewModeladdwishlist: WishListViewModel
     private var productlist: ArrayList<Product> = ArrayList()
     var color = false
     var size = false
@@ -48,18 +51,27 @@ class DealsFragment : Fragment(),View.OnClickListener ,
     private var recyclerViewClickListener=object :RecyclerViewClickListener{
         override fun click(pos: String)
         {
-
+            Utils.showLongToast(requireContext(),pos)
+            val intent = Intent(requireContext(), ProductDetailsActivity::class.java)
+            startActivity(intent)
         }
     }
 
     private var recyclerViewFavouriteListener=object :RecyclerViewFavouriteListener{
-        override fun favourite(producat_id: String, type: String, product_detail_id: String) {
-
+        override fun favourite(producat_id: String, type: String, product_detail_id: String)
+        {
+            if(PrefManager.read(PrefManager.AUTH_TOKEN, "").isEmpty())
+            {
+                val intent = Intent(requireContext(), LoginActivity::class.java)
+                startActivity(intent)
+            }
+            else
+            {
+                viewModeladdwishlist.addremoveWishlist(producat_id,type.toInt(),product_detail_id.toInt())
+            }
         }
 
     }
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {}
@@ -79,17 +91,15 @@ class DealsFragment : Fragment(),View.OnClickListener ,
             this,
             ViewModalFactory(activity?.application!!)
         )[DealsViewModel::class.java]
-
+        viewModeladdwishlist = ViewModelProvider(this, ViewModalFactory(activity?.application!!))[WishListViewModel::class.java]
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fillDealsRecyclerView(dealsItemList)
         initilize()
         setObserver()
-
-        val request = DealsRequestModel("1", "0", "10")
+        val request = DealsRequestModel("1", "0", "10",PrefManager.read(PrefManager.USER_ID, ""))
         viewModel.getDeals(request)
 
     }
@@ -136,6 +146,41 @@ class DealsFragment : Fragment(),View.OnClickListener ,
                 }
             }
         }
+
+        viewModeladdwishlist.addremovewishlist.observe(this, { response ->
+            when (response) {
+                is Resource.Success -> {
+                    //  com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+
+                    Toast.makeText(
+                        requireContext(),
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    val request = DealsRequestModel("1", "0", "10",PrefManager.read(PrefManager.USER_ID, ""))
+                    viewModel.getDeals(request)
+                }
+                is Resource.Loading -> {
+                    //   com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
+                }
+                is Resource.Error -> {
+                    //  com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        requireContext(),
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    //  com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        requireContext(),
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        })
     }
 
     private fun setProductListAdapter(data: ArrayList<Product>) {
@@ -156,25 +201,7 @@ class DealsFragment : Fragment(),View.OnClickListener ,
 
 
 
-    private val dealsItemList = listOf<TopSellingHomeModel>(
-        TopSellingHomeModel("Princess Dress", "$10.2"),
-        TopSellingHomeModel("Princess Dress", "$10.2"),
-        TopSellingHomeModel("Princess Dress", "$10.2"),
-        TopSellingHomeModel("Princess Dress", "$10.2"),
-        TopSellingHomeModel("Princess Dress", "$10.2"),
-        TopSellingHomeModel("Princess Dress", "$10.2"),
-    )
 
-    private fun fillDealsRecyclerView(deals: List<TopSellingHomeModel>) {
-        val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
-        binding.dealsItemRecycler.apply {
-            layoutManager = gridLayoutManager
-            setHasFixedSize(true)
-            isFocusable = false
-            adapter = NewArrivalItemLIstAdapter(dealsItemList)
-        }
-
-    }
 
     override fun onClick(v: View?) {
         when (v?.id) {
@@ -187,12 +214,6 @@ class DealsFragment : Fragment(),View.OnClickListener ,
             }
         }
     }
-
-
-
-
-
-
 
     private fun showBottomsheetDialog() {
 
@@ -225,9 +246,6 @@ class DealsFragment : Fragment(),View.OnClickListener ,
         dialog.show()
     }
 
-    override fun onClick(pos: String, view: View?) {
-        TODO("Not yet implemented")
-    }
 
 
 }

@@ -34,7 +34,6 @@ import kotlinx.android.synthetic.main.fragment_deals.*
 
 class ProductListActivity : AppCompatActivity(),
     View.OnClickListener,
-    RecyclerViewItemClickListener,
     RecyclerViewClickListener,
     RecyclerViewFavouriteListener {
     private lateinit var binding: ActivityTopSellingBinding
@@ -66,7 +65,7 @@ class ProductListActivity : AppCompatActivity(),
             //  viewModel.myOrders(intent.getStringExtra(Constants.PRODUCTID).toString())  //api call
             }
 
-            else if(intent.getStringExtra(Constants.DRAWERSUBCATEGORY).equals("3"))  //top20selling
+            else if(intent.getStringExtra(Constants.DRAWERSUBCATEGORY).equals("3"))  //drawer page
             {
                 binding.infoTool.tvTitle.text=intent.getStringExtra(Constants.CATEGORYNAME)
                 viewModel.producatList(intent.getStringExtra(Constants.PRODUCTID).toString(),"3",
@@ -237,10 +236,6 @@ class ProductListActivity : AppCompatActivity(),
     }
 
 
-    override fun onClick(pos: String, view: View?) {
-        val intent = Intent (this, ProductDetailsActivity::class.java)
-        startActivity(intent)
-    }
 
 
 

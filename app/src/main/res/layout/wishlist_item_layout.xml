@@ -19,6 +19,7 @@
         android:background="@color/white">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/const1"
             android:layout_width="0dp"
             android:layout_height="@dimen/_100sdp"
             app:layout_constraintStart_toStartOf="parent"
@@ -112,9 +113,10 @@
 
             <TextView
                 android:id="@+id/tv_Item_subtitle"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/_155sdp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="@dimen/_5sdp"
                 android:textColor="@color/cardview_dark_background"
                 android:text="@string/yoke_design_kurta_set"
                 android:textSize="12dp"

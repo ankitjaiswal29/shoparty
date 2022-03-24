@@ -35,16 +35,6 @@ class WishListAdapters(
         holder.tvPrice.text = context.getString(R.string.dollor)+ItemsViewModel.sale_price
         Glide.with(context).asBitmap().load(ItemsViewModel.image).into(holder.iv_Productimg!!)
 
-        /*if(ItemsViewModel.discount==)
-        {
-            holder.tvOffer.visibility=View.GONE
-        }
-        else
-        {
-            holder.tvOffer.visibility=View.VISIBLE
-            holder.tvOffer.text=ItemsViewModel.discount+context.getString(R.string.percent)+" "+context.getString(R.string.off)
-        }*/
-
         holder.txtAdd.setOnClickListener {
             Utils.showLongToast(context,context.getString(R.string.comingsoon))
         }
