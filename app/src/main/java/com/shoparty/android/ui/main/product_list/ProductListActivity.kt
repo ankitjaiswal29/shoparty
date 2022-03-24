@@ -33,8 +33,9 @@ import kotlinx.android.synthetic.main.bottomsheet_filter_layout.view.*
 import kotlinx.android.synthetic.main.fragment_deals.*
 
 class ProductListActivity : AppCompatActivity(),
-    View.OnClickListener,RecyclerViewClickListener,
+    View.OnClickListener,
     RecyclerViewItemClickListener,
+    RecyclerViewClickListener,
     RecyclerViewFavouriteListener {
     private lateinit var binding: ActivityTopSellingBinding
     private lateinit var viewModel: ProductListViewModel

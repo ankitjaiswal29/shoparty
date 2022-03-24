@@ -20,8 +20,8 @@ import kotlinx.android.synthetic.main.deals_item_layout.view.*
 class ProductListAdapters(
     val context: Context,
     private val mList: List<Product>,
-    var recyclerViewClickListener: RecyclerViewClickListener,
-    var recyclerViewFavouriteListener: RecyclerViewFavouriteListener) : RecyclerView.Adapter<ProductListAdapters.ViewHolder>() {
+    var recyclerViewFavouriteListener: RecyclerViewFavouriteListener,
+    var recyclerViewClickListener: RecyclerViewClickListener) : RecyclerView.Adapter<ProductListAdapters.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.deals_item_layout, parent, false)

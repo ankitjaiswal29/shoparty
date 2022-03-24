@@ -8,7 +8,8 @@ import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.utils.inflate
 import kotlinx.android.synthetic.main.top_selling_bottomsheet_recyclar_item_layout.view.*
 
-class ProductListSortingBottomSheetAdapter(private val itemList: List<String>, val recyclerViewClickListener: RecyclerViewClickListener): RecyclerView.Adapter<ProductListSortingBottomSheetAdapter.TopSellingSubcategoriesViewHolder>() {
+class ProductListSortingBottomSheetAdapter(private val itemList: List<String>,
+                                           val recyclerViewClickListener: RecyclerViewClickListener): RecyclerView.Adapter<ProductListSortingBottomSheetAdapter.TopSellingSubcategoriesViewHolder>() {
     inner class TopSellingSubcategoriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopSellingSubcategoriesViewHolder {

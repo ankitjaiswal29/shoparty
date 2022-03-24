@@ -18,6 +18,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.shoparty.android.R
 import com.shoparty.android.common_modal.Product
 import com.shoparty.android.databinding.FragmentDealsBinding
+import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.interfaces.RecyclerViewFavouriteListener
 import com.shoparty.android.interfaces.RecyclerViewItemClickListener
 import com.shoparty.android.ui.filter.*
@@ -34,18 +35,30 @@ import kotlinx.android.synthetic.main.bottomsheet_filter_layout.view.*
 import kotlinx.android.synthetic.main.fragment_deals.*
 
 class DealsFragment : Fragment(),View.OnClickListener ,
-    RecyclerViewItemClickListener,
-    RecyclerViewFavouriteListener {
+    RecyclerViewItemClickListener{
     lateinit var binding: FragmentDealsBinding
     lateinit var dialog: BottomSheetDialog
     private lateinit var viewModel: DealsViewModel
     private var productlist: ArrayList<Product> = ArrayList()
-    private var filterIconItem = ArrayList<TextView>()
     var color = false
     var size = false
     var age = false
     var gender = false
     var price = false
+    private var recyclerViewClickListener=object :RecyclerViewClickListener{
+        override fun click(pos: String)
+        {
+
+        }
+    }
+
+    private var recyclerViewFavouriteListener=object :RecyclerViewFavouriteListener{
+        override fun favourite(producat_id: String, type: String, product_detail_id: String) {
+
+        }
+
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -131,7 +144,7 @@ class DealsFragment : Fragment(),View.OnClickListener ,
             layoutManager = gridLayoutManager
             setHasFixedSize(true)
             isFocusable = false
-            adapter = ProductListAdapters(requireContext(),data!!,requireContext(),requireContext())
+            adapter = ProductListAdapters(requireContext(),data!!,recyclerViewFavouriteListener,recyclerViewClickListener)
         }
 
     }
@@ -166,108 +179,18 @@ class DealsFragment : Fragment(),View.OnClickListener ,
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.tv_filter -> {
-
-                // showBottomsheetFilter()
                 val intent = Intent(requireContext(), FilterActivity::class.java)
                 startActivity(intent)
             }
             R.id.tv_sort -> {
                 showBottomsheetDialog()
             }
-            /* R.id.tv_color -> {
-                 goneHide(rv_color_recyclarview)
-                 iconGoneHide(tv_color)
-                 color=!color;
-             }
-             R.id.tv_size -> {
-                 goneHide(rv_size_recyclarview)
-                 iconGoneHide(tv_size)
-                 size=!size
-             }
-             R.id.tv_age -> {
-                 goneHide(rv_age_recyclarview)
-                 iconGoneHide(tv_age)
-                 age=!age;
-             }
-             R.id.tv_gender -> {
-                 goneHide(rv_gender_recyclarview)
-                 iconGoneHide(tv_gender)
-                 gender=!gender
-             }
-             R.id.tv_price -> {
-
-             }*/
-            /* R.id.iv_drawer_back -> {
-                 onBackPressed()
-             }
-             R.id.btn_Applay -> {
-                 finish()
-             }*/
         }
     }
 
 
 
-    private fun size(view: View) {
-        val data = ArrayList<String>()
-        data.add("S")
-        data.add("M")
-        data.add("XL")
-        data.add("XXL")
-        data.add("UK6")
-        data.add("UK7")
-        data.add("UK8")
-        data.add("UK9")
-        data.add("UK10")
 
-        val spanCount = 5 // 2 columns
-        val spacing = 10 // 30px
-        val includeEdge = false
-
-        view.rv_size_recyclarview?.addItemDecoration(
-            SpacesItemDecoration(
-                spanCount,
-                spacing,
-                includeEdge
-            )
-        )
-
-
-        val gridLayoutManager = GridLayoutManager(requireContext(), 5)
-        view.rv_size_recyclarview?.apply {
-            layoutManager = gridLayoutManager
-            setHasFixedSize(true)
-            isFocusable = false
-            adapter = FilterSizeAdapter(data, context)
-        }
-    }
-
-    private fun iconGoneHide(clickFilterItem: TextView, view: View) {
-        view.tv_price.setCompoundDrawablesWithIntrinsicBounds(
-            0,
-            0,
-            R.drawable.ic_icon_aeroup,
-            0
-        )
-        for (textview in filterIconItem) {
-
-            if (textview == clickFilterItem) {
-                textview.setCompoundDrawablesWithIntrinsicBounds(
-                    0,
-                    0,
-                    R.drawable.ic_icon_aeroup,
-                    0
-                )
-            } else {
-                textview.setCompoundDrawablesWithIntrinsicBounds(
-                    0,
-                    0,
-                    R.drawable.ic_icon_aeroup,
-                    0
-                )
-            }
-        }
-    }
 
 
 
@@ -286,7 +209,7 @@ class DealsFragment : Fragment(),View.OnClickListener ,
         data.add("Oldest To Newest")
         data.add("Price - Low To High")
         data.add("Price - High To Low")
-        val adapter = ProductListSortingBottomSheetAdapter(data, this)
+        val adapter = ProductListSortingBottomSheetAdapter(data, recyclerViewClickListener)
         recyclerView.adapter = adapter
 
         // below line is use to set cancelable to avoid
@@ -300,16 +223,12 @@ class DealsFragment : Fragment(),View.OnClickListener ,
         // on below line we are calling
         // a show method to display a dialog.
         dialog.show()
-
-    }
-
-    override fun favourite(producat_id: String, type: String, product_detail_id: String) {
-        TODO("Not yet implemented")
     }
 
     override fun onClick(pos: String, view: View?) {
         TODO("Not yet implemented")
     }
+
 
 }
 
