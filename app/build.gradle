@@ -2,7 +2,6 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-android-extensions'
-    //id 'kotlin-parcelize'
     id 'kotlin-kapt'
 }
 
@@ -116,6 +115,8 @@ dependencies {
     implementation 'com.makeramen:roundedimageview:2.3.0'
     //range seek bar
     implementation 'org.florescu.android.rangeseekbar:rangeseekbar-library:0.3.0'
+
+
 
 
 }

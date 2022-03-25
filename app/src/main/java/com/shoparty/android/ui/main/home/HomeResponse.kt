@@ -16,7 +16,14 @@ data class HomeResponse(
         val brand_response: List<Brand>,
         ) {
         data class Banner(
-            val id: String,
+            val created_at: String,
+            val deleted_at: Any,
+            val id: Int,
+            val name: String,
+            val product_detail_id: Int,
+            val product_id: Int,
+            val status: Int,
+            val updated_at: String,
             val image: String
         )
         data class Category(

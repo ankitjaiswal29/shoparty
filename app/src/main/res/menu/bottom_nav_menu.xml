@@ -15,7 +15,7 @@
     <item
         android:id="@+id/WishlistFragment"
         android:title="@string/wishlist"
-        android:icon="@drawable/wishlist_icon"/>
+        android:icon="@drawable/wishlist_icon_black"/>
 
     <item
         android:id="@+id/MyAccountFragment"

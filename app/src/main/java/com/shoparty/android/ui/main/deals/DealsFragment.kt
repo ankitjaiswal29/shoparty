@@ -48,14 +48,7 @@ class DealsFragment : Fragment(),View.OnClickListener
     var age = false
     var gender = false
     var price = false
-    private var recyclerViewClickListener=object :RecyclerViewClickListener{
-        override fun click(pos: String)
-        {
-            Utils.showLongToast(requireContext(),pos)
-            val intent = Intent(requireContext(), ProductDetailsActivity::class.java)
-            startActivity(intent)
-        }
-    }
+
 
     private var recyclerViewFavouriteListener=object :RecyclerViewFavouriteListener{
         override fun favourite(producat_id: String, type: String, product_detail_id: String)
@@ -189,7 +182,7 @@ class DealsFragment : Fragment(),View.OnClickListener
             layoutManager = gridLayoutManager
             setHasFixedSize(true)
             isFocusable = false
-            adapter = ProductListAdapters(requireContext(),data!!,recyclerViewFavouriteListener,recyclerViewClickListener)
+            adapter = ProductListAdapters(requireContext(),data!!,recyclerViewFavouriteListener)
         }
 
     }
@@ -230,7 +223,7 @@ class DealsFragment : Fragment(),View.OnClickListener
         data.add("Oldest To Newest")
         data.add("Price - Low To High")
         data.add("Price - High To Low")
-        val adapter = ProductListSortingBottomSheetAdapter(data, recyclerViewClickListener)
+        val adapter = ProductListSortingBottomSheetAdapter(data)
         recyclerView.adapter = adapter
 
         // below line is use to set cancelable to avoid

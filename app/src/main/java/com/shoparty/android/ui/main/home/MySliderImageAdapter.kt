@@ -7,23 +7,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.shoparty.android.R
+import com.shoparty.android.common_modal.Product
 import com.smarteist.autoimageslider.SliderViewAdapter
 
 class MySliderImageAdapter(val context: Context) :
     SliderViewAdapter<MySliderImageAdapter.VH>() {
-
     private var mSliderItems = ArrayList<HomeResponse.Home.Banner>()
-
     fun renewItems(sliderItems: ArrayList<HomeResponse.Home.Banner>) {
         mSliderItems = sliderItems
         notifyDataSetChanged()
     }
-
-//    fun addItem(sliderItem: String) {
-//        mSliderItems.add(sliderItem)
-//        notifyDataSetChanged()
-//    }
-
     override fun onCreateViewHolder(parent: ViewGroup): VH {
         val inflate: View =
             LayoutInflater.from(parent.context).inflate(R.layout.slider_layout, null)

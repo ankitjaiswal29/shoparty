@@ -1,26 +1,45 @@
 package com.shoparty.android.ui.productdetails
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Paint
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityProductDetailsBinding
 import com.shoparty.android.ui.customize.CustomizeActivity
 import com.shoparty.android.ui.filter.FilterColorAdapter
 import com.shoparty.android.ui.main.deals.TopSellingHomeModel
+import com.shoparty.android.ui.main.home.HomeResponse
 import com.shoparty.android.ui.main.home.MySliderImageAdapter
+import com.shoparty.android.ui.main.wishlist.WishListViewModel
 import com.shoparty.android.ui.shoppingbag.ShopingBagActivity
-import com.smarteist.autoimageslider.SliderView
+import com.shoparty.android.utils.Constants
+import com.shoparty.android.utils.PrefManager
+import com.shoparty.android.utils.apiutils.Resource
+import com.shoparty.android.utils.apiutils.ViewModalFactory
+import kotlinx.android.synthetic.main.deals_item_layout.view.*
 
 class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityProductDetailsBinding
+    var product_id = ""
+    var product_details_id = ""
+    var fav_status = ""
+    private lateinit var viewModel: ProducatDetailsViewModel
+    private lateinit var wishlistviewModel: WishListViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_details)
+        viewModel = ViewModelProvider(this, ViewModalFactory(application))[ProducatDetailsViewModel::class.java]
+        wishlistviewModel = ViewModelProvider(this, ViewModalFactory(application))[WishListViewModel::class.java]
         initialise()
+        setObserver()
     }
 
     private fun initialise() {
@@ -29,26 +48,23 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
         binding.tvAddtobag.setOnClickListener(this)
         binding.infoTool.ivBagBtn.setOnClickListener(this)
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
-        binding.infoTool.tvTitle.setText("Tesla Toys")
-        imageSlidingList()
+        binding.tvWishlist.setOnClickListener(this)
+
+        if(intent.extras != null)
+        {
+            binding.infoTool.tvTitle.text=intent.getStringExtra(Constants.PRODUCATNAME)
+            product_id= intent.getStringExtra(Constants.IDPRODUCT)!!
+            product_details_id= intent.getStringExtra(Constants.PRODUCATDETAILSID)!!
+            viewModel.postProducatDetails("1",product_details_id,product_id) //api call
+        }
         choesColorRecyclaritem()
         recyclartop()
         recyclarbottom()
-
-
     }
 
-    private fun imageSlidingList() {
 
-        val imageList: ArrayList<String> = ArrayList()
-        imageList.add("https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg")
-        imageList.add("https://images.ctfassets.net/hrltx12pl8hq/4plHDVeTkWuFMihxQnzBSb/aea2f06d675c3d710d095306e377382f/shutterstock_554314555_copy.jpg")
-        imageList.add("https://media.istockphoto.com/photos/child-hands-formig-heart-shape-picture-id951945718?k=6&m=951945718&s=612x612&w=0&h=ih-N7RytxrTfhDyvyTQCA5q5xKoJToKSYgdsJ_mHrv0=")
-        setImageInSlider(imageList, binding.imageSliderr)
-
-    }
-
-    private fun choesColorRecyclaritem() {
+    private fun choesColorRecyclaritem()
+    {
         val data = ArrayList<String>()
         data.add("#FFBB86FC")
         data.add("#606060")
@@ -114,6 +130,19 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
             R.id.iv_drawer_back -> {
                 onBackPressed()
             }
+
+            R.id.tv_wishlist -> {
+                if(fav_status == "0")
+                {
+                    wishlistviewModel.addremoveWishlist(product_id,1,product_details_id.toInt())
+                    fav_status="1"
+                }
+                else
+                {
+                    wishlistviewModel.addremoveWishlist(product_id,0,product_details_id.toInt())
+                    fav_status="0"
+                }
+            }
         }
     }
 
@@ -121,11 +150,117 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
         super.onBackPressed()
     }
 
-    private fun setImageInSlider(images: ArrayList<String>, imageSlider: SliderView) {
-        val adapter = MySliderImageAdapter(this)
-     //   adapter.renewItems(images)
-        imageSlider.setSliderAdapter(adapter)
-        imageSlider.isAutoCycle = true
-        imageSlider.startAutoCycle()
+    private fun setObserver()
+    {
+        viewModel.product.observe(this) { response ->
+            when (response) {
+                is Resource.Success -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    setImageInSlider(response.data?.product_details?.images!!)
+                    setData(response.data)
+                }
+                is Resource.Loading -> {
+                    com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
+                }
+                is Resource.Error -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+
+        wishlistviewModel.addremovewishlist.observe(this) { response ->
+            when (response) {
+                is Resource.Success -> {
+                    //  ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        this,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    if(fav_status=="0")
+                    {
+                        binding.imgEmptyHeart.visibility=View.VISIBLE
+                        binding.imgFillHeart.visibility=View.GONE
+                    }
+                    else
+                    {
+                        binding.imgEmptyHeart.visibility=View.GONE
+                        binding.imgFillHeart.visibility=View.VISIBLE
+                    }
+                }
+                is Resource.Loading -> {
+                    //   ProgressDialog.showProgressBar(requireContext())
+                }
+                is Resource.Error -> {
+                    //   ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        this,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    //    ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        this,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
     }
+
+    @SuppressLint("SetTextI18n")
+    private fun setData(data: ProducatDetailsResponse.ProductData)
+    {
+        if(data.product_details.fav_status==0)
+        {
+            binding.imgEmptyHeart.visibility=View.VISIBLE
+            binding.imgFillHeart.visibility=View.GONE
+            fav_status="0"
+        }
+        else
+        {
+            binding.imgEmptyHeart.visibility=View.GONE
+            binding.imgFillHeart.visibility=View.VISIBLE
+            fav_status="1"
+        }
+        binding.tvProductTitle.text=data.product_details.product_name
+        if(data.product_details.cost_price.toDouble()>data.product_details.sale_price.toDouble())
+        {
+            binding.tvProductCostPrice.visibility=View.VISIBLE
+            binding.tvProductCostPrice.text=getString(R.string.dollor)+data.product_details.cost_price
+            binding.tvProductCostPrice.paintFlags =  binding.tvProductCostPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+        }
+        else
+        {
+            binding.tvProductCostPrice.visibility=View.GONE
+            binding.tvProductPrice.text=getString(R.string.dollor)+data.product_details.sale_price
+        }
+
+    }
+
+    private fun setImageInSlider(images: List<HomeResponse.Home.Banner>) {
+        val adapter = MySliderImageAdapter(this)
+        adapter.renewItems(images as ArrayList<HomeResponse.Home.Banner>)
+        binding.imageSliderr.setSliderAdapter(adapter)
+        binding.imageSliderr.isAutoCycle = true
+        binding.imageSliderr.startAutoCycle()
+    }
+
+
 }

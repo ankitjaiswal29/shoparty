@@ -35,6 +35,9 @@ object Constants {
           const val ONGOING = "1"
           const val DRAWERSUBCATEGORY = "3"
           const val CATEGORYNAME = "CATEGORYNAME"
+          const val IDPRODUCT = "IDPRODUCT"
+          const val PRODUCATDETAILSID = "PRODUCATDETAILSID"
+          const val PRODUCATNAME = "PRODUCATNAME"
 
 
 

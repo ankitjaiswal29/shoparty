@@ -18,10 +18,8 @@ import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
-
     private lateinit var binding: ActivityLoginBinding
     private lateinit var viewModel: LoginViewModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= DataBindingUtil.setContentView(this, R.layout.activity_login)
@@ -39,10 +37,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when(v?.id){
-           /* R.id.btnGetOtp -> {
-                viewModel.postLogin()  //api call
-
-            }*/
             R.id.txtSignUp -> {
                 val intent = Intent(this, RegisterActivity::class.java)
                 startActivity(intent)

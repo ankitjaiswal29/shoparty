@@ -137,7 +137,7 @@
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:padding="8dp"
-                            android:src="@drawable/wishlist_icon"/>
+                            android:src="@drawable/wishlist_icon_black"/>
                         <TextView
                             android:id="@+id/tv_wishlist"
                             android:layout_width="wrap_content"

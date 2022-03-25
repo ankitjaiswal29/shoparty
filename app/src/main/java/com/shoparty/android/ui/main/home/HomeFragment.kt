@@ -2,8 +2,12 @@ package com.shoparty.android.ui.main.home
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.ActivityNotFoundException
+import android.content.ComponentName
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.telephony.PhoneNumberUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,18 +30,23 @@ import com.shoparty.android.ui.main.product_list.ProductListActivity
 import com.shoparty.android.ui.search.SearchActivity
 import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.ProgressDialog
+import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
+import kotlinx.android.synthetic.main.activity_contact_us.*
 import kotlinx.android.synthetic.main.dashboard_toolbar.*
+import com.smarteist.autoimageslider.SliderView
 
 class HomeFragment : Fragment(), View.OnClickListener {
-
     lateinit var binding: FragmentHomeBinding
     private lateinit var viewModel: HomeViewModel
     private lateinit var viewModel_contactus: ContactUsViewModel
     private var facebookurl: String?=""
     private var twitter_url: String?=""
     private var youtube_url: String?=""
+    private var phone_number: String?=""
+    private var whatsapp: String?=""
+    private var instagram_url: String?=""
 
     private val listTopBanner: ArrayList<HomeResponse.Home.Banner> = ArrayList()
     private val listMiddleBanner: ArrayList<HomeResponse.Home.Banner> = ArrayList()
@@ -69,8 +78,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-
+        binding = DataBindingUtil.inflate(inflater, com.shoparty.android.R.layout.fragment_home, container, false)
         viewModel = ViewModelProvider(
             this,
             ViewModalFactory(activity?.application!!)
@@ -94,8 +102,10 @@ class HomeFragment : Fragment(), View.OnClickListener {
         binding.ivFacebook.setOnClickListener(this)
         binding.ivTwitter.setOnClickListener(this)
         binding.ivYoutube.setOnClickListener(this)
-        binding.tvViewAllTopSelling.setOnClickListener(this)
-        binding.tvViewCategories.setOnClickListener(this)
+        binding.txtPhone.setOnClickListener(this)
+        binding.txtinstagram.setOnClickListener(this)
+        binding.txtEmail.setOnClickListener(this)
+        binding.txtwhatsapp.setOnClickListener(this)
 
         setTopSelling()
         setBanner2()
@@ -109,8 +119,6 @@ class HomeFragment : Fragment(), View.OnClickListener {
         setBrands()
 
         setObserver()
-        setContactUsObserver()
-
         val request = HomeRequestModel("1")
         viewModel.getDashboardData(request)
         viewModel_contactus.getContactus()
@@ -122,7 +130,6 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 is Resource.Success -> {
                     try {
                         ProgressDialog.hideProgressBar()
-
                         listTopBanner.clear()
                         listTopBanner.addAll(response.data?.top_banner!! as ArrayList<HomeResponse.Home.Banner>)
                         setImageInSlider(response.data?.top_banner!! as ArrayList<HomeResponse.Home.Banner>)
@@ -179,37 +186,38 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 }
             }
         }
-    }
 
-    @SuppressLint("SetTextI18n")
-    private fun setContactUsObserver()
-    {
         viewModel_contactus.contactus.observe(this, { response ->
             when (response)
             {
                 is Resource.Success -> {
-                  ProgressDialog.hideProgressBar()
+                    ProgressDialog.hideProgressBar()
                     facebookurl=response.data?.facebook_url
                     twitter_url=response.data?.twitter_url
                     youtube_url=response.data?.youtube_url
+                    phone_number=response.data?.contact_no
+                    whatsapp=response.data?.whatsapp_no
+                    instagram_url=response.data?.instagram_url
 
                 }
                 is Resource.Loading -> {
-                   ProgressDialog.showProgressBar(requireActivity())
+                    ProgressDialog.showProgressBar(requireActivity())
                 }
                 is Resource.Error -> {
-               ProgressDialog.hideProgressBar()
+                    ProgressDialog.hideProgressBar()
                 }
                 else -> {
-                 ProgressDialog.hideProgressBar()
+                    ProgressDialog.hideProgressBar()
                 }
             }
         })
     }
 
+
+
     private fun setImageInSlider(list: ArrayList<HomeResponse.Home.Banner>) {
         val adapter = MySliderImageAdapter(requireContext())
-        adapter.renewItems(list)
+          adapter.renewItems(list)
         binding.imageSlider.setSliderAdapter(adapter)
         binding.imageSlider.isAutoCycle = true
         binding.imageSlider.startAutoCycle()
@@ -369,7 +377,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.tvSearch -> {
+            com.shoparty.android.R.id.tvSearch -> {
                 val intent = Intent(activity, SearchActivity::class.java)
                 startActivity(intent)
             }
@@ -397,28 +405,44 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 intent.putExtra(Constants.YOUTUBELINK,youtube_url)
                 startActivity(intent)
             }
+            R.id.txtinstagram -> {
+                val intent = Intent(requireContext(), WebViewActivity::class.java)
+                intent.putExtra(Constants.LINKSTATUS,"4")
+                intent.putExtra(Constants.INSTAGRAMELINK,instagram_url)
+                startActivity(intent)
+            }
+            R.id.txtPhone -> {
+                val intent = Intent(Intent.ACTION_DIAL)
+                intent.data = Uri.parse("tel:$phone_number")
+                startActivity(intent)
+            }
+            R.id.txtwhatsapp-> {
+                openWhatsAppConversation(whatsapp.toString(),"hi")
+            }
+            R.id.txtEmail -> {
+               Utils.showLongToast(requireContext(),context?.getString(R.string.comingsoon))
+            }
+
+
+
         }
     }
 
-    private fun showDialog() {
-        val builder = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialogWithMargin)
-        val inflater = layoutInflater
-        val dialogLayout: View =
-            inflater.inflate(R.layout.alert_dialog_location, null)
-        val tvallow = dialogLayout.findViewById<TextView>(R.id.tv_allow)
-        val tvallow_usingapp = dialogLayout.findViewById<TextView>(R.id.tv_allow_whileusig_app)
-        val tv_dont_allow = dialogLayout.findViewById<TextView>(R.id.tv_dont_allow)
-        builder.setView(dialogLayout)
-        val builderinstance = builder.show()
-
-        tvallow.setOnClickListener {
-            builder.setCancelable(true)
-            Toast.makeText(requireContext(), "done", Toast.LENGTH_LONG).show()
-            builderinstance.dismiss()
-        }
-        tvallow_usingapp.setOnClickListener {
-            Toast.makeText(requireContext(), "dfdsf", Toast.LENGTH_LONG).show()
-            builderinstance.dismiss()
+    private fun openWhatsAppConversation(number: String, message: String?) {
+        var number = number
+        number = number.replace(" ", "").replace("+", "")
+        val sendIntent = Intent("android.intent.action.MAIN")
+        sendIntent.type = "text/plain"
+        sendIntent.putExtra(Intent.EXTRA_TEXT, message)
+        sendIntent.component = ComponentName("com.whatsapp", "com.whatsapp.Conversation")
+        sendIntent.putExtra("jid", PhoneNumberUtils.stripSeparators(number) + "@s.whatsapp.net")
+        try {
+            startActivity(sendIntent)
+        } catch (ex: ActivityNotFoundException) {
+            Toast.makeText(requireContext(),
+                "Whatsapp have not been installed.",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 

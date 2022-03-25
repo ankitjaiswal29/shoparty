@@ -29,6 +29,8 @@ import com.shoparty.android.ui.myorders.myorderlist.MyOrderRequestModel
 import com.shoparty.android.ui.myorders.myorderlist.MyOrderResponse
 import com.shoparty.android.ui.myorders.orderdetails.OrderDetailsRequestModel
 import com.shoparty.android.ui.myorders.orderdetails.OrderDetailsResponse
+import com.shoparty.android.ui.productdetails.ProducatDetailsRequestModel
+import com.shoparty.android.ui.productdetails.ProducatDetailsResponse
 import com.shoparty.android.ui.register.RegisterRequestModel
 import com.shoparty.android.ui.register.RegisterResponseModel
 import com.shoparty.android.ui.search.SearchRequestModel
@@ -173,5 +175,11 @@ interface ApiService {
     suspend fun searchProduct(
         @Body requestModel: SearchRequestModel
     ): Response<SearchResponseModel>
+
+
+    @POST("product-details")
+    suspend fun producatdetailsAsync(
+        @Body producatDetailsRequestModel: ProducatDetailsRequestModel
+    ): Response<ProducatDetailsResponse>
 
 }

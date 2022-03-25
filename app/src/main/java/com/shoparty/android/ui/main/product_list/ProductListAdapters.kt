@@ -1,11 +1,13 @@
 package com.shoparty.android.ui.main.product_list
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -14,14 +16,16 @@ import com.shoparty.android.R
 import com.shoparty.android.common_modal.Product
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.interfaces.RecyclerViewFavouriteListener
+import com.shoparty.android.ui.productdetails.ProductDetailsActivity
+import com.shoparty.android.utils.Constants
 import kotlinx.android.synthetic.main.deals_item_layout.view.*
 
 
 class ProductListAdapters(
     val context: Context,
     private val mList: List<Product>,
-    var recyclerViewFavouriteListener: RecyclerViewFavouriteListener,
-    var recyclerViewClickListener: RecyclerViewClickListener) : RecyclerView.Adapter<ProductListAdapters.ViewHolder>() {
+    var recyclerViewFavouriteListener: RecyclerViewFavouriteListener) :
+    RecyclerView.Adapter<ProductListAdapters.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.deals_item_layout, parent, false)
@@ -37,7 +41,11 @@ class ProductListAdapters(
         Glide.with(context).asBitmap().load(ItemsViewModel.image).into(holder.iv_dealsimg!!)
 
         holder.cl_productlist_root_item.setOnClickListener {
-            recyclerViewClickListener.click(ItemsViewModel.product_id.toString())
+            val intent = Intent(context, ProductDetailsActivity::class.java)
+            intent.putExtra(Constants.IDPRODUCT,ItemsViewModel.product_id.toString())
+            intent.putExtra(Constants.PRODUCATDETAILSID,ItemsViewModel.product_detail_id.toString())
+            intent.putExtra(Constants.PRODUCATNAME,ItemsViewModel.product_name)
+            context.startActivity(intent)
         }
 
         if(ItemsViewModel.fav_status==1)  //selected
@@ -69,7 +77,8 @@ class ProductListAdapters(
     override fun getItemCount(): Int {
         return mList.size
     }
-    class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
+    class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView)
+    {
         val cl_productlist_root_item: ConstraintLayout = itemView.findViewById(R.id.cl_productlist_root_item)
         val tv_productname: TextView = itemView.findViewById(R.id.tv_productname)
         val iv_dealsimg: ImageView = itemView.findViewById(R.id.iv_dealsimg)

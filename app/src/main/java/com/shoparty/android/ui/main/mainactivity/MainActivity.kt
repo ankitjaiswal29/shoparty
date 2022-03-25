@@ -381,7 +381,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.tvSignout.setTextColor(getColor(R.color.black))
         binding.ivHome.setImageResource(R.drawable.ic_baseline_home_24);
         binding.ivLanguage.setImageResource(R.drawable.language_icon);
-        binding.ivWishlist.setImageResource(R.drawable.wishlist_icon);
+        binding.ivWishlist.setImageResource(R.drawable.wishlist_icon_black);
         binding.tvHome.setTextColor(getColor(R.color.black))
         binding.tvLanguage.setTextColor(getColor(R.color.black))
         binding.tvWishlist.setTextColor(getColor(R.color.black))
@@ -415,7 +415,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         binding.ivSignout.setImageResource(R.drawable.ic_sign_out_icon);
         binding.tvSignout.setTextColor(getColor(R.color.black))
-        binding.ivWishlist.setImageResource(R.drawable.wishlist_icon);
+        binding.ivWishlist.setImageResource(R.drawable.wishlist_icon_black);
         binding.ivMyaccount.setImageResource(R.drawable.ic_user);
         binding.ivLanguage.setImageResource(R.drawable.language_icon);
         binding.tvWishlist.setTextColor(getColor(R.color.black))

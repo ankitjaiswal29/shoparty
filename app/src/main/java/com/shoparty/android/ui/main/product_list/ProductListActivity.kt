@@ -34,7 +34,6 @@ import kotlinx.android.synthetic.main.fragment_deals.*
 
 class ProductListActivity : AppCompatActivity(),
     View.OnClickListener,
-    RecyclerViewClickListener,
     RecyclerViewFavouriteListener {
     private lateinit var binding: ActivityTopSellingBinding
     private lateinit var viewModel: ProductListViewModel
@@ -174,7 +173,7 @@ class ProductListActivity : AppCompatActivity(),
             layoutManager = gridLayoutManager
             setHasFixedSize(true)
             isFocusable = false
-            adapter = ProductListAdapters(this@ProductListActivity,data!!,this@ProductListActivity,this@ProductListActivity)
+            adapter = ProductListAdapters(this@ProductListActivity,data!!,this@ProductListActivity)
         }
 
     }
@@ -216,7 +215,7 @@ class ProductListActivity : AppCompatActivity(),
         data.add("Oldest To Newest")
         data.add("Price - Low To High")
         data.add("Price - High To Low")
-        val adapter=ProductListSortingBottomSheetAdapter(data,this)
+        val adapter=ProductListSortingBottomSheetAdapter(data)
         recyclerView.adapter=adapter
         dialog.setCancelable(true)
         dialog.setContentView(view)
@@ -229,11 +228,12 @@ class ProductListActivity : AppCompatActivity(),
         super.onBackPressed()
     }
 
-    override fun click(pos: String) {
+    /*override fun click(pos: String)
+    {
         Toast.makeText(this,pos,Toast.LENGTH_LONG).show()
         val intent = Intent (this, ProductDetailsActivity::class.java)
         startActivity(intent)
-    }
+    }*/
 
 
 
