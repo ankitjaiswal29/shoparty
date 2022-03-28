@@ -24,7 +24,7 @@ class MySliderImageAdapter(val context: Context) :
     }
 
     override fun onBindViewHolder(viewHolder: VH, position: Int) {
-        Glide.with(context).load(mSliderItems[position].image)
+        Glide.with(context).asBitmap().load(mSliderItems[position].image)
             .placeholder(R.drawable.ic_launcher_background)
             .error(R.drawable.ic_launcher_background)
             .into(viewHolder.imageView)

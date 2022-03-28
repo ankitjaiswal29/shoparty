@@ -7,4 +7,7 @@ class ProductListRepository {
     suspend fun getProductListApi(request: ProductListRequestModel) =
         RetrofitBuilder.apiService?.getProductList(request)
 
+    suspend fun getTopProductListApi(request: TopSellingRequestModel) =
+        RetrofitBuilder.apiService?.getTopProductList(request)
+
 }

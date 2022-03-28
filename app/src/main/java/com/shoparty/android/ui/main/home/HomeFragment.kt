@@ -106,6 +106,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
         binding.txtinstagram.setOnClickListener(this)
         binding.txtEmail.setOnClickListener(this)
         binding.txtwhatsapp.setOnClickListener(this)
+        binding.tvViewAllTopSelling.setOnClickListener(this)
+        binding.tvViewCategories.setOnClickListener(this)
 
         setTopSelling()
         setBanner2()
@@ -377,16 +379,22 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            com.shoparty.android.R.id.tvSearch -> {
+            R.id.tvSearch -> {
                 val intent = Intent(activity, SearchActivity::class.java)
                 startActivity(intent)
             }
             R.id.tvViewAllTopSelling -> {
                 val intent = Intent(activity, ProductListActivity::class.java)
-                intent.putExtra(Constants.PRODUCTID,"")
                 intent.putExtra(Constants.TOP20SELLING,"2")
                 startActivity(intent)
             }
+            R.id.tvViewCategories -> {        //view all category
+               /* val intent = Intent(activity, ProductListActivity::class.java)
+                intent.putExtra(Constants.TOP20SELLING,"4")
+                startActivity(intent)*/
+            }
+
+
             R.id.ivFacebook -> {
                 val intent = Intent (requireActivity(), WebViewActivity::class.java)
                 intent.putExtra(Constants.LINKSTATUS,"1")

@@ -411,6 +411,7 @@
     <string name="save_add_to_bag"><![CDATA[Save & Add To Bag]]></string>
     <string name="orderId">Order Id</string>
     <string name="comingsoon">Coming Soon</string>
+    <string name="str_hideless"><![CDATA[Show Less >]]></string>
 
 
 </resources>

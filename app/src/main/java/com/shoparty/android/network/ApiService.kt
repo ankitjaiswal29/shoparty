@@ -21,6 +21,7 @@ import com.shoparty.android.ui.main.myaccount.logout.LogoutResponse
 import com.shoparty.android.ui.main.myaccount.myprofileupdate.MyProfileUpdateResponse
 import com.shoparty.android.ui.main.product_list.ProductListRequestModel
 import com.shoparty.android.ui.main.product_list.ProductListResponse
+import com.shoparty.android.ui.main.product_list.TopSellingRequestModel
 import com.shoparty.android.ui.main.wishlist.RemoveWishListRequestModel
 import com.shoparty.android.ui.main.wishlist.RemoveWishlistResponse
 import com.shoparty.android.ui.main.wishlist.WishListRequestModel
@@ -139,6 +140,12 @@ interface ApiService {
     @POST("product-list")
     suspend fun getProductList(
         @Body productListRequestModel: ProductListRequestModel
+    ): Response<ProductListResponse>
+
+
+    @POST("arrival/and/top/list")
+    suspend fun getTopProductList(
+        @Body topSellingRequestModel: TopSellingRequestModel
     ): Response<ProductListResponse>
 
     @POST("add-wishlist")

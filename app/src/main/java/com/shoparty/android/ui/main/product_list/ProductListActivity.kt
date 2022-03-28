@@ -14,15 +14,12 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.shoparty.android.R
 import com.shoparty.android.common_modal.Product
 import com.shoparty.android.databinding.ActivityTopSellingBinding
-import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.interfaces.RecyclerViewFavouriteListener
-import com.shoparty.android.interfaces.RecyclerViewItemClickListener
 
 import com.shoparty.android.ui.filter.*
 import com.shoparty.android.ui.login.LoginActivity
 import com.shoparty.android.ui.main.wishlist.WishListViewModel
 
-import com.shoparty.android.ui.productdetails.ProductDetailsActivity
 import com.shoparty.android.ui.search.SearchActivity
 import com.shoparty.android.ui.shoppingbag.ShopingBagActivity
 import com.shoparty.android.utils.Constants
@@ -45,30 +42,36 @@ class ProductListActivity : AppCompatActivity(),
     var age=false
     var gender=false
     var price=false
+    var viewall_status=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= DataBindingUtil.setContentView(this, R.layout.activity_top_selling)
         viewModel = ViewModelProvider(this, ViewModalFactory(application))[ProductListViewModel::class.java]
         viewModeladdwishlist = ViewModelProvider(this, ViewModalFactory(application))[WishListViewModel::class.java]
+
         if(intent.extras != null)
         {
             if(intent.getStringExtra(Constants.CATEGORYFRAGMENT).equals("1"))
             {
                 binding.infoTool.tvTitle.text=intent.getStringExtra("categoryname")
-                viewModel.producatList(intent.getStringExtra(Constants.PRODUCTID).toString(),"3",
-                    "1",PrefManager.read(PrefManager.USER_ID, ""))   //api call
+                productListApi()
             }
             else if(intent.getStringExtra(Constants.TOP20SELLING).equals("2"))  //top20selling
             {
                 binding.infoTool.tvTitle.text=getString(R.string.top_20_selling_items)
-            //  viewModel.myOrders(intent.getStringExtra(Constants.PRODUCTID).toString())  //api call
+                viewAllApi("1") //api call
+                viewall_status="1"
             }
-
+            /* else if(intent.getStringExtra(Constants.TOP20SELLING).equals("4"))  //view all category
+            {
+                binding.infoTool.tvTitle.text=getString(R.string.categories)
+                ViewAllApi("2")      //api call
+                viewall_status="2"
+            }*/
             else if(intent.getStringExtra(Constants.DRAWERSUBCATEGORY).equals("3"))  //drawer page
             {
                 binding.infoTool.tvTitle.text=intent.getStringExtra(Constants.CATEGORYNAME)
-                viewModel.producatList(intent.getStringExtra(Constants.PRODUCTID).toString(),"3",
-                    "1",PrefManager.read(PrefManager.USER_ID, ""))   //api call
+                productListApi()
             }
         }
         initialise()
@@ -133,14 +136,20 @@ class ProductListActivity : AppCompatActivity(),
             when (response) {
                 is Resource.Success -> {
                   //  com.shoparty.android.utils.ProgressDialog.hideProgressBar()
-
                     Toast.makeText(
                         applicationContext,
                         response.message,
                         Toast.LENGTH_SHORT
                     ).show()
-                    viewModel.producatList(intent.getStringExtra(Constants.PRODUCTID).toString(),"3",
-                        "1",PrefManager.read(PrefManager.USER_ID, ""))   //api call
+                    if(viewall_status == "1")
+                    {
+                       viewAllApi("1") //api call
+                    }
+                    else
+                    {
+                        viewModel.producatList(intent.getStringExtra(Constants.PRODUCTID).toString(),"3",
+                            "1",PrefManager.read(PrefManager.USER_ID, ""))   //api call
+                    }
                 }
                 is Resource.Loading -> {
                  //   com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
@@ -201,10 +210,16 @@ class ProductListActivity : AppCompatActivity(),
     }
 
 
+    private fun viewAllApi(type:String)
+    {
+        viewModel.topSellingProducatList("1",type,"1","10",PrefManager.read(PrefManager.USER_ID,""))   //api call
+    }
 
-
-
-
+    private fun productListApi()
+    {
+        viewModel.producatList(intent.getStringExtra(Constants.PRODUCTID).toString(),"3",
+            "1",PrefManager.read(PrefManager.USER_ID, ""))   //api call
+    }
     private fun showBottomsheetDialog() {
         val view = layoutInflater.inflate(R.layout.top_selling_bottomsheet_layout, null)
         dialog = BottomSheetDialog(this,R.style.BottomSheetDialog)
@@ -228,12 +243,7 @@ class ProductListActivity : AppCompatActivity(),
         super.onBackPressed()
     }
 
-    /*override fun click(pos: String)
-    {
-        Toast.makeText(this,pos,Toast.LENGTH_LONG).show()
-        val intent = Intent (this, ProductDetailsActivity::class.java)
-        startActivity(intent)
-    }*/
+
 
 
 

@@ -9,9 +9,9 @@ data class ProducatDetailsResponse(
 )
 {
     data class ProductData(
-        val also_bought: List<AlsoBought>,
+        val also_bought: List<ProductDetailList>,
         val product_details: ProductDetails,
-        val you_may_also_like: List<YouMayAlsoLike>
+        val you_may_also_like: List<ProductDetailList>
     )
 
     data class ProductDetails(
@@ -142,7 +142,7 @@ data class ProducatDetailsResponse(
     )
 
 
-    data class YouMayAlsoLike(
+    data class ProductDetailList(
         val age_from: String,
         val age_to: String,
         val ar_color_name: String,

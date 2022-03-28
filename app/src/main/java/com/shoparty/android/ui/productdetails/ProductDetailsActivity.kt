@@ -4,6 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
+import android.text.InputType
+import android.text.Layout
+import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,16 +17,13 @@ import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityProductDetailsBinding
 import com.shoparty.android.ui.customize.CustomizeActivity
 import com.shoparty.android.ui.filter.FilterColorAdapter
-import com.shoparty.android.ui.main.deals.TopSellingHomeModel
 import com.shoparty.android.ui.main.home.HomeResponse
 import com.shoparty.android.ui.main.home.MySliderImageAdapter
 import com.shoparty.android.ui.main.wishlist.WishListViewModel
 import com.shoparty.android.ui.shoppingbag.ShopingBagActivity
 import com.shoparty.android.utils.Constants
-import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
-import kotlinx.android.synthetic.main.deals_item_layout.view.*
 
 class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityProductDetailsBinding
@@ -42,6 +42,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
         setObserver()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initialise() {
         binding.infoTool.ivBagBtn.visibility = View.VISIBLE
         binding.btnCostomizeit.setOnClickListener(this)
@@ -49,17 +50,16 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
         binding.infoTool.ivBagBtn.setOnClickListener(this)
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
         binding.tvWishlist.setOnClickListener(this)
-
+        binding.tvReadmore.setOnClickListener(this)
         if(intent.extras != null)
         {
-            binding.infoTool.tvTitle.text=intent.getStringExtra(Constants.PRODUCATNAME)
+            binding.infoTool.tvTitle.text= intent.getStringExtra(Constants.PRODUCATNAME)?.substring(0, 1)?.toUpperCase() +
+                    intent.getStringExtra(Constants.PRODUCATNAME)?.substring(1)?.toLowerCase()
             product_id= intent.getStringExtra(Constants.IDPRODUCT)!!
             product_details_id= intent.getStringExtra(Constants.PRODUCATDETAILSID)!!
             viewModel.postProducatDetails("1",product_details_id,product_id) //api call
         }
         choesColorRecyclaritem()
-        recyclartop()
-        recyclarbottom()
     }
 
 
@@ -83,28 +83,13 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    private fun recyclartop() {
-        val topSellingItemList = listOf<TopSellingHomeModel>(
-            TopSellingHomeModel("Princess Dress", "$10.2"),
-            TopSellingHomeModel("Princess Dress", "$10.2"),
-            TopSellingHomeModel("Princess Dress", "$10.2"),
-            TopSellingHomeModel("Princess Dress", "$10.2"),
-            TopSellingHomeModel("Princess Dress", "$10.2"),
-            TopSellingHomeModel("Princess Dress", "$10.2"),
-        )
-        binding.rvProductdetailsRecyclarview.adapter = ProductdetailsAdapter(topSellingItemList)
+    private fun setrecyclaryoumayalsolike(productDetailList: List<ProducatDetailsResponse.ProductDetailList>)
+    {
+        binding.rvProductdetailsRecyclarview.adapter = ProductdetailsAdapter(this,productDetailList)
     }
 
-    private fun recyclarbottom() {
-        val topSellingItemList = listOf<TopSellingHomeModel>(
-            TopSellingHomeModel("Princess Dress", "$10.2"),
-            TopSellingHomeModel("Princess Dress", "$10.2"),
-            TopSellingHomeModel("Princess Dress", "$10.2"),
-            TopSellingHomeModel("Princess Dress", "$10.2"),
-            TopSellingHomeModel("Princess Dress", "$10.2"),
-            TopSellingHomeModel("Princess Dress", "$10.2"),
-        )
-        binding.rvProductdetailsRecyclarview2.adapter = ProductdetailsAdapter(topSellingItemList)
+    private fun recyclarcustomeralsobought(productDetailList: List<ProducatDetailsResponse.ProductDetailList>) {
+        binding.rvProductdetailsRecyclarview2.adapter = ProductdetailsAdapter(this,productDetailList)
     }
 
     override fun onClick(v: View?) {
@@ -143,6 +128,24 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
                     fav_status="0"
                 }
             }
+
+
+            R.id.tv_readmore -> {
+                if(binding.tvReadmore.text.equals(getString(R.string.str_hideless)))
+                {
+                    binding.tvProductDetailsDescr.ellipsize =TextUtils.TruncateAt.END
+                    binding.tvProductDetailsDescr.maxLines = 2
+                    binding.tvReadmore.text=getString(R.string.read_more_withforword)
+                }
+                else
+                {
+                    binding.tvProductDetailsDescr.ellipsize = null
+                    binding.tvProductDetailsDescr.isElegantTextHeight = true
+                    binding.tvProductDetailsDescr.inputType = InputType.TYPE_TEXT_FLAG_MULTI_LINE;
+                    binding.tvProductDetailsDescr.isSingleLine = false
+                    binding.tvReadmore.text=getString(R.string.str_hideless)
+                }
+            }
         }
     }
 
@@ -157,7 +160,10 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     setImageInSlider(response.data?.product_details?.images!!)
-                    setData(response.data)
+                    setData(response.data.product_details)
+                    setrecyclaryoumayalsolike(response.data?.you_may_also_like)
+                    recyclarcustomeralsobought(response.data?.also_bought)
+                    checkReadMore(response.data.product_details.product_desc)
                 }
                 is Resource.Loading -> {
                     com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
@@ -224,10 +230,30 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun setData(data: ProducatDetailsResponse.ProductData)
+    private fun checkReadMore(productDesc: String)
     {
-        if(data.product_details.fav_status==0)
+        binding.tvProductDetailsDescr.text=productDesc
+        val l: Layout = binding.tvProductDetailsDescr.layout
+        if (l != null)
+        {
+            val lines: Int = l.lineCount
+            if (lines > 0)
+                if (l.getEllipsisCount(lines - 1) > 0)
+                {
+                    binding.tvReadmore.visibility=View.VISIBLE
+
+                }
+                else
+                {
+                    binding.tvReadmore.visibility=View.GONE
+                }
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setData(data: ProducatDetailsResponse.ProductDetails)
+    {
+        if(data.fav_status==0)
         {
             binding.imgEmptyHeart.visibility=View.VISIBLE
             binding.imgFillHeart.visibility=View.GONE
@@ -239,17 +265,26 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
             binding.imgFillHeart.visibility=View.VISIBLE
             fav_status="1"
         }
-        binding.tvProductTitle.text=data.product_details.product_name
-        if(data.product_details.cost_price.toDouble()>data.product_details.sale_price.toDouble())
+        binding.tvProductTitle.text=data.product_name
+        if(data.cost_price.toDouble()>data.sale_price.toDouble())
         {
             binding.tvProductCostPrice.visibility=View.VISIBLE
-            binding.tvProductCostPrice.text=getString(R.string.dollor)+data.product_details.cost_price
+            binding.tvProductCostPrice.text=getString(R.string.dollor)+data.cost_price
             binding.tvProductCostPrice.paintFlags =  binding.tvProductCostPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         }
         else
         {
             binding.tvProductCostPrice.visibility=View.GONE
-            binding.tvProductPrice.text=getString(R.string.dollor)+data.product_details.sale_price
+            binding.tvProductPrice.text=getString(R.string.dollor)+data.sale_price
+        }
+
+        if(data.is_customizable==0)
+        {
+           binding.btnCostomizeit.visibility=View.GONE
+        }
+        else
+        {
+            binding.btnCostomizeit.visibility=View.VISIBLE
         }
 
     }
@@ -261,6 +296,4 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
         binding.imageSliderr.isAutoCycle = true
         binding.imageSliderr.startAutoCycle()
     }
-
-
 }

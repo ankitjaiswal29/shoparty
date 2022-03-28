@@ -7,3 +7,4 @@ data class ProductListResponse(
     val response_code: Int,
     val result: List<Product>
 )
+

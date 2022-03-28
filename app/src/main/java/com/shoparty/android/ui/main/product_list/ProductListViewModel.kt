@@ -29,7 +29,23 @@ class ProductListViewModel(private val app: Application) : ViewModel()
         {
             mProductList.postValue(Resource.Loading())
             val response = repository.getProductListApi(request)
-            mProductList.postValue(handleMyOrderResponse(response!!))
+            mProductList.postValue(handleProductListResponse(response!!))
+        }
+        else
+        {
+            mProductList.postValue(Resource.Error(app.resources.getString(R.string.no_internet)))
+        }
+
+    }
+
+
+    fun topSellingProducatList(langauge_id:String,type:String,offset:String,limit:String,user_id:String) = viewModelScope.launch {
+        val request = TopSellingRequestModel(langauge_id,type,offset,limit,user_id)
+        if(Utils.hasInternetConnection(app.applicationContext))
+        {
+            mProductList.postValue(Resource.Loading())
+            val response = repository.getTopProductListApi(request)
+            mProductList.postValue(handleProductListResponse(response!!))
         }
         else
         {
@@ -40,7 +56,7 @@ class ProductListViewModel(private val app: Application) : ViewModel()
 
 
 
-    private fun handleMyOrderResponse(response: Response<ProductListResponse>): Resource<List<Product>>? {
+    private fun handleProductListResponse(response: Response<ProductListResponse>): Resource<List<Product>>? {
         if (response?.isSuccessful)
         {
             response.body()?.let { res ->
