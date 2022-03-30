@@ -35,7 +35,7 @@ import com.shoparty.android.ui.main.myaccount.MyAccountViewModel
 import com.shoparty.android.ui.main.myaccount.myprofileupdate.MyProfileActivity
 import com.shoparty.android.ui.main.wishlist.WishListFragment
 import com.shoparty.android.ui.search.SearchActivity
-import com.shoparty.android.ui.shoppingbag.ShopingBagActivity
+import com.shoparty.android.ui.shoppingbag.ShoppingBagActivity
 import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.apiutils.Resource
@@ -287,7 +287,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(intent)
             }
             R.id.ivBag -> {
-                val intent = Intent(this, ShopingBagActivity::class.java)
+                val intent = Intent(this, ShoppingBagActivity::class.java)
                 startActivity(intent)
             }
             R.id.rl_signout -> {
@@ -443,5 +443,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             binding.bottomNavigatinView.findViewById<View>(R.id.homeFragment).performClick()
         }
     }
+
+
 
 }

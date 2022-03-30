@@ -10,10 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityWishListBinding
-import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.interfaces.RecyclerViewFavouriteListener
 import com.shoparty.android.ui.search.SearchActivity
-import com.shoparty.android.ui.shoppingbag.ShopingBagActivity
+import com.shoparty.android.ui.shoppingbag.ShoppingBagActivity
 import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
@@ -49,7 +48,7 @@ class WishListActivity : AppCompatActivity(), View.OnClickListener,
                 onBackPressed()
             }
             R.id.ivBagBtn -> {
-                val intent = Intent(this, ShopingBagActivity::class.java)
+                val intent = Intent(this, ShoppingBagActivity::class.java)
                 startActivity(intent)
 
             }

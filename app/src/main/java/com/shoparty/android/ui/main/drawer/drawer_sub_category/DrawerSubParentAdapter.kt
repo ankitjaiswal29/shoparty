@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.shoparty.android.R
 import com.shoparty.android.databinding.DrawerListItemsubParentLayoutBinding
-import com.shoparty.android.interfaces.RecyclerViewItemClickListener
+import com.shoparty.android.interfaces.RVItemClickListener
 import com.shoparty.android.ui.main.drawer.drawer_main_category.DrawerResponse
 
 class DrawerSubParentAdapter(
@@ -17,9 +17,9 @@ class DrawerSubParentAdapter(
     private val list: ArrayList<DrawerResponse.Category.ChildCategory.ChildCategoryX>) :
     RecyclerView.Adapter<DrawerSubParentAdapter.MyViewHolder>() {
 
-    var listener: RecyclerViewItemClickListener? = null
+    var listener: RVItemClickListener? = null
 
-    fun onItemClick(listener: RecyclerViewItemClickListener) {
+    fun onItemClick(listener: RVItemClickListener) {
         this.listener = listener
     }
 
@@ -40,7 +40,7 @@ class DrawerSubParentAdapter(
         return list.size
     }
 
-    class MyViewHolder(val view: View, val listener: RecyclerViewItemClickListener?, val context: Context) : RecyclerView.ViewHolder(view) {
+    class MyViewHolder(val view: View, val listener: RVItemClickListener?, val context: Context) : RecyclerView.ViewHolder(view) {
         val binding: DrawerListItemsubParentLayoutBinding? = DataBindingUtil.bind(view)
         init {
             view.setOnClickListener {

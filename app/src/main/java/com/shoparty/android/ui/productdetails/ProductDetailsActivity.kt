@@ -12,20 +12,26 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.shoparty.android.R
+import com.shoparty.android.common_modal.CartProduct
+import com.shoparty.android.database.MyDatabase
 import com.shoparty.android.databinding.ActivityProductDetailsBinding
 import com.shoparty.android.ui.customize.CustomizeActivity
 import com.shoparty.android.ui.filter.FilterColorAdapter
 import com.shoparty.android.ui.main.home.HomeResponse
 import com.shoparty.android.ui.main.home.MySliderImageAdapter
 import com.shoparty.android.ui.main.wishlist.WishListViewModel
-import com.shoparty.android.ui.shoppingbag.ShopingBagActivity
+import com.shoparty.android.ui.shoppingbag.ShoppingBagActivity
 import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
+
     private lateinit var binding: ActivityProductDetailsBinding
     var product_id = ""
     var product_details_id = ""
@@ -105,11 +111,18 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
                 binding.infoTool.ivDrawerBack.setOnClickListener(this)
             }
             R.id.tv_addtobag -> {
-                val intent = Intent(this, ShopingBagActivity::class.java)
-                startActivity(intent)
+                lifecycleScope.launch(Dispatchers.IO) {
+                    MyDatabase.getInstance(this@ProductDetailsActivity).getProductDao()
+                        .insertCartProduct(CartProduct("Asd", 1, "", "1"))
+
+                    MyDatabase.getInstance(this@ProductDetailsActivity).getProductDao()
+                        .insertCartProduct(CartProduct("Asd", 2, "", "1"))
+                    val intent = Intent(this@ProductDetailsActivity, ShoppingBagActivity::class.java)
+                    startActivity(intent)
+                }
             }
             R.id.ivBagBtn -> {
-                val intent = Intent(this, ShopingBagActivity::class.java)
+                val intent = Intent(this, ShoppingBagActivity::class.java)
                 startActivity(intent)
             }
             R.id.iv_drawer_back -> {

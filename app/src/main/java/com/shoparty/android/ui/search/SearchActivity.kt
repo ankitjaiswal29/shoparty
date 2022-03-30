@@ -13,12 +13,13 @@ import com.shoparty.android.R
 import com.shoparty.android.common_modal.Product
 import com.shoparty.android.database.MyDatabase
 import com.shoparty.android.databinding.ActivitySearchBinding
-import com.shoparty.android.interfaces.RecyclerViewItemClickListener
+import com.shoparty.android.interfaces.RVItemClickListener
 import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class SearchActivity : AppCompatActivity() {
@@ -44,8 +45,6 @@ class SearchActivity : AppCompatActivity() {
         }
         binding.infoTool.tvTitle.setText(getString(R.string.Search))
 
-
-
         searchHistoryAdapter = SearchHistoryAdapter(this@SearchActivity, list)
         val gridLayoutManager = GridLayoutManager(this, 1)
         binding.searchHistoryListRecycler.apply {
@@ -55,15 +54,15 @@ class SearchActivity : AppCompatActivity() {
             adapter = searchHistoryAdapter
         }
 
-        lifecycleScope.launch {
+        lifecycleScope.launch(Dispatchers.IO) {
             list.clear()
             val dbList = MyDatabase.getInstance(this@SearchActivity).getProductDao().getAllProduct()
             list.addAll(dbList)
             searchHistoryAdapter.notifyDataSetChanged()
         }
-        searchHistoryAdapter.onItemClick(object : RecyclerViewItemClickListener{
+        searchHistoryAdapter.onItemClick(object : RVItemClickListener{
             override fun onClick(pos: String, view: View?) {
-                lifecycleScope.launch {
+                lifecycleScope.launch(Dispatchers.IO) {
                     MyDatabase.getInstance(this@SearchActivity).getProductDao()
                         .insertProduct(list[pos.toInt()])
                 }
@@ -88,7 +87,7 @@ class SearchActivity : AppCompatActivity() {
         }
 
         binding.tvClear.setOnClickListener {
-            lifecycleScope.launch {
+            lifecycleScope.launch(Dispatchers.IO) {
                 MyDatabase.getInstance(this@SearchActivity).getProductDao()
                     .deleteAllProduct()
                 list.clear()

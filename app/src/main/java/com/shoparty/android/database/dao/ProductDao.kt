@@ -1,9 +1,8 @@
 package com.shoparty.android.database.dao
 
 import androidx.room.*
+import com.shoparty.android.common_modal.CartProduct
 import com.shoparty.android.common_modal.Product
-import com.shoparty.android.ui.search.SearchProductHistory
-
 
 /**
  * Created by Amit Gupta on 22-03-2022.
@@ -26,18 +25,22 @@ interface ProductDao {
     @Query("DELETE FROM product")
     suspend fun deleteAllProduct()
 
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    fun insertSearchProduct(items: SearchProductHistory)
-//
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    fun insertAllSearchProductHistory(order: List<SearchProductHistory>)
-//
-//    @Query("SELECT * FROM searchproducthistory")
-//    fun getAllSearchProductHistory(): List<SearchProductHistory>
-//
-//    @Delete
-//    fun deleteSearchProductHistory(model: SearchProductHistory)
-//
-//    @Query("DELETE FROM searchproducthistory")
-//    fun deleteAllSearchProductHistory()
+    //cart product
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertCartProduct(items: CartProduct)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAllCartProduct(order: List<CartProduct>)
+
+    @Query("SELECT * FROM cart_product")
+    fun getAllCartProduct(): List<CartProduct>
+
+    @Delete
+    fun deleteCartProduct(model: CartProduct)
+
+    @Update
+    fun updateCartProduct(model: CartProduct)
+
+    @Query("DELETE FROM cart_product")
+    fun deleteAllCartProduct()
 }

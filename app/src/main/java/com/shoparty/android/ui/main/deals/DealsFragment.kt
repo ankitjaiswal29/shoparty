@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -18,22 +17,16 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.shoparty.android.R
 import com.shoparty.android.common_modal.Product
 import com.shoparty.android.databinding.FragmentDealsBinding
-import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.interfaces.RecyclerViewFavouriteListener
-import com.shoparty.android.interfaces.RecyclerViewItemClickListener
 import com.shoparty.android.ui.filter.*
 import com.shoparty.android.ui.login.LoginActivity
-import com.shoparty.android.ui.main.categories.NewArrivalItemLIstAdapter
 import com.shoparty.android.ui.main.mainactivity.MainActivity
 import com.shoparty.android.ui.main.product_list.ProductListAdapters
-import com.shoparty.android.ui.main.product_list.ProductListResponse
 import com.shoparty.android.ui.main.product_list.ProductListSortingBottomSheetAdapter
 import com.shoparty.android.ui.main.wishlist.WishListViewModel
-import com.shoparty.android.ui.productdetails.ProductDetailsActivity
 import com.shoparty.android.utils.*
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
-import kotlinx.android.synthetic.main.bottomsheet_filter_layout.view.*
 import kotlinx.android.synthetic.main.fragment_deals.*
 
 class DealsFragment : Fragment(),View.OnClickListener

@@ -9,16 +9,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ItemBannerBinding
-import com.shoparty.android.interfaces.RecyclerViewItemClickListener
+import com.shoparty.android.interfaces.RVItemClickListener
 
 class BannerAdapter(
     private val list: ArrayList<HomeResponse.Home.Banner>,
     val context: Context
 ) : RecyclerView.Adapter<BannerAdapter.ViewHolder>() {
 
-    var listener: RecyclerViewItemClickListener? = null
+    var listener: RVItemClickListener? = null
 
-    fun onItemClick(listener: RecyclerViewItemClickListener) {
+    fun onItemClick(listener: RVItemClickListener) {
         this.listener = listener
     }
 
@@ -42,7 +42,7 @@ class BannerAdapter(
 
     class ViewHolder(
         val view: View,
-        val listener: RecyclerViewItemClickListener?,
+        val listener: RVItemClickListener?,
         val context: Context
     ) :
         RecyclerView.ViewHolder(view) {

@@ -4,15 +4,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityCustomizeBinding
-import com.shoparty.android.databinding.ActivityProductDetailsBinding
-import com.shoparty.android.ui.login.LoginActivity
 import com.shoparty.android.ui.productdetails.ProductDetailsActivity
-import com.shoparty.android.ui.shoppingbag.ShopingBagActivity
+import com.shoparty.android.ui.shoppingbag.ShoppingBagActivity
 
 
 class CustomizeActivity : AppCompatActivity(), View.OnClickListener{
@@ -59,7 +56,7 @@ class CustomizeActivity : AppCompatActivity(), View.OnClickListener{
                 startActivity(intent)
             }
             R.id.ivBagBtn -> {
-                val intent = Intent(this, ShopingBagActivity::class.java)
+                val intent = Intent(this, ShoppingBagActivity::class.java)
                 startActivity(intent)
             }
         }

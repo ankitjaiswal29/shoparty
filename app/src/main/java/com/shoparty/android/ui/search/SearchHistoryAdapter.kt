@@ -9,14 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.shoparty.android.R
 import com.shoparty.android.common_modal.Product
 import com.shoparty.android.databinding.SearchItemLayBinding
-import com.shoparty.android.interfaces.RecyclerViewItemClickListener
+import com.shoparty.android.interfaces.RVItemClickListener
 
 class SearchHistoryAdapter(var context: Context, private var itemList: List<Product>) :
     RecyclerView.Adapter<SearchHistoryAdapter.ViewHolder>() {
 
-    var listener: RecyclerViewItemClickListener? = null
+    var listener: RVItemClickListener? = null
 
-    fun onItemClick(listener: RecyclerViewItemClickListener) {
+    fun onItemClick(listener: RVItemClickListener) {
         this.listener = listener
     }
 
@@ -43,7 +43,7 @@ class SearchHistoryAdapter(var context: Context, private var itemList: List<Prod
 
     class ViewHolder(
         val view: View,
-        val listener: RecyclerViewItemClickListener?,
+        val listener: RVItemClickListener?,
         val context: Context
     ) :
         RecyclerView.ViewHolder(view) {

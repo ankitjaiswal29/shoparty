@@ -1,7 +1,5 @@
 package com.shoparty.android.ui.main.home
 
-import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.ComponentName
 import android.content.Intent
@@ -11,7 +9,6 @@ import android.telephony.PhoneNumberUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -21,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.shoparty.android.R
 import com.shoparty.android.app.MyApp
 import com.shoparty.android.databinding.FragmentHomeBinding
-import com.shoparty.android.interfaces.RecyclerViewItemClickListener
+import com.shoparty.android.interfaces.RVItemClickListener
 import com.shoparty.android.ui.contactus.ContactUsViewModel
 import com.shoparty.android.ui.contactus.WebViewActivity
 import com.shoparty.android.ui.main.deals.TopSellingHomeModel
@@ -33,9 +30,6 @@ import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
-import kotlinx.android.synthetic.main.activity_contact_us.*
-import kotlinx.android.synthetic.main.dashboard_toolbar.*
-import com.smarteist.autoimageslider.SliderView
 
 class HomeFragment : Fragment(), View.OnClickListener {
     lateinit var binding: FragmentHomeBinding
@@ -248,7 +242,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
             isFocusable = false
             adapter = adapterBannerMiddle
         }
-        adapterBannerMiddle.onItemClick(object : RecyclerViewItemClickListener {
+        adapterBannerMiddle.onItemClick(object : RVItemClickListener {
             override fun onClick(pos: String, view: View?) {
                 //TODO("Not yet implemented")
             }
@@ -266,7 +260,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
             isFocusable = false
             adapter = adapterCategory
         }
-        adapterCategory.onItemClick(object : RecyclerViewItemClickListener {
+        adapterCategory.onItemClick(object : RVItemClickListener {
             override fun onClick(pos: String, view: View?) {
                 //TODO("Not yet implemented")
             }
@@ -283,7 +277,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
             isFocusable = false
             adapter = adapterSeason
         }
-        adapterSeason.onItemClick(object : RecyclerViewItemClickListener {
+        adapterSeason.onItemClick(object : RVItemClickListener {
             override fun onClick(pos: String, view: View?) {
                 //TODO("Not yet implemented")
             }
@@ -311,7 +305,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
             isFocusable = false
             adapter = adapterBannerBottom
         }
-        adapterBannerBottom.onItemClick(object : RecyclerViewItemClickListener {
+        adapterBannerBottom.onItemClick(object : RVItemClickListener {
             override fun onClick(pos: String, view: View?) {
                 //TODO("Not yet implemented")
             }
@@ -327,7 +321,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
             isFocusable = false
             adapter = adapterArrival
         }
-        adapterArrival.onItemClick(object : RecyclerViewItemClickListener {
+        adapterArrival.onItemClick(object : RVItemClickListener {
             override fun onClick(pos: String, view: View?) {
                 //TODO("Not yet implemented")
             }

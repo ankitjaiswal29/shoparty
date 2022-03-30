@@ -1,186 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:layout_marginTop="5dp"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-    android:paddingTop="5dp"
-    android:paddingBottom="6dp"
-    android:id="@+id/category_root_lay"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <ImageView
-        android:id="@+id/iv_shoppingitem"
-        android:layout_width="78dp"
-        android:layout_height="96dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:src="@drawable/icon_shippingbag"/>
-    <TextView
-        android:id="@+id/tv_shopingitem_name"
-        android:layout_width="185dp"
-        android:layout_height="41dp"
 
-        android:text="@string/tesla_toys_kids_6_bundle_color_pack"
-        style="@style/AppTheme.Text_15_Bold_dp"
-        app:layout_constraintTop_toTopOf="@+id/iv_shoppingitem"
-        app:layout_constraintStart_toEndOf="@+id/iv_shoppingitem"
-        android:layout_marginLeft="12dp"
-        />
-    <TextView
-        android:id="@+id/tv_price"
-        android:layout_width="wrap_content"
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/_7_10"
-        android:layout_marginTop="10dp"
-        style="@style/AppTheme.Text_16_dp_pink"
-        app:layout_constraintStart_toStartOf="@+id/tv_shopingitem_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_shopingitem_name"
+        android:layout_marginTop="5dp"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/_12sdp"
+        android:paddingTop="@dimen/_4sdp"
+        android:paddingRight="@dimen/_12sdp"
+        android:paddingBottom="@dimen/_4sdp">
 
-        />
+        <ImageView
+            android:id="@+id/ivItem"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_85sdp"
+            android:contentDescription="@null"
+            android:src="@drawable/icon_shippingbag"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/iv_close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/ic_icon_close"/>
+        <TextView
+            android:id="@+id/tvName"
+            style="@style/AppTheme.Text_15_Bold_dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_4sdp"
+            android:text="@string/tesla_toys_kids_6_bundle_color_pack"
+            app:layout_constraintEnd_toStartOf="@+id/iv_close"
+            app:layout_constraintStart_toEndOf="@+id/ivItem"
+            app:layout_constraintTop_toTopOf="@+id/ivItem" />
 
+        <TextView
+            android:id="@+id/tv_price"
+            style="@style/AppTheme.Text_16_dp_pink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/_7_10"
+            app:layout_constraintStart_toStartOf="@+id/tv_shopingitem_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_shopingitem_name"
+            />
 
-    <ImageView
-        android:id="@+id/iv_plus"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:text="@string/_7_10"
-        android:layout_marginTop="10dp"
- android:src="@drawable/plus_icon"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_shopingitem_name"
-
-        />
-
-    <ImageView
-        android:id="@+id/iv_minus"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:text="@string/_7_10"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:src="@drawable/minus_icon"
-       app:layout_constraintEnd_toStartOf="@+id/tv_count"
-        app:layout_constraintTop_toBottomOf="@+id/tv_shopingitem_name"
-
-        />
-
-    <TextView
-        android:id="@+id/tv_count"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:text="@string/_0"
-      android:gravity="center"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        style="@style/AppTheme.Text_14dp_Bold"
-        app:layout_constraintEnd_toStartOf="@+id/iv_plus"
-        app:layout_constraintTop_toBottomOf="@+id/tv_shopingitem_name"
-
-        />
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_icon_close"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/iv_plus"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/plus_icon"
+            android:text="@string/_7_10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvName"
+            />
 
+        <ImageView
+            android:id="@+id/iv_minus"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/minus_icon"
+            android:text="@string/_7_10"
+            app:layout_constraintEnd_toStartOf="@+id/tv_count"
+            app:layout_constraintTop_toBottomOf="@+id/tvName"
+            />
 
+        <TextView
+            android:id="@+id/tv_count"
+            style="@style/AppTheme.Text_14dp_Bold"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:text="@string/_0"
+            app:layout_constraintEnd_toStartOf="@+id/iv_plus"
+            app:layout_constraintTop_toBottomOf="@+id/tvName"
+            />
 
-
-
-
-
-        <!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="wrap_content"-->
-<!--    android:background="@color/white"-->
-<!--    android:layout_marginTop="10dp"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto">-->
-
-<!--    <ImageView-->
-<!--        android:id="@+id/bag_item_img"-->
-<!--        android:layout_width="80dp"-->
-<!--        android:layout_height="80dp"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        android:background="@drawable/top_selling_item_img"-->
-<!--        />-->
-<!--    <TextView-->
-<!--        android:id="@+id/bag_item_name"-->
-<!--        android:layout_width="140dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:textSize="15dp"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:textStyle="bold"-->
-<!--        android:text="@string/tesla_toys_kids_6_bundle_color_pack"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/bag_item_img"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        android:layout_marginStart="10dp"-->
-<!--        />-->
-<!--    <TextView-->
-<!--        android:id="@+id/bag_item_price_tv"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/_7_10"-->
-<!--        android:textStyle="bold"-->
-<!--        android:textColor="@color/color_pink"-->
-<!--        android:textSize="15dp"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/bag_item_name"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/bag_item_img"-->
-<!--        android:layout_marginStart="10dp"-->
-<!--        android:layout_marginTop="10dp"/>-->
-<!--    <TextView-->
-<!--        android:id="@+id/bag_item_no_price_tv"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/_12_8"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/bag_item_price_tv"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/bag_item_price_tv"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/bag_item_price_tv"-->
-<!--        android:layout_marginStart="5dp"-->
-<!--        android:textSize="13dp"/>-->
-<!--    <ImageView-->
-<!--        android:id="@+id/bag_item_clear_btn"-->
-<!--        android:layout_width="24dp"-->
-<!--        android:layout_height="24dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        android:src="@drawable/ic_baseline_clear_24"-->
-<!--        android:layout_margin="7dp"/>-->
-<!--    <ImageView-->
-<!--        android:id="@+id/bag_item_add_btn"-->
-<!--        android:layout_width="20dp"-->
-<!--        android:layout_height="20dp"-->
-<!--        android:src="@drawable/plus_icon"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/bag_item_no_price_tv"-->
-<!--        android:layout_marginEnd="5dp"/>-->
-<!--    <TextView-->
-<!--        android:id="@+id/bag_item_count_tv"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/_2"-->
-<!--        android:textSize="16dp"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:layout_marginEnd="10dp"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/bag_item_add_btn"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/bag_item_add_btn"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/bag_item_add_btn"/>-->
-<!--    <ImageView-->
-<!--        android:layout_width="20dp"-->
-<!--        android:layout_height="20dp"-->
-<!--        android:layout_marginEnd="10dp"-->
-<!--        android:src="@drawable/minus_icon"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/bag_item_add_btn"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/bag_item_add_btn"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/bag_item_count_tv"/>-->
-<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.shoparty.android.R
 import com.shoparty.android.databinding.DrawerListItemLayoutBinding
-import com.shoparty.android.interfaces.RecyclerViewItemClickListener
+import com.shoparty.android.interfaces.RVItemClickListener
 
 class DrawerParentAdapter(
     var context: Context,
@@ -17,9 +17,9 @@ class DrawerParentAdapter(
 ) :
     RecyclerView.Adapter<DrawerParentAdapter.MyViewHolder>() {
 
-    var listener: RecyclerViewItemClickListener? = null
+    var listener: RVItemClickListener? = null
 
-    fun onItemClick(listener: RecyclerViewItemClickListener) {
+    fun onItemClick(listener: RVItemClickListener) {
         this.listener = listener
     }
 
@@ -42,7 +42,7 @@ class DrawerParentAdapter(
 
     class MyViewHolder(
         val view: View,
-        val listener: RecyclerViewItemClickListener?,
+        val listener: RVItemClickListener?,
         val context: Context
     ) :
         RecyclerView.ViewHolder(view) {

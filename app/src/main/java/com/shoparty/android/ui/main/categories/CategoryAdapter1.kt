@@ -12,11 +12,18 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.shoparty.android.R
+import com.shoparty.android.interfaces.RVItemClickListener
 import com.shoparty.android.ui.main.product_list.ProductListActivity
 import com.shoparty.android.utils.Constants
 
 class CategoryAdapter1( val context: Context,
                         private val list: List<CategoryResponse.Category>) : RecyclerView.Adapter<CategoryAdapter1.ViewHolder>() {
+
+    var listener: RVItemClickListener? = null
+
+    fun onItemClick(listener: RVItemClickListener) {
+        this.listener = listener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
