@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.deals_item_layout.view.*
 
 class ProductListAdapters(
     val context: Context,
-    private val mList: List<Product>,
+    private val mList: ArrayList<Product>,
     var recyclerViewFavouriteListener: RecyclerViewFavouriteListener) :
     RecyclerView.Adapter<ProductListAdapters.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -86,4 +86,12 @@ class ProductListAdapters(
         val tv_offer:TextView = itemView.findViewById(R.id.tv_offer)
         val tv_product_subtitle:TextView = itemView.findViewById(R.id.tv_product_subtitle)
     }
+
+    fun updateItems(newList: ArrayList<Product>)
+    {
+        mList.clear()
+        mList.addAll(newList)
+    }
+
+
 }

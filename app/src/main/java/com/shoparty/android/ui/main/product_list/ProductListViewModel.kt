@@ -16,9 +16,7 @@ import retrofit2.Response
 
 class ProductListViewModel(private val app: Application) : ViewModel()
 {
-
     private val repository = ProductListRepository()
-
     private val mProductList = MutableLiveData<Resource<List<Product>>>()
     val productList: LiveData<Resource<List<Product>>> = mProductList
 

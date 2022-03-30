@@ -62,10 +62,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         val request = CategoryRequestModel("1")
         viewModel.getCategory(request)
-
-
-
-
     }
 
     private fun initialise()
@@ -111,8 +107,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.bottomNavigatinView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.homeFragment -> setCurrentFragment(HomeFragment())
+
                 R.id.categoriesFragment -> setCurrentFragment(CategoriesFragment())
+
                 R.id.dealsFragment -> setCurrentFragment(DealsFragment())
+
                 R.id.WishlistFragment ->
                     if(PrefManager.read(PrefManager.AUTH_TOKEN, "").isEmpty())
                     {
@@ -136,6 +135,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
             true
         }
+    }
+
+
+    fun navigateToCategory(){
+        binding.bottomNavigatinView.selectedItemId = R.id.categoriesFragment
     }
 
 

@@ -383,9 +383,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 startActivity(intent)
             }
             R.id.tvViewCategories -> {        //view all category
-               /* val intent = Intent(activity, ProductListActivity::class.java)
-                intent.putExtra(Constants.TOP20SELLING,"4")
-                startActivity(intent)*/
+                (activity as MainActivity).navigateToCategory()
             }
 
 

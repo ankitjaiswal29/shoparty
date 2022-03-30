@@ -1,6 +1,5 @@
 package com.shoparty.android.ui.main.deals
 
-
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -29,23 +28,23 @@ import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 import kotlinx.android.synthetic.main.fragment_deals.*
 
-class DealsFragment : Fragment(),View.OnClickListener
-   {
+class DealsFragment : Fragment(),View.OnClickListener {
     lateinit var binding: FragmentDealsBinding
     lateinit var dialog: BottomSheetDialog
     private lateinit var viewModel: DealsViewModel
     private lateinit var viewModeladdwishlist: WishListViewModel
-    private var productlist: ArrayList<Product> = ArrayList()
+    private var newproductlist: ArrayList<Product> = ArrayList()
     var color = false
     var size = false
     var age = false
     var gender = false
-    var price = false
+    private lateinit var adapter:ProductListAdapters
+    var pageOffset=0
+    var pageLimit=6
 
-
-    private var recyclerViewFavouriteListener=object :RecyclerViewFavouriteListener{
-        override fun favourite(producat_id: String, type: String, product_detail_id: String)
-        {
+       private var recyclerViewFavouriteListener=object :RecyclerViewFavouriteListener{
+          override fun favourite(producat_id: String, type: String, product_detail_id: String)
+          {
             if(PrefManager.read(PrefManager.AUTH_TOKEN, "").isEmpty())
             {
                 val intent = Intent(requireContext(), LoginActivity::class.java)
@@ -85,20 +84,25 @@ class DealsFragment : Fragment(),View.OnClickListener
         super.onViewCreated(view, savedInstanceState)
         initilize()
         setObserver()
-        val request = DealsRequestModel("1", "0", "10",PrefManager.read(PrefManager.USER_ID, ""))
-        viewModel.getDeals(request)
-
+        setupRecylarview()
+        callApi() //api call
     }
 
-    private fun setObserver() {
+       private fun callApi()
+       {
+           val request = DealsRequestModel("1",
+               pageOffset.toString(),
+               pageLimit.toString(),PrefManager.read(PrefManager.USER_ID, ""))
+               viewModel.getDeals(request)
+       }
 
+    private fun setObserver() {
         viewModel.deals.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
-                    productlist.clear()
-                    productlist = response.data as ArrayList<Product>
-                    if(productlist.isNullOrEmpty())
+                   val productlist = response.data as ArrayList<Product>
+                    if(productlist.isNullOrEmpty() && newproductlist.isNullOrEmpty())
                     {
                         binding.linearNoData.visibility= View.VISIBLE
                         binding.dealsItemRecycler.visibility= View.GONE
@@ -107,7 +111,7 @@ class DealsFragment : Fragment(),View.OnClickListener
                     {
                         binding.linearNoData.visibility= View.GONE
                         binding.dealsItemRecycler.visibility= View.VISIBLE
-                        setProductListAdapter(productlist)
+                        setupData(productlist)
                     }
                 }
                 is Resource.Loading -> {
@@ -143,8 +147,9 @@ class DealsFragment : Fragment(),View.OnClickListener
                         response.message,
                         Toast.LENGTH_SHORT
                     ).show()
-                    val request = DealsRequestModel("1", "0", "10",PrefManager.read(PrefManager.USER_ID, ""))
-                    viewModel.getDeals(request)
+
+                    newproductlist.clear()
+                    callApi()  //api call
                 }
                 is Resource.Loading -> {
                     //   com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
@@ -169,16 +174,7 @@ class DealsFragment : Fragment(),View.OnClickListener
         })
     }
 
-    private fun setProductListAdapter(data: ArrayList<Product>) {
-           val gridLayoutManager = GridLayoutManager(requireContext(), 2)
-            deals_item_recycler.apply {
-            layoutManager = gridLayoutManager
-            setHasFixedSize(true)
-            isFocusable = false
-            adapter = ProductListAdapters(requireContext(),data!!,recyclerViewFavouriteListener)
-        }
 
-    }
 
     private fun initilize() {
         binding.tvSort.setOnClickListener(this)
@@ -202,8 +198,6 @@ class DealsFragment : Fragment(),View.OnClickListener
     }
 
     private fun showBottomsheetDialog() {
-
-
         // on below line we are inflating a layout file which we have created.
         val view = layoutInflater.inflate(R.layout.top_selling_bottomsheet_layout, null)
         dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialog)
@@ -233,7 +227,41 @@ class DealsFragment : Fragment(),View.OnClickListener
     }
 
 
+    private fun setupData(mproductlist: ArrayList<Product>)
+    {
+        mproductlist.let {
+            newproductlist.addAll(it)
+        }
+        if(newproductlist.size>0){
+            var newList = newproductlist.distinctBy { it.id}
+            adapter.updateItems(newList as ArrayList<Product>)
+            adapter.notifyDataSetChanged()
+            //   binding.rvContestLeaderBoard.visibility = View.VISIBLE
+            //   binding.noResult.visibility = View.GONE
+        }else{
+            //   binding.rvContestLeaderBoard.visibility = View.GONE
+            //   binding.noResult.visibility = View.VISIBLE
+        }
+    }
 
-}
+    private fun setupRecylarview()
+    {
+        EndlessRecyclerViewScrollListener.pageLimit=6
+        val layoutManager = GridLayoutManager(requireContext(),2)
+        binding. dealsItemRecycler.layoutManager = layoutManager
+        adapter = ProductListAdapters(requireContext(), newproductlist,recyclerViewFavouriteListener)
+        binding.dealsItemRecycler.adapter = adapter
+
+        binding.dealsItemRecycler.addOnScrollListener(object :
+            EndlessRecyclerViewScrollListener(layoutManager) {
+            override fun onLoadMore(page: Int, totalItemsCount: Int) {
+                pageOffset=newproductlist.size
+                callApi()  //api call
+                /*  if (listSize > productlist.size) {
+                 }*/
+            }
+        })
+    }
+   }
 
 

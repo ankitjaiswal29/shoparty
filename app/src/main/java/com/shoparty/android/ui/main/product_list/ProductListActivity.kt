@@ -1,6 +1,4 @@
 package com.shoparty.android.ui.main.product_list
-
-
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -18,65 +16,70 @@ import com.shoparty.android.databinding.ActivityTopSellingBinding
 import com.shoparty.android.interfaces.RecyclerViewFavouriteListener
 import com.shoparty.android.ui.filter.FilterActivity
 import com.shoparty.android.ui.login.LoginActivity
+import com.shoparty.android.ui.main.deals.EndlessRecyclerViewScrollListener
 import com.shoparty.android.ui.main.wishlist.WishListViewModel
 import com.shoparty.android.ui.search.SearchActivity
 import com.shoparty.android.ui.shoppingbag.ShoppingBagActivity
+
 import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 
-
 class ProductListActivity : AppCompatActivity(),
     View.OnClickListener,
     RecyclerViewFavouriteListener {
+    private lateinit var layoutManager: GridLayoutManager
     private lateinit var binding: ActivityTopSellingBinding
     private lateinit var viewModel: ProductListViewModel
     private lateinit var viewModeladdwishlist: WishListViewModel
-    private var productlist: ArrayList<Product> = ArrayList()
+    private var newproductlist: ArrayList<Product> = ArrayList()
     lateinit var dialog: BottomSheetDialog
     var color = false
     var size = false
     var age = false
     var gender = false
-    var price = false
     var viewall_status = ""
+    var pageOffset=0
+    var pageLimit=6
+    private lateinit var adapter:ProductListAdapters
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_top_selling)
-        viewModel =
-            ViewModelProvider(this, ViewModalFactory(application))[ProductListViewModel::class.java]
-        viewModeladdwishlist =
-            ViewModelProvider(this, ViewModalFactory(application))[WishListViewModel::class.java]
+        initialise()
+        withpaginationAdapterSet()
 
-        if (intent.extras != null) {
-            if (intent.getStringExtra(Constants.CATEGORYFRAGMENT).equals("1")) {
+        if(intent.extras != null)
+        {
+            if(intent.getStringExtra(Constants.CATEGORYFRAGMENT).equals("1"))
+            {
                 binding.infoTool.tvTitle.text = intent.getStringExtra("categoryname")
                 productListApi()
-            } else if (intent.getStringExtra(Constants.TOP20SELLING).equals("2"))  //top20selling
+            }
+            else if (intent.getStringExtra(Constants.TOP20SELLING).equals("2"))  //top20selling
             {
                 binding.infoTool.tvTitle.text = getString(R.string.top_20_selling_items)
-                viewAllApi("1") //api call
                 viewall_status = "1"
+                setupPaginationRecylarview()
+                viewAllApi("1") //api call
             }
-            /* else if(intent.getStringExtra(Constants.TOP20SELLING).equals("4"))  //view all category
-            {
-                binding.infoTool.tvTitle.text=getString(R.string.categories)
-                ViewAllApi("2")      //api call
-                viewall_status="2"
-            }*/
+
             else if (intent.getStringExtra(Constants.DRAWERSUBCATEGORY).equals("3"))  //drawer page
             {
                 binding.infoTool.tvTitle.text = intent.getStringExtra(Constants.CATEGORYNAME)
                 productListApi()
             }
         }
-        initialise()
         setObserver()
-
     }
 
-    private fun initialise() {
+    private fun initialise()
+    {
+        viewModel =
+            ViewModelProvider(this, ViewModalFactory(application))[ProductListViewModel::class.java]
+        viewModeladdwishlist =
+            ViewModelProvider(this, ViewModalFactory(application))[WishListViewModel::class.java]
+
         binding.infoTool.ivBagBtn.visibility = View.VISIBLE
         binding.infoTool.ivBtnsearch.visibility = View.VISIBLE
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
@@ -86,22 +89,50 @@ class ProductListActivity : AppCompatActivity(),
         binding.tvSort.setOnClickListener(this)
     }
 
+
+    private fun withpaginationAdapterSet()
+    {
+        layoutManager = GridLayoutManager(this,2)
+        binding. dealsItemRecycler.layoutManager = layoutManager
+        adapter = ProductListAdapters(this, newproductlist,this)
+        binding.dealsItemRecycler.adapter = adapter
+    }
+
+
+    private fun withoutPaginationAdapterSet(arrayList: ArrayList<Product>)
+    {
+        layoutManager = GridLayoutManager(this,2)
+        binding. dealsItemRecycler.layoutManager = layoutManager
+        adapter = ProductListAdapters(this, arrayList,this)
+        binding.dealsItemRecycler.adapter = adapter
+    }
+
     private fun setObserver() {
         viewModel.productList.observe(this, { response ->
             when (response) {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
-                    productlist.clear()
-                    productlist = response.data as ArrayList<Product>
-                    if (productlist.isNullOrEmpty()) {
+                    val productlist = response.data as ArrayList<Product>
+
+                    if(productlist.isNullOrEmpty() && newproductlist.isNullOrEmpty())
+                    {
                         binding.ivNoData.visibility = View.VISIBLE
                         binding.tvNoData.visibility = View.VISIBLE
                         binding.dealsItemRecycler.visibility = View.GONE
-                    } else {
+                    }
+                    else
+                    {
                         binding.ivNoData.visibility = View.GONE
                         binding.dealsItemRecycler.visibility = View.VISIBLE
                         binding.tvNoData.visibility = View.GONE
-                        setProductListAdapter(productlist)
+                        if(viewall_status == "1")
+                        {
+                            setupData(productlist)
+                        }
+                        else
+                        {
+                            withoutPaginationAdapterSet(response.data as ArrayList<Product>)
+                        }
                     }
                 }
                 is Resource.Loading -> {
@@ -135,13 +166,16 @@ class ProductListActivity : AppCompatActivity(),
                         response.message,
                         Toast.LENGTH_SHORT
                     ).show()
-                    if (viewall_status == "1") {
-                        viewAllApi("1") //api call
-                    } else {
-                        viewModel.producatList(
-                            intent.getStringExtra(Constants.PRODUCTID).toString(), "3",
-                            "1", PrefManager.read(PrefManager.USER_ID, "")
-                        )   //api call
+
+                    if (viewall_status == "1")     //pagination
+                    {
+                        newproductlist.clear()
+                        viewAllApi("1")        //api call
+                    }
+
+                    else
+                    {
+                        productListApi()   //api call
                     }
                 }
                 is Resource.Loading -> {
@@ -169,18 +203,6 @@ class ProductListActivity : AppCompatActivity(),
 
     }
 
-    private fun setProductListAdapter(data: ArrayList<Product>) {
-
-        val gridLayoutManager = GridLayoutManager(this, 2)
-        binding.dealsItemRecycler.apply {
-            layoutManager = gridLayoutManager
-            setHasFixedSize(true)
-            isFocusable = false
-            adapter =
-                ProductListAdapters(this@ProductListActivity, data!!, this@ProductListActivity)
-        }
-
-    }
 
     override fun onClick(v: View?) {
         when (v?.id) {
@@ -210,37 +232,37 @@ class ProductListActivity : AppCompatActivity(),
         viewModel.topSellingProducatList(
             "1",
             type,
-            "1",
-            "10",
-            PrefManager.read(PrefManager.USER_ID, "")
-        )   //api call
+            pageOffset.toString(),pageLimit.toString(),
+            PrefManager.read(PrefManager.USER_ID, ""))           //api call
     }
-
-    private fun productListApi() {
-        viewModel.producatList(
-            intent.getStringExtra(Constants.PRODUCTID).toString(), "3",
-            "1", PrefManager.read(PrefManager.USER_ID, "")
-        )   //api call
-    }
-
-    private fun showBottomsheetDialog() {
-        val view = layoutInflater.inflate(R.layout.top_selling_bottomsheet_layout, null)
-        dialog = BottomSheetDialog(this, R.style.BottomSheetDialog)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.rv_top_selling_bottomsheetrecyclar)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        val data = ArrayList<String>()
-        data.add("Newest To Oldest")
-        data.add("Oldest To Newest")
-        data.add("Price - Low To High")
-        data.add("Price - High To Low")
-        val adapter = ProductListSortingBottomSheetAdapter(data)
-        recyclerView.adapter = adapter
-        dialog.setCancelable(true)
-        dialog.setContentView(view)
-        dialog.show()
+        private fun productListApi() {
+            viewModel.producatList(
+                intent.getStringExtra(Constants.PRODUCTID).toString(), "3",
+                "1", PrefManager.read(PrefManager.USER_ID, "")
+            )   //api call
+        }
 
 
-    }
+        private fun showBottomsheetDialog() {
+            val view = layoutInflater.inflate(R.layout.top_selling_bottomsheet_layout, null)
+            dialog = BottomSheetDialog(this, R.style.BottomSheetDialog)
+            val recyclerView =
+                view.findViewById<RecyclerView>(R.id.rv_top_selling_bottomsheetrecyclar)
+            recyclerView.layoutManager = LinearLayoutManager(this)
+            val data = ArrayList<String>()
+            data.add("Newest To Oldest")
+            data.add("Oldest To Newest")
+            data.add("Price - Low To High")
+            data.add("Price - High To Low")
+            val adapter = ProductListSortingBottomSheetAdapter(data)
+            recyclerView.adapter = adapter
+            dialog.setCancelable(true)
+            dialog.setContentView(view)
+            dialog.show()
+
+
+        }
+
 
     override fun onBackPressed() {
         super.onBackPressed()
@@ -251,13 +273,49 @@ class ProductListActivity : AppCompatActivity(),
         if (PrefManager.read(PrefManager.AUTH_TOKEN, "").isEmpty()) {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
-        } else {
+        }
+        else
+        {
             viewModeladdwishlist.addremoveWishlist(
                 producat_id,
                 type.toInt(),
-                product_detail_id.toInt()
-            )
+                product_detail_id.toInt())
         }
     }
 
-}
+
+    private fun setupData(mproductlist: ArrayList<Product>)
+    {
+        mproductlist.let {
+            newproductlist.addAll(it)
+        }
+        if(newproductlist.size>0)
+        {
+            var newList = newproductlist.distinctBy { it.id}
+            adapter.updateItems(newList as ArrayList<Product>)
+            adapter.notifyDataSetChanged()
+            //   binding.rvContestLeaderBoard.visibility = View.VISIBLE
+            //   binding.noResult.visibility = View.GONE
+        }else{
+            //   binding.rvContestLeaderBoard.visibility = View.GONE
+            //   binding.noResult.visibility = View.VISIBLE
+        }
+    }
+
+    private fun setupPaginationRecylarview()
+    {
+        binding.dealsItemRecycler.addOnScrollListener(object :
+            EndlessRecyclerViewScrollListener(layoutManager) {
+            override fun onLoadMore(page: Int, totalItemsCount: Int) {
+                pageOffset++
+                viewAllApi("1")  //api call
+               /*  if (listSize > productlist.size) {
+                }*/
+            }
+        })
+    }
+
+    }
+
+
+
