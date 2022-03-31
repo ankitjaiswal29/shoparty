@@ -21,7 +21,7 @@ data class Product(
     val discount: String?,
     val en_description: String?,
     val en_name: String?,
-    val fav_status: Int?,
+    var fav_status: Int?,
     val gender: String?,
     @PrimaryKey(autoGenerate = false) val id: Int?,
     val image: String?,

@@ -7,14 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 import com.shoparty.android.R
 import com.shoparty.android.common_modal.Product
-import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.interfaces.RecyclerViewFavouriteListener
 import com.shoparty.android.ui.productdetails.ProductDetailsActivity
 import com.shoparty.android.utils.Constants
@@ -65,12 +63,17 @@ class ProductListAdapters(
             {
                 holder.itemView.iv_unselect.visibility=View.VISIBLE
                 holder.itemView.iv_select.visibility=View.GONE
-                recyclerViewFavouriteListener.favourite(ItemsViewModel.product_id.toString(),"0",ItemsViewModel.product_detail_id.toString())
+                recyclerViewFavouriteListener.favourite(position,ItemsViewModel.product_id.toString(),"0",ItemsViewModel.product_detail_id.toString())
             }
             else{
                 holder.itemView.iv_select.visibility=View.VISIBLE
                 holder.itemView.iv_unselect.visibility=View.GONE
-                recyclerViewFavouriteListener.favourite(ItemsViewModel.product_id.toString(),"1",ItemsViewModel.product_detail_id.toString())
+                recyclerViewFavouriteListener.favourite(
+                    position,
+                    ItemsViewModel.product_id.toString(),
+                    "1",
+                    ItemsViewModel.product_detail_id.toString()
+                )
             }
         }
     }

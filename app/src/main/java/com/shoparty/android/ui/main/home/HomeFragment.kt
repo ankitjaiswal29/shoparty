@@ -249,7 +249,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
         })
     }
 
-    private fun setHomeCategory() {
+    private fun setHomeCategory()
+    {
         val gridLayoutManager =
             GridLayoutManager(requireActivity(), 1, RecyclerView.HORIZONTAL, false)
         adapterCategory = HomeCategoriesAdapter(listCategory, requireContext())
@@ -260,11 +261,6 @@ class HomeFragment : Fragment(), View.OnClickListener {
             isFocusable = false
             adapter = adapterCategory
         }
-        adapterCategory.onItemClick(object : RVItemClickListener {
-            override fun onClick(pos: String, view: View?) {
-                //TODO("Not yet implemented")
-            }
-        })
     }
 
     private fun season() {
@@ -321,11 +317,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
             isFocusable = false
             adapter = adapterArrival
         }
-        adapterArrival.onItemClick(object : RVItemClickListener {
-            override fun onClick(pos: String, view: View?) {
-                //TODO("Not yet implemented")
-            }
-        })
+
     }
 
     private fun setBrands() {
@@ -377,7 +369,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 val intent = Intent(activity, SearchActivity::class.java)
                 startActivity(intent)
             }
-            R.id.tvViewAllTopSelling -> {
+            R.id.tvViewAllTopSelling -> {       //top selling view all
                 val intent = Intent(activity, ProductListActivity::class.java)
                 intent.putExtra(Constants.TOP20SELLING,"2")
                 startActivity(intent)

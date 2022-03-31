@@ -141,7 +141,12 @@ class WishListActivity : AppCompatActivity(), View.OnClickListener,
         super.onBackPressed()
     }
 
-    override fun favourite(producat_id: String, type: String, product_detail_id: String) {
+    override fun favourite(
+        position: Int,
+        producat_id: String,
+        type: String,
+        product_detail_id: String
+    ) {
         viewModel.addremoveWishlist(producat_id,type.toInt(),product_detail_id.toInt())
     }
 }

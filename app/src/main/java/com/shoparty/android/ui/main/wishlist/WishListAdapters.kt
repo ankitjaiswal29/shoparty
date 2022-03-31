@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 import com.shoparty.android.R
-import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.interfaces.RecyclerViewFavouriteListener
 import com.shoparty.android.utils.Utils
 class WishListAdapters(
@@ -40,8 +39,11 @@ class WishListAdapters(
         }
 
         holder.relativeLike.setOnClickListener {
-            recyclerViewFavouriteListener.favourite(ItemsViewModel.product_id.toString(),"0",
-                ItemsViewModel.product_detail_id.toString())
+            recyclerViewFavouriteListener.favourite(
+                position, ItemsViewModel.product_id.toString(),
+                "0",
+                ItemsViewModel.product_detail_id.toString()
+            )
         }
     }
     override fun getItemCount(): Int {

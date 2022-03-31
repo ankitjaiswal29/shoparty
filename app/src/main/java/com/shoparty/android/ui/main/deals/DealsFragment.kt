@@ -26,7 +26,6 @@ import com.shoparty.android.ui.main.wishlist.WishListViewModel
 import com.shoparty.android.utils.*
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
-import kotlinx.android.synthetic.main.fragment_deals.*
 
 class DealsFragment : Fragment(),View.OnClickListener {
     lateinit var binding: FragmentDealsBinding
@@ -41,10 +40,18 @@ class DealsFragment : Fragment(),View.OnClickListener {
     private lateinit var adapter:ProductListAdapters
     var pageOffset=0
     var pageLimit=6
+    var fav_position:Int = 0
+    var fav_type:Int = 0
 
-       private var recyclerViewFavouriteListener=object :RecyclerViewFavouriteListener{
-          override fun favourite(producat_id: String, type: String, product_detail_id: String)
+    private var recyclerViewFavouriteListener=object :RecyclerViewFavouriteListener{
+          override fun favourite(
+              position: Int,
+              producat_id: String,
+              type: String,
+              product_detail_id: String)
           {
+              fav_position=position
+              fav_type=type.toInt()
             if(PrefManager.read(PrefManager.AUTH_TOKEN, "").isEmpty())
             {
                 val intent = Intent(requireContext(), LoginActivity::class.java)
@@ -101,7 +108,7 @@ class DealsFragment : Fragment(),View.OnClickListener {
             when (response) {
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
-                   val productlist = response.data as ArrayList<Product>
+                    val productlist = response.data as ArrayList<Product>
                     if(productlist.isNullOrEmpty() && newproductlist.isNullOrEmpty())
                     {
                         binding.linearNoData.visibility= View.VISIBLE
@@ -147,9 +154,8 @@ class DealsFragment : Fragment(),View.OnClickListener {
                         response.message,
                         Toast.LENGTH_SHORT
                     ).show()
-
-                    newproductlist.clear()
-                    callApi()  //api call
+                    newproductlist[fav_position].fav_status=fav_type
+                    adapter.notifyDataSetChanged()
                 }
                 is Resource.Loading -> {
                     //   com.shoparty.android.utils.ProgressDialog.showProgressBar(this)

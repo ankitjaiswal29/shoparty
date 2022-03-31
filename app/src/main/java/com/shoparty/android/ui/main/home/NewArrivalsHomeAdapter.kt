@@ -1,6 +1,7 @@
 package com.shoparty.android.ui.main.home
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,8 @@ import com.bumptech.glide.Glide
 import com.shoparty.android.R
 import com.shoparty.android.databinding.NewArrivalItemBinding
 import com.shoparty.android.interfaces.RVItemClickListener
+import com.shoparty.android.ui.main.product_list.ProductListActivity
+import com.shoparty.android.utils.Constants
 
 class NewArrivalsHomeAdapter(
     private val list: ArrayList<HomeResponse.Home.Arrival>,
@@ -49,9 +52,7 @@ class NewArrivalsHomeAdapter(
 
         private val binding: NewArrivalItemBinding? = DataBindingUtil.bind(view)
 
-        init {
-            view.setOnClickListener { listener?.onClick(adapterPosition.toString()) }
-        }
+        init { }
 
         fun bind(modal: HomeResponse.Home.Arrival) {
             binding?.newArrivalItemNameTv?.text = modal.arrival_name
@@ -59,6 +60,15 @@ class NewArrivalsHomeAdapter(
                 binding?.tvPrice?.text = modal.price
             Glide.with(context).asBitmap().load(modal.arrival_image)
                 .into(binding?.newArrivalItemImg!!)
+
+            view.setOnClickListener {
+                val intent = Intent(context, ProductListActivity::class.java)
+                intent.putExtra(Constants.NEWARRIVALSITEM,"6")
+                intent.putExtra(Constants.PRODUCTID,modal.arrival_id)  //themeid
+                intent.putExtra(Constants.CATEGORYNAME,modal.arrival_name)
+                context.startActivity(intent)
+            }
+
 
         }
     }

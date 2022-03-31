@@ -33,6 +33,7 @@ class ProductListActivity : AppCompatActivity(),
     private lateinit var binding: ActivityTopSellingBinding
     private lateinit var viewModel: ProductListViewModel
     private lateinit var viewModeladdwishlist: WishListViewModel
+    private var productlist: ArrayList<Product> = ArrayList()
     private var newproductlist: ArrayList<Product> = ArrayList()
     lateinit var dialog: BottomSheetDialog
     var color = false
@@ -42,6 +43,8 @@ class ProductListActivity : AppCompatActivity(),
     var viewall_status = ""
     var pageOffset=0
     var pageLimit=6
+    var fav_position:Int = 0
+    var fav_type:Int = 0
     private lateinit var adapter:ProductListAdapters
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,9 +57,9 @@ class ProductListActivity : AppCompatActivity(),
             if(intent.getStringExtra(Constants.CATEGORYFRAGMENT).equals("1"))
             {
                 binding.infoTool.tvTitle.text = intent.getStringExtra("categoryname")
-                productListApi()
+                productListApi(intent.getStringExtra(Constants.PRODUCTID).toString())
             }
-            else if (intent.getStringExtra(Constants.TOP20SELLING).equals("2"))  //top20selling
+            else if(intent.getStringExtra(Constants.TOP20SELLING).equals("2"))  //top20selling view all
             {
                 binding.infoTool.tvTitle.text = getString(R.string.top_20_selling_items)
                 viewall_status = "1"
@@ -67,7 +70,30 @@ class ProductListActivity : AppCompatActivity(),
             else if (intent.getStringExtra(Constants.DRAWERSUBCATEGORY).equals("3"))  //drawer page
             {
                 binding.infoTool.tvTitle.text = intent.getStringExtra(Constants.CATEGORYNAME)
-                productListApi()
+                productListApi(intent.getStringExtra(Constants.PRODUCTID).toString())
+            }
+
+            else if(intent.getStringExtra(Constants.HOMECATEGORYITEM).equals("4"))  //home category item
+            {
+                binding.infoTool.tvTitle.text = intent.getStringExtra(Constants.CATEGORYNAME)
+                productListApi(intent.getStringExtra(Constants.PRODUCTID).toString())
+            }
+            else if(intent.getStringExtra(Constants.THEMESITEMS).equals("5"))  //theme item
+            {
+                binding.infoTool.tvTitle.text = intent.getStringExtra(Constants.CATEGORYNAME)
+                productListApi(intent.getStringExtra(Constants.PRODUCTID).toString())
+            }
+
+            else if(intent.getStringExtra(Constants.NEWARRIVALSITEM).equals("6"))  //New Arrival item
+            {
+                binding.infoTool.tvTitle.text = intent.getStringExtra(Constants.CATEGORYNAME)
+                productListApi(intent.getStringExtra(Constants.PRODUCTID).toString())
+            }
+
+            else if(intent.getStringExtra(Constants.BRANDITEM).equals("7"))  //New Arrival item
+            {
+                binding.infoTool.tvTitle.text = intent.getStringExtra(Constants.CATEGORYNAME)
+                productListApi(intent.getStringExtra(Constants.PRODUCTID).toString())
             }
         }
         setObserver()
@@ -112,7 +138,7 @@ class ProductListActivity : AppCompatActivity(),
             when (response) {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
-                    val productlist = response.data as ArrayList<Product>
+                     productlist = response.data as ArrayList<Product>
 
                     if(productlist.isNullOrEmpty() && newproductlist.isNullOrEmpty())
                     {
@@ -166,16 +192,18 @@ class ProductListActivity : AppCompatActivity(),
                         response.message,
                         Toast.LENGTH_SHORT
                     ).show()
-
-                    if (viewall_status == "1")     //pagination
+                  if (viewall_status == "1")     //pagination
                     {
-                        newproductlist.clear()
-                        viewAllApi("1")        //api call
+                       /* newproductlist.clear()
+                        viewAllApi("1")*/
+
+                        newproductlist[fav_position].fav_status=fav_type
+                        adapter.notifyDataSetChanged()
                     }
-
-                    else
+                   else
                     {
-                        productListApi()   //api call
+                        productlist[fav_position].fav_status=fav_type
+                        adapter.notifyDataSetChanged()
                     }
                 }
                 is Resource.Loading -> {
@@ -233,13 +261,11 @@ class ProductListActivity : AppCompatActivity(),
             "1",
             type,
             pageOffset.toString(),pageLimit.toString(),
-            PrefManager.read(PrefManager.USER_ID, ""))           //api call
+            PrefManager.read(PrefManager.USER_ID, ""))
     }
-        private fun productListApi() {
-            viewModel.producatList(
-                intent.getStringExtra(Constants.PRODUCTID).toString(), "3",
-                "1", PrefManager.read(PrefManager.USER_ID, "")
-            )   //api call
+        private fun productListApi(product_id: String) {
+            viewModel.producatList(product_id, "3",
+                "1", PrefManager.read(PrefManager.USER_ID, ""))   //api call
         }
 
 
@@ -269,8 +295,15 @@ class ProductListActivity : AppCompatActivity(),
     }
 
 
-    override fun favourite(producat_id: String, type: String, product_detail_id: String) {
-        if (PrefManager.read(PrefManager.AUTH_TOKEN, "").isEmpty()) {
+    override fun favourite(
+        position: Int,
+        producat_id: String,
+        type: String,
+        product_detail_id: String)
+    {
+        fav_position=position
+        fav_type=type.toInt()
+        if(PrefManager.read(PrefManager.AUTH_TOKEN, "").isEmpty()) {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
@@ -309,8 +342,6 @@ class ProductListActivity : AppCompatActivity(),
             override fun onLoadMore(page: Int, totalItemsCount: Int) {
                 pageOffset++
                 viewAllApi("1")  //api call
-               /*  if (listSize > productlist.size) {
-                }*/
             }
         })
     }
