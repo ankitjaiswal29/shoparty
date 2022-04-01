@@ -36,6 +36,7 @@ object Constants {
           const val DRAWERSUBCATEGORY = "3"
           const val HOMECATEGORYITEM = "HOMECATEGORYITEM"
           const val THEMESITEMS = "THEMESITEMS"
+          const val SEASONITEMS = "SEASONITEMS"
           const val NEWARRIVALSITEM = "NEWARRIVALSITEM"
           const val BRANDITEM = "BRANDITEM"
           const val CATEGORYNAME = "CATEGORYNAME"

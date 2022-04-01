@@ -1,7 +1,6 @@
 package com.shoparty.android.ui.productdetails
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -11,10 +10,10 @@ import com.shoparty.android.utils.inflate
 
 import kotlinx.android.synthetic.main.top_selling_layout_item.view.*
 
-class ProductdetailsAdapter(var context:Context,
-    private val itemList: List<ProducatDetailsResponse.ProductDetailList>
+class ProductDetailsAdapter(var productDetailCallback:ProductDetailCallback,
+                            private val itemList: List<ProducatDetailsResponse.ProductDetailList>
 
-): RecyclerView.Adapter<ProductdetailsAdapter.TopSellingHomeViewHolder>() {
+): RecyclerView.Adapter<ProductDetailsAdapter.TopSellingHomeViewHolder>() {
 
     inner class TopSellingHomeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -32,7 +31,17 @@ class ProductdetailsAdapter(var context:Context,
             tv_dressprise.text = context.getString(R.string.dollor)+items.sale_price
             Glide.with(context).asBitmap().load(items.image).into(imgProduct!!)
 
+            rootView.setOnClickListener {
+                productDetailCallback.onProductClick(items.product_detail_id,items.product_id)
+            }
+
+
         }
 
     }
+}
+
+interface ProductDetailCallback
+{
+    fun onProductClick(product_detail_id:Int,product_id:Int)
 }

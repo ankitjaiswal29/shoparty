@@ -39,7 +39,7 @@ class DealsFragment : Fragment(),View.OnClickListener {
     var gender = false
     private lateinit var adapter:ProductListAdapters
     var pageOffset=0
-    var pageLimit=6
+    var pageLimit=10
     var fav_position:Int = 0
     var fav_type:Int = 0
 
@@ -252,7 +252,6 @@ class DealsFragment : Fragment(),View.OnClickListener {
 
     private fun setupRecylarview()
     {
-        EndlessRecyclerViewScrollListener.pageLimit=6
         val layoutManager = GridLayoutManager(requireContext(),2)
         binding. dealsItemRecycler.layoutManager = layoutManager
         adapter = ProductListAdapters(requireContext(), newproductlist,recyclerViewFavouriteListener)

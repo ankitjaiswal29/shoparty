@@ -1,5 +1,4 @@
 package com.shoparty.android.ui.main.home
-
 import android.content.ActivityNotFoundException
 import android.content.ComponentName
 import android.content.Intent
@@ -30,7 +29,6 @@ import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
-
 class HomeFragment : Fragment(), View.OnClickListener {
     lateinit var binding: FragmentHomeBinding
     private lateinit var viewModel: HomeViewModel
@@ -72,7 +70,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, com.shoparty.android.R.layout.fragment_home, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         viewModel = ViewModelProvider(
             this,
             ViewModalFactory(activity?.application!!)
@@ -334,15 +332,14 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private fun OfferDiscoutItem() {
         val homeOffersList = listOf<HomeCategoriesModel>(
             HomeCategoriesModel("Up To 10% Off"),
-            HomeCategoriesModel("Up To 10% Off")
-        )
+            HomeCategoriesModel("Up To 10% Off"))
 
         val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
         binding.homeOffersRecycler.apply {
             layoutManager = gridLayoutManager
             setHasFixedSize(true)
             isFocusable = false
-            adapter = HomeOffersAdapter(homeOffersList)
+            adapter = HomeOffersAdapter(requireContext(),homeOffersList)
         }
     }
 
@@ -359,7 +356,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
             layoutManager = gridLayoutManager
             setHasFixedSize(true)
             isFocusable = false
-            adapter = TopSellingSubcategoriesAdapter(tsSubCategoriesList)
+            adapter = TopSellingSubcategoriesAdapter(requireContext(),tsSubCategoriesList)
         }
     }
 
@@ -414,9 +411,6 @@ class HomeFragment : Fragment(), View.OnClickListener {
             R.id.txtEmail -> {
                Utils.showLongToast(requireContext(),context?.getString(R.string.comingsoon))
             }
-
-
-
         }
     }
 

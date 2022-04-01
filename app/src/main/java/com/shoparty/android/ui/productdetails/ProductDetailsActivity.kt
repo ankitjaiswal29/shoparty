@@ -12,26 +12,22 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.shoparty.android.R
-import com.shoparty.android.common_modal.CartProduct
-import com.shoparty.android.database.MyDatabase
 import com.shoparty.android.databinding.ActivityProductDetailsBinding
+import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.ui.customize.CustomizeActivity
-import com.shoparty.android.ui.filter.FilterColorAdapter
 import com.shoparty.android.ui.main.home.HomeResponse
 import com.shoparty.android.ui.main.home.MySliderImageAdapter
 import com.shoparty.android.ui.main.wishlist.WishListViewModel
 import com.shoparty.android.ui.shoppingbag.ShoppingBagActivity
 import com.shoparty.android.utils.Constants
+import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
-class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
-
+class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener,RecyclerViewClickListener,ProductDetailCallback {
+    private var l: Layout?=null
     private lateinit var binding: ActivityProductDetailsBinding
     var product_id = ""
     var product_details_id = ""
@@ -65,18 +61,19 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
             product_details_id= intent.getStringExtra(Constants.PRODUCATDETAILSID)!!
             viewModel.postProducatDetails("1",product_details_id,product_id) //api call
         }
-        choesColorRecyclaritem()
+
     }
 
 
-    private fun choesColorRecyclaritem()
+    private fun choesColorRecyclaritem(colors: List<ProducatDetailsResponse.Color>)
     {
-        val data = ArrayList<String>()
-        data.add("#FFBB86FC")
-        data.add("#606060")
-        data.add("#FFBB86FC")
-        data.add("#FFBB86FC")
-        data.add("#E30986")
+        colors.forEachIndexed { pos,it->
+            it.color_code = "#FFBB86FC"
+            if(pos==0)
+            {
+                it.ischecked=true
+            }
+        }
 
 
         val gridLayoutManager = GridLayoutManager(this, 9)
@@ -84,18 +81,18 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
             layoutManager = gridLayoutManager
             setHasFixedSize(true)
             isFocusable = false
-            adapter = FilterColorAdapter(data)
+            adapter = ColorAdapter(this@ProductDetailsActivity,colors,this@ProductDetailsActivity)
         }
 
     }
 
     private fun setrecyclaryoumayalsolike(productDetailList: List<ProducatDetailsResponse.ProductDetailList>)
     {
-        binding.rvProductdetailsRecyclarview.adapter = ProductdetailsAdapter(this,productDetailList)
+        binding.rvProductdetailsRecyclarview.adapter = ProductDetailsAdapter(this,productDetailList)
     }
 
     private fun recyclarcustomeralsobought(productDetailList: List<ProducatDetailsResponse.ProductDetailList>) {
-        binding.rvProductdetailsRecyclarview2.adapter = ProductdetailsAdapter(this,productDetailList)
+        binding.rvProductdetailsRecyclarview2.adapter = ProductDetailsAdapter(this,productDetailList)
     }
 
     override fun onClick(v: View?) {
@@ -111,7 +108,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
                 binding.infoTool.ivDrawerBack.setOnClickListener(this)
             }
             R.id.tv_addtobag -> {
-                lifecycleScope.launch(Dispatchers.IO) {
+                /*lifecycleScope.launch(Dispatchers.IO) {
                     MyDatabase.getInstance(this@ProductDetailsActivity).getProductDao()
                         .insertCartProduct(CartProduct("Asd", 1, "", "1"))
 
@@ -119,12 +116,15 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
                         .insertCartProduct(CartProduct("Asd", 2, "", "1"))
                     val intent = Intent(this@ProductDetailsActivity, ShoppingBagActivity::class.java)
                     startActivity(intent)
-                }
+                }*/
+                Utils.showLongToast(this,getString(R.string.comingsoon))
             }
-            R.id.ivBagBtn -> {
+            R.id.ivBagBtn ->
+            {
                 val intent = Intent(this, ShoppingBagActivity::class.java)
                 startActivity(intent)
             }
+
             R.id.iv_drawer_back -> {
                 onBackPressed()
             }
@@ -166,6 +166,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
         super.onBackPressed()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setObserver()
     {
         viewModel.product.observe(this) { response ->
@@ -177,6 +178,9 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
                     setrecyclaryoumayalsolike(response.data?.you_may_also_like)
                     recyclarcustomeralsobought(response.data?.also_bought)
                     checkReadMore(response.data.product_details.product_desc)
+                    choesColorRecyclaritem(response.data.product_details.colors)
+                    binding.infoTool.tvTitle.text=response.data.product_details.product_name?.substring(0, 1)?.toUpperCase() +
+                            response.data.product_details.product_name.substring(1)?.toLowerCase()
                 }
                 is Resource.Loading -> {
                     com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
@@ -246,12 +250,11 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
     private fun checkReadMore(productDesc: String)
     {
         binding.tvProductDetailsDescr.text=productDesc
-        val l: Layout = binding.tvProductDetailsDescr.layout
-        if (l != null)
-        {
-            val lines: Int = l.lineCount
+        l = binding.tvProductDetailsDescr.layout
+        l?.let{
+            val lines: Int = it.lineCount
             if (lines > 0)
-                if (l.getEllipsisCount(lines - 1) > 0)
+                if (it.getEllipsisCount(lines - 1) > 0)
                 {
                     binding.tvReadmore.visibility=View.VISIBLE
 
@@ -290,7 +293,6 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
             binding.tvProductCostPrice.visibility=View.GONE
             binding.tvProductPrice.text=getString(R.string.dollor)+data.sale_price
         }
-
         if(data.is_customizable==0)
         {
            binding.btnCostomizeit.visibility=View.GONE
@@ -308,5 +310,14 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener {
         binding.imageSliderr.setSliderAdapter(adapter)
         binding.imageSliderr.isAutoCycle = true
         binding.imageSliderr.startAutoCycle()
+    }
+
+    override fun click(color_id: String)
+    {
+     // Utils.showLongToast(this,color_id)
+    }
+
+    override fun onProductClick(product_detail_id: Int, product_id: Int) {
+        viewModel.postProducatDetails("1",product_detail_id.toString(),product_id.toString()) //api call
     }
 }

@@ -18,6 +18,7 @@ import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 class WishListFragment : Fragment(), RecyclerViewFavouriteListener {
+    private var operationalPos: Int = -1
     private lateinit var binding: FragmentWishListBinding
     private lateinit var viewModel: WishListViewModel
     private lateinit var adapterWishlist: WishListAdapters
@@ -55,17 +56,7 @@ class WishListFragment : Fragment(), RecyclerViewFavouriteListener {
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
                     listWishlistt=response.data!! as ArrayList<WishListResponse.Result>
-                    if(listWishlistt.isNullOrEmpty())
-                    {
-                        binding.clNoData.visibility=View.VISIBLE
-                        binding.wishlistRecyclerview.visibility=View.GONE
-                    }
-                    else
-                    {
-                        binding.clNoData.visibility=View.GONE
-                        binding.wishlistRecyclerview.visibility=View.VISIBLE
-                        setWishListAdapter(listWishlistt)
-                    }
+                    initFavResponse()
                 }
                 is Resource.Loading -> {
                     ProgressDialog.showProgressBar(requireContext())
@@ -99,7 +90,13 @@ class WishListFragment : Fragment(), RecyclerViewFavouriteListener {
                         response.message,
                         Toast.LENGTH_SHORT
                     ).show()
-                    viewModel.getWishlist("1")                          //api call
+                    if(listWishlistt.isNotEmpty()){
+                        listWishlistt.removeAt(operationalPos)
+                        adapterWishlist.notifyItemRemoved(operationalPos)
+                        if(listWishlistt.isEmpty()){
+                            initFavResponse()
+                        }
+                    }
                 }
                 is Resource.Loading -> {
                  //   ProgressDialog.showProgressBar(requireContext())
@@ -124,7 +121,19 @@ class WishListFragment : Fragment(), RecyclerViewFavouriteListener {
         }
     }
 
-
+    private fun initFavResponse() {
+        if(listWishlistt.isNullOrEmpty())
+        {
+            binding.clNoData.visibility=View.VISIBLE
+            binding.wishlistRecyclerview.visibility=View.GONE
+        }
+        else
+        {
+            binding.clNoData.visibility=View.GONE
+            binding.wishlistRecyclerview.visibility=View.VISIBLE
+            setWishListAdapter(listWishlistt)
+        }
+    }
 
 
     private fun setWishListAdapter(data: List<WishListResponse.Result>?)
@@ -140,6 +149,7 @@ class WishListFragment : Fragment(), RecyclerViewFavouriteListener {
         type: String,
         product_detail_id: String
     ) {
+        operationalPos = position
         viewModel.addremoveWishlist(producat_id,type.toInt(),product_detail_id.toInt())
     }
 }

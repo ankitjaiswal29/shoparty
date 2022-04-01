@@ -14,13 +14,6 @@ abstract class EndlessRecyclerViewScrollListener : RecyclerView.OnScrollListener
     // before loading more.
     private var visibleThreshold = 5
 
-
-
-    companion object {
-        public var pageOffset=0
-        public var pageLimit=0
-    }
-
     // The current offset index of data you have loaded
     var currentPage = 0
 

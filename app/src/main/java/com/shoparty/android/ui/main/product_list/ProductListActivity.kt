@@ -42,7 +42,7 @@ class ProductListActivity : AppCompatActivity(),
     var gender = false
     var viewall_status = ""
     var pageOffset=0
-    var pageLimit=6
+    var pageLimit=10
     var fav_position:Int = 0
     var fav_type:Int = 0
     private lateinit var adapter:ProductListAdapters
@@ -91,6 +91,12 @@ class ProductListActivity : AppCompatActivity(),
             }
 
             else if(intent.getStringExtra(Constants.BRANDITEM).equals("7"))  //New Arrival item
+            {
+                binding.infoTool.tvTitle.text = intent.getStringExtra(Constants.CATEGORYNAME)
+                productListApi(intent.getStringExtra(Constants.PRODUCTID).toString())
+            }
+
+            else if(intent.getStringExtra( Constants.SEASONITEMS).equals("8"))  //New Arrival item
             {
                 binding.infoTool.tvTitle.text = intent.getStringExtra(Constants.CATEGORYNAME)
                 productListApi(intent.getStringExtra(Constants.PRODUCTID).toString())
@@ -326,7 +332,6 @@ class ProductListActivity : AppCompatActivity(),
         {
             var newList = newproductlist.distinctBy { it.id}
             adapter.updateItems(newList as ArrayList<Product>)
-            adapter.notifyDataSetChanged()
             //   binding.rvContestLeaderBoard.visibility = View.VISIBLE
             //   binding.noResult.visibility = View.GONE
         }else{
@@ -340,7 +345,7 @@ class ProductListActivity : AppCompatActivity(),
         binding.dealsItemRecycler.addOnScrollListener(object :
             EndlessRecyclerViewScrollListener(layoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int) {
-                pageOffset++
+                pageOffset=newproductlist.size
                 viewAllApi("1")  //api call
             }
         })

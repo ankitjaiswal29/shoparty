@@ -57,7 +57,7 @@ class NewArrivalsHomeAdapter(
         fun bind(modal: HomeResponse.Home.Arrival) {
             binding?.newArrivalItemNameTv?.text = modal.arrival_name
             if (modal.price != null)
-                binding?.tvPrice?.text = modal.price
+                binding?.tvPrice?.text = context.getString(R.string.dollor)+modal.price
             Glide.with(context).asBitmap().load(modal.arrival_image)
                 .into(binding?.newArrivalItemImg!!)
 

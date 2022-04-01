@@ -94,6 +94,7 @@ class ProductListAdapters(
     {
         mList.clear()
         mList.addAll(newList)
+        notifyDataSetChanged()
     }
 
 

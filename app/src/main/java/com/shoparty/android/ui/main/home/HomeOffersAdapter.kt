@@ -1,14 +1,17 @@
 package com.shoparty.android.ui.main.home
 
+import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.shoparty.android.R
+import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.inflate
 import kotlinx.android.synthetic.main.home_offers_item_layout.view.*
+import kotlinx.android.synthetic.main.top_selling_layout_item.view.*
 
 
-class HomeOffersAdapter(private val itemList: List<HomeCategoriesModel>): RecyclerView.Adapter<HomeOffersAdapter.HomeOffersViewHolder>()  {
+class HomeOffersAdapter(var context: Context, private val itemList: List<HomeCategoriesModel>): RecyclerView.Adapter<HomeOffersAdapter.HomeOffersViewHolder>()  {
 
     inner class HomeOffersViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -22,6 +25,10 @@ class HomeOffersAdapter(private val itemList: List<HomeCategoriesModel>): Recycl
         val items = itemList[position]
         holder.itemView.apply {
             home_offers_item_price_tv.text = items.name
+        }
+
+        holder.itemView.setOnClickListener {
+            Utils.showLongToast(context,context.getString(R.string.comingsoon))
         }
     }
 }

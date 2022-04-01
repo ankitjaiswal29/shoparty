@@ -230,7 +230,7 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener, RecyclerViewCli
             layoutManager = gridLayoutManager
             setHasFixedSize(true)
             isFocusable = false
-            adapter = FilterColorAdapter(data)
+            adapter = FilterColorAdapter(this@FilterActivity,data)
         }
 
     }

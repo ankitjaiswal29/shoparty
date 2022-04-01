@@ -49,11 +49,8 @@ class BrandsAdapter(
         val context: Context
     ) :
         RecyclerView.ViewHolder(view) {
-
         private val binding: HomeCategoriesLayoutItemBinding? = DataBindingUtil.bind(view)
-
         init { }
-
         fun bind(modal: HomeResponse.Home.Brand) {
             binding?.homeCategoriesItemNameTv?.text = modal.brand_name
             Glide.with(context).asBitmap().load(modal.brand_image).into(binding?.imgBanner!!)

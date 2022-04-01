@@ -49,6 +49,14 @@ class WishListAdapters(
     override fun getItemCount(): Int {
         return mList.size
     }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         val iv_Productimg: ImageView = itemView.findViewById(R.id.iv_Productimg)
         val tv_ItemName :TextView = itemView.findViewById(R.id.tv_ItemName)

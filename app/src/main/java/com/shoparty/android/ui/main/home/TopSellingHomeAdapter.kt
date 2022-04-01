@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.shoparty.android.R
 import com.shoparty.android.ui.main.deals.TopSellingHomeModel
+import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.inflate
 import kotlinx.android.synthetic.main.deals_item_layout.view.*
 import kotlinx.android.synthetic.main.top_selling_layout_item.view.*
@@ -13,7 +14,7 @@ import kotlinx.android.synthetic.main.top_selling_layout_item.view.iv_background
 import kotlinx.android.synthetic.main.top_selling_layout_item.view.iv_select
 import kotlinx.android.synthetic.main.top_selling_layout_item.view.iv_unselect
 
-class TopSellingHomeAdapter(private val itemList: List<TopSellingHomeModel>, context: Context) :
+class TopSellingHomeAdapter(private val itemList: List<TopSellingHomeModel>, var context: Context) :
     RecyclerView.Adapter<TopSellingHomeAdapter.TopSellingHomeViewHolder>() {
 
     var fav = false;
@@ -36,7 +37,7 @@ class TopSellingHomeAdapter(private val itemList: List<TopSellingHomeModel>, con
 
         }
         holder.itemView.top_selling_home_item_root.setOnClickListener {
-           // recyclerViewClickListener.click(items.name)
+            Utils.showLongToast(context,context.getString(R.string.comingsoon))
         }
 
         holder.itemView.iv_background.setOnClickListener {

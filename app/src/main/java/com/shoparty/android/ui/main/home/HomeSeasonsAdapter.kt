@@ -1,6 +1,7 @@
 package com.shoparty.android.ui.main.home
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,8 @@ import com.bumptech.glide.Glide
 import com.shoparty.android.R
 import com.shoparty.android.databinding.HomeSeasonLayoutItemBinding
 import com.shoparty.android.interfaces.RVItemClickListener
+import com.shoparty.android.ui.main.product_list.ProductListActivity
+import com.shoparty.android.utils.Constants
 
 class HomeSeasonsAdapter(
     private val list: ArrayList<HomeResponse.Home.Season>,
@@ -48,14 +51,18 @@ class HomeSeasonsAdapter(
         RecyclerView.ViewHolder(view) {
 
         private val binding: HomeSeasonLayoutItemBinding? = DataBindingUtil.bind(view)
-
-        init {
-            view.setOnClickListener { listener?.onClick(adapterPosition.toString()) }
-        }
-
+        init { }
         fun bind(modal: HomeResponse.Home.Season) {
             Glide.with(context).asBitmap().load(modal.season_image).into(binding?.imgSeason!!)
             binding.tvSeasonName.text = modal.season_name
+
+            view.setOnClickListener {
+                val intent = Intent(context, ProductListActivity::class.java)
+                intent.putExtra(Constants.SEASONITEMS,"8")
+                intent.putExtra(Constants.PRODUCTID,modal.season_id)  //themeid
+                intent.putExtra(Constants.CATEGORYNAME,modal.season_name)
+                context.startActivity(intent)
+            }
         }
     }
 
