@@ -42,6 +42,5 @@ data class WishListResponse(
         val tax: String,
         val tax_type: Int,
         val theme_id: String,
-        val updated_at: String
-    )
+        val updated_at: String)
 }

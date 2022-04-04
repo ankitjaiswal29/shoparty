@@ -43,6 +43,8 @@ class ProductListAdapters(
             intent.putExtra(Constants.IDPRODUCT,ItemsViewModel.product_id.toString())
             intent.putExtra(Constants.PRODUCATDETAILSID,ItemsViewModel.product_detail_id.toString())
             intent.putExtra(Constants.PRODUCATNAME,ItemsViewModel.product_name)
+            intent.putExtra(Constants.PRODUCTSIZEID,ItemsViewModel.product_size_id.toString())
+            intent.putExtra(Constants.PRODUCTCOLORID,ItemsViewModel.product_color_id.toString())
             context.startActivity(intent)
         }
 
@@ -63,17 +65,12 @@ class ProductListAdapters(
             {
                 holder.itemView.iv_unselect.visibility=View.VISIBLE
                 holder.itemView.iv_select.visibility=View.GONE
-                recyclerViewFavouriteListener.favourite(position,ItemsViewModel.product_id.toString(),"0",ItemsViewModel.product_detail_id.toString())
+                recyclerViewFavouriteListener.favourite(position,ItemsViewModel.product_id.toString(),"0",ItemsViewModel.product_detail_id.toString(),ItemsViewModel.product_size_id.toString(),ItemsViewModel.product_color_id.toString())
             }
             else{
                 holder.itemView.iv_select.visibility=View.VISIBLE
                 holder.itemView.iv_unselect.visibility=View.GONE
-                recyclerViewFavouriteListener.favourite(
-                    position,
-                    ItemsViewModel.product_id.toString(),
-                    "1",
-                    ItemsViewModel.product_detail_id.toString()
-                )
+                recyclerViewFavouriteListener.favourite(position,ItemsViewModel.product_id.toString(),"1",ItemsViewModel.product_detail_id.toString(),ItemsViewModel.product_size_id.toString(),ItemsViewModel.product_color_id.toString())
             }
         }
     }

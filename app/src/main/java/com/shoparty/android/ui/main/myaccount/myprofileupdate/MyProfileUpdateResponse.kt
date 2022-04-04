@@ -14,5 +14,6 @@ data class MyProfileUpdateResponse(
         val name: String="",
         val street_no: String="",
         val building_no: String="",
+        val city_id: String="",
         )
 }

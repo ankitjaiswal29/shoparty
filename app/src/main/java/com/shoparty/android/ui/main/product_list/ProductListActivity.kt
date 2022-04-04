@@ -192,7 +192,7 @@ class ProductListActivity : AppCompatActivity(),
         viewModeladdwishlist.addremovewishlist.observe(this, { response ->
             when (response) {
                 is Resource.Success -> {
-                    //  com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                      com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         applicationContext,
                         response.message,
@@ -213,10 +213,10 @@ class ProductListActivity : AppCompatActivity(),
                     }
                 }
                 is Resource.Loading -> {
-                    //   com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
+                       com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
                 }
                 is Resource.Error -> {
-                    //  com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         applicationContext,
                         response.message,
@@ -224,7 +224,7 @@ class ProductListActivity : AppCompatActivity(),
                     ).show()
                 }
                 else -> {
-                    //  com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         applicationContext,
                         response.message,
@@ -305,7 +305,10 @@ class ProductListActivity : AppCompatActivity(),
         position: Int,
         producat_id: String,
         type: String,
-        product_detail_id: String)
+        product_detail_id: String,
+        product_sizeId: String,
+        product_colorId: String
+    )
     {
         fav_position=position
         fav_type=type.toInt()
@@ -318,7 +321,9 @@ class ProductListActivity : AppCompatActivity(),
             viewModeladdwishlist.addremoveWishlist(
                 producat_id,
                 type.toInt(),
-                product_detail_id.toInt())
+                product_detail_id.toInt(),
+                product_sizeId,
+                product_colorId)
         }
     }
 

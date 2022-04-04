@@ -65,6 +65,7 @@
                         android:id="@+id/tv_product_title"
                         style="@style/AppTheme.Text_14dp_Bold"
                         android:layout_width="0dp"
+                        android:paddingRight="@dimen/_25sdp"
                         android:layout_height="wrap_content"
                         android:text="@string/tesla_toys_kids_6_bundle_color_pack"
                         app:layout_constraintStart_toStartOf="parent"

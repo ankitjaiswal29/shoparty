@@ -31,6 +31,8 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener,Recycle
     private lateinit var binding: ActivityProductDetailsBinding
     var product_id = ""
     var product_details_id = ""
+    var product_sizeId = ""
+    var product_colorId = ""
     var fav_status = ""
     private lateinit var viewModel: ProducatDetailsViewModel
     private lateinit var wishlistviewModel: WishListViewModel
@@ -59,7 +61,9 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener,Recycle
                     intent.getStringExtra(Constants.PRODUCATNAME)?.substring(1)?.toLowerCase()
             product_id= intent.getStringExtra(Constants.IDPRODUCT)!!
             product_details_id= intent.getStringExtra(Constants.PRODUCATDETAILSID)!!
-            viewModel.postProducatDetails("1",product_details_id,product_id) //api call
+            product_sizeId= intent.getStringExtra(Constants.PRODUCTSIZEID)!!
+            product_colorId= intent.getStringExtra(Constants.PRODUCTCOLORID)!!
+            viewModel.postProducatDetails("1",product_details_id,product_id,product_sizeId,product_colorId) //api call
         }
 
     }
@@ -132,12 +136,12 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener,Recycle
             R.id.tv_wishlist -> {
                 if(fav_status == "0")
                 {
-                    wishlistviewModel.addremoveWishlist(product_id,1,product_details_id.toInt())
+                    wishlistviewModel.addremoveWishlist(product_id,1,product_details_id.toInt(),product_sizeId,product_colorId)
                     fav_status="1"
                 }
                 else
                 {
-                    wishlistviewModel.addremoveWishlist(product_id,0,product_details_id.toInt())
+                   wishlistviewModel.addremoveWishlist(product_id,0,product_details_id.toInt(),product_sizeId,product_colorId)
                     fav_status="0"
                 }
             }
@@ -174,7 +178,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener,Recycle
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     setImageInSlider(response.data?.product_details?.images!!)
-                    setData(response.data.product_details)
+                    setData(response.data?.product_details)
                     setrecyclaryoumayalsolike(response.data?.you_may_also_like)
                     recyclarcustomeralsobought(response.data?.also_bought)
                     checkReadMore(response.data.product_details.product_desc)
@@ -207,7 +211,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener,Recycle
         wishlistviewModel.addremovewishlist.observe(this) { response ->
             when (response) {
                 is Resource.Success -> {
-                    //  ProgressDialog.hideProgressBar()
+                      //ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         this,
                         response.message,
@@ -225,10 +229,10 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener,Recycle
                     }
                 }
                 is Resource.Loading -> {
-                    //   ProgressDialog.showProgressBar(requireContext())
+                   //   ProgressDialog.showProgressBar(requireContext())
                 }
                 is Resource.Error -> {
-                    //   ProgressDialog.hideProgressBar()
+                    //  ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         this,
                         response.message,
@@ -236,7 +240,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener,Recycle
                     ).show()
                 }
                 else -> {
-                    //    ProgressDialog.hideProgressBar()
+                   //   ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         this,
                         response.message,
@@ -314,10 +318,10 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener,Recycle
 
     override fun click(color_id: String)
     {
-     // Utils.showLongToast(this,color_id)
+       // Utils.showLongToast(this,color_id)
     }
 
-    override fun onProductClick(product_detail_id: Int, product_id: Int) {
-        viewModel.postProducatDetails("1",product_detail_id.toString(),product_id.toString()) //api call
+    override fun onProductClick(product_detail_id: Int, product_id: Int,product_sizeId:String,product_colorId:String) {
+        viewModel.postProducatDetails("1",product_detail_id.toString(),product_id.toString(),product_sizeId,product_colorId) //api call
     }
 }

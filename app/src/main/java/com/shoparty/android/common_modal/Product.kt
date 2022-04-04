@@ -43,5 +43,10 @@ data class Product(
     val tax: String?,
     val tax_type: Int?,
     val theme_id: String?,
-    val updated_at: String?
-):Parcelable
+    val updated_at: String?,
+    val color_id: String?,
+    val product_age_id: String?,
+    val store_id: String?,
+    ):Parcelable
+
+

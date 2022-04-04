@@ -23,9 +23,11 @@ class ProducatDetailsViewModel(private val app: Application) : ViewModel()
     fun postProducatDetails(
         langauge_id: String,
         product_detailsid: String,
-        product_id: String
+        product_id: String,
+        product_sizeId:String,
+        product_colorId:String
     ) = viewModelScope.launch {
-            val request = ProducatDetailsRequestModel(langauge_id,product_detailsid,product_id)
+            val request = ProducatDetailsRequestModel(langauge_id,product_detailsid,product_id,product_sizeId,product_colorId)
             if(Utils.hasInternetConnection(app.applicationContext))
             {
                 mproduct.postValue(Resource.Loading())

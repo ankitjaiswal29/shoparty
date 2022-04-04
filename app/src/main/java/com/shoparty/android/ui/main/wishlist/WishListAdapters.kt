@@ -42,8 +42,9 @@ class WishListAdapters(
             recyclerViewFavouriteListener.favourite(
                 position, ItemsViewModel.product_id.toString(),
                 "0",
-                ItemsViewModel.product_detail_id.toString()
-            )
+                ItemsViewModel.product_detail_id.toString(),
+                ItemsViewModel.product_size_id.toString(),
+                ItemsViewModel.product_color_id.toString())
         }
     }
     override fun getItemCount(): Int {

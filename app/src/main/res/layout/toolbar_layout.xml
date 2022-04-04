@@ -39,8 +39,8 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/tv_title"
         app:layout_constraintBottom_toTopOf="@+id/tv_title"
-        app:layout_constraintEnd_toEndOf="@id/tv_title"
-        app:layout_constraintStart_toStartOf="@id/tv_title" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tv_title"
@@ -49,10 +49,16 @@
         android:layout_height="wrap_content"
         android:text=""
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textAlignment="gravity"
+        android:gravity="start"
+        android:maxLines="2"
+        android:paddingStart="@dimen/_30sdp"
+        android:paddingEnd="@dimen/_15sdp"
+        android:ellipsize="end"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/iv_drawer_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/iv_drawer_back" />
 
     <TextView
         android:id="@+id/tv_clearall"

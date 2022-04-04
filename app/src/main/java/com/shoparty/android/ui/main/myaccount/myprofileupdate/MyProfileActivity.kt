@@ -40,6 +40,7 @@ import com.shoparty.android.databinding.ActivityMyProfileBinding
 import com.shoparty.android.ui.address.addaddress.AddressViewModel
 import com.shoparty.android.ui.login.LoginActivity
 import com.shoparty.android.ui.main.myaccount.MyAccountViewModel
+import com.shoparty.android.ui.main.myaccount.getprofile.GetProfileResponse
 import com.shoparty.android.ui.register.RegisterViewModel
 import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.ImagePickerActivity
@@ -47,15 +48,13 @@ import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
+
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
-
-
 class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
     private lateinit var binding: ActivityMyProfileBinding
     var cal = Calendar.getInstance()
@@ -73,19 +72,22 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
     private var cityidlist: ArrayList<String> = ArrayList()
     private var selectedcountryid=""
     private var selectedcityid=""
+    private var cityId=""
+    private var cityIdposition:Int=0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= DataBindingUtil.setContentView(this, R.layout.activity_my_profile)
         viewModel = ViewModelProvider(this, ViewModalFactory(application))[MyAccountViewModel::class.java]
         addressviewModel = ViewModelProvider(this, ViewModalFactory(application))[AddressViewModel::class.java]
         initialise()
+        viewModel.getProfle()      //api call
         addressviewModel.getcountrylist()      //api call
         setObserver()
     }
 
     private fun initialise()
     {
-        setPrefrenceData()  //set data
+      //  setPrefrenceData()  //set data
         binding.btnSave.setOnClickListener(this)
         binding.tvDateBirth.setOnClickListener(this)
         binding.tvMale.setOnClickListener(this)
@@ -97,7 +99,41 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
     }
 
 
-    private fun setObserver() {
+    private fun setObserver()
+    {
+        viewModel.getprofile.observe(this, { response ->
+            when (response)
+            {
+                is Resource.Success -> {
+                    //  com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    setupUI(response.data)
+                }
+
+                is Resource.Loading -> {
+                    //  com.shoparty.android.utils.ProgressDialog.showProgressBar(requireContext())
+                }
+                is Resource.Error -> {
+                    //   com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        this,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    //   com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        this,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        })
+
+
+
+
         viewModel.profileupdate.observe(this, { response ->
             when (response)
             {
@@ -109,6 +145,15 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
                     PrefManager.write(PrefManager.EMAIL, response.data?.email!!)
                     PrefManager.write(PrefManager.DOB, binding.tvDateBirth.text.toString().trim())
                     PrefManager.write(PrefManager.GENDER, response.data?.gender!!)
+
+                    cityId=response.data.city_id
+
+                    cityidlist.forEachIndexed { index, s ->
+                        if(cityId==s)
+                        {
+                            cityIdposition=index
+                        }
+                    }
 
                     if(!response.data?.street_no.isNullOrEmpty())
                     {
@@ -219,6 +264,46 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
             }
         })
     }
+
+
+    private fun setupUI(data: GetProfileResponse.User?)
+    {
+        PrefManager.write(PrefManager.NAME, binding.tvName.text.toString())
+        PrefManager.write(PrefManager.IMAGE,data?.image.toString())
+        PrefManager.write(PrefManager.MOBILE, data?.mobile.toString())
+        PrefManager.write(PrefManager.EMAIL, data?.email.toString())
+        PrefManager.write(PrefManager.DOB, data?.dob.toString())
+        PrefManager.write(PrefManager.GENDER, data?.gender.toString())
+        /* PrefManager.write(PrefManager.STREET, data?..toString())
+         PrefManager.write(PrefManager.HOUSENO, data?.gender.toString())*/
+
+        Glide.with(this).load(PrefManager.read(PrefManager.IMAGE,"")).error(R.drawable.person_img).into(binding.ivProfilePic)
+        binding.etFirstname.setText(data?.name.toString())
+        binding.etMobile.setText(data?.mobile.toString())
+        binding.etEmail.setText(data?.email.toString())
+        binding.tvName.text = data?.name?.replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(
+                Locale.getDefault()
+            ) else it.toString()
+        }
+        binding.tvMobile.text = data?.mobile.toString()
+        binding.tvDateBirth.text = data?.dob
+        binding.etStreet.setText("")
+        binding.etHouseno.setText("")
+
+        binding.etFirstname.setSelection(binding.etFirstname.length())
+        binding.etMobile.isEnabled = false
+        binding.etEmail.setSelection(binding.etEmail.length())
+        if(data?.gender == Constants.MALE)
+        {
+            maleGenderSet()
+        }
+        else
+        {
+            femaleGenderSet()
+        }
+    }
+
 
     private fun setPrefrenceData()
     {

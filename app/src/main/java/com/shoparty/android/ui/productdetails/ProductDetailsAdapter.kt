@@ -32,7 +32,7 @@ class ProductDetailsAdapter(var productDetailCallback:ProductDetailCallback,
             Glide.with(context).asBitmap().load(items.image).into(imgProduct!!)
 
             rootView.setOnClickListener {
-                productDetailCallback.onProductClick(items.product_detail_id,items.product_id)
+                productDetailCallback.onProductClick(items.product_detail_id,items.product_id,items.product_size_id.toString(),items.product_color_id.toString())
             }
 
 
@@ -43,5 +43,5 @@ class ProductDetailsAdapter(var productDetailCallback:ProductDetailCallback,
 
 interface ProductDetailCallback
 {
-    fun onProductClick(product_detail_id:Int,product_id:Int)
+    fun onProductClick(product_detail_id:Int,product_id:Int,product_sizeId:String,product_colorId:String)
 }

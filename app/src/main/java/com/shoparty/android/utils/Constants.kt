@@ -42,7 +42,9 @@ object Constants {
           const val CATEGORYNAME = "CATEGORYNAME"
           const val IDPRODUCT = "IDPRODUCT"
           const val PRODUCATDETAILSID = "PRODUCATDETAILSID"
+          const val PRODUCTSIZEID = "PRODUCTSIZEID"
           const val PRODUCATNAME = "PRODUCATNAME"
+          const val PRODUCTCOLORID = "PRODUCTCOLORID"
 
 
 

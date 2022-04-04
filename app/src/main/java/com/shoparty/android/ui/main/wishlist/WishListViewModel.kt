@@ -29,13 +29,12 @@ class WishListViewModel(private val app: Application) : ViewModel() {
         } else {
             mWishlist.postValue(Resource.Error(app.resources.getString(R.string.no_internet)))
         }
-
     }
 
-    fun addremoveWishlist(product_id:String, type:Int,product_detail_id:Int) = viewModelScope.launch {
+    fun addremoveWishlist(product_id:String, type:Int,product_detail_id:Int,product_size_id:String,product_colorId:String) = viewModelScope.launch {
         if (Utils.hasInternetConnection(app.applicationContext))
         {
-            val request = RemoveWishListRequestModel(product_id,type,product_detail_id)
+            val request = RemoveWishListRequestModel(product_id,type,product_detail_id,product_size_id,product_colorId)
             maddremoveWishlist.postValue(Resource.Loading())
             val response = repository.addremovewishListApi(request)
             maddremoveWishlist.postValue(handleremoveWishlistResponse(response!!))

@@ -145,8 +145,10 @@ class WishListActivity : AppCompatActivity(), View.OnClickListener,
         position: Int,
         producat_id: String,
         type: String,
-        product_detail_id: String
+        product_detail_id: String,
+        product_sizeId: String,
+        product_colorId: String
     ) {
-        viewModel.addremoveWishlist(producat_id,type.toInt(),product_detail_id.toInt())
+        viewModel.addremoveWishlist(producat_id,type.toInt(),product_detail_id.toInt(),product_sizeId,product_colorId)
     }
 }

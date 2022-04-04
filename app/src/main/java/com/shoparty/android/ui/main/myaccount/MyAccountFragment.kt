@@ -45,7 +45,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class MyAccountFragment : Fragment(), RecyclerViewClickListener {
-
     private lateinit var binding: FragmentMyAccountBinding
     private lateinit var myaccountAdapter: MyAccountAdapter
     var dialog: Dialog? = null
@@ -268,8 +267,8 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
                 getActivity()?.startActivity(intent)
             }
             "idabout" ->{
-                val intent = Intent (getActivity(), AboutUsActivity::class.java)
-                getActivity()?.startActivity(intent)
+                val intent = Intent (activity, AboutUsActivity::class.java)
+                activity?.startActivity(intent)
             }
 
             "idtermcondition" -> {

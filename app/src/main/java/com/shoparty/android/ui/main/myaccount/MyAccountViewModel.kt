@@ -12,8 +12,8 @@ import com.shoparty.android.ui.main.myaccount.logout.LogoutResponse
 import com.shoparty.android.ui.main.myaccount.myprofileupdate.MyProfileUpdateResponse
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
+import kotlinx.coroutines.CoroutineScope
 
-import kotlinx.coroutines.launch
 import okhttp3.RequestBody
 import retrofit2.Response
 
@@ -140,3 +140,5 @@ class MyAccountViewModel(private val app: Application) : ViewModel()
 
 
 }
+
+

@@ -84,7 +84,7 @@ class WishListFragment : Fragment(), RecyclerViewFavouriteListener {
         viewModel.addremovewishlist.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
-                  //  ProgressDialog.hideProgressBar()
+                    ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         requireContext(),
                         response.message,
@@ -99,10 +99,10 @@ class WishListFragment : Fragment(), RecyclerViewFavouriteListener {
                     }
                 }
                 is Resource.Loading -> {
-                 //   ProgressDialog.showProgressBar(requireContext())
+                    ProgressDialog.showProgressBar(requireContext())
                 }
                 is Resource.Error -> {
-                 //   ProgressDialog.hideProgressBar()
+                    ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         requireContext(),
                         response.message,
@@ -110,7 +110,7 @@ class WishListFragment : Fragment(), RecyclerViewFavouriteListener {
                     ).show()
                 }
                 else -> {
-                //    ProgressDialog.hideProgressBar()
+                    ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         requireContext(),
                         response.message,
@@ -147,9 +147,11 @@ class WishListFragment : Fragment(), RecyclerViewFavouriteListener {
         position: Int,
         producat_id: String,
         type: String,
-        product_detail_id: String
+        product_detail_id: String,
+        product_sizeId: String,
+        product_colorId: String
     ) {
         operationalPos = position
-        viewModel.addremoveWishlist(producat_id,type.toInt(),product_detail_id.toInt())
+        viewModel.addremoveWishlist(producat_id,type.toInt(),product_detail_id.toInt(),product_sizeId,product_colorId)
     }
 }

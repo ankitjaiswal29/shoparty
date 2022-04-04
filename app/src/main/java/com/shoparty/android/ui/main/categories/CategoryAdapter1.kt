@@ -17,7 +17,8 @@ import com.shoparty.android.ui.main.product_list.ProductListActivity
 import com.shoparty.android.utils.Constants
 
 class CategoryAdapter1( val context: Context,
-                        private val list: List<CategoryResponse.Category>) : RecyclerView.Adapter<CategoryAdapter1.ViewHolder>() {
+                        private val list: List<CategoryResponse.Category>) :
+    RecyclerView.Adapter<CategoryAdapter1.ViewHolder>() {
 
     var listener: RVItemClickListener? = null
 
