@@ -65,7 +65,7 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
 
 
     override fun onAttach(activity: Activity) {
-        super.onAttach(activity!!)
+        super.onAttach(requireActivity())
         mContext = context
     }
 
@@ -171,7 +171,7 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
 
     private fun setupUI(data: GetProfileResponse.User?)
     {
-        Glide.with(context!!).load(data?.image).error(R.drawable.person_img).into(binding.imgProfile)
+        Glide.with(requireContext()).load(data?.image).error(R.drawable.person_img).into(binding.imgProfile)
         binding.tvName.text = data?.name?.replaceFirstChar {
             if (it.isLowerCase()) it.titlecase(
                 Locale.getDefault()
@@ -184,6 +184,7 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
         PrefManager.write(PrefManager.EMAIL, data?.email.toString())
         PrefManager.write(PrefManager.DOB, data?.dob.toString())
         PrefManager.write(PrefManager.GENDER, data?.gender.toString())
+        PrefManager.write(PrefManager.CITYID, data?.city_id.toString())
        /* PrefManager.write(PrefManager.STREET, data?..toString())
         PrefManager.write(PrefManager.HOUSENO, data?.gender.toString())*/
     }

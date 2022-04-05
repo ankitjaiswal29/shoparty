@@ -13,6 +13,7 @@ import com.shoparty.android.ui.main.myaccount.myprofileupdate.MyProfileUpdateRes
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -79,7 +80,7 @@ class MyAccountViewModel(private val app: Application) : ViewModel()
     
 
     private fun handleLogoutResponse(response: Response<LogoutResponse>): Resource<LogoutResponse> {
-        if (response?.isSuccessful)
+        if (response?.isSuccessful == true)
         {
             response.body()?.let { res ->
                 return if (res.response_code==200)
@@ -95,7 +96,7 @@ class MyAccountViewModel(private val app: Application) : ViewModel()
     }
 
     private fun handlegetProfileResponse(response: Response<GetProfileResponse>): Resource<GetProfileResponse.User> {
-        if (response?.isSuccessful)
+        if (response?.isSuccessful == true)
         {
             response.body()?.let { res ->
                 return if (res.response_code==200)
@@ -112,7 +113,7 @@ class MyAccountViewModel(private val app: Application) : ViewModel()
 
 
     private fun handleupdateProfileResponse(response: Response<MyProfileUpdateResponse>): Resource<MyProfileUpdateResponse.User> {
-        if (response?.isSuccessful)
+        if (response?.isSuccessful == true)
         {
             response.body()?.let { res ->
                 return if (res.response_code==200)

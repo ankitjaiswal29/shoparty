@@ -53,7 +53,7 @@ class DrawerParentAdapter(
             view.setOnClickListener {
                 if (binding?.ivArrow?.rotation == 90f){
                     binding?.ivArrow?.rotation = 0f
-                    binding?.rvChildCategory.visibility = View.GONE
+                    binding?.rvChildCategory?.visibility = View.GONE
                 }
                 else{
                     binding?.ivArrow?.rotation = 90f

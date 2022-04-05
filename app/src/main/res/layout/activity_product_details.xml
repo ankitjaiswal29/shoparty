@@ -67,7 +67,7 @@
                         android:layout_width="0dp"
                         android:paddingRight="@dimen/_25sdp"
                         android:layout_height="wrap_content"
-                        android:text="@string/tesla_toys_kids_6_bundle_color_pack"
+                        tools:text="@string/tesla_toys_kids_6_bundle_color_pack"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         android:layout_marginRight="@dimen/_5sdp"
@@ -87,7 +87,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="@string/_7_10"
+                        tools:text="@string/_7_10"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_product_title" />
 
@@ -125,7 +125,7 @@
                         android:layout_marginTop="5dp"
                         android:lines="2"
                         android:ellipsize="end"
-                        android:text="@string/lorem_ipsum_is_a_placeholder_text_commonly_used_to_demonstrate_the_visual_form_of_a_document_the_visual_form_of_a_document"
+                        tools:text="@string/lorem_ipsum_is_a_placeholder_text_commonly_used_to_demonstrate_the_visual_form_of_a_document_the_visual_form_of_a_document"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_product_desc_label" />
 
@@ -208,6 +208,7 @@
                         android:background="@drawable/customize_btn_bg"
                         android:text="@string/customize_it"
                         android:textAllCaps="false"
+                        android:visibility="gone"
                         android:textColor="@color/white"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

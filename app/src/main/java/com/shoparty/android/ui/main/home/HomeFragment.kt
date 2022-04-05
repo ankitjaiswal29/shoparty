@@ -181,7 +181,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
             }
         }
 
-        viewModel_contactus.contactus.observe(this, { response ->
+        viewModel_contactus.contactus.observe(viewLifecycleOwner, { response ->
             when (response)
             {
                 is Resource.Success -> {

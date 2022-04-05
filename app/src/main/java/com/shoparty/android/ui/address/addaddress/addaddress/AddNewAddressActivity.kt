@@ -14,24 +14,27 @@ import com.shoparty.android.databinding.ActivityAddNewAddressBinding
 import com.shoparty.android.ui.address.addaddress.AddressViewModel
 import com.shoparty.android.ui.address.addaddress.getaddress.GetAddressListResponse
 import com.shoparty.android.utils.Constants
+import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
-class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener{
-    private var selectedcountryid=""
-    private var updatepagestatus=""
+class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener {
+    private var selectedcountryid = ""
+    private var updatepagestatus = ""
     private lateinit var binding: ActivityAddNewAddressBinding
     private lateinit var viewModel: AddressViewModel
     private var countrylist: ArrayList<String> = ArrayList()
     private var countryidlist: ArrayList<String> = ArrayList()
     private var citylist: java.util.ArrayList<String> = java.util.ArrayList()
     private var cityidlist: java.util.ArrayList<String> = java.util.ArrayList()
-    private var selectedcityid=""
-    private var addressid=""
+    private var selectedcityid = ""
+    private var addressid = ""
+    private var cityid = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= DataBindingUtil.setContentView(this, R.layout.activity_add_new_address)
-        viewModel = ViewModelProvider(this, ViewModalFactory(application))[AddressViewModel::class.java]
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_add_new_address)
+        viewModel =
+            ViewModelProvider(this, ViewModalFactory(application))[AddressViewModel::class.java]
         binding.addressViewModel = viewModel
         initialise()
         viewModel.getcountrylist()      //api call
@@ -39,9 +42,9 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener{
     }
 
     private fun initialise() {
-        if(intent.extras != null)
-        {
-            var addressdata = intent.getParcelableExtra<GetAddressListResponse.Data>(Constants.ADDRESSSDATA)!!
+        if (intent.extras != null) {
+            var addressdata =
+                intent.getParcelableExtra<GetAddressListResponse.Data>(Constants.ADDRESSSDATA)!!
             updatepagestatus = intent.getStringExtra(Constants.PAGESTATUS)!!
             addressid = addressdata.address_id.toString()
             viewModel.etFirstname.set(addressdata.first_name)
@@ -49,8 +52,12 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener{
             viewModel.etStreatLandmark.set(addressdata.street_no)
             viewModel.etBuildingnoApartment.set(addressdata.building_no)
             viewModel.etMobile.set(addressdata.mobile)
+            binding.infoTool.tvTitle.text = getString(R.string.editaddress)
+            cityid = addressdata.city_id
+        } else {
+            binding.infoTool.tvTitle.text = getString(R.string.add_new_address)
         }
-        binding.infoTool.tvTitle.text = getString(R.string.add_new_address)
+
         binding.btnCan.setOnClickListener(this)
         binding.btnSav.setOnClickListener(this)
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
@@ -58,23 +65,24 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener{
     }
 
     override fun onClick(v: View?) {
-        when(v?.id){
+        when (v?.id) {
             R.id.btn_can -> {
                 finish()
             }
             R.id.btn_sav -> {
-                if(updatepagestatus == "1")
-                {
-                    viewModel.updateAddress(selectedcountryid,selectedcityid,addressid)   //api call
-                }
-                else
-                {
-                    viewModel.addAddress(selectedcountryid,selectedcityid)   //api call
+                if (updatepagestatus == "1") {
+                    viewModel.updateAddress(
+                        selectedcountryid,
+                        selectedcityid,
+                        addressid
+                    )   //api call
+                } else {
+                    viewModel.addAddress(selectedcountryid, selectedcityid)   //api call
                 }
 
             }
             R.id.iv_drawer_back -> {
-             onBackPressed()
+                onBackPressed()
             }
         }
     }
@@ -83,11 +91,9 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener{
         super.onBackPressed()
     }
 
-    private fun setObserver()
-    {
+    private fun setObserver() {
         viewModel.getcountry.observe(this, { response ->
-            when (response)
-            {
+            when (response) {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     countrylist.clear()
@@ -122,8 +128,7 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener{
 
 
         viewModel.getcity.observe(this, { response ->
-            when (response)
-            {
+            when (response) {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     citylist.clear()
@@ -157,8 +162,7 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener{
         })
 
         viewModel.address.observe(this, { response ->
-            when (response)
-            {
+            when (response) {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     Toast.makeText(
@@ -193,8 +197,7 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener{
 
 
         viewModel.updateaddress.observe(this, { response ->
-            when (response)
-            {
+            when (response) {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     Toast.makeText(
@@ -228,12 +231,9 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener{
         })
 
 
-
-
     }
 
-    private fun setupCountryData(data: ArrayList<String>)
-    {
+    private fun setupCountryData(data: ArrayList<String>) {
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, data)
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spLasttName.adapter = arrayAdapter
@@ -243,35 +243,39 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener{
                 parent: AdapterView<*>?,
                 view: View,
                 position: Int,
-                id: Long) {
-                selectedcountryid=countryidlist[position]
+                id: Long
+            ) {
+                selectedcountryid = countryidlist[position]
                 viewModel.getcitylist(selectedcountryid)      //api call
             }
+
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
     }
 
 
-    private fun setupCityData(data: java.util.ArrayList<String>)
-    {
+    private fun setupCityData(data: java.util.ArrayList<String>) {
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, data)
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.etCity.adapter = arrayAdapter
 
-        binding.etCity.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View,
-                position: Int,
-                id: Long)
-            {
-                selectedcityid=cityidlist[position]
+        cityidlist.forEachIndexed { index, s ->
+            if (cityid == s) {
+                binding.etCity.setSelection(index)
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            binding.etCity.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View,
+                    position: Int,
+                    id: Long
+                ) {
+                    selectedcityid = cityidlist[position]
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
         }
     }
-
-
-
 }

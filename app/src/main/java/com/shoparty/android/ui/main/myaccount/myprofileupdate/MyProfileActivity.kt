@@ -1,5 +1,6 @@
 package com.shoparty.android.ui.main.myaccount.myprofileupdate
 
+
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
@@ -9,8 +10,6 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
-
-
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Patterns
@@ -32,32 +31,30 @@ import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
-
-
 import com.shoparty.android.R
-
 import com.shoparty.android.databinding.ActivityMyProfileBinding
 import com.shoparty.android.ui.address.addaddress.AddressViewModel
-import com.shoparty.android.ui.login.LoginActivity
 import com.shoparty.android.ui.main.myaccount.MyAccountViewModel
 import com.shoparty.android.ui.main.myaccount.getprofile.GetProfileResponse
-import com.shoparty.android.ui.register.RegisterViewModel
 import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.ImagePickerActivity
 import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
-
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+
+
 class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
     private lateinit var binding: ActivityMyProfileBinding
-    var cal = Calendar.getInstance()
+    private var cal = Calendar.getInstance()
     private lateinit var viewModel: MyAccountViewModel
     private var selecteddate = ""
     private var selectedgender = ""
@@ -80,14 +77,12 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
         viewModel = ViewModelProvider(this, ViewModalFactory(application))[MyAccountViewModel::class.java]
         addressviewModel = ViewModelProvider(this, ViewModalFactory(application))[AddressViewModel::class.java]
         initialise()
-        viewModel.getProfle()      //api call
         addressviewModel.getcountrylist()      //api call
         setObserver()
     }
 
     private fun initialise()
     {
-      //  setPrefrenceData()  //set data
         binding.btnSave.setOnClickListener(this)
         binding.tvDateBirth.setOnClickListener(this)
         binding.tvMale.setOnClickListener(this)
@@ -101,67 +96,35 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
 
     private fun setObserver()
     {
-        viewModel.getprofile.observe(this, { response ->
-            when (response)
-            {
-                is Resource.Success -> {
-                    //  com.shoparty.android.utils.ProgressDialog.hideProgressBar()
-                    setupUI(response.data)
-                }
-
-                is Resource.Loading -> {
-                    //  com.shoparty.android.utils.ProgressDialog.showProgressBar(requireContext())
-                }
-                is Resource.Error -> {
-                    //   com.shoparty.android.utils.ProgressDialog.hideProgressBar()
-                    Toast.makeText(
-                        this,
-                        response.message,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                else -> {
-                    //   com.shoparty.android.utils.ProgressDialog.hideProgressBar()
-                    Toast.makeText(
-                        this,
-                        response.message,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        })
-
-
-
-
-        viewModel.profileupdate.observe(this, { response ->
-            when (response)
-            {
+        viewModel.profileupdate.observe(this) { response ->
+            when (response) {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     PrefManager.write(PrefManager.NAME, response.data?.name!!)
-                    PrefManager.write(PrefManager.IMAGE,response.data?.image!!)
+                    PrefManager.write(PrefManager.IMAGE, response.data.image!!)
                     PrefManager.write(PrefManager.MOBILE, response.data?.mobile!!)
                     PrefManager.write(PrefManager.EMAIL, response.data?.email!!)
                     PrefManager.write(PrefManager.DOB, binding.tvDateBirth.text.toString().trim())
                     PrefManager.write(PrefManager.GENDER, response.data?.gender!!)
+                    PrefManager.write(PrefManager.CITYID, response.data?.city_id.toString())
 
-                    cityId=response.data.city_id
-
+                   /* cityId = response.data.city_id
                     cityidlist.forEachIndexed { index, s ->
-                        if(cityId==s)
-                        {
-                            cityIdposition=index
+                        if (cityId == s) {
+                            cityIdposition = index
                         }
-                    }
+                    }*/
 
-                    if(!response.data?.street_no.isNullOrEmpty())
-                    {
-                        PrefManager.write(PrefManager.STREET, response.data?.street_no)
+                    if (!response.data?.street_no.isNullOrEmpty()) {
+                        response.data?.street_no?.let { PrefManager.write(PrefManager.STREET, it) }
                     }
-                    if(!response.data?.building_no.isNullOrEmpty())
-                    {
-                        PrefManager.write(PrefManager.HOUSENO, response.data?.building_no)
+                    if (!response.data?.building_no.isNullOrEmpty()) {
+                        response.data?.building_no?.let {
+                            PrefManager.write(
+                                PrefManager.HOUSENO,
+                                it
+                            )
+                        }
                     }
                     setResult(Activity.RESULT_OK, intent)
                     finish()
@@ -191,11 +154,10 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
                     ).show()
                 }
             }
-        })
+        }
 
-        addressviewModel.getcountry.observe(this, { response ->
-            when (response)
-            {
+        addressviewModel.getcountry.observe(this) { response ->
+            when (response) {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     countrylist.clear()
@@ -226,12 +188,11 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
                     ).show()
                 }
             }
-        })
+        }
 
 
-        addressviewModel.getcity.observe(this, { response ->
-            when (response)
-            {
+        addressviewModel.getcity.observe(this) { response ->
+            when (response) {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     citylist.clear()
@@ -241,6 +202,7 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
                         cityidlist.add(response.data[index].city_id.toString())
                     }
                     setupCityData(citylist)
+                    setPrefrenceData()  //set data
                 }
                 is Resource.Loading -> {
                     com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
@@ -262,7 +224,7 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
                     ).show()
                 }
             }
-        })
+        }
     }
 
 
@@ -308,7 +270,7 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
     private fun setPrefrenceData()
     {
         Glide.with(this).load(PrefManager.read(PrefManager.IMAGE,"")).error(R.drawable.person_img).into(binding.ivProfilePic)
-        binding.txtMobile.text = PrefManager.read(PrefManager.MOBILE,"").toString()
+        binding.txtMobile.text = PrefManager.read(PrefManager.MOBILE,"")
         binding.tvName.text = PrefManager.read(PrefManager.NAME,"")
         binding.etFirstname.setText(PrefManager.read(PrefManager.NAME,""))
         binding.etMobile.setText(PrefManager.read(PrefManager.MOBILE,""))
@@ -316,10 +278,10 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
         binding.tvDateBirth.text = PrefManager.read(PrefManager.DOB,"")
         binding.etStreet.setText(PrefManager.read(PrefManager.STREET,""))
         binding.etHouseno.setText(PrefManager.read(PrefManager.HOUSENO,""))
-
         binding.etFirstname.setSelection(binding.etFirstname.length())
         binding.etMobile.isEnabled = false
         binding.etEmail.setSelection(binding.etEmail.length())
+
         if(PrefManager.read(PrefManager.GENDER,"") == Constants.MALE)
         {
             maleGenderSet()
@@ -341,14 +303,16 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
                             builder.addFormDataPart(
                                 "image",
                                 imageZipperFile?.name,
-                                RequestBody.create("image/*".toMediaTypeOrNull(), imageZipperFile!!))
+                                imageZipperFile!!.asRequestBody("image/*".toMediaTypeOrNull())
+                            )
                         }
                     else
                         {
                             builder.addFormDataPart(
                                 "image",
                                 imageZipperFile?.name,
-                                RequestBody.create("image/*".toMediaTypeOrNull(), ""))
+                                "".toRequestBody("image/*".toMediaTypeOrNull())
+                            )
                         }
                         builder.addFormDataPart("name", binding.etFirstname.text.toString())
                         builder.addFormDataPart("email", binding.etEmail.text.toString())
@@ -411,7 +375,7 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
         binding.tvMale.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_pink_check, 0, 0, 0);
         binding.tvFemale.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
         binding.tvFemale.setTextColor(Color.parseColor("#E30986"));
-        binding.tvMale.setTextColor(Color.parseColor("#E30986"));
+        binding.tvMale.setTextColor(Color.parseColor("#E30986"))
         binding.tvFemale.setTextColor(Color.parseColor("#A19989"));
         selectedgender=binding.tvMale.text.toString()
     }
@@ -620,11 +584,21 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
         }
     }
 
+
+
+
     private fun setupCityData(data: ArrayList<String>)
     {
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, data)
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.etCity.adapter = arrayAdapter
+
+        cityidlist.forEachIndexed { index, s ->
+            if(PrefManager.read(PrefManager.CITYID,"") == s)
+            {
+                binding.etCity.setSelection(index)
+            }
+        }
         binding.etCity.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -634,6 +608,8 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
             {
                 selectedcityid=cityidlist[position]
             }
+
+
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }

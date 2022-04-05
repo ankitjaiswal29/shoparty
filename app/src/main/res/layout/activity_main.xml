@@ -216,7 +216,6 @@
                             android:layout_height="32dp"
                             android:layout_alignParentStart="true"
                             android:padding="8dp"
-
                             android:src="@drawable/language_icon"
                             />
 

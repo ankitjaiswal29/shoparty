@@ -36,7 +36,6 @@ class VoucherAdapter(context:Context,private val mList: List<VoucherListResponse
         holder.tvCopy.setOnClickListener {
             recyclerViewClickListener.click(holder.tvCode.text.toString())
         }
-
     }
     override fun getItemCount(): Int {
         return mList.size

@@ -332,9 +332,9 @@
     <string name="birthday_cap">Birthday cap</string>
     <string name="_10_2">$10.2</string>
     <string name="toys_kid">Toys Kids</string>
-    <string name="_54_off">54% OFF</string>
-    <string name="on_minimum_purchase_of_200">On Minimum Purchase Of $. 200</string>
-    <string name="code_123wefxtra10">Code:123WEFXTRA10</string>
+    <string name="_54_off">% OFF</string>
+    <string name="on_minimum_purchase_of_200">On Minimum Purchase Of $</string>
+    <string name="code_123wefxtra10">Code:</string>
     <string name="expire_on_30_sep_2021_11_45_pm">Expire On: 30 Sep, 2021, 11:45 PM</string>
     <string name="princess_dress">Princess Dress</string>
     <string name="_10_off">10% OFF</string>
@@ -412,6 +412,7 @@
     <string name="orderId">Order Id</string>
     <string name="comingsoon">Coming Soon</string>
     <string name="str_hideless"><![CDATA[Show Less >]]></string>
+    <string name="editaddress">Edit Address</string>
 
 
 </resources>

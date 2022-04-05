@@ -179,8 +179,8 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener,Recycle
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     setImageInSlider(response.data?.product_details?.images!!)
                     setData(response.data?.product_details)
-                    setrecyclaryoumayalsolike(response.data?.you_may_also_like)
-                    recyclarcustomeralsobought(response.data?.also_bought)
+                    setrecyclaryoumayalsolike(response.data?.you_may_also_like!!)
+                    recyclarcustomeralsobought(response.data?.also_bought!!)
                     checkReadMore(response.data.product_details.product_desc)
                     choesColorRecyclaritem(response.data.product_details.colors)
                     binding.infoTool.tvTitle.text=response.data.product_details.product_name?.substring(0, 1)?.toUpperCase() +

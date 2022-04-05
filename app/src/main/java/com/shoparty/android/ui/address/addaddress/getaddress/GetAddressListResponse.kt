@@ -21,5 +21,6 @@ data class GetAddressListResponse(
         val mobile: String,
         val street_no: String,
         val country_name: String,
+        val city_id: String,
     ):Parcelable
 }

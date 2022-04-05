@@ -23,7 +23,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class SearchActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivitySearchBinding
     private lateinit var viewModel: SearchViewModel
     private lateinit var searchHistoryAdapter: SearchHistoryAdapter
@@ -43,7 +42,7 @@ class SearchActivity : AppCompatActivity() {
         binding.infoTool.ivDrawerBack.setOnClickListener {
             onBackPressed()
         }
-        binding.infoTool.tvTitle.setText(getString(R.string.Search))
+        binding.infoTool.tvTitle.text = getString(R.string.Search)
 
         searchHistoryAdapter = SearchHistoryAdapter(this@SearchActivity, list)
         val gridLayoutManager = GridLayoutManager(this, 1)

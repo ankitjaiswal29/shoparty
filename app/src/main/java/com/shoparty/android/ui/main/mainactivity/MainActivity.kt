@@ -373,6 +373,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             builderinstance.dismiss()
         }
 
+        btn_save.setOnClickListener {
+            builder.setCancelable(true)
+            builderinstance.dismiss()
+        }
+
     }
 
     private fun manageMyaccountAccountSidebar() {
