@@ -57,8 +57,12 @@ class SearchActivity : AppCompatActivity() {
             list.clear()
             val dbList = MyDatabase.getInstance(this@SearchActivity).getProductDao().getAllProduct()
             list.addAll(dbList)
-            searchHistoryAdapter.notifyDataSetChanged()
+            lifecycleScope.launch(Dispatchers.Main) {
+                searchHistoryAdapter.notifyDataSetChanged()
+            }
+
         }
+
         searchHistoryAdapter.onItemClick(object : RVItemClickListener{
             override fun onClick(pos: String, view: View?) {
                 lifecycleScope.launch(Dispatchers.IO) {
@@ -90,7 +94,9 @@ class SearchActivity : AppCompatActivity() {
                 MyDatabase.getInstance(this@SearchActivity).getProductDao()
                     .deleteAllProduct()
                 list.clear()
-                searchHistoryAdapter.notifyDataSetChanged()
+                lifecycleScope.launch(Dispatchers.Main) {
+                    searchHistoryAdapter.notifyDataSetChanged()
+                }
             }
         }
 

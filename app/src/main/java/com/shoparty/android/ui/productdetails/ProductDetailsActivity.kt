@@ -55,6 +55,8 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener,Recycle
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
         binding.tvWishlist.setOnClickListener(this)
         binding.tvReadmore.setOnClickListener(this)
+      //  binding.ivShare.setOnClickListener(this)
+
         if(intent.extras != null)
         {
             binding.infoTool.tvTitle.text= intent.getStringExtra(Constants.PRODUCATNAME)?.substring(0, 1)?.toUpperCase() +
@@ -66,6 +68,9 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener,Recycle
             viewModel.postProducatDetails("1",product_details_id,product_id,product_sizeId,product_colorId) //api call
         }
 
+        binding.ivShare.setOnClickListener {
+            Utils.showLongToast(this,getString(R.string.comingsoon))
+        }
     }
 
 
@@ -128,6 +133,8 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener,Recycle
                 val intent = Intent(this, ShoppingBagActivity::class.java)
                 startActivity(intent)
             }
+
+
 
             R.id.iv_drawer_back -> {
                 onBackPressed()

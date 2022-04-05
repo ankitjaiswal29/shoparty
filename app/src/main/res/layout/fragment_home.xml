@@ -458,14 +458,15 @@
                             android:drawablePadding="5dp"
                             android:text="@string/email_without" />
 
-                        <TextView
+                       <!-- <TextView
                             android:id="@+id/txtinstagram"
                             style="@style/AppTheme.Text_12dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableStart="@drawable/ic_insta_icon"
                             android:drawablePadding="5dp"
-                            android:text="@string/instagram" />
+
+                            android:text="@string/instagram" />-->
                     </LinearLayout>
 
 
@@ -524,6 +525,13 @@
                             android:layout_height="32dp"
                             android:layout_margin="5dp"
                             android:src="@drawable/youtube_icon" />
+
+                        <ImageView
+                            android:id="@+id/txtinstagram"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_margin="5dp"
+                            android:src="@drawable/instagram" />
                     </LinearLayout>
 
 
