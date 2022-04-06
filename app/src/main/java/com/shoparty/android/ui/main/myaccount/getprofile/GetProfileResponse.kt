@@ -15,7 +15,9 @@ data class GetProfileResponse(
         val name: String,
         val role: Int,
         val user_id: Int,
-        val city_id:String
+        val city_id:String,
+        val street_no:String,
+        val building_no:String
     )
 
 

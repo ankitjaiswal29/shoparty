@@ -13,6 +13,7 @@
         android:layout_height="78dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/_5sdp"
         app:layout_constraintTop_toTopOf="parent"
         android:src="@drawable/icon_shippingbag" />
 
@@ -21,7 +22,7 @@
         android:layout_width="64dp"
         android:layout_height="32dp"
         app:layout_constraintTop_toBottomOf="@+id/home_offers_item_img"
-   app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/shoparty_icon" />
 
@@ -30,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-app:layout_constraintTop_toBottomOf="@+id/home_offers_item_name_tv"
+        app:layout_constraintTop_toBottomOf="@+id/home_offers_item_name_tv"
         android:text="@string/up_to_10_off"
         app:layout_constraintStart_toStartOf="@+id/home_offers_item_name_tv"
         app:layout_constraintEnd_toEndOf="@+id/home_offers_item_name_tv"

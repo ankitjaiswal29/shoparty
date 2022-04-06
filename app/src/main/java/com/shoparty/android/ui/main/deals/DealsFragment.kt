@@ -147,24 +147,23 @@ class DealsFragment : Fragment(),View.OnClickListener {
             }
         }
 
-        viewModeladdwishlist.addremovewishlist.observe(this, { response ->
+        viewModeladdwishlist.addremovewishlist.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
-                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
-
+                    ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         requireContext(),
                         response.message,
                         Toast.LENGTH_SHORT
                     ).show()
-                    newproductlist[fav_position].fav_status=fav_type
+                    newproductlist[fav_position].fav_status = fav_type
                     adapter.notifyDataSetChanged()
                 }
                 is Resource.Loading -> {
-                       com.shoparty.android.utils.ProgressDialog.showProgressBar(requireContext())
+                    com.shoparty.android.utils.ProgressDialog.showProgressBar(requireContext())
                 }
                 is Resource.Error -> {
-                      com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         requireContext(),
                         response.message,
@@ -172,7 +171,7 @@ class DealsFragment : Fragment(),View.OnClickListener {
                     ).show()
                 }
                 else -> {
-                      com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         requireContext(),
                         response.message,
@@ -180,7 +179,7 @@ class DealsFragment : Fragment(),View.OnClickListener {
                     ).show()
                 }
             }
-        })
+        }
     }
 
 

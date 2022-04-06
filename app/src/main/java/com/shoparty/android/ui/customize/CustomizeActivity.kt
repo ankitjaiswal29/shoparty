@@ -52,7 +52,6 @@ class CustomizeActivity : AppCompatActivity(), View.OnClickListener{
             }
             R.id.customize_approve_btn -> {
                 val intent = Intent(this, ProductDetailsActivity::class.java)
-
                 startActivity(intent)
             }
             R.id.ivBagBtn -> {

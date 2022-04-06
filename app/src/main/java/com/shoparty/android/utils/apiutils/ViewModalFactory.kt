@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.shoparty.android.ui.address.addaddress.AddressViewModel
 import com.shoparty.android.ui.contactus.ContactUsViewModel
-import com.shoparty.android.ui.filter.ColorsViewModel
+import com.shoparty.android.ui.filter.FilterViewModel
 import com.shoparty.android.ui.login.LoginViewModel
 import com.shoparty.android.ui.main.categories.CategoryViewModel
 import com.shoparty.android.ui.main.deals.DealsViewModel
@@ -15,7 +15,6 @@ import com.shoparty.android.ui.main.myaccount.MyAccountViewModel
 import com.shoparty.android.ui.main.product_list.ProductListViewModel
 import com.shoparty.android.ui.main.wishlist.WishListViewModel
 import com.shoparty.android.ui.myorders.MyOrderViewModel
-import com.shoparty.android.ui.productdetails.ProducatDetailsResponse
 import com.shoparty.android.ui.productdetails.ProducatDetailsViewModel
 import com.shoparty.android.ui.register.RegisterViewModel
 import com.shoparty.android.ui.search.SearchViewModel
@@ -69,8 +68,8 @@ class ViewModalFactory(private val app: Application) : ViewModelProvider.Factory
         if (modelClass.isAssignableFrom(ProductListViewModel::class.java)) {
             return ProductListViewModel(app) as T
         }
-        if (modelClass.isAssignableFrom(ColorsViewModel::class.java)) {
-            return ColorsViewModel(app) as T
+        if (modelClass.isAssignableFrom(FilterViewModel::class.java)) {
+            return FilterViewModel(app) as T
         }
 
         if (modelClass.isAssignableFrom(DealsViewModel::class.java)) {

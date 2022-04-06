@@ -2,6 +2,7 @@ package com.shoparty.android.ui.main.wishlist
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,9 @@ import com.bumptech.glide.Glide
 
 import com.shoparty.android.R
 import com.shoparty.android.interfaces.RecyclerViewFavouriteListener
+import com.shoparty.android.ui.main.product_list.ProductListActivity
+import com.shoparty.android.ui.productdetails.ProductDetailsActivity
+import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.Utils
 class WishListAdapters(
     var context: Context,
@@ -32,6 +36,15 @@ class WishListAdapters(
         holder.tv_ItemName.text = ItemsViewModel.product_name
         holder.tvItemSubtitle.text = ItemsViewModel.product_descripion
         holder.tvPrice.text = context.getString(R.string.dollor)+ItemsViewModel.sale_price
+        if(!ItemsViewModel.discount.isNullOrEmpty())
+        {
+            holder.tvOffer.visibility=View.VISIBLE
+            holder.tvOffer.text = ItemsViewModel.discount+context.getString(R.string._10_off)
+        }
+        else
+        {
+            holder.tvOffer.visibility=View.GONE
+        }
         Glide.with(context).asBitmap().load(ItemsViewModel.image).into(holder.iv_Productimg!!)
 
         holder.txtAdd.setOnClickListener {
@@ -46,6 +59,20 @@ class WishListAdapters(
                 ItemsViewModel.product_size_id.toString(),
                 ItemsViewModel.product_color_id.toString())
         }
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, ProductDetailsActivity::class.java)
+            intent.putExtra(Constants.IDPRODUCT,ItemsViewModel.product_id.toString())
+            intent.putExtra(Constants.PRODUCATDETAILSID,ItemsViewModel.product_detail_id.toString())
+            intent.putExtra(Constants.PRODUCATNAME,ItemsViewModel.product_name)
+            intent.putExtra(Constants.PRODUCTSIZEID,ItemsViewModel.product_size_id.toString())
+            intent.putExtra(Constants.PRODUCTCOLORID,ItemsViewModel.product_color_id.toString())
+            context.startActivity(intent)
+        }
+
+
+
+
+
     }
     override fun getItemCount(): Int {
         return mList.size

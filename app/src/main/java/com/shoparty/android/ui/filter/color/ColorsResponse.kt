@@ -1,4 +1,4 @@
-package com.shoparty.android.ui.filter
+package com.shoparty.android.ui.filter.color
 
 data class ColorsResponse(
     val message: String,

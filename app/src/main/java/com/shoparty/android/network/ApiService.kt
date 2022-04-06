@@ -5,8 +5,9 @@ import com.shoparty.android.ui.address.addaddress.getaddress.DeleteAddressReques
 import com.shoparty.android.ui.address.addaddress.getaddress.DeleteAddressResponse
 import com.shoparty.android.ui.address.addaddress.getaddress.GetAddressListResponse
 import com.shoparty.android.ui.contactus.ContactUsResponse
-import com.shoparty.android.ui.filter.ColorsRequestModel
-import com.shoparty.android.ui.filter.ColorsResponse
+import com.shoparty.android.ui.filter.color.ColorsRequestModel
+import com.shoparty.android.ui.filter.color.ColorsResponse
+import com.shoparty.android.ui.filter.gender.GenderResponse
 import com.shoparty.android.ui.filter.size.SizeResponse
 import com.shoparty.android.ui.login.LoginRequestModel
 import com.shoparty.android.ui.login.LoginResponse
@@ -126,6 +127,13 @@ interface ApiService {
     suspend fun getCategory(
         @Body requestModel: CategoryRequestModel
     ): Response<CategoryResponse>
+
+
+    @GET("list-genders")
+    suspend fun getGenderList(
+    ): Response<GenderResponse>
+
+
 
     @POST("list-orders")
     suspend fun getMyOrderDataAsync(

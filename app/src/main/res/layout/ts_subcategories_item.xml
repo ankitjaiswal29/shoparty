@@ -22,7 +22,7 @@
             android:id="@+id/ts_subcategories_item_img"
             android:layout_width="72dp"
             android:layout_height="72dp"
-            android:background="@drawable/icon_shippingbag"
+            android:src="@drawable/icon_shippingbag"
             app:layout_constraintBottom_toBottomOf="@+id/v_circleview"
             app:layout_constraintEnd_toEndOf="@+id/v_circleview"
             app:layout_constraintStart_toStartOf="@+id/v_circleview"

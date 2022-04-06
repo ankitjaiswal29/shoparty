@@ -18,18 +18,21 @@ import com.shoparty.android.R
 import com.shoparty.android.app.MyApp
 import com.shoparty.android.databinding.FragmentHomeBinding
 import com.shoparty.android.interfaces.RVItemClickListener
+import com.shoparty.android.interfaces.RecyclerViewFavouriteListener
 import com.shoparty.android.ui.contactus.ContactUsViewModel
 import com.shoparty.android.ui.contactus.WebViewActivity
-import com.shoparty.android.ui.main.deals.TopSellingHomeModel
+import com.shoparty.android.ui.login.LoginActivity
 import com.shoparty.android.ui.main.mainactivity.MainActivity
 import com.shoparty.android.ui.main.product_list.ProductListActivity
+import com.shoparty.android.ui.main.wishlist.WishListViewModel
 import com.shoparty.android.ui.search.SearchActivity
 import com.shoparty.android.utils.Constants
+import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.ProgressDialog
-import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
-class HomeFragment : Fragment(), View.OnClickListener {
+
+class HomeFragment : Fragment(), View.OnClickListener, RecyclerViewFavouriteListener {
     lateinit var binding: FragmentHomeBinding
     private lateinit var viewModel: HomeViewModel
     private lateinit var viewModel_contactus: ContactUsViewModel
@@ -39,10 +42,16 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private var phone_number: String?=""
     private var whatsapp: String?=""
     private var instagram_url: String?=""
+    private var email_id: String?=""
+    private lateinit var viewModeladdwishlist: WishListViewModel
+    var fav_position:Int = 0
+    var fav_type:Int = 0
 
     private val listTopBanner: ArrayList<HomeResponse.Home.Banner> = ArrayList()
     private val listMiddleBanner: ArrayList<HomeResponse.Home.Banner> = ArrayList()
     private val listBottomBanner: ArrayList<HomeResponse.Home.Banner> = ArrayList()
+    private var top20sellingitemlist: ArrayList<HomeResponse.Top20Selling> = ArrayList()
+
     private lateinit var adapterBannerMiddle: BannerAdapter
     private lateinit var adapterBannerBottom: BannerAdapter
 
@@ -76,6 +85,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
             ViewModalFactory(activity?.application!!)
         )[HomeViewModel::class.java]
         viewModel_contactus = ViewModelProvider(this, ViewModalFactory(MyApp.application))[ContactUsViewModel::class.java]
+        viewModeladdwishlist = ViewModelProvider(this, ViewModalFactory(MyApp.application))[WishListViewModel::class.java]
         return binding.root
     }
 
@@ -101,19 +111,17 @@ class HomeFragment : Fragment(), View.OnClickListener {
         binding.tvViewAllTopSelling.setOnClickListener(this)
         binding.tvViewCategories.setOnClickListener(this)
 
-        setTopSelling()
         setBanner2()
         setHomeCategory()
         season()
         setTheme()
         setBanner3()
         setNewArrival()
-        TopsellingSubcategories()
-        OfferDiscoutItem()
         setBrands()
 
         setObserver()
-        val request = HomeRequestModel("1")
+
+        val request = HomeRequestModel("1",PrefManager.read(PrefManager.USER_ID,""))
         viewModel.getDashboardData(request)
         viewModel_contactus.getContactus()
     }
@@ -124,15 +132,21 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 is Resource.Success -> {
                     try {
                         ProgressDialog.hideProgressBar()
-                        listTopBanner.clear()
+                      //  listTopBanner.clear()
                         listTopBanner.addAll(response.data?.top_banner!! as ArrayList<HomeResponse.Home.Banner>)
+
                         setImageInSlider(response.data?.top_banner!! as ArrayList<HomeResponse.Home.Banner>)
 
-                        listMiddleBanner.clear()
+                        top20sellingitemlist= response.data.top20Selling as ArrayList<HomeResponse.Top20Selling>
+                        setTopSelling(top20sellingitemlist)
+                        TopsellingSubcategories(response.data?.topSubCategory)
+                        OfferDiscoutItem(response.data?.OffersAndDiscountedItems)
+
+                     //   listMiddleBanner.clear()
                         listMiddleBanner.addAll(response.data?.bottom_banner!! as ArrayList<HomeResponse.Home.Banner>)
                         adapterBannerMiddle.notifyDataSetChanged()
 
-                        listBottomBanner.clear()
+                    //    listBottomBanner.clear()
                         listBottomBanner.addAll(response.data?.upcoming_banner!! as ArrayList<HomeResponse.Home.Banner>)
                         adapterBannerBottom.notifyDataSetChanged()
 
@@ -181,18 +195,17 @@ class HomeFragment : Fragment(), View.OnClickListener {
             }
         }
 
-        viewModel_contactus.contactus.observe(viewLifecycleOwner, { response ->
-            when (response)
-            {
+        viewModel_contactus.contactus.observe(viewLifecycleOwner) { response ->
+            when (response) {
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
-                    facebookurl=response.data?.facebook_url
-                    twitter_url=response.data?.twitter_url
-                    youtube_url=response.data?.youtube_url
-                    phone_number=response.data?.contact_no
-                    whatsapp=response.data?.whatsapp_no
-                    instagram_url=response.data?.instagram_url
-
+                    facebookurl = response.data?.facebook_url
+                    twitter_url = response.data?.twitter_url
+                    youtube_url = response.data?.youtube_url
+                    phone_number = response.data?.contact_no
+                    whatsapp = response.data?.whatsapp_no
+                    instagram_url = response.data?.instagram_url
+                    email_id = response.data?.email
                 }
                 is Resource.Loading -> {
                     ProgressDialog.showProgressBar(requireActivity())
@@ -204,7 +217,41 @@ class HomeFragment : Fragment(), View.OnClickListener {
                     ProgressDialog.hideProgressBar()
                 }
             }
-        })
+        }
+
+        viewModeladdwishlist.addremovewishlist.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Success -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        requireContext(),
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                        top20sellingitemlist[fav_position].fav_status = fav_type
+                        binding.topSellingRecycler.adapter?.notifyDataSetChanged()
+                }
+                is Resource.Loading -> {
+                    ProgressDialog.showProgressBar(requireContext())
+                }
+                is Resource.Error -> {
+                   ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        requireContext(),
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        requireContext(),
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
     }
 
 
@@ -217,17 +264,9 @@ class HomeFragment : Fragment(), View.OnClickListener {
         binding.imageSlider.startAutoCycle()
     }
 
-    private fun setTopSelling() {
-        val topSellingItemList = listOf<TopSellingHomeModel>(
-            TopSellingHomeModel("Princess Dress", "$10.2"),
-            TopSellingHomeModel("Princess Dress", "$10.2"),
-            TopSellingHomeModel("Princess Dress", "$10.2"),
-            TopSellingHomeModel("Princess Dress", "$10.2"),
-            TopSellingHomeModel("Princess Dress", "$10.2"),
-            TopSellingHomeModel("Princess Dress", "$10.2"),
-        )
+    private fun setTopSelling(top20Selling: List<HomeResponse.Top20Selling>?) {
         binding.topSellingRecycler.adapter =
-            TopSellingHomeAdapter(topSellingItemList, requireContext())
+            TopSellingHomeAdapter( requireContext(),top20Selling!!,this)
     }
 
     private fun setBanner2() {
@@ -329,34 +368,23 @@ class HomeFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    private fun OfferDiscoutItem() {
-        val homeOffersList = listOf<HomeCategoriesModel>(
-            HomeCategoriesModel("Up To 10% Off"),
-            HomeCategoriesModel("Up To 10% Off"))
-
+    private fun OfferDiscoutItem(offersAndDiscountedItems: List<HomeResponse.OffersAndDiscountedItem>?) {
         val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
         binding.homeOffersRecycler.apply {
             layoutManager = gridLayoutManager
             setHasFixedSize(true)
             isFocusable = false
-            adapter = HomeOffersAdapter(requireContext(),homeOffersList)
+            adapter = HomeOffersAdapter(requireContext(),offersAndDiscountedItems!!)
         }
     }
 
-    private fun TopsellingSubcategories() {
-        val tsSubCategoriesList = listOf<HomeCategoriesModel>(
-            HomeCategoriesModel("Mask"),
-            HomeCategoriesModel("Mask"),
-            HomeCategoriesModel("Mask"),
-            HomeCategoriesModel("Mask")
-        )
-
+    private fun TopsellingSubcategories(topSubCategory: List<HomeResponse.TopSubCategory>?) {
         val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
         binding.tsSubcategoriesRecycler.apply {
             layoutManager = gridLayoutManager
             setHasFixedSize(true)
             isFocusable = false
-            adapter = TopSellingSubcategoriesAdapter(requireContext(),tsSubCategoriesList)
+            adapter = TopSellingSubcategoriesAdapter(requireContext(), topSubCategory!!)
         }
     }
 
@@ -409,11 +437,13 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 openWhatsAppConversation(whatsapp.toString(),"hi")
             }
             R.id.txtEmail -> {
-               Utils.showLongToast(requireContext(),context?.getString(R.string.comingsoon))
+                val intent = Intent("android.intent.action.SENDTO",
+                    Uri.fromParts("mailto", email_id, null))
+                intent.putExtra("android.intent.extra.SUBJECT", "")
+                startActivity(Intent.createChooser(intent,PrefManager.read(PrefManager.EMAIL,"")))
             }
         }
     }
-
     private fun openWhatsAppConversation(number: String, message: String?) {
         var number = number
         number = number.replace(" ", "").replace("+", "")
@@ -429,6 +459,30 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 "Whatsapp have not been installed.",
                 Toast.LENGTH_SHORT
             ).show()
+        }
+    }
+
+    override fun favourite(
+        position: Int,
+        producat_id: String,
+        type: String,
+        product_detail_id: String,
+        product_sizeId: String,
+        product_colorId: String)
+    {
+        fav_position=position
+        fav_type=type.toInt()
+        if(PrefManager.read(PrefManager.AUTH_TOKEN, "").isEmpty()) {
+            val intent = Intent(requireContext(), LoginActivity::class.java)
+            startActivity(intent) }
+        else
+        {
+            viewModeladdwishlist.addremoveWishlist(
+                producat_id,
+                type.toInt(),
+                product_detail_id.toInt(),
+                product_sizeId,
+                product_colorId)
         }
     }
 

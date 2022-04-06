@@ -47,6 +47,9 @@ data class Product(
     val color_id: String?,
     val product_age_id: String?,
     val store_id: String?,
+    val offer_code: String?,
+    val offer_discount: String?,
+    val offer_amount: String?,
     ):Parcelable
 
 

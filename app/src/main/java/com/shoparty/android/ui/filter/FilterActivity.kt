@@ -14,6 +14,11 @@ import com.mohammedalaa.seekbar.OnDoubleValueSeekBarChangeListener
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityFilterBinding
 import com.shoparty.android.interfaces.RecyclerViewClickListener
+import com.shoparty.android.ui.filter.age.FilterAgeAdapter
+import com.shoparty.android.ui.filter.color.ColorsAdapters
+import com.shoparty.android.ui.filter.color.ColorsResponse
+import com.shoparty.android.ui.filter.color.FilterColorAdapter
+import com.shoparty.android.ui.filter.gender.FilterGenderAdapter
 import com.shoparty.android.ui.filter.size.SizeAdapters
 
 import com.shoparty.android.utils.SpacesItemDecoration
@@ -22,38 +27,34 @@ import com.shoparty.android.utils.apiutils.ViewModalFactory
 
 
 class FilterActivity : AppCompatActivity(),View.OnClickListener, RecyclerViewClickListener {
-
     private lateinit var binding: ActivityFilterBinding
-    private lateinit var adapter: ColorsAdapters
-    private lateinit var viewModel: ColorsViewModel
+    private lateinit var viewModel: FilterViewModel
     private var colorlist: ArrayList<ColorsResponse.Colors> = ArrayList()
     private var sizelist: ArrayList<String> = ArrayList()
     private var recyvlerviewItemList=ArrayList<RecyclerView>()
     private var filterIconItem=ArrayList<TextView>()
-    private lateinit var rvAdapter: FilterAdapter
     var color=false
     var size=false
     var age=false
     var gender=false
-    var price=false
-
+    private var genderlist: ArrayList<String> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
          binding= DataBindingUtil.setContentView(this, R.layout.activity_filter)
-        viewModel = ViewModelProvider(this, ViewModalFactory(application))[ColorsViewModel::class.java]
-        viewModel.Colors()//api call
-        viewModel.Sizes()//api call
+        viewModel = ViewModelProvider(this, ViewModalFactory(application))[FilterViewModel::class.java]
+        viewModel.colors()//api call
+        viewModel.sizes()//api call
+        viewModel.gender()//api call
         initialise()
         setObserver()
     }
 
     private fun initialise() {
-
         binding.tvColor.setOnClickListener(this)
         binding.tvSize.setOnClickListener(this)
         binding.btnApplay.setOnClickListener(this)
         binding.infoTool.tvClearall.visibility=View.VISIBLE
-        binding.infoTool.tvTitle.setText("Filter")
+        binding.infoTool.tvTitle.text = "Filter"
         binding.tvAge.setOnClickListener(this)
         binding.tvGender.setOnClickListener(this)
         binding.tvPrice.setOnClickListener(this)
@@ -69,10 +70,6 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener, RecyclerViewCli
         filterIconItem.add(binding.tvSize)
         filterIconItem.add(binding.tvAge)
         filterIconItem.add(binding.tvGender)
-
-
-
-
 
         binding.doubleRangeSeekbar.setOnRangeSeekBarViewChangeListener(object :OnDoubleValueSeekBarChangeListener{
             override fun onStartTrackingTouch(
@@ -95,13 +92,9 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener, RecyclerViewCli
             ) {
 
             }
-
         })
-
-      //  size()
         age()
-        gender()
-      //  filtercolor()
+
 
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
 
@@ -109,17 +102,14 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener, RecyclerViewCli
 
 
     private fun setObserver() {
-        viewModel.mColor.observe(this, { response ->
+        viewModel.mColor.observe(this) { response ->
             when (response) {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
 
-                    if(response.data.isNullOrEmpty())
-                    {
-                      //no data
-                    }
-                    else
-                    {
+                    if (response.data.isNullOrEmpty()) {
+                        //no data
+                    } else {
                         colorlist.clear()
                         colorlist = response.data as ArrayList<ColorsResponse.Colors>
                         setColorsListAdapter(colorlist)
@@ -145,19 +135,16 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener, RecyclerViewCli
                     ).show()
                 }
             }
-        })
+        }
 
-        viewModel.mSizes.observe(this, { response ->
+        viewModel.mSizes.observe(this) { response ->
             when (response) {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
 
-                    if(response.data.isNullOrEmpty())
-                    {
+                    if (response.data.isNullOrEmpty()) {
                         //no data
-                    }
-                    else
-                    {
+                    } else {
                         sizelist.clear()
                         sizelist = response.data as ArrayList<String>
                         setSizeListAdapter(sizelist)
@@ -183,7 +170,38 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener, RecyclerViewCli
                     ).show()
                 }
             }
-        })
+        }
+
+
+        viewModel.mGenders.observe(this) { response ->
+            when (response) {
+                is Resource.Success -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    if(response.data.isNullOrEmpty())
+                    {
+                        //no data
+                    }
+                    else
+                    {
+                        genderlist = response.data as ArrayList<String>
+                        setGenderListAdapter(genderlist)
+                    }
+                }
+                is Resource.Loading -> {
+                    com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
+                }
+                is Resource.Error -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(applicationContext, response.message, Toast.LENGTH_SHORT).show()
+                }
+                else -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext, response.message, Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
 
 
     }
@@ -199,8 +217,6 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener, RecyclerViewCli
     }
 
     private fun setSizeListAdapter(data: ArrayList<String>) {
-
-
         val gridLayoutManager = GridLayoutManager(this, 5)
         binding.rvSizeRecyclarview.apply {
             layoutManager = gridLayoutManager
@@ -211,46 +227,15 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener, RecyclerViewCli
 
     }
 
-    private fun filtercolor() {
-        val data=ArrayList<String>()
-        data.add("#FFBB86FC")
-        data.add("#606060")
-        data.add("#FFBB86FC")
-        data.add("#FFBB86FC")
-        data.add("#E30986")
-        data.add("#FFBB86FC")
-        data.add("#606060")
-        data.add("#E30986")
-        data.add("#FFBB86FC")
-        data.add("#606060")
-
-
-        val gridLayoutManager = GridLayoutManager(this, 9)
-        binding.rvColorRecyclarview.apply {
-            layoutManager = gridLayoutManager
-            setHasFixedSize(true)
-            isFocusable = false
-            adapter = FilterColorAdapter(this@FilterActivity,data)
-        }
-
-    }
-
-    private fun gender() {
-
-        val data=ArrayList<String>()
-        data.add("Babys")
-        data.add("Girl")
-        data.add("Unisex")
-        data.add("Women")
-
-        val gridLayoutManager = GridLayoutManager(this, 3)
+    private fun setGenderListAdapter(data: ArrayList<String>) {
+        val gridLayoutManager = GridLayoutManager(this, 5)
         binding.rvGenderRecyclarview.apply {
             layoutManager = gridLayoutManager
             setHasFixedSize(true)
             isFocusable = false
-            adapter = FilterGenderAdapter(data,context)
-        }
-    }
+            adapter = SizeAdapters(this@FilterActivity, data, this@FilterActivity)
+        } }
+
 
     private fun age() {
         val data=ArrayList<String>()
@@ -279,38 +264,7 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener, RecyclerViewCli
         }
     }
 
-    private fun size(){
-       val data=ArrayList<String>()
-       data.add("S")
-       data.add("M")
-       data.add("XL")
-       data.add("XXL")
-       data.add("UK6")
-       data.add("UK7")
-       data.add("UK8")
-       data.add("UK9")
-       data.add("UK10")
 
-        val spanCount = 5 // 2 columns
-        val spacing = 10 // 30px
-        val includeEdge = false
-        binding.rvSizeRecyclarview.addItemDecoration(
-            SpacesItemDecoration(
-                spanCount,
-                spacing,
-                includeEdge
-            )
-        )
-
-
-        val gridLayoutManager = GridLayoutManager(this, 5)
-       binding.rvSizeRecyclarview.apply {
-           layoutManager = gridLayoutManager
-           setHasFixedSize(true)
-           isFocusable = false
-           adapter = FilterSizeAdapter(data,context)
-       }
-    }
 
     override fun onClick(v: View?) {
         when(v?.id) {

@@ -25,6 +25,7 @@ data class ContactUsResponse(
         val whatsapp_no: String,
         val whatsapp_time_end: String,
         val whatsapp_time_start: String,
-        val youtube_url: String
+        val youtube_url: String,
+        val email: String,
     )
 }

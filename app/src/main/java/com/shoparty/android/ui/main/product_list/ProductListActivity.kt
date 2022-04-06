@@ -101,6 +101,12 @@ class ProductListActivity : AppCompatActivity(),
                 binding.infoTool.tvTitle.text = intent.getStringExtra(Constants.CATEGORYNAME)
                 productListApi(intent.getStringExtra(Constants.PRODUCTID).toString())
             }
+
+            else if(intent.getStringExtra( Constants.TOPSELLINGSUBCATEGORY).equals("9"))  //top selling category
+            {
+                binding.infoTool.tvTitle.text = intent.getStringExtra(Constants.CATEGORYNAME)
+                productListApi(intent.getStringExtra(Constants.PRODUCTID).toString())
+            }
         }
         setObserver()
     }
@@ -189,34 +195,29 @@ class ProductListActivity : AppCompatActivity(),
             }
         })
 
-        viewModeladdwishlist.addremovewishlist.observe(this, { response ->
+        viewModeladdwishlist.addremovewishlist.observe(this) { response ->
             when (response) {
                 is Resource.Success -> {
-                      com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         applicationContext,
                         response.message,
                         Toast.LENGTH_SHORT
                     ).show()
-                  if (viewall_status == "1")     //pagination
+                    if (viewall_status == "1")     //pagination
                     {
-                       /* newproductlist.clear()
-                        viewAllApi("1")*/
-
-                        newproductlist[fav_position].fav_status=fav_type
+                        newproductlist[fav_position].fav_status = fav_type
                         adapter.notifyDataSetChanged()
-                    }
-                   else
-                    {
-                        productlist[fav_position].fav_status=fav_type
+                    } else {
+                        productlist[fav_position].fav_status = fav_type
                         adapter.notifyDataSetChanged()
                     }
                 }
                 is Resource.Loading -> {
-                       com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
+                    com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
                 }
                 is Resource.Error -> {
-                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         applicationContext,
                         response.message,
@@ -224,7 +225,7 @@ class ProductListActivity : AppCompatActivity(),
                     ).show()
                 }
                 else -> {
-                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         applicationContext,
                         response.message,
@@ -232,7 +233,7 @@ class ProductListActivity : AppCompatActivity(),
                     ).show()
                 }
             }
-        })
+        }
 
 
     }
@@ -314,8 +315,7 @@ class ProductListActivity : AppCompatActivity(),
         fav_type=type.toInt()
         if(PrefManager.read(PrefManager.AUTH_TOKEN, "").isEmpty()) {
             val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-        }
+            startActivity(intent) }
         else
         {
             viewModeladdwishlist.addremoveWishlist(

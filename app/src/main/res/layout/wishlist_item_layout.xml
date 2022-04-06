@@ -41,8 +41,11 @@
                    android:id="@+id/iv_Productimg"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
+                   android:layout_marginStart="@dimen/_2sdp"
+                   android:layout_marginTop="@dimen/_2sdp"
+                   android:layout_marginEnd="@dimen/_2sdp"
+                   android:layout_marginBottom="@dimen/_2sdp"
                    android:scaleType="fitXY"
-                   android:layout_margin="@dimen/_2sdp"
                    android:src="@drawable/person_img" />
            </RelativeLayout>
 
@@ -79,10 +82,6 @@
                     android:elevation="10dp"
                     android:src="@drawable/ic_icon_fav_gray"
                     android:visibility="gone" />
-
-
-
-
             </RelativeLayout>
 
 

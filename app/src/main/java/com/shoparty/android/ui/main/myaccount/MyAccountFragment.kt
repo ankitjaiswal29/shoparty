@@ -95,9 +95,8 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
 
     private fun setObserver()
     {
-        viewModel.logout.observe(requireActivity(), { response ->
-            when (response)
-            {
+        viewModel.logout.observe(requireActivity()) { response ->
+            when (response) {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
 
@@ -133,22 +132,21 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
                     ).show()
                 }
             }
-        })
+        }
 
 
-        viewModel.getprofile.observe(requireActivity(), { response ->
-            when (response)
-            {
+        viewModel.getprofile.observe(requireActivity()) { response ->
+            when (response) {
                 is Resource.Success -> {
-                  //  com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    //  com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     setupUI(response.data)
                 }
 
                 is Resource.Loading -> {
-                  //  com.shoparty.android.utils.ProgressDialog.showProgressBar(requireContext())
+                    //  com.shoparty.android.utils.ProgressDialog.showProgressBar(requireContext())
                 }
                 is Resource.Error -> {
-                 //   com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    //   com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         requireActivity(),
                         response.message,
@@ -156,7 +154,7 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
                     ).show()
                 }
                 else -> {
-                //   com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    //   com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         requireActivity(),
                         response.message,
@@ -164,7 +162,7 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
                     ).show()
                 }
             }
-        })
+        }
     }
 
 
@@ -185,8 +183,8 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
         PrefManager.write(PrefManager.DOB, data?.dob.toString())
         PrefManager.write(PrefManager.GENDER, data?.gender.toString())
         PrefManager.write(PrefManager.CITYID, data?.city_id.toString())
-       /* PrefManager.write(PrefManager.STREET, data?..toString())
-        PrefManager.write(PrefManager.HOUSENO, data?.gender.toString())*/
+        PrefManager.write(PrefManager.STREET, data?.street_no.toString())
+        PrefManager.write(PrefManager.HOUSENO, data?.building_no.toString())
     }
 
 

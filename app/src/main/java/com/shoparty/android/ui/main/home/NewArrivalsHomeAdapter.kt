@@ -12,7 +12,9 @@ import com.shoparty.android.R
 import com.shoparty.android.databinding.NewArrivalItemBinding
 import com.shoparty.android.interfaces.RVItemClickListener
 import com.shoparty.android.ui.main.product_list.ProductListActivity
+import com.shoparty.android.ui.productdetails.ProductDetailsActivity
 import com.shoparty.android.utils.Constants
+import com.shoparty.android.utils.Utils
 
 class NewArrivalsHomeAdapter(
     private val list: ArrayList<HomeResponse.Home.Arrival>,
@@ -62,11 +64,15 @@ class NewArrivalsHomeAdapter(
                 .into(binding?.newArrivalItemImg!!)
 
             view.setOnClickListener {
-                val intent = Intent(context, ProductListActivity::class.java)
-                intent.putExtra(Constants.NEWARRIVALSITEM,"6")
-                intent.putExtra(Constants.PRODUCTID,modal.arrival_id)  //themeid
-                intent.putExtra(Constants.CATEGORYNAME,modal.arrival_name)
-                context.startActivity(intent)
+               /* val intent = Intent(context, ProductDetailsActivity::class.java)
+                intent.putExtra(Constants.IDPRODUCT,modal.arrival_id)
+                intent.putExtra(Constants.PRODUCATNAME,modal.arrival_name)
+               *//* intent.putExtra(Constants.PRODUCATDETAILSID,modal..toString())
+                intent.putExtra(Constants.PRODUCTSIZEID,modal.product_size_id.toString())
+                intent.putExtra(Constants.PRODUCTCOLORID,modal.product_color_id.toString())*//*
+                context.startActivity(intent)*/
+
+                Utils.showLongToast(context,context.getString(R.string.comingsoon))
             }
 
 

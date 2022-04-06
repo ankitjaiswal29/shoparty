@@ -293,9 +293,11 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener,Recycle
             fav_status="1"
         }
         binding.tvProductTitle.text=data.product_name
+
         if(data.cost_price.toDouble()>data.sale_price.toDouble())
         {
             binding.tvProductCostPrice.visibility=View.VISIBLE
+            binding.tvProductPrice.text=getString(R.string.dollor)+data.sale_price
             binding.tvProductCostPrice.text=getString(R.string.dollor)+data.cost_price
             binding.tvProductCostPrice.paintFlags =  binding.tvProductCostPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         }

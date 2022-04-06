@@ -299,7 +299,8 @@
     <string name="oldest_to_newest">Oldest To Newest</string>
     <string name="price_low_to_high">Price - Low To High</string>
     <string name="price_high_to_low">Price - High To Low</string>
-    <string name="up_to_10_off">Up To 10% Off</string>
+    <string name="up_to_10_off">Up To </string>
+    <string name="offpercent">% Off</string>
     <string name="my_orders">My Orders</string>
     <string name="home">Home</string>
     <string name="products">Products</string>
@@ -337,7 +338,7 @@
     <string name="code_123wefxtra10">Code:</string>
     <string name="expire_on_30_sep_2021_11_45_pm">Expire On: 30 Sep, 2021, 11:45 PM</string>
     <string name="princess_dress">Princess Dress</string>
-    <string name="_10_off">10% OFF</string>
+    <string name="_10_off">% OFF</string>
     <string name="yoke_design_kurta_set">Yoke Design kurta set jdkhskxjhs xskjxbsjkxb sakjkbsajkb</string>
     <string name="_10_02">$10.02</string>
     <string name="categories">Categories</string>
