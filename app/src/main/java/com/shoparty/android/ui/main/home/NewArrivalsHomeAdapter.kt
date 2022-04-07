@@ -67,9 +67,9 @@ class NewArrivalsHomeAdapter(
                /* val intent = Intent(context, ProductDetailsActivity::class.java)
                 intent.putExtra(Constants.IDPRODUCT,modal.arrival_id)
                 intent.putExtra(Constants.PRODUCATNAME,modal.arrival_name)
-               *//* intent.putExtra(Constants.PRODUCATDETAILSID,modal..toString())
+                intent.putExtra(Constants.PRODUCATDETAILSID,modal..toString())
                 intent.putExtra(Constants.PRODUCTSIZEID,modal.product_size_id.toString())
-                intent.putExtra(Constants.PRODUCTCOLORID,modal.product_color_id.toString())*//*
+                intent.putExtra(Constants.PRODUCTCOLORID,modal.product_color_id.toString())
                 context.startActivity(intent)*/
 
                 Utils.showLongToast(context,context.getString(R.string.comingsoon))

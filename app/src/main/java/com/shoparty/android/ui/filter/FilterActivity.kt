@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mohammedalaa.seekbar.DoubleValueSeekBarView
 import com.mohammedalaa.seekbar.OnDoubleValueSeekBarChangeListener
 import com.shoparty.android.R
-import com.shoparty.android.databinding.ActivityFilterBinding
+
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.ui.filter.age.FilterAgeAdapter
 import com.shoparty.android.ui.filter.color.ColorsAdapters
@@ -27,7 +27,7 @@ import com.shoparty.android.utils.apiutils.ViewModalFactory
 
 
 class FilterActivity : AppCompatActivity(),View.OnClickListener, RecyclerViewClickListener {
-    private lateinit var binding: ActivityFilterBinding
+    private lateinit var binding: com.shoparty.android.databinding.ActivityFilterBinding
     private lateinit var viewModel: FilterViewModel
     private var colorlist: ArrayList<ColorsResponse.Colors> = ArrayList()
     private var sizelist: ArrayList<String> = ArrayList()
@@ -61,11 +61,11 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener, RecyclerViewCli
         binding.clPrice.setOnClickListener(this)
         binding.doubleRangeSeekbar.currentMinValue=50
         binding.doubleRangeSeekbar.currentMaxValue=150
+
         recyvlerviewItemList.add(binding.rvColorRecyclarview)
         recyvlerviewItemList.add(binding.rvSizeRecyclarview)
         recyvlerviewItemList.add(binding.rvAgeRecyclarview)
         recyvlerviewItemList.add(binding.rvGenderRecyclarview)
-
         filterIconItem.add(binding.tvColor)
         filterIconItem.add(binding.tvSize)
         filterIconItem.add(binding.tvAge)
@@ -228,12 +228,11 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener, RecyclerViewCli
     }
 
     private fun setGenderListAdapter(data: ArrayList<String>) {
-        val gridLayoutManager = GridLayoutManager(this, 5)
+        val gridLayoutManager = GridLayoutManager(this, 3)
         binding.rvGenderRecyclarview.apply {
             layoutManager = gridLayoutManager
             setHasFixedSize(true)
-            isFocusable = false
-            adapter = SizeAdapters(this@FilterActivity, data, this@FilterActivity)
+            adapter = FilterGenderAdapter(data,this@FilterActivity)
         } }
 
 
