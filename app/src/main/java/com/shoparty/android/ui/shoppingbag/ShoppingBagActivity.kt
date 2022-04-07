@@ -10,12 +10,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.shoparty.android.R
 import com.shoparty.android.common_modal.CartProduct
+import com.shoparty.android.common_modal.Product
 import com.shoparty.android.database.MyDatabase
 import com.shoparty.android.databinding.ActivityShopingBagBinding
 import com.shoparty.android.interfaces.RVCartItemClickListener
 import com.shoparty.android.ui.login.LoginActivity
 import com.shoparty.android.ui.main.home.HomeCategoriesModel
 import com.shoparty.android.ui.productdetails.ProducatDetailsViewModel
+import com.shoparty.android.ui.productdetails.ProductDetailsActivity
 import com.shoparty.android.ui.shipping.ShippingActivity
 import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.apiutils.ViewModalFactory
@@ -29,6 +31,9 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var adapterShoppingBag: ShoppingBagItemAdapter
     private val listCartProduct: ArrayList<CartProduct> = ArrayList()
+
+    private lateinit var cartProduct: CartProduct
+    private lateinit var product: Product
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +57,7 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener {
                 binding.bagItemPickupRecycler.visibility = View.GONE
             }
         }
+
         shoppingBagList()
         shoppingBagPickup()
     }
@@ -84,7 +90,7 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener {
 
         adapterShoppingBag.onItemClick(object : RVCartItemClickListener {
             override fun onClick(pos: Int, view: View?) {
-                //TODO("Not yet implemented")
+                startActivity(Intent(this@ShoppingBagActivity,ProductDetailsActivity::class.java))
             }
 
             override fun onPlus(pos: Int, view: View?) {
@@ -152,10 +158,5 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
     }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-    }
-
 
 }

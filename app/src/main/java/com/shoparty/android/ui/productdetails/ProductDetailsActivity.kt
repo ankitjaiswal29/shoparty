@@ -308,7 +308,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener,Recycle
         }
         if(data.is_customizable==0)
         {
-           binding.btnCostomizeit.visibility=View.GONE
+           binding.btnCostomizeit.visibility=View.VISIBLE
         }
         else
         {

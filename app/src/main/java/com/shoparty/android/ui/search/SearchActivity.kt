@@ -58,7 +58,10 @@ class SearchActivity : AppCompatActivity() {
             val dbList = MyDatabase.getInstance(this@SearchActivity).getProductDao().getAllProduct()
             list.addAll(dbList)
             lifecycleScope.launch(Dispatchers.Main) {
-                searchHistoryAdapter.notifyDataSetChanged()
+                lifecycleScope.launch(Dispatchers.IO) {
+                    searchHistoryAdapter.notifyDataSetChanged()
+                }
+
             }
 
         }

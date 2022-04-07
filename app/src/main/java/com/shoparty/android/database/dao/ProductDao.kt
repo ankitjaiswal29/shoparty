@@ -35,6 +35,9 @@ interface ProductDao {
     @Query("SELECT * FROM cart_product")
     fun getAllCartProduct(): List<CartProduct>
 
+    @Query("SELECT * FROM cart_product WHERE id=:id ")
+    fun getProduct(id: String): CartProduct
+
     @Delete
     fun deleteCartProduct(model: CartProduct)
 
