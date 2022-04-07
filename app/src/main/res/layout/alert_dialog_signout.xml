@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-android:background="@color/white"
+    android:background="@color/white"
     android:padding="20dp">
 
     <TextView
@@ -13,69 +14,80 @@ android:background="@color/white"
         android:text="@string/select_your_language"
         android:textColor="@color/black"
         android:textSize="18dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <RadioButton
-        android:id="@+id/english_radio_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:buttonTint="@color/color_pink"
-        style="@style/AppTheme.Text_16_dp_pink"
-        android:text="@string/english"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/select_language_htv" />
-
-    <View
-        android:id="@+id/below_english_radio_btn_view"
+    <RadioGroup
+        android:id="@+id/radioGroupLang"
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/english_radio_btn" />
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/select_language_htv"
+        tools:layout_editor_absoluteX="20dp">
 
-    <RadioButton
-        android:id="@+id/arabic_radio_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Arabic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/below_english_radio_btn_view" />
+        <RadioButton
+            android:id="@+id/english_radio_btn"
+            style="@style/AppTheme.Text_16_dp_pink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:buttonTint="@color/color_pink"
+            android:text="@string/english"
+            android:checked="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/select_language_htv" />
+
+        <View
+            android:id="@+id/below_english_radio_btn_view"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/english_radio_btn" />
+
+        <RadioButton
+            android:id="@+id/arabic_radio_btn"
+            style="@style/AppTheme.Text_16_dp_pink"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="Arabic"
+            android:buttonTint="@color/color_pink"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/below_english_radio_btn_view" />
+
+    </RadioGroup>
 
     <Button
         android:id="@+id/cancel_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginRight="5dp"
         android:background="@drawable/background_rectangular_white"
         android:text="@string/cancel"
         android:textAllCaps="false"
-        android:layout_marginRight="5dp"
         app:layout_constraintEnd_toStartOf="@+id/save_btn"
-
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/arabic_radio_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupLang" />
 
     <Button
         android:id="@+id/save_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginLeft="5dp"
         android:background="@drawable/signout_dialog_save_btn"
         android:text="@string/save"
-        android:textColor="@color/white"
         android:textAllCaps="false"
-        android:layout_marginLeft="5dp"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/cancel_btn"
-        app:layout_constraintTop_toBottomOf="@id/arabic_radio_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupLang" />
     <!-- <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

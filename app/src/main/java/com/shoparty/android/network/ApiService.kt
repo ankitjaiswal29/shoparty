@@ -14,9 +14,11 @@ import com.shoparty.android.ui.login.LoginResponse
 import com.shoparty.android.ui.main.categories.CategoryRequestModel
 import com.shoparty.android.ui.main.categories.CategoryResponse
 import com.shoparty.android.ui.main.deals.DealsRequestModel
+import com.shoparty.android.ui.main.drawer.drawer_main_category.DrawerResponse
 import com.shoparty.android.ui.main.home.HomeRequestModel
 import com.shoparty.android.ui.main.home.HomeResponse
-import com.shoparty.android.ui.main.drawer.drawer_main_category.DrawerResponse
+import com.shoparty.android.ui.main.mainactivity.ChangeLanguageRequestModel
+import com.shoparty.android.ui.main.mainactivity.ChangeLanguageResponse
 import com.shoparty.android.ui.main.myaccount.getprofile.GetProfileResponse
 import com.shoparty.android.ui.main.myaccount.logout.LogoutResponse
 import com.shoparty.android.ui.main.myaccount.myprofileupdate.MyProfileUpdateResponse
@@ -96,7 +98,7 @@ interface ApiService {
         @Body addAddressRequestModel: AddAddressRequestModel
     ): Response<AddAddressResponse>
 
-    @POST("edit-address")                //
+    @POST("edit-address")
     suspend fun updateAddressAsync(
         @Body updateAddressRequestModel: UpdateAddressRequestModel
     ): Response<UpdateAddressResponse>
@@ -196,5 +198,10 @@ interface ApiService {
     suspend fun producatdetailsAsync(
         @Body producatDetailsRequestModel: ProducatDetailsRequestModel
     ): Response<ProducatDetailsResponse>
+
+    @POST("change-language")
+    suspend fun changeLanguage(
+        @Body changeLanguageRequestModel: ChangeLanguageRequestModel
+    ): Response<ChangeLanguageResponse>
 
 }

@@ -100,9 +100,8 @@ class VerificationActivity : AppCompatActivity() {
 
     private fun setObserver()
     {
-        viewModel.verifiyotp.observe(this, { response ->
-            when (response)
-            {
+        viewModel.verifiyotp.observe(this) { response ->
+            when (response) {
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
                     setupUI(response.data?.data)
@@ -112,13 +111,10 @@ class VerificationActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
 
-                    if(PrefManager.read(PrefManager.IS_SHIPPING_PAGE,"") == "1")
-                    {
+                    if (PrefManager.read(PrefManager.IS_SHIPPING_PAGE, "") == "1") {
                         val intent = Intent(this, ShippingActivity::class.java)
                         startActivity(intent)
-                    }
-                    else
-                    {
+                    } else {
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                     }
@@ -129,7 +125,8 @@ class VerificationActivity : AppCompatActivity() {
                 is Resource.Error -> {
                     ProgressDialog.hideProgressBar()
                     Toast.makeText(
-                        applicationContext, response.message, Toast.LENGTH_SHORT).show()
+                        applicationContext, response.message, Toast.LENGTH_SHORT
+                    ).show()
                 }
                 else -> {
                     ProgressDialog.hideProgressBar()
@@ -140,12 +137,11 @@ class VerificationActivity : AppCompatActivity() {
                     ).show()
                 }
             }
-        })
+        }
 
 
-        viewModel.resendOtp.observe(this, { response ->
-            when (response)
-            {
+        viewModel.resendOtp.observe(this) { response ->
+            when (response) {
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
 
@@ -155,7 +151,8 @@ class VerificationActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT).show()*/
 
                     Toast.makeText(
-                        applicationContext, response.message, Toast.LENGTH_LONG).show()
+                        applicationContext, response.message, Toast.LENGTH_LONG
+                    ).show()
 
                     startTimer()
                 }
@@ -179,7 +176,7 @@ class VerificationActivity : AppCompatActivity() {
                     ).show()
                 }
             }
-        })
+        }
     }
     private fun setupUI(data: VerifiyOtpResponse.Data?)
     {

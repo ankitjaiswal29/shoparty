@@ -22,6 +22,9 @@ class MainViewModal(private val app: Application) : ViewModel() {
     private val mDrawer = MutableLiveData<Resource<List<DrawerResponse.Category>>>()
     val drawer: LiveData<Resource<List<DrawerResponse.Category>>> = mDrawer
 
+    private val mLang = MutableLiveData<Resource<ChangeLanguageResponse>>()
+    val languageChange: LiveData<Resource<ChangeLanguageResponse>> = mLang
+
     fun getCategory(request: CategoryRequestModel) = viewModelScope.launch {
         if (Utils.hasInternetConnection(app.applicationContext)) {
             mDrawer.postValue(Resource.Loading())
@@ -39,16 +42,32 @@ class MainViewModal(private val app: Application) : ViewModel() {
                     Resource.Success(res.message, res.product_cat_result)
                 } else {
                     Resource.Error(res.message)
-
                 }
             }
         }
-
         return Resource.Error(response.message())
+    }
 
+    fun getLanguage(request: ChangeLanguageRequestModel) = viewModelScope.launch {
+        if (Utils.hasInternetConnection(app.applicationContext)) {
+            mLang.postValue(Resource.Loading())
+            val response = repository.languageChangeApi(request)
+            mLang.postValue(handleLanguageResponse(response!!))
+        } else {
+            mLang.postValue(Resource.Error(app.resources.getString(R.string.no_internet)))
+        }
+    }
+
+    private fun handleLanguageResponse(response: Response<ChangeLanguageResponse>): Resource<ChangeLanguageResponse> {
+        if (response.isSuccessful) {
+            response.body()?.let { res ->
+                return if (res.response_code == 200) {
+                    Resource.Success(res.message)
+                } else {
+                    Resource.Error(res.message)
+                }
+            }
+        }
+        return Resource.Error(response.message())
     }
 }
-
-
-
-

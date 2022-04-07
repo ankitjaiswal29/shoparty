@@ -18,6 +18,7 @@ data class LoginResponse(
         val name: String,
         val otp: Int,
         val token: String,
+        val language_id: Int,
         val user_id: Int
     )
 }

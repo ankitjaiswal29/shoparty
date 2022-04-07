@@ -3,6 +3,7 @@ package com.shoparty.android.ui.login
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -51,7 +52,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     PrefManager.write(PrefManager.AUTH_TOKEN, response.data?.token!!)
-
+                    PrefManager.write(PrefManager.LANGUAGEID, response.data.language_id)
+                    Log.e("TAG", "setObserver: "+PrefManager.read(PrefManager.LANGUAGEID,1))
                     val intent = Intent(this, VerificationActivity::class.java)
                     intent.putExtra(Constants.MOBILE, response.data.mobile)
                     intent.putExtra(Constants.USERID, response.data.user_id.toString())

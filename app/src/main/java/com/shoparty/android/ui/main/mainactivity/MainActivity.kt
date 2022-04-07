@@ -12,6 +12,8 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -97,6 +99,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.rlSignout.setOnClickListener(this)
 
         binding.infoTools.ivDrawerIcon.setOnClickListener {
+            if (PrefManager.read(PrefManager.LANGUAGEID, 1) == 1) {
+                binding.languageNavEndTxt.text = "English"
+            } else {
+                binding.languageNavEndTxt.text = "Arabic"
+            }
             binding.drawerLayout.openDrawer(GravityCompat.START)
         }
 
@@ -149,7 +156,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
                     listDrawer.clear()
-                    listDrawer.addAll(response?.data!! as ArrayList<DrawerResponse.Category>)
+                    listDrawer.addAll(response.data!! as ArrayList<DrawerResponse.Category>)
                     drawerParentAdapter.notifyDataSetChanged()
                 }
 
@@ -175,11 +182,42 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
 
-        myaccountviewModel.logout.observe(this, { response ->
-            when (response)
-            {
+        viewModel.languageChange.observe(this) { response ->
+            when (response) {
                 is Resource.Success -> {
-                   ProgressDialog.hideProgressBar()
+                    ProgressDialog.hideProgressBar()
+                    Toast.makeText(this, ""+response.message, Toast.LENGTH_SHORT).show()
+//                    listDrawer.clear()
+//                    listDrawer.addAll(response?.data!! as ArrayList<DrawerResponse.Category>)
+//                    drawerParentAdapter.notifyDataSetChanged()
+                }
+
+                is Resource.Loading -> {
+                    ProgressDialog.showProgressBar(this)
+                }
+                is Resource.Error -> {
+                    ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        this,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        this,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+
+        myaccountviewModel.logout.observe(this) { response ->
+            when (response) {
+                is Resource.Success -> {
+                    ProgressDialog.hideProgressBar()
 
                     PrefManager.clearAllPref()
                     dialog!!.dismiss()
@@ -194,7 +232,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     ).show()
                 }
                 is Resource.Loading -> {
-                   ProgressDialog.showProgressBar(this)
+                    ProgressDialog.showProgressBar(this)
                 }
                 is Resource.Error -> {
                     ProgressDialog.hideProgressBar()
@@ -205,7 +243,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     ).show()
                 }
                 else -> {
-                   ProgressDialog.hideProgressBar()
+                    ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         this,
                         response.message,
@@ -213,7 +251,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     ).show()
                 }
             }
-        })
+        }
 
     }
 
@@ -240,11 +278,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.infoTools.ivBag.visibility = if (ivBag) View.VISIBLE else View.INVISIBLE
         binding.infoTools.ivSearch.visibility = if (ivSearch) View.VISIBLE else View.INVISIBLE
     }
-
-
-
-
-
 
     private fun setCurrentFragment(fragment: Fragment) =
         supportFragmentManager.beginTransaction().apply {
@@ -365,6 +398,28 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val btn_cancel = dialogLayout.findViewById<Button>(R.id.cancel_btn)
         val btn_save = dialogLayout.findViewById<Button>(R.id.save_btn)
 
+        val rbEnglish = dialogLayout.findViewById<RadioButton>(R.id.english_radio_btn)
+        val rbArabic = dialogLayout.findViewById<RadioButton>(R.id.arabic_radio_btn)
+        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==1){
+            rbEnglish.isChecked=true
+            rbArabic.isChecked=false
+        }else{
+            rbEnglish.isChecked=false
+            rbArabic.isChecked=true
+        }
+
+        val rdGroupLang = dialogLayout.findViewById<RadioGroup>(R.id.radioGroupLang)
+        rdGroupLang.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                R.id.english_radio_btn -> {
+                    PrefManager.write(PrefManager.LANGUAGEID, 1)
+                }
+                R.id.arabic_radio_btn -> {
+                    PrefManager.write(PrefManager.LANGUAGEID, 2)
+                }
+            }
+        }
+
         builder.setView(dialogLayout)
         val builderinstance = builder.show()
 
@@ -376,8 +431,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         btn_save.setOnClickListener {
             builder.setCancelable(true)
             builderinstance.dismiss()
+            val request = ChangeLanguageRequestModel(PrefManager.read(PrefManager.LANGUAGEID, 1))
+            viewModel.getLanguage(request)
         }
-
     }
 
     private fun manageMyaccountAccountSidebar() {
@@ -395,7 +451,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.tvLanguage.setTextColor(getColor(R.color.black))
         binding.tvWishlist.setTextColor(getColor(R.color.black))
         binding.bottomNavigatinView.findViewById<View>(R.id.MyAccountFragment).performClick()
-
     }
 
     private fun manageWishlistSidebar() {

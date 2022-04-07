@@ -7,6 +7,4 @@ class ProducatDetailsRepository {
     suspend fun producatdetailsapi(request:ProducatDetailsRequestModel) =
         RetrofitBuilder.apiService?.producatdetailsAsync(request)
 
-
-
 }
