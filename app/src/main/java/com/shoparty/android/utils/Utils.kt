@@ -4,7 +4,8 @@ import android.R
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.graphics.drawable.Drawable
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -16,31 +17,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.Toast
-import androidx.databinding.BindingAdapter
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestListener
 import com.google.android.material.snackbar.Snackbar
-import java.lang.RuntimeException
-
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.Period
 import java.util.*
-import android.telephony.PhoneNumberUtils
-
-import android.content.ComponentName
-
-import android.content.Intent
-import android.net.Uri
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
-
-
-
 
 
 object Utils {
@@ -53,16 +33,23 @@ object Utils {
         )
     }
 
-    fun hideKeyboard(activity: Activity, view: View) {
+    private fun hideKeyboard(activity: Activity, view: View) {
         val inputMethodManager =
             activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    fun showKeyboard(activity: Activity, view: View) {
+        val inputMethodManager =
+            activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_FORCED)
     }
 
     fun hideKeyboard(activity: Activity) {
         val view = (activity.findViewById<View>(R.id.content) as ViewGroup).getChildAt(0)
         hideKeyboard(activity, view)
     }
+
     fun showSnackBar(view: View, message: String) {
         Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
     }
@@ -71,8 +58,17 @@ object Utils {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
+    fun screenShot(view: View): Bitmap? {
+        val bitmap = Bitmap.createBitmap(
+            view.width,
+            view.height, Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(bitmap)
+        view.draw(canvas)
+        return bitmap
+    }
 
-      fun convertToCustomFormat(dateStr: String?): String {
+    fun convertToCustomFormat(dateStr: String?): String {
         val utc = TimeZone.getTimeZone("UTC")
         val sourceFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         val destFormat = SimpleDateFormat("dd MMM,YYYY HH:mm aa")
@@ -81,13 +77,14 @@ object Utils {
         return destFormat.format(convertedDate)
     }
 
-   fun checkValidMobile(mobile:String):Boolean{
-       return mobile.length<8 || mobile.length>15
+    fun checkValidMobile(mobile: String): Boolean {
+        return mobile.length < 8 || mobile.length > 15
     }
 
     fun formatElapsedTime(elapsedSeconds: Long): String? {
         throw RuntimeException("Stub!")
     }
+
     fun showLongToast(context: Context?, message: String?) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
@@ -117,7 +114,7 @@ object Utils {
         editText.setSelection(editText.text.length)
     }
 
-    fun utcToLocalTime(date :String):String{
+    fun utcToLocalTime(date: String): String {
         var dateLocal = date
         try {
             val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -134,6 +131,7 @@ object Utils {
         }
         return dateLocal
     }
+
     fun getAge(year: Int, month: Int, day: Int): Int? {
         //calculating age from dob
         val dob = Calendar.getInstance()
@@ -151,32 +149,28 @@ object Utils {
     }
 
 
-   /* fun openWhatsAppConversation(context: Context, number: String, message: String?) {
-        var number = number
-        number = number.replace(" ", "").replace("+", "")
-        val sendIntent = Intent("android.intent.action.MAIN")
-        sendIntent.type = "text/plain"
-        sendIntent.putExtra(Intent.EXTRA_TEXT, message)
-        sendIntent.component = ComponentName("com.whatsapp", "com.whatsapp.Conversation")
-        sendIntent.putExtra("jid", PhoneNumberUtils.stripSeparators(number) + "@s.whatsapp.net")
-        context.startActivity(sendIntent)
-    }
+    /* fun openWhatsAppConversation(context: Context, number: String, message: String?) {
+         var number = number
+         number = number.replace(" ", "").replace("+", "")
+         val sendIntent = Intent("android.intent.action.MAIN")
+         sendIntent.type = "text/plain"
+         sendIntent.putExtra(Intent.EXTRA_TEXT, message)
+         sendIntent.component = ComponentName("com.whatsapp", "com.whatsapp.Conversation")
+         sendIntent.putExtra("jid", PhoneNumberUtils.stripSeparators(number) + "@s.whatsapp.net")
+         context.startActivity(sendIntent)
+     }
 
 
-    fun openWhatsAppConversationUsingUri(
-        context: Context,
-        numberWithCountryCode: String,
-        message: String
-    ) {
-        val uri: Uri =
-            Uri.parse("https://api.whatsapp.com/send?phone=$numberWithCountryCode&text=$message")
-        val sendIntent = Intent(Intent.ACTION_VIEW, uri)
-        context.startActivity(sendIntent)
-    }*/
-
-
-
-
+     fun openWhatsAppConversationUsingUri(
+         context: Context,
+         numberWithCountryCode: String,
+         message: String
+     ) {
+         val uri: Uri =
+             Uri.parse("https://api.whatsapp.com/send?phone=$numberWithCountryCode&text=$message")
+         val sendIntent = Intent(Intent.ACTION_VIEW, uri)
+         context.startActivity(sendIntent)
+     }*/
 
 
 }

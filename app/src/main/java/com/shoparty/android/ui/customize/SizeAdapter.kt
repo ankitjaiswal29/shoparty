@@ -8,10 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.shoparty.android.R
-import com.shoparty.android.databinding.DrawerListItemLayoutBinding
-import com.shoparty.android.databinding.ItemCategoryBinding
-import com.shoparty.android.databinding.ItemTextBinding
-import com.shoparty.android.databinding.PopupLayoutAvailableFontsBinding
+import com.shoparty.android.databinding.*
 import com.shoparty.android.interfaces.RVItemClickListener
 import com.shoparty.android.ui.main.drawer.drawer_main_category.DrawerChildAdapter
 import com.shoparty.android.ui.main.drawer.drawer_main_category.DrawerResponse
@@ -30,7 +27,7 @@ class SizeAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_text, parent, false)
+            .inflate(R.layout.item_size, parent, false)
         return ViewHolder(view,listener,context)
     }
 
@@ -49,7 +46,7 @@ class SizeAdapter(
     ) :
         RecyclerView.ViewHolder(view) {
 
-        private val binding: ItemTextBinding? = DataBindingUtil.bind(view)
+        private val binding: ItemSizeBinding? = DataBindingUtil.bind(view)
 
         init {
             view.setOnClickListener {

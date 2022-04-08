@@ -1,24 +1,19 @@
 package com.shoparty.android.ui.customize
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.shoparty.android.R
-import com.shoparty.android.databinding.DrawerListItemLayoutBinding
-import com.shoparty.android.databinding.ItemCategoryBinding
-import com.shoparty.android.databinding.ItemTextBinding
-import com.shoparty.android.databinding.PopupLayoutAvailableFontsBinding
+import com.shoparty.android.databinding.ItemColorBinding
 import com.shoparty.android.interfaces.RVItemClickListener
-import com.shoparty.android.ui.main.drawer.drawer_main_category.DrawerChildAdapter
-import com.shoparty.android.ui.main.drawer.drawer_main_category.DrawerResponse
 
 class ColorAdapter(
     val context: Context,
-    private val list: List<Int>
+    private val list: List<String>
 ) :
     RecyclerView.Adapter<ColorAdapter.ViewHolder>() {
 
@@ -30,8 +25,8 @@ class ColorAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_text, parent, false)
-        return ViewHolder(view,listener,context)
+            .inflate(R.layout.item_color, parent, false)
+        return ViewHolder(view, listener, context)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -49,7 +44,7 @@ class ColorAdapter(
     ) :
         RecyclerView.ViewHolder(view) {
 
-        private val binding: ItemTextBinding? = DataBindingUtil.bind(view)
+        private val binding: ItemColorBinding? = DataBindingUtil.bind(view)
 
         init {
             view.setOnClickListener {
@@ -57,8 +52,8 @@ class ColorAdapter(
             }
         }
 
-        fun bind(modal:Int) {
-            binding?.tvData?.text = modal.toString()
+        fun bind(modal: String) {
+            binding?.view?.setBackgroundColor(Color.parseColor(modal))
 
         }
     }

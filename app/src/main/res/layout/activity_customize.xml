@@ -23,31 +23,41 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/imgBanner"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clPreview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:contentDescription="@null"
-                android:maxHeight="@dimen/_200sdp"
-                android:minHeight="@dimen/_150sdp"
-                android:scaleType="fitXY"
-                android:src="@drawable/shoparty_icon"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/infoTool" />
+                app:layout_constraintTop_toBottomOf="@+id/infoTool">
 
-            <TextView
-                android:id="@+id/tvData"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins"
-                android:text="@string/name"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_30ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/imgBanner"
-                app:layout_constraintEnd_toEndOf="@+id/imgBanner"
-                app:layout_constraintStart_toStartOf="@+id/imgBanner"
-                app:layout_constraintTop_toTopOf="@id/imgBanner" />
+                <ImageView
+                    android:id="@+id/imgBanner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@null"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="@dimen/_200sdp"
+                    android:minHeight="@dimen/_150sdp"
+                    android:src="@drawable/shoparty_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvData"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="@string/name"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imgBanner"
+                    app:layout_constraintEnd_toEndOf="@+id/imgBanner"
+                    app:layout_constraintStart_toStartOf="@+id/imgBanner"
+                    app:layout_constraintTop_toTopOf="@id/imgBanner" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ct_constrain_edit_lay"
@@ -59,7 +69,7 @@
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imgBanner">
+                app:layout_constraintTop_toBottomOf="@+id/clPreview">
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline"
@@ -75,8 +85,11 @@
                     android:layout_marginEnd="5dp"
                     android:background="@drawable/customize_border1"
                     android:drawableEnd="@drawable/ic_icon_material_arrow_drop_down"
+                    android:ellipsize="end"
+                    android:ems="2"
+                    android:maxLines="1"
                     android:padding="@dimen/_8sdp"
-                    android:text="@string/poppins"
+                    android:text="AndroidClock"
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toStartOf="@+id/guideline"
                     app:layout_constraintStart_toStartOf="parent"
@@ -92,16 +105,16 @@
                     android:drawableEnd="@drawable/ic_icon_material_arrow_drop_down"
                     android:drawablePadding="@dimen/_4sdp"
                     android:padding="@dimen/_8sdp"
-                    android:textColor="@color/black"
                     android:text="20"
-                    app:layout_constraintEnd_toStartOf="@+id/customize_letter_linear"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toStartOf="@+id/llColor"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintStart_toEndOf="@+id/tvFont"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
-                    android:id="@+id/customize_letter_linear"
+                    android:id="@+id/llColor"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/customize_border1"
@@ -112,19 +125,13 @@
                     app:layout_constraintStart_toEndOf="@+id/tvSize"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="A"
-                        android:textColor="@color/black"
-                        android:visibility="invisible" />
-
                     <View
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
+                        android:id="@+id/viewColor"
+                        android:layout_width="@dimen/_16sdp"
+                        android:layout_height="@dimen/_16sdp"
                         android:layout_gravity="center"
                         android:layout_marginStart="5dp"
-                        android:background="@color/color_pink" />
+                        android:background="@color/black" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -134,13 +141,14 @@
                         android:src="@drawable/ic_icon_material_arrow_drop_down" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/customize_xyz_tv2"
+                <EditText
+                    android:id="@+id/etName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/customize_border1"
-                    android:drawableEnd="@drawable/ic_icon_material_arrow_drop_down"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
                     android:paddingStart="20dp"
                     android:paddingTop="10dp"
                     android:paddingEnd="20dp"
@@ -165,7 +173,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/ct_constrain_edit_lay">
 
                 <LinearLayout
-                    android:id="@+id/customize_t_linear"
+                    android:id="@+id/llText"
                     android:layout_width="90dp"
                     android:layout_height="65dp"
                     android:layout_marginStart="18dp"
@@ -191,7 +199,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/customize_gallery_linear"
+                    android:id="@+id/llPicture"
                     android:layout_width="0dp"
                     android:layout_height="65dp"
                     android:layout_marginStart="20dp"
@@ -202,7 +210,7 @@
                     android:paddingStart="40dp"
                     android:paddingEnd="40dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/customize_t_linear"
+                    app:layout_constraintStart_toEndOf="@+id/llText"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
@@ -224,51 +232,14 @@
                 android:id="@+id/ct_constrain_lay5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="37dp"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:paddingBottom="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ct_constrain_lay4">
 
-
-                <!-- <LinearLayout
-                     android:id="@+id/customize_linear1"
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:orientation="horizontal"
-                     android:weightSum="1"
-                     app:layout_constraintTop_toTopOf="parent"
-                     app:layout_constraintStart_toStartOf="parent"
-                     android:layout_marginStart="20dp"
-                     android:layout_marginEnd="20dp"
-                     app:layout_constraintEnd_toEndOf="parent">
-
-                     <Button
-                         android:id="@+id/btn_preview"
-                         android:layout_width="match_parent"
-                         android:layout_height="40dp"
-                         android:layout_weight="0.5"
-                         android:text="@string/preview"
-                         android:textColor="@color/white"
-                         android:textAllCaps="false"
-                         android:background="@drawable/customize_btn_bg"
-                         android:layout_marginEnd="5dp" />
-
-                     <Button
-                         android:id="@+id/btn_save"
-                         android:layout_width="match_parent"
-                         android:layout_height="40dp"
-                         android:layout_weight="0.5"
-                         android:background="@drawable/customize_btn_bg"
-                         android:text="@string/save"
-                         android:textColor="@color/white"
-                         android:textAllCaps="false"
-                         android:layout_marginStart="5dp" />
-
-                 </LinearLayout>-->
-
                 <Button
-                    android:id="@+id/btn_preview"
+                    android:id="@+id/btnPreview"
                     style="@style/AppTheme.Text_16_dp_pink"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -297,7 +268,7 @@
                     android:textAllCaps="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_preview" />
+                    app:layout_constraintTop_toBottomOf="@+id/btnPreview" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
