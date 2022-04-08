@@ -40,12 +40,14 @@ import com.shoparty.android.ui.search.SearchActivity
 import com.shoparty.android.ui.shoppingbag.ShoppingBagActivity
 import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.ProgressDialog
+import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
+    private var langaugevalue: Int=1
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModal
     private lateinit var drawerParentAdapter: DrawerParentAdapter
@@ -186,12 +188,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             when (response) {
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
-                    if(response.data?.language_id=="1"){
+                    Utils.showLongToast(this,response.message)
+                    if(response.data?.language_id.equals("1"))
+                    {
                         PrefManager.write(PrefManager.LANGUAGEID, 1)
-                    }else if(response.data?.language_id=="2"){
-                        PrefManager.write(PrefManager.LANGUAGEID, 2)
-                    }else{
-                        Toast.makeText(this, ""+response.message, Toast.LENGTH_SHORT).show()
+                    }
+                    else if(response.data?.language_id.equals("2"))
+                    {
+                        PrefManager.write(PrefManager.LANGUAGEID,2)
+                    }
+                    else
+                    {
+                        Utils.showLongToast(this,getString(R.string.pleaselogintochange))
                     }
                 }
 
@@ -403,25 +411,28 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         val rbEnglish = dialogLayout.findViewById<RadioButton>(R.id.english_radio_btn)
         val rbArabic = dialogLayout.findViewById<RadioButton>(R.id.arabic_radio_btn)
-        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==1){
+
+        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==1)
+        {
             rbEnglish.isChecked=true
             rbArabic.isChecked=false
-        }else{
+        }
+        else{
             rbEnglish.isChecked=false
             rbArabic.isChecked=true
         }
 
-//        val rdGroupLang = dialogLayout.findViewById<RadioGroup>(R.id.radioGroupLang)
-//        rdGroupLang.setOnCheckedChangeListener { group, checkedId ->
-//            when (checkedId) {
-//                R.id.english_radio_btn -> {
-//                    PrefManager.write(PrefManager.LANGUAGEID, 1)
-//                }
-//                R.id.arabic_radio_btn -> {
-//                    PrefManager.write(PrefManager.LANGUAGEID, 2)
-//                }
-//            }
-//        }
+        val rdGroupLang = dialogLayout.findViewById<RadioGroup>(R.id.radioGroupLang)
+        rdGroupLang.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                R.id.english_radio_btn -> {
+                    langaugevalue=1
+                }
+                R.id.arabic_radio_btn -> {
+                    langaugevalue=2
+                }
+            }
+        }
 
         builder.setView(dialogLayout)
         val builderinstance = builder.show()
@@ -434,7 +445,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         btn_save.setOnClickListener {
             builder.setCancelable(true)
             builderinstance.dismiss()
-            val request = ChangeLanguageRequestModel(PrefManager.read(PrefManager.LANGUAGEID, 1))
+            val request = ChangeLanguageRequestModel(langaugevalue)
             viewModel.getLanguage(request)
         }
     }

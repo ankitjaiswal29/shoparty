@@ -11,12 +11,11 @@ import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.utils.inflate
 import kotlinx.android.synthetic.main.filter_color_item_layout.view.*
 
-class ColorAdapter(var context: Context, private val itemList: List<ProducatDetailsResponse.Color>,
-                   var recyclerViewClickListener: RecyclerViewClickListener): RecyclerView.Adapter<ColorAdapter.TopSellingSubcategoriesViewHolder>()
+class ProductDetailsColorAdapter(var context: Context, private val itemList: List<ProducatDetailsResponse.Color>,
+                                 var recyclerViewClickListener: RecyclerViewClickListener): RecyclerView.Adapter<ProductDetailsColorAdapter.TopSellingSubcategoriesViewHolder>()
 {
     inner class TopSellingSubcategoriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     var check=false
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopSellingSubcategoriesViewHolder {
         return TopSellingSubcategoriesViewHolder(parent.inflate(R.layout.filter_color_item_layout))
     }
@@ -38,10 +37,13 @@ class ColorAdapter(var context: Context, private val itemList: List<ProducatDeta
         {
             holder.itemView.iv_check.visibility=View.GONE
         }
-        holder.itemView.view_circle.setOnClickListener{
 
-            item.ischecked = !item.ischecked
+        holder.itemView.view_circle.setOnClickListener{
             recyclerViewClickListener.click(item.color_id.toString())
+            itemList.forEach {
+                it.ischecked = false
+            }
+            item.ischecked = true
             notifyDataSetChanged()
         }
     }

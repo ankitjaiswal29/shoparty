@@ -5,6 +5,7 @@ import com.shoparty.android.ui.address.addaddress.getaddress.DeleteAddressReques
 import com.shoparty.android.ui.address.addaddress.getaddress.DeleteAddressResponse
 import com.shoparty.android.ui.address.addaddress.getaddress.GetAddressListResponse
 import com.shoparty.android.ui.contactus.ContactUsResponse
+import com.shoparty.android.ui.filter.age.AgeResponse
 import com.shoparty.android.ui.filter.color.ColorsRequestModel
 import com.shoparty.android.ui.filter.color.ColorsResponse
 import com.shoparty.android.ui.filter.gender.GenderResponse
@@ -135,6 +136,9 @@ interface ApiService {
     suspend fun getGenderList(
     ): Response<GenderResponse>
 
+    @GET("list-ages")
+    suspend fun changeAge(
+    ): Response<AgeResponse>
 
 
     @POST("list-orders")

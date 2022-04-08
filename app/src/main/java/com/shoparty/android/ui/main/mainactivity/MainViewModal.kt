@@ -62,12 +62,12 @@ class MainViewModal(private val app: Application) : ViewModel() {
         if (response.isSuccessful) {
             response.body()?.let { res ->
                 return if (res.response_code == 200) {
-                    Resource.Success(res.message)
+                    Resource.Success(res.message,res.result)
                 } else {
                     Resource.Error(res.message)
                 }
             }
         }
-        return Resource.Error(response.message())
+         return Resource.Error(response.message())
     }
 }

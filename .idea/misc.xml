@@ -3,18 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/drawable/background_sellected_filter.xml" value="0.119" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/drawable/background_unsellected_filter.xml" value="0.119" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/drawable/check_black.xml" value="0.119" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/drawable/ic_baseline_check_24.xml" value="0.119" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/drawable/ic_icon_fav_gray.xml" value="0.119" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/drawable/ic_instagram.xml" value="0.119" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/drawable/youtube_icon.xml" value="0.119" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_filter.xml" value="0.25" />
+        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_filter.xml" value="0.2" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_main.xml" value="0.17777777777777778" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_product_details.xml" value="0.17777777777777778" />
+        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_product_details.xml" value="0.2" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/drawer_list_child.xml" value="0.17777777777777778" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/drawer_list_item_layout.xml" value="0.17777777777777778" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/drawer_list_itemsub_parent_layout.xml" value="0.17777777777777778" />
+        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/filter_color_item_layout.xml" value="0.17777777777777778" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/filter_recyclar_gender_item_layout.xml" value="0.20416666666666666" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/filter_recyclar_item_layout.xml" value="0.2" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/fragment_home.xml" value="0.16" />

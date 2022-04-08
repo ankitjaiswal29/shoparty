@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityProductDetailsBinding
+
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.ui.customize.CustomizeActivity
 import com.shoparty.android.ui.main.home.HomeResponse
@@ -77,20 +78,17 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener,Recycle
     private fun choesColorRecyclaritem(colors: List<ProducatDetailsResponse.Color>)
     {
         colors.forEachIndexed { pos,it->
-            it.color_code = "#FFBB86FC"
             if(pos==0)
             {
                 it.ischecked=true
             }
         }
-
-
         val gridLayoutManager = GridLayoutManager(this, 9)
         binding.rvColorrecyclarview.apply {
             layoutManager = gridLayoutManager
             setHasFixedSize(true)
             isFocusable = false
-            adapter = ColorAdapter(this@ProductDetailsActivity,colors,this@ProductDetailsActivity)
+            adapter = ProductDetailsColorAdapter(this@ProductDetailsActivity,colors,this@ProductDetailsActivity)
         }
 
     }
@@ -313,6 +311,18 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener,Recycle
         else
         {
             binding.btnCostomizeit.visibility=View.VISIBLE
+        }
+
+        if(data.delivery_time.isNullOrEmpty())
+        {
+            binding.tvOrdernow.visibility=View.GONE
+            binding.tvOrdernowdate.visibility=View.GONE
+        }
+        else
+        {
+            binding.tvOrdernow.visibility=View.VISIBLE
+            binding.tvOrdernowdate.visibility=View.VISIBLE
+            binding.tvOrdernowdate.text=getString(R.string.andgetitby)+" "+data.delivery_time
         }
 
     }
