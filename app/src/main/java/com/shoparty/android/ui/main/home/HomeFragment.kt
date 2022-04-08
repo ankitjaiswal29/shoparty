@@ -68,7 +68,7 @@ class HomeFragment : Fragment(), View.OnClickListener, RecyclerViewFavouriteList
     private val listTheme: ArrayList<HomeResponse.Home.Theme> = ArrayList()
 
     private lateinit var adapterArrival: NewArrivalsHomeAdapter
-    private val listArrival: ArrayList<HomeResponse.Home.Arrival> = ArrayList()
+    private val listArrival: ArrayList<HomeResponse.Home.ArrivalResponse> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -167,7 +167,7 @@ class HomeFragment : Fragment(), View.OnClickListener, RecyclerViewFavouriteList
                         adapterTheme.notifyDataSetChanged()
 
                         listArrival.clear()
-                        listArrival.addAll(response.data?.arrival_response!! as ArrayList<HomeResponse.Home.Arrival>)
+                        listArrival.addAll(response.data?.arrival_response!! as ArrayList<HomeResponse.Home.ArrivalResponse>)
                         adapterArrival.notifyDataSetChanged()
                     } catch (e: Exception) {
                         e.printStackTrace()

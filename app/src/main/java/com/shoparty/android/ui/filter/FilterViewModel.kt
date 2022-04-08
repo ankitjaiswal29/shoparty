@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shoparty.android.R
+import com.shoparty.android.ui.filter.age.AgeResponse
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 
@@ -22,7 +23,6 @@ class FilterViewModel(private val app: Application) : ViewModel()
 {
 
     private val repository = FilterRepository()
-
     private val mColors = MutableLiveData<Resource<List<ColorsResponse.Colors>>>()
     val mColor: LiveData<Resource<List<ColorsResponse.Colors>>> = mColors
 
@@ -33,8 +33,10 @@ class FilterViewModel(private val app: Application) : ViewModel()
     val mGender = MutableLiveData<Resource<List<String>>>()
     val mGenders: LiveData<Resource<List<String>>> = mGender
 
-    fun colors() = viewModelScope.launch {
+    val mAge = MutableLiveData<Resource<List<AgeResponse.Result>>>()
+    val mAges: LiveData<Resource<List<AgeResponse.Result>>> = mAge
 
+    fun colors() = viewModelScope.launch {
         val request = ColorsRequestModel("1")
         if(Utils.hasInternetConnection(app.applicationContext))
         {
@@ -70,6 +72,16 @@ class FilterViewModel(private val app: Application) : ViewModel()
             mGender.postValue(handleGenderResponse(response!!))
         } else {
             mGender.postValue(Resource.Error(app.resources.getString(R.string.no_internet)))
+        }
+    }
+
+    fun age() = viewModelScope.launch {
+        if (Utils.hasInternetConnection(app.applicationContext)) {
+            mAge.postValue(Resource.Loading())
+            val response = repository.ageApi()
+            mAge.postValue(handleAgeResponse(response!!))
+        } else {
+            mAge.postValue(Resource.Error(app.resources.getString(R.string.no_internet)))
         }
     }
 
@@ -118,6 +130,20 @@ class FilterViewModel(private val app: Application) : ViewModel()
             }
         }
         return Resource.Error(response.message())
+    }
+
+    private fun handleAgeResponse(response: Response<AgeResponse>): Resource<List<AgeResponse.Result>>? {
+        if (response?.isSuccessful == true) {
+            response.body()?.let { res ->
+                return if (res.response_code == 200) {
+                    Resource.Success(res.message, res.result)
+                } else {
+                    Resource.Error(res.message)
+                }
+            }
+        }
+        return Resource.Error(response.message())
+
     }
 
 }

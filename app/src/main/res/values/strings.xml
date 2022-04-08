@@ -374,7 +374,7 @@
     <string name="go_to_settings">GOTO SETTINGS</string>
     <string name="Profile">Profile</string>
     <string name="usd_4_00">USD 4.00</string>
-    <string name="usd_39_00">USD 39.00</string>
+    <string name="usd_39_00">$150</string>
     <string name="clear_all">Clear All</string>
     <string name="pleaselogin">Please Login Once</string>
     <string name="addresstitle">Address</string>
@@ -393,7 +393,8 @@
     <string name="recent_searches">Recent Searches</string>
     <string name="clear_history">Clear History</string>
     <string name="price_range">Price Range</string>
-    <string name="order_now_get_it_by_mar_24_2022"><![CDATA[Order Now, & Get it by Mar 24, 2022]]></string>
+    <string name="ordernow">Order Now:</string>
+    <string name="andgetitby">And Get it By</string>
     <string name="something_went_wrong">Something Went Wrong!!</string>
     <string name="pleaseenterotp">Enter otp sent to mobile number</string>
     <string name="txtto">To</string>
@@ -414,6 +415,8 @@
     <string name="comingsoon">Coming Soon</string>
     <string name="str_hideless"><![CDATA[Show Less >]]></string>
     <string name="editaddress">Edit Address</string>
+    <string name="minvalue">$50</string>
+    <string name="pleaselogintochange">Please login to change language</string>
 
 
 </resources>

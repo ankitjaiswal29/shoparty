@@ -16,6 +16,7 @@ data class ProducatDetailsResponse(
 
     data class ProductDetails(
         val age_from: String,
+        val delivery_time: String,
         val age_to: String,
         val ar_description: String,
         val ar_name: String,

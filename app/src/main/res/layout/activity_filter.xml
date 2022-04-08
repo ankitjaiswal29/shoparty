@@ -3,9 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- <data>
 
-     </data>-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -34,7 +32,6 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-
             android:paddingBottom="100dp"
             app:layout_constraintTop_toBottomOf="@+id/info_tool">
 
@@ -194,8 +191,8 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:r2CurrentMaxValue="140"
-                    app:r2CurrentMinValue="30"
+                    app:r2CurrentMaxValue="150"
+                    app:r2CurrentMinValue="50"
                     app:r2barHeight="10dp"
                     app:r2baseColor="@color/pink"
                     app:r2circleFillColor="@color/pink"
@@ -210,16 +207,16 @@
                     app:r2minValueStep="5" />
 
                 <TextView
-                    android:id="@+id/tv_usd"
+                    android:id="@+id/tv_usd_min"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/usd_4_00"
+                    android:text="@string/minvalue"
                     style="@style/AppTheme.Text_12dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/double_range_seekbar"/>
 
                 <TextView
-                    android:id="@+id/tv_usd2"
+                    android:id="@+id/tv_usd_max"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/usd_39_00"

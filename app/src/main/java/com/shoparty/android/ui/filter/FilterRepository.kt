@@ -14,4 +14,7 @@ class FilterRepository {
     suspend fun getGenderApi() =
         RetrofitBuilder.apiService?. getGenderList()
 
+    suspend fun ageApi() =
+        RetrofitBuilder.apiService?.changeAge()
+
 }

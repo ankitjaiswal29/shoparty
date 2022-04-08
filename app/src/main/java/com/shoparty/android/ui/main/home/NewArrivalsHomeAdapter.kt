@@ -17,7 +17,7 @@ import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.Utils
 
 class NewArrivalsHomeAdapter(
-    private val list: ArrayList<HomeResponse.Home.Arrival>,
+    private val list: ArrayList<HomeResponse.Home.ArrivalResponse>,
     val context: Context
 ) : RecyclerView.Adapter<NewArrivalsHomeAdapter.ViewHolder>() {
 
@@ -51,31 +51,25 @@ class NewArrivalsHomeAdapter(
         val context: Context
     ) :
         RecyclerView.ViewHolder(view) {
-
         private val binding: NewArrivalItemBinding? = DataBindingUtil.bind(view)
 
-        init { }
+        fun bind(modal: HomeResponse.Home.ArrivalResponse) {
+            binding?.newArrivalItemNameTv?.text = modal.product_name
+            if (modal.sale_price != null)
+                binding?.tvPrice?.text = context.getString(R.string.dollor)+modal.sale_price
 
-        fun bind(modal: HomeResponse.Home.Arrival) {
-            binding?.newArrivalItemNameTv?.text = modal.arrival_name
-            if (modal.price != null)
-                binding?.tvPrice?.text = context.getString(R.string.dollor)+modal.price
-            Glide.with(context).asBitmap().load(modal.arrival_image)
+            Glide.with(context).asBitmap().load(modal.image)
                 .into(binding?.newArrivalItemImg!!)
 
             view.setOnClickListener {
-               /* val intent = Intent(context, ProductDetailsActivity::class.java)
-                intent.putExtra(Constants.IDPRODUCT,modal.arrival_id)
-                intent.putExtra(Constants.PRODUCATNAME,modal.arrival_name)
-                intent.putExtra(Constants.PRODUCATDETAILSID,modal..toString())
+                val intent = Intent(context, ProductDetailsActivity::class.java)
+                intent.putExtra(Constants.IDPRODUCT,modal.product_id.toString())
+                intent.putExtra(Constants.PRODUCATNAME,modal.product_name)
+                intent.putExtra(Constants.PRODUCATDETAILSID,modal.product_detail_id.toString())
                 intent.putExtra(Constants.PRODUCTSIZEID,modal.product_size_id.toString())
                 intent.putExtra(Constants.PRODUCTCOLORID,modal.product_color_id.toString())
-                context.startActivity(intent)*/
-
-                Utils.showLongToast(context,context.getString(R.string.comingsoon))
+                context.startActivity(intent)
             }
-
-
         }
     }
 

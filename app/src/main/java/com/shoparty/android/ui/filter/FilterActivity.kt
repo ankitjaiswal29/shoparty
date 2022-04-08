@@ -14,10 +14,10 @@ import com.mohammedalaa.seekbar.OnDoubleValueSeekBarChangeListener
 import com.shoparty.android.R
 
 import com.shoparty.android.interfaces.RecyclerViewClickListener
+import com.shoparty.android.ui.filter.age.AgeResponse
 import com.shoparty.android.ui.filter.age.FilterAgeAdapter
-import com.shoparty.android.ui.filter.color.ColorsAdapters
+import com.shoparty.android.ui.filter.color.FilterColorsAdapters
 import com.shoparty.android.ui.filter.color.ColorsResponse
-import com.shoparty.android.ui.filter.color.FilterColorAdapter
 import com.shoparty.android.ui.filter.gender.FilterGenderAdapter
 import com.shoparty.android.ui.filter.size.SizeAdapters
 
@@ -40,11 +40,13 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener, RecyclerViewCli
     private var genderlist: ArrayList<String> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-         binding= DataBindingUtil.setContentView(this, R.layout.activity_filter)
+        binding= DataBindingUtil.setContentView(this, R.layout.activity_filter)
         viewModel = ViewModelProvider(this, ViewModalFactory(application))[FilterViewModel::class.java]
-        viewModel.colors()//api call
-        viewModel.sizes()//api call
-        viewModel.gender()//api call
+        viewModel.colors()//color api call
+        viewModel.sizes()//size api call
+        viewModel.gender()//gender api call
+        viewModel.age() //gender api call
+
         initialise()
         setObserver()
     }
@@ -54,7 +56,7 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener, RecyclerViewCli
         binding.tvSize.setOnClickListener(this)
         binding.btnApplay.setOnClickListener(this)
         binding.infoTool.tvClearall.visibility=View.VISIBLE
-        binding.infoTool.tvTitle.text = "Filter"
+        binding.infoTool.tvTitle.text =getString(R.string.filter)
         binding.tvAge.setOnClickListener(this)
         binding.tvGender.setOnClickListener(this)
         binding.tvPrice.setOnClickListener(this)
@@ -75,27 +77,21 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener, RecyclerViewCli
             override fun onStartTrackingTouch(
                 seekBar: DoubleValueSeekBarView?,
                 min: Int,
-                max: Int
-            ) {
-                Toast.makeText(this@FilterActivity,min.toString()+max.toString(),Toast.LENGTH_LONG).show()
+                max: Int)
+            {
+               // Toast.makeText(this@FilterActivity,min.toString()+max.toString(),Toast.LENGTH_LONG).show()
+            }
+            override fun onStopTrackingTouch(seekBar: DoubleValueSeekBarView?, min: Int, max: Int)
+            {
+                binding.tvUsdMin.text=getString(R.string.dollor)+min.toString()
+                binding.tvUsdMax.text=getString(R.string.dollor)+max.toString()
             }
 
-            override fun onStopTrackingTouch(seekBar: DoubleValueSeekBarView?, min: Int, max: Int) {
-
-            }
-
-            override fun onValueChanged(
-                seekBar: DoubleValueSeekBarView?,
-                min: Int,
-                max: Int,
-                fromUser: Boolean
-            ) {
-
+            override fun onValueChanged(seekBar: DoubleValueSeekBarView?, min: Int, max: Int, fromUser: Boolean)
+            {
+             //   Toast.makeText(this@FilterActivity,min.toString()+max.toString(),Toast.LENGTH_LONG).show()
             }
         })
-        age()
-
-
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
 
     }
@@ -204,16 +200,38 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener, RecyclerViewCli
         }
 
 
+        viewModel.mAges.observe(this) { response ->
+            when (response) {
+                is Resource.Success -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    setAgeData(response.data)
+                }
+                is Resource.Loading -> {
+                    com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
+                }
+                is Resource.Error -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(applicationContext, response.message, Toast.LENGTH_SHORT).show()
+                }
+                else -> {
+                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext, response.message, Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
     }
+
+
     private fun setColorsListAdapter(data: ArrayList<ColorsResponse.Colors>) {
         val gridLayoutManager = GridLayoutManager(this, 9)
         binding.rvColorRecyclarview.apply {
             layoutManager = gridLayoutManager
             setHasFixedSize(true)
             isFocusable = false
-            adapter = ColorsAdapters(data,this@FilterActivity)
+            adapter = FilterColorsAdapters(data,this@FilterActivity)
         }
-
     }
 
     private fun setSizeListAdapter(data: ArrayList<String>) {
@@ -236,30 +254,12 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener, RecyclerViewCli
         } }
 
 
-    private fun age() {
-        val data=ArrayList<String>()
-        data.add("Baby 0-2 Years")
-        data.add("Toddler 2-4 Years")
-        data.add("Adventures 5-7 Years")
-        data.add("Pioneers 8+")
-        val spanCount = 2 // 2 columns
-        val spacing = 10 // 30px
-        val includeEdge = false
-
-        binding.rvAgeRecyclarview.addItemDecoration(
-            SpacesItemDecoration(
-                spanCount,
-                spacing,
-                includeEdge
-            )
-        )
-
-        val gridLayoutManager = GridLayoutManager(this, 2)
+    private fun setAgeData(data: List<AgeResponse.Result>?) {
+        val gridLayoutManager = GridLayoutManager(this, 3)
         binding.rvAgeRecyclarview.apply {
             layoutManager = gridLayoutManager
-            setHasFixedSize(true)
-            isFocusable = false
-            adapter = FilterAgeAdapter(data,context)
+            setHasFixedSize(false)
+            adapter = FilterAgeAdapter(data!!,context)
         }
     }
 

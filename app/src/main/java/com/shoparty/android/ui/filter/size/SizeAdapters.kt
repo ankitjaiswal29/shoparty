@@ -16,38 +16,44 @@ import androidx.recyclerview.widget.RecyclerView
 import com.shoparty.android.R
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import kotlinx.android.synthetic.main.filter_color_item_layout.view.*
+import kotlinx.android.synthetic.main.filter_recyclar_gender_item_layout.view.*
 import kotlinx.android.synthetic.main.filter_recyclar_item_layout.view.*
+import kotlinx.android.synthetic.main.filter_recyclar_item_layout.view.tv_text
 
 
 class SizeAdapters(val context: Context,private val sizeList: List<String>,
                    var recyclerViewClickListener: RecyclerViewClickListener) : RecyclerView.Adapter<SizeAdapters.ViewHolder>() {
-    var check=true
+
+    private var lastCheckedPosition = -1
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.filter_recyclar_item_layout, parent, false)
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
         val items = sizeList[position]
+        holder.tv_text.text = items
 
-        holder.tv_text.setText(items)
+        if(position == lastCheckedPosition)
+        {
+            holder.itemView.tv_text.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_baseline_check_24, 0);
+            holder.itemView.cl_rootitem.background = ContextCompat.getDrawable(context, R.drawable.background_sellected_filter);
+        }
+        else
+        {
+            holder.itemView.tv_text.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.check_black, 0);
+            holder.itemView.cl_rootitem.background = ContextCompat.getDrawable(context, R.drawable.background_unsellected_filter);
+        }
 
         holder.itemView.tv_text.setOnClickListener(View.OnClickListener {
-            if(check){
-                holder.itemView.tv_text.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.check_black, 0);
-                holder.itemView.cl_rootitem.setBackground(ContextCompat.getDrawable(context, R.drawable.background_unsellected_filter));
-                check=false
-                //Toast.makeText(context,item[position].toString(),Toast.LENGTH_LONG).show()
-            }else{
-                //Toast.makeText(context,item[position].toString(),Toast.LENGTH_LONG).show()
-                check=true
-                holder.itemView.tv_text.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_baseline_check_24, 0);
-                holder.itemView.cl_rootitem.setBackground(ContextCompat.getDrawable(context, R.drawable.background_sellected_filter));
-
-            }
+            val copyOfLastCheckedPosition = lastCheckedPosition
+            lastCheckedPosition = position
+            notifyItemChanged(copyOfLastCheckedPosition)
+            notifyItemChanged(lastCheckedPosition)
             recyclerViewClickListener.click(items)
         })
+
     }
     override fun getItemCount(): Int {
         return sizeList.size

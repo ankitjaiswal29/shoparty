@@ -189,14 +189,27 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_choesframecolor" />
 
+
                     <TextView
                         android:id="@+id/tv_ordernow"
+                        style="@style/AppTheme.Text_14_dp_bold_pink"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/ordernow"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/rv_colorrecyclarview" />
+
+
+                    <TextView
+                        android:id="@+id/tv_ordernowdate"
                         style="@style/AppTheme.Text_14dp_Bold"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="@string/order_now_get_it_by_mar_24_2022"
-                        app:layout_constraintStart_toStartOf="parent"
+                        android:text="@string/andgetitby"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        app:layout_constraintLeft_toRightOf="@+id/tv_ordernow"
                         app:layout_constraintTop_toBottomOf="@+id/rv_colorrecyclarview" />
 
 
