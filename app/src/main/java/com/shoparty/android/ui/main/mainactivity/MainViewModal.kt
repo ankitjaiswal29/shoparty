@@ -22,8 +22,8 @@ class MainViewModal(private val app: Application) : ViewModel() {
     private val mDrawer = MutableLiveData<Resource<List<DrawerResponse.Category>>>()
     val drawer: LiveData<Resource<List<DrawerResponse.Category>>> = mDrawer
 
-    private val mLang = MutableLiveData<Resource<ChangeLanguageResponse>>()
-    val languageChange: LiveData<Resource<ChangeLanguageResponse>> = mLang
+    private val mLang = MutableLiveData<Resource<ChangeLanguageResponse.LangData>>()
+    val languageChange: LiveData<Resource<ChangeLanguageResponse.LangData>> = mLang
 
     fun getCategory(request: CategoryRequestModel) = viewModelScope.launch {
         if (Utils.hasInternetConnection(app.applicationContext)) {
@@ -58,7 +58,7 @@ class MainViewModal(private val app: Application) : ViewModel() {
         }
     }
 
-    private fun handleLanguageResponse(response: Response<ChangeLanguageResponse>): Resource<ChangeLanguageResponse> {
+    private fun handleLanguageResponse(response: Response<ChangeLanguageResponse>): Resource<ChangeLanguageResponse.LangData> {
         if (response.isSuccessful) {
             response.body()?.let { res ->
                 return if (res.response_code == 200) {

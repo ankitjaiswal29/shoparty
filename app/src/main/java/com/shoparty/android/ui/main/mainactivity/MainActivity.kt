@@ -186,10 +186,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             when (response) {
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
-                    Toast.makeText(this, ""+response.message, Toast.LENGTH_SHORT).show()
-//                    listDrawer.clear()
-//                    listDrawer.addAll(response?.data!! as ArrayList<DrawerResponse.Category>)
-//                    drawerParentAdapter.notifyDataSetChanged()
+                    if(response.data?.language_id=="1"){
+                        PrefManager.write(PrefManager.LANGUAGEID, 1)
+                    }else if(response.data?.language_id=="2"){
+                        PrefManager.write(PrefManager.LANGUAGEID, 2)
+                    }else{
+                        Toast.makeText(this, ""+response.message, Toast.LENGTH_SHORT).show()
+                    }
                 }
 
                 is Resource.Loading -> {
@@ -408,17 +411,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             rbArabic.isChecked=true
         }
 
-        val rdGroupLang = dialogLayout.findViewById<RadioGroup>(R.id.radioGroupLang)
-        rdGroupLang.setOnCheckedChangeListener { group, checkedId ->
-            when (checkedId) {
-                R.id.english_radio_btn -> {
-                    PrefManager.write(PrefManager.LANGUAGEID, 1)
-                }
-                R.id.arabic_radio_btn -> {
-                    PrefManager.write(PrefManager.LANGUAGEID, 2)
-                }
-            }
-        }
+//        val rdGroupLang = dialogLayout.findViewById<RadioGroup>(R.id.radioGroupLang)
+//        rdGroupLang.setOnCheckedChangeListener { group, checkedId ->
+//            when (checkedId) {
+//                R.id.english_radio_btn -> {
+//                    PrefManager.write(PrefManager.LANGUAGEID, 1)
+//                }
+//                R.id.arabic_radio_btn -> {
+//                    PrefManager.write(PrefManager.LANGUAGEID, 2)
+//                }
+//            }
+//        }
 
         builder.setView(dialogLayout)
         val builderinstance = builder.show()
