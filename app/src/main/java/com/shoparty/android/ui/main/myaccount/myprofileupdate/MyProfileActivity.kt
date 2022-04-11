@@ -34,6 +34,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityMyProfileBinding
 import com.shoparty.android.ui.address.addaddress.AddressViewModel
+import com.shoparty.android.ui.main.mainactivity.MainActivity
 import com.shoparty.android.ui.main.myaccount.MyAccountViewModel
 import com.shoparty.android.ui.main.myaccount.getprofile.GetProfileResponse
 import com.shoparty.android.utils.Constants
@@ -108,14 +109,8 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
                     PrefManager.write(PrefManager.GENDER, response.data?.gender!!)
                     PrefManager.write(PrefManager.CITYID, response.data?.city_id.toString())
 
-                   /* cityId = response.data.city_id
-                    cityidlist.forEachIndexed { index, s ->
-                        if (cityId == s) {
-                            cityIdposition = index
-                        }
-                    }*/
 
-                    if (!response.data?.street_no.isNullOrEmpty()) {
+                    if(!response.data?.street_no.isNullOrEmpty()) {
                         response.data?.street_no?.let { PrefManager.write(PrefManager.STREET, it) }
                     }
                     if (!response.data?.building_no.isNullOrEmpty()) {
@@ -236,8 +231,8 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
         PrefManager.write(PrefManager.EMAIL, data?.email.toString())
         PrefManager.write(PrefManager.DOB, data?.dob.toString())
         PrefManager.write(PrefManager.GENDER, data?.gender.toString())
-        /* PrefManager.write(PrefManager.STREET, data?..toString())
-         PrefManager.write(PrefManager.HOUSENO, data?.gender.toString())*/
+       //  PrefManager.write(PrefManager.STREET, data?..toString())
+         PrefManager.write(PrefManager.HOUSENO, data?.gender.toString())
 
         Glide.with(this).load(PrefManager.read(PrefManager.IMAGE,"")).error(R.drawable.person_img).into(binding.ivProfilePic)
         binding.etFirstname.setText(data?.name.toString())
@@ -281,6 +276,10 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
         binding.etFirstname.setSelection(binding.etFirstname.length())
         binding.etMobile.isEnabled = false
         binding.etEmail.setSelection(binding.etEmail.length())
+        binding.ivEditProfile.visibility=View.VISIBLE
+        binding.imgPencil.visibility=View.VISIBLE
+
+
 
         if(PrefManager.read(PrefManager.GENDER,"") == Constants.MALE)
         {

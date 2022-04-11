@@ -17,7 +17,7 @@ import com.shoparty.android.utils.apiutils.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class MainViewModal(private val app: Application) : ViewModel() {
+class MainViewModal(private val app: Application ) : ViewModel() {
     private val repository = MainRepository()
     private val mDrawer = MutableLiveData<Resource<List<DrawerResponse.Category>>>()
     val drawer: LiveData<Resource<List<DrawerResponse.Category>>> = mDrawer

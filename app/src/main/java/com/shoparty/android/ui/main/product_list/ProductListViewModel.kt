@@ -55,7 +55,7 @@ class ProductListViewModel(private val app: Application) : ViewModel()
 
 
     private fun handleProductListResponse(response: Response<ProductListResponse>): Resource<List<Product>>? {
-        if (response?.isSuccessful)
+        if (response?.isSuccessful == true)
         {
             response.body()?.let { res ->
                 return if (res.response_code==200)

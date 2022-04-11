@@ -84,7 +84,7 @@ class RegisterViewModel(private val app: Application) : ViewModel()
     }
 
     private fun handleSignUpResponse(response: Response<RegisterResponseModel>): Resource<RegisterResponseModel.User> {
-        if (response?.isSuccessful)
+        if (response?.isSuccessful == true)
         {
             response.body()?.let { res ->
                 return if (res.response_code==200)

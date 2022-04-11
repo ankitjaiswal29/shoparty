@@ -17,6 +17,7 @@ import com.shoparty.android.ui.filter.color.ColorsRequestModel
 import com.shoparty.android.ui.filter.color.ColorsResponse
 import com.shoparty.android.ui.filter.gender.GenderResponse
 import com.shoparty.android.ui.filter.size.SizeResponse
+import com.shoparty.android.utils.PrefManager
 
 
 class FilterViewModel(private val app: Application) : ViewModel()
@@ -37,7 +38,7 @@ class FilterViewModel(private val app: Application) : ViewModel()
     val mAges: LiveData<Resource<List<AgeResponse.Result>>> = mAge
 
     fun colors() = viewModelScope.launch {
-        val request = ColorsRequestModel("1")
+        val request = ColorsRequestModel(PrefManager.read(PrefManager.LANGUAGEID, 1).toString())
         if(Utils.hasInternetConnection(app.applicationContext))
         {
             mColors.postValue(Resource.Loading())

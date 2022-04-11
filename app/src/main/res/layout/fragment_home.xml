@@ -59,7 +59,6 @@
                     app:sliderScrollTimeInSec="2"
                     app:sliderStartAutoCycle="true" />
 
- -->
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraint1"
                     android:layout_width="match_parent"

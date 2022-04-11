@@ -121,7 +121,7 @@ class HomeFragment : Fragment(), View.OnClickListener, RecyclerViewFavouriteList
 
         setObserver()
 
-        val request = HomeRequestModel(""+PrefManager.read(PrefManager.LANGUAGEID,1),PrefManager.read(PrefManager.USER_ID,""))
+        val request = HomeRequestModel(PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),PrefManager.read(PrefManager.USER_ID,""))
         viewModel.getDashboardData(request)
         viewModel_contactus.getContactus()
     }

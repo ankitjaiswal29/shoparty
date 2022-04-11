@@ -200,7 +200,7 @@ class AddressViewModel(private val app: Application) : ViewModel()
     }
 
     private fun handleAddAddressResponse(response: Response<AddAddressResponse>): Resource<AddAddressResponse.Data> {
-        if (response?.isSuccessful)
+        if (response?.isSuccessful == true)
         {
             response.body()?.let { res ->
                 return if (res.response_code==200)
@@ -216,7 +216,7 @@ class AddressViewModel(private val app: Application) : ViewModel()
     }
 
     private fun handleUpdateAddressResponse(response: Response<UpdateAddressResponse>): Resource<UpdateAddressResponse.Data> {
-        if (response?.isSuccessful)
+        if (response?.isSuccessful == true)
         {
             response.body()?.let { res ->
                 return if (res.response_code==200)
@@ -232,7 +232,7 @@ class AddressViewModel(private val app: Application) : ViewModel()
     }
 
     private fun handleDeleteAddressResponse(response: Response<DeleteAddressResponse>): Resource<DeleteAddressResponse> {
-        if (response?.isSuccessful)
+        if (response?.isSuccessful == true)
         {
             response.body()?.let { res ->
                 return if (res.response_code==200)
@@ -248,7 +248,7 @@ class AddressViewModel(private val app: Application) : ViewModel()
     }
 
     private fun handlegetCountryResponse(response: Response<GetCountryResponse>): Resource<List<GetCountryResponse.Data>>? {
-        if (response?.isSuccessful)
+        if (response?.isSuccessful == true)
         {
             response.body()?.let { res ->
                 return if (res.response_code==200)
@@ -264,7 +264,7 @@ class AddressViewModel(private val app: Application) : ViewModel()
     }
 
     private fun handlegetAddressResponse(response: Response<GetAddressListResponse>): Resource<List<GetAddressListResponse.Data>>? {
-        if (response?.isSuccessful)
+        if (response?.isSuccessful == true)
         {
             response.body()?.let { res ->
                 return if (res.response_code==200)
@@ -281,7 +281,7 @@ class AddressViewModel(private val app: Application) : ViewModel()
 
 
     private fun handlegetCityResponse(response: Response<GetCityResponse>): Resource<List<GetCityResponse.Data>>? {
-        if (response?.isSuccessful)
+        if (response?.isSuccessful == true)
         {
             response.body()?.let { res ->
                 return if (res.response_code==200)

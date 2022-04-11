@@ -80,8 +80,7 @@ class SearchActivity : AppCompatActivity() {
                 if (it.length >= 3) {
                     val requestModel = SearchRequestModel(
                         "0",
-                        "100",
-                        ""+PrefManager.read(PrefManager.LANGUAGEID, 1),
+                        "100", PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
                         binding.etSearch.text.toString().trim(),
                         PrefManager.read(PrefManager.USER_ID, ""),
                         Constants.DEVICE_TYPE,

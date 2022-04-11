@@ -28,7 +28,6 @@ class MyAccountAdapter(
     {
         val item = mList[position]
         holder.binding.textview.text=item.text
-
         holder.binding.ivIcon.setImageResource(item.image)
 
         holder.itemView.setOnClickListener {

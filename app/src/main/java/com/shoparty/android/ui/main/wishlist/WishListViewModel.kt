@@ -45,7 +45,7 @@ class WishListViewModel(private val app: Application) : ViewModel() {
     }
 
     private fun handleWishlistResponse(response: Response<WishListResponse>): Resource<List<WishListResponse.Result>> {
-        if (response?.isSuccessful) {
+        if (response?.isSuccessful == true) {
             response.body()?.let { res ->
                 return if (res.response_code == 200) {
                     Resource.Success(res.message, res.result)
@@ -64,7 +64,7 @@ class WishListViewModel(private val app: Application) : ViewModel() {
 
 
     private fun handleremoveWishlistResponse(response: Response<RemoveWishlistResponse>): Resource<RemoveWishlistResponse> {
-        if (response?.isSuccessful) {
+        if (response?.isSuccessful == true) {
             response.body()?.let { res ->
                 return if (res.response_code == 200) {
                     Resource.Success(res.message)

@@ -242,6 +242,7 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
                 else
                 {
                     val intent = Intent (activity, MyProfileActivity::class.java)
+                    intent.putExtra("pagestatus",Constants.MYACCOUNTFRAGMENT)
                     startActivityForResult(intent, Constants.EDIT_PROFILE_CODE)
                 }
             }

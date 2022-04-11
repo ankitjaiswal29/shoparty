@@ -30,7 +30,7 @@ class WishListActivity : AppCompatActivity(), View.OnClickListener,
         binding = DataBindingUtil.setContentView(this, R.layout.activity_wish_list)
         initialise()
         viewModel = ViewModelProvider(this, ViewModalFactory(this.application!!))[WishListViewModel::class.java]
-        viewModel.getWishlist(""+ PrefManager.read(PrefManager.LANGUAGEID,1))  //api call
+        viewModel.getWishlist("1")  //api call
         setObserver()
     }
 
@@ -105,7 +105,7 @@ class WishListActivity : AppCompatActivity(), View.OnClickListener,
             when (response) {
                 is Resource.Success -> {
                     //  ProgressDialog.hideProgressBar()
-                    viewModel.getWishlist(""+PrefManager.read(PrefManager.LANGUAGEID,1))    //api call
+                    viewModel.getWishlist("1")    //api call
                 }
                 is Resource.Loading -> {
                     //   ProgressDialog.showProgressBar(requireContext())

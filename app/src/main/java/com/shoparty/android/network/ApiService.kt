@@ -52,7 +52,6 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface ApiService {
-
     @POST("signup")
     suspend fun registerAccountAsync(
         @Body registerRequestModel: RegisterRequestModel
@@ -180,8 +179,7 @@ interface ApiService {
     @POST("sidebar/product/categories")
     suspend fun getDrawer(
         @Body requestModel: CategoryRequestModel
-    ):
-            Response<DrawerResponse>
+    ): Response<DrawerResponse>
 
     @POST("order-details")
     suspend fun orderdetails(

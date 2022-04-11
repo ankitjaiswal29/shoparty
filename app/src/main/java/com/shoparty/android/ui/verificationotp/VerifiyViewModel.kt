@@ -93,7 +93,7 @@ class VerifiyViewModel(private val app: Application) : ViewModel()
     }
 
     private fun handleLoginResponse(response: Response<VerifiyOtpResponse>): Resource<VerifiyOtpResponse.User> {
-        if (response?.isSuccessful)
+        if (response?.isSuccessful == true)
         {
             response.body()?.let { res ->
                 return if (res.response_code==200)
@@ -110,7 +110,7 @@ class VerifiyViewModel(private val app: Application) : ViewModel()
 
 
     private fun handleResendResponse(response: Response<ResendOtpResponse>): Resource<ResendOtpResponse>? {
-        if (response?.isSuccessful)
+        if (response?.isSuccessful == true)
         {
             response.body()?.let { res ->
                 return if (res.response_code==200)

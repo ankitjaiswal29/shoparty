@@ -71,12 +71,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         binding.cbTermconditon.setOnCheckedChangeListener { compoundButton, isChecked ->
-
-            if (isChecked) {
-               condition_checkable=true
-            }else{
-                condition_checkable=false
-            }
+            condition_checkable = isChecked
 
         }
 
@@ -106,8 +101,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             binding.signUpBtn.id -> {
-
-                    viewModel.postSignUp(selectedgender,condition_checkable)
+                viewModel.postSignUp(selectedgender,condition_checkable)
 
             }
             binding.tvTermcondition.id -> {

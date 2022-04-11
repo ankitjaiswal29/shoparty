@@ -59,7 +59,7 @@ class LoginViewModel(private val app: Application) : ViewModel()
     }
 
     private fun handleLoginResponse(response: Response<LoginResponse>): Resource<LoginResponse.User> {
-        if (response?.isSuccessful)
+        if (response?.isSuccessful == true)
         {
             response.body()?.let { res ->
                 return if (res.response_code==200)

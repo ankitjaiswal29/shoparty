@@ -37,6 +37,7 @@ import com.shoparty.android.ui.main.myaccount.myprofileupdate.MyProfileActivity
 import com.shoparty.android.ui.main.wishlist.WishListFragment
 import com.shoparty.android.ui.search.SearchActivity
 import com.shoparty.android.ui.shoppingbag.ShoppingBagActivity
+import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.Utils
@@ -44,7 +45,6 @@ import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
-
     private var langaugevalue: Int=1
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModal
@@ -52,7 +52,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private val listDrawer: ArrayList<DrawerResponse.Category> = ArrayList()
     private lateinit var myaccountviewModel: MyAccountViewModel
     var dialog: Dialog? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -62,7 +61,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         initialise()
         setObserver()
 
-        val request = CategoryRequestModel(""+PrefManager.read(PrefManager.USER_ID,""))
+        val request = CategoryRequestModel("1")
         viewModel.getCategory(request)
     }
 
@@ -100,9 +99,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         binding.infoTools.ivDrawerIcon.setOnClickListener {
             if (PrefManager.read(PrefManager.LANGUAGEID, 1) == 1) {
-                binding.languageNavEndTxt.text = R.string.english.toString()
+                binding.languageNavEndTxt.text = getString(R.string.english)
             } else {
-                binding.languageNavEndTxt.text = R.string.arabic.toString()
+                binding.languageNavEndTxt.text = getString(R.string.arebic)
             }
             binding.drawerLayout.openDrawer(GravityCompat.START)
         }
@@ -345,11 +344,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.cl_profile -> {
                 val intent = Intent(this, MyProfileActivity::class.java)
+                intent.putExtra("pagestatus",Constants.MAINACTIVITY)
                 startActivity(intent)
             }
         }
     }
 
+    override fun onResume()
+    {
+        super.onResume()
+        binding.tvName.text = PrefManager.read(PrefManager.NAME, "")
+        binding.tvPhoneno.text = PrefManager.read(PrefManager.MOBILE, "")
+        Glide.with(this).load(PrefManager.read(PrefManager.IMAGE, ""))
+            .error(R.drawable.person_img)
+            .into(binding.ivProfilePic)
+    }
     private fun manageSignOutSidebar() {
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         binding.ivSignout.setImageResource(R.drawable.drawer_icon_signout_pink);

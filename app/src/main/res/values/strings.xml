@@ -417,6 +417,7 @@
     <string name="editaddress">Edit Address</string>
     <string name="minvalue">$50</string>
     <string name="pleaselogintochange">Please login to change language</string>
+    <string name="arebic">Arabic</string>
 
     <string name="font">Font</string>
     <string name="sign_in_sign_up">Sign in / Sign Up</string>

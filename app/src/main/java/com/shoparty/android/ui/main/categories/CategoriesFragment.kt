@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.shoparty.android.R
 import com.shoparty.android.databinding.FragmentCategoriesBinding
 import com.shoparty.android.ui.main.mainactivity.MainActivity
+import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
@@ -48,7 +49,7 @@ class CategoriesFragment : Fragment(){
         initialise()
         (activity as MainActivity).manageUi(ivLogo = true, ivBag = true,)
         setObserver()
-        val request = CategoryRequestModel("1")
+        val request = CategoryRequestModel(PrefManager.read(PrefManager.LANGUAGEID, 1).toString())
         viewModel.getCategory(request)
     }
 

@@ -53,7 +53,7 @@
                     android:layout_width="@dimen/_90sdp"
                     android:layout_height="@dimen/_105sdp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/person_img"
+                    tools:src="@drawable/person_img"
                     android:layout_marginTop="@dimen/_15sdp"
                     app:riv_border_color="@color/white"
                     app:riv_border_width="@dimen/_2sdp"
@@ -62,19 +62,21 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:riv_corner_radius="@dimen/_10sdp" />
 
-
-                  <ImageView
+                <ImageView
            android:id="@+id/iv_EditProfile"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
+                    android:visibility="gone"
            app:layout_constraintStart_toEndOf="@+id/iv_ProfilePic"
            app:layout_constraintEnd_toEndOf="@+id/iv_ProfilePic"
            android:src="@drawable/ic_rectangle_editshape"
            app:layout_constraintBottom_toBottomOf="@id/iv_ProfilePic"
            android:layout_marginBottom="5dp"/>
        <ImageView
+           android:id="@+id/imgPencil"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
+           android:visibility="gone"
            app:layout_constraintStart_toStartOf="@+id/iv_EditProfile"
            app:layout_constraintEnd_toEndOf="@+id/iv_EditProfile"
            app:layout_constraintTop_toTopOf="@+id/iv_EditProfile"
@@ -86,7 +88,7 @@
                 android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/lukman_khan"
+                tools:text="@string/lukman_khan"
                 app:layout_constraintStart_toStartOf="@+id/iv_ProfilePic"
                 app:layout_constraintEnd_toEndOf="@+id/iv_ProfilePic"
                 app:layout_constraintTop_toBottomOf="@+id/iv_ProfilePic"
@@ -97,7 +99,7 @@
                 android:id="@+id/txtMobile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/_999_9999_999"
+                tools:text="@string/_999_9999_999"
                 app:layout_constraintStart_toStartOf="@+id/tvName"
                 app:layout_constraintEnd_toEndOf="@+id/tvName"
                 app:layout_constraintTop_toBottomOf="@+id/tvName"

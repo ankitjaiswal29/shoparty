@@ -37,6 +37,7 @@ class DealsFragment : Fragment(),View.OnClickListener {
     var size = false
     var age = false
     var gender = false
+    var progressshow = true
     private lateinit var adapter:ProductListAdapters
     var pageOffset=0
     var pageLimit=10
@@ -100,7 +101,7 @@ class DealsFragment : Fragment(),View.OnClickListener {
 
        private fun callApi()
        {
-           val request = DealsRequestModel(""+PrefManager.read(PrefManager.LANGUAGEID,0),
+           val request = DealsRequestModel(PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
                pageOffset.toString(),
                pageLimit.toString(),PrefManager.read(PrefManager.USER_ID, ""))
                viewModel.getDeals(request)
@@ -110,7 +111,11 @@ class DealsFragment : Fragment(),View.OnClickListener {
         viewModel.deals.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
-                    ProgressDialog.hideProgressBar()
+                    if(progressshow)
+                    {
+                        ProgressDialog.hideProgressBar()
+                    }
+                    progressshow=false
                     val productlist = response.data as ArrayList<Product>
                     if(productlist.isNullOrEmpty() && newproductlist.isNullOrEmpty())
                     {
@@ -125,10 +130,16 @@ class DealsFragment : Fragment(),View.OnClickListener {
                     }
                 }
                 is Resource.Loading -> {
-                    ProgressDialog.showProgressBar(requireContext())
+                    if(progressshow)
+                    {
+                        ProgressDialog.showProgressBar(requireContext())
+                    }
                 }
                 is Resource.Error -> {
-                    ProgressDialog.hideProgressBar()
+                    if(progressshow)
+                    {
+                        ProgressDialog.hideProgressBar()
+                    }
                     Toast.makeText(
                         requireContext(),
                         response.message,

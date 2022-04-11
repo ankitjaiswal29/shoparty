@@ -31,7 +31,7 @@ class CategoryViewModel(private val app: Application) : ViewModel() {
     }
 
     private fun handleCategoryResponse(response: Response<CategoryResponse>): Resource<List<CategoryResponse.Category>> {
-        if (response?.isSuccessful) {
+        if (response?.isSuccessful == true) {
             response.body()?.let { res ->
                 return if (res.response_code == 200) {
                     Resource.Success(res.message, res.result)

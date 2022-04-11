@@ -16,6 +16,7 @@ import com.shoparty.android.ui.myorders.myorderlist.MyOrderRequestModel
 import com.shoparty.android.ui.myorders.myorderlist.MyOrderResponse
 import com.shoparty.android.ui.myorders.orderdetails.OrderDetailsRequestModel
 import com.shoparty.android.ui.myorders.orderdetails.OrderDetailsResponse
+import com.shoparty.android.utils.PrefManager
 
 
 class MyOrderViewModel(private val app: Application) : ViewModel()
@@ -30,7 +31,7 @@ class MyOrderViewModel(private val app: Application) : ViewModel()
 
     fun myOrders() = viewModelScope.launch {
 
-        val request = MyOrderRequestModel("1")
+        val request = MyOrderRequestModel(PrefManager.read(PrefManager.LANGUAGEID, 1).toString())
         if(Utils.hasInternetConnection(app.applicationContext))
         {
             mMyOrders.postValue(Resource.Loading())
@@ -46,7 +47,7 @@ class MyOrderViewModel(private val app: Application) : ViewModel()
 
 
     fun orderDetails(order_id: String) = viewModelScope.launch {
-        val request = OrderDetailsRequestModel("1",order_id)
+        val request = OrderDetailsRequestModel(PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),order_id)
         if(Utils.hasInternetConnection(app.applicationContext))
         {
             mOrdersdetails.postValue(Resource.Loading())
@@ -63,7 +64,7 @@ class MyOrderViewModel(private val app: Application) : ViewModel()
 
 
     private fun handleMyOrderResponse(response: Response<MyOrderResponse>): Resource<List<MyOrderResponse.OrderHistory>>? {
-        if (response?.isSuccessful)
+        if (response?.isSuccessful == true)
         {
             response.body()?.let { res ->
                 return if (res.response_code==200)
@@ -79,7 +80,7 @@ class MyOrderViewModel(private val app: Application) : ViewModel()
     }
 
     private fun handleOrderDetailsResponse(response: Response<OrderDetailsResponse>): Resource<OrderDetailsResponse.OrderList>? {
-        if (response?.isSuccessful)
+        if (response?.isSuccessful == true)
         {
             response.body()?.let { res ->
                 return if (res.response_code==200)

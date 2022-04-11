@@ -14,6 +14,7 @@ import com.shoparty.android.databinding.FragmentWishListBinding
 
 import com.shoparty.android.interfaces.RecyclerViewFavouriteListener
 import com.shoparty.android.ui.main.mainactivity.MainActivity
+import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
@@ -40,7 +41,7 @@ class WishListFragment : Fragment(), RecyclerViewFavouriteListener {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_wish_list, container, false)
         viewModel = ViewModelProvider(this, ViewModalFactory(activity?.application!!))[WishListViewModel::class.java]
-        viewModel.getWishlist("1")        //api call
+        viewModel.getWishlist(PrefManager.read(PrefManager.LANGUAGEID, 1).toString())        //api call
         setObserver()
         return binding.root
     }

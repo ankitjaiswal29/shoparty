@@ -40,6 +40,7 @@ class ProductListActivity : AppCompatActivity(),
     var size = false
     var age = false
     var gender = false
+    var progressshow = true
     var viewall_status = ""
     var pageOffset=0
     var pageLimit=10
@@ -145,13 +146,17 @@ class ProductListActivity : AppCompatActivity(),
         binding.dealsItemRecycler.adapter = adapter
     }
 
-    private fun setObserver() {
+    private fun setObserver()
+    {
         viewModel.productList.observe(this) { response ->
             when (response) {
                 is Resource.Success -> {
-                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    if(progressshow)
+                    {
+                        com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    }
+                    progressshow=false
                     productlist = response.data as ArrayList<Product>
-
                     if (productlist.isNullOrEmpty() && newproductlist.isNullOrEmpty()) {
                         binding.ivNoData.visibility = View.VISIBLE
                         binding.tvNoData.visibility = View.VISIBLE
@@ -168,10 +173,16 @@ class ProductListActivity : AppCompatActivity(),
                     }
                 }
                 is Resource.Loading -> {
-                    com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
+                    if(progressshow)
+                    {
+                        com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
+                    }
                 }
                 is Resource.Error -> {
-                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    if(progressshow)
+                    {
+                        com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    }
                     Toast.makeText(
                         applicationContext,
                         response.message,
@@ -258,15 +269,14 @@ class ProductListActivity : AppCompatActivity(),
 
 
     private fun viewAllApi(type: String) {
-        viewModel.topSellingProducatList(
-            "1",
+        viewModel.topSellingProducatList(PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
             type,
             pageOffset.toString(),pageLimit.toString(),
             PrefManager.read(PrefManager.USER_ID, ""))
     }
         private fun productListApi(product_id: String) {
             viewModel.producatList(product_id, "3",
-                "1", PrefManager.read(PrefManager.USER_ID, ""))   //api call
+                PrefManager.read(PrefManager.LANGUAGEID, 1).toString(), PrefManager.read(PrefManager.USER_ID, ""))   //api call
         }
 
 
