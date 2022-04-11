@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="Newest To Oldest"
+        android:text="@string/newest_to_oldest"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         style="@style/AppTheme.Text_15__dp"

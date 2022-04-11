@@ -889,13 +889,13 @@ class CustomizeActivity : AppCompatActivity(), View.OnClickListener {
         dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_curved_bg_inset)
         dialog?.setContentView(R.layout.dialog_select)
         val lp = WindowManager.LayoutParams()
-        lp.copyFrom(dialog?.getWindow()?.getAttributes())
+        lp.copyFrom(dialog?.window?.attributes)
         lp.width = WindowManager.LayoutParams.MATCH_PARENT
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT
         lp.gravity = Gravity.CENTER
-        dialog?.getWindow()?.setAttributes(lp)
-        val cameraLayout: LinearLayout? = dialog?.findViewById<LinearLayout>(R.id.cameraLayout)
-        val galleryLayout: LinearLayout? = dialog?.findViewById<LinearLayout>(R.id.galleryLayout)
+        dialog?.window?.attributes = lp
+        val cameraLayout: LinearLayout? = dialog?.findViewById(R.id.cameraLayout)
+        val galleryLayout: LinearLayout? = dialog?.findViewById(R.id.galleryLayout)
         cameraLayout?.setOnClickListener {
             launchCameraIntent()
             dialog?.dismiss()
@@ -996,6 +996,5 @@ class CustomizeActivity : AppCompatActivity(), View.OnClickListener {
             .into(binding.imgBanner)
         //   binding.imgBanner.setColorFilter(ContextCompat.getColor(this, android.R.color.transparent))
     }
-
 
 }

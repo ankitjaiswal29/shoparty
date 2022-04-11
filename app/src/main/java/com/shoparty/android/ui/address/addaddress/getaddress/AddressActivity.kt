@@ -54,14 +54,13 @@ class AddressActivity : AppCompatActivity(), View.OnClickListener,
 
     private fun setObserver()
     {
-        viewModel.getaddress.observe(this, { response ->
-            when (response)
-            {
+        viewModel.getaddress.observe(this) { response ->
+            when (response) {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
 
                     addresslist.clear()
-                    addresslist= response.data as ArrayList<GetAddressListResponse.Data>
+                    addresslist = response.data as ArrayList<GetAddressListResponse.Data>
                     setAddressListAdapter(addresslist)
                 }
                 is Resource.Loading -> {
@@ -84,13 +83,12 @@ class AddressActivity : AppCompatActivity(), View.OnClickListener,
                     ).show()
                 }
             }
-        })
+        }
 
 
 
-        viewModel.deleteaddress.observe(this, { response ->
-            when (response)
-            {
+        viewModel.deleteaddress.observe(this) { response ->
+            when (response) {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     Toast.makeText(
@@ -98,7 +96,7 @@ class AddressActivity : AppCompatActivity(), View.OnClickListener,
                         response.message,
                         Toast.LENGTH_SHORT
                     ).show()
-                  //  viewModel.getaddresslist()  //api call
+                    //  viewModel.getaddresslist()  //api call
                 }
                 is Resource.Loading -> {
                     com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
@@ -120,7 +118,7 @@ class AddressActivity : AppCompatActivity(), View.OnClickListener,
                     ).show()
                 }
             }
-        })
+        }
 
     }
 

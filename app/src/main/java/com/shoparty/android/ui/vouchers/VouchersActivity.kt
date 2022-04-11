@@ -48,9 +48,8 @@ class VouchersActivity : AppCompatActivity(),RecyclerViewClickListener{
 
     private fun setObserver()
     {
-        viewModel.voucher.observe(this, { response ->
-            when (response)
-            {
+        viewModel.voucher.observe(this) { response ->
+            when (response) {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     setVoucherListAdapter(response.data)
@@ -65,7 +64,7 @@ class VouchersActivity : AppCompatActivity(),RecyclerViewClickListener{
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                 }
             }
-        })
+        }
     }
 
     private fun setVoucherListAdapter(data: List<VoucherListResponse.Data>?)

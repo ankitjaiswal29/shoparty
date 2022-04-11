@@ -12,11 +12,8 @@ import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityReturnPolicyBinding
-import com.shoparty.android.ui.returnpolicy.ReturnPolicyAdapter
-import com.shoparty.android.ui.returnpolicy.ReturnPolicyModel
 
 
 class ReturnPolicyActivity : AppCompatActivity(), View.OnClickListener {
@@ -29,7 +26,7 @@ class ReturnPolicyActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initialise() {
-        binding.infoTool.tvTitle.setText(getString(R.string.return_policy))
+        binding.infoTool.tvTitle.text = getString(R.string.return_policy)
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
 
         binding.webView?.settings?.javaScriptEnabled = true // enable javascript

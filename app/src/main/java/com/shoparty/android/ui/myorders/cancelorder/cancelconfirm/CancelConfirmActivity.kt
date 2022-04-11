@@ -22,9 +22,9 @@ class CancelConfirmActivity : AppCompatActivity(), View.OnClickListener  {
 
     private fun initialise() {
 
-       var  message = intent.getStringExtra("key").toString();
+       val message = intent.getStringExtra("key").toString();
 
-        if (message.equals("Ongoeing")){
+        if (message == "Ongoeing"){
 
             binding.tvViewordertitle.visibility=View.GONE
         }else{

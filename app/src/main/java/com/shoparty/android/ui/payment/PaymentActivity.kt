@@ -24,7 +24,7 @@ class PaymentActivity : AppCompatActivity(), View.OnClickListener{
     private fun initialise() {
         binding.tvAddCard.setOnClickListener(this)
         binding.btnContinewToPayment.setOnClickListener(this)
-        binding.infoTool.tvTitle.setText("Payment")
+        binding.infoTool.tvTitle.text = getString(R.string.Payment)
         binding.infoTool.back.setOnClickListener(this)
 
     }

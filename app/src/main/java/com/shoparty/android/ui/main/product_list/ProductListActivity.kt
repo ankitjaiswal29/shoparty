@@ -146,29 +146,23 @@ class ProductListActivity : AppCompatActivity(),
     }
 
     private fun setObserver() {
-        viewModel.productList.observe(this, { response ->
+        viewModel.productList.observe(this) { response ->
             when (response) {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
-                     productlist = response.data as ArrayList<Product>
+                    productlist = response.data as ArrayList<Product>
 
-                    if(productlist.isNullOrEmpty() && newproductlist.isNullOrEmpty())
-                    {
+                    if (productlist.isNullOrEmpty() && newproductlist.isNullOrEmpty()) {
                         binding.ivNoData.visibility = View.VISIBLE
                         binding.tvNoData.visibility = View.VISIBLE
                         binding.dealsItemRecycler.visibility = View.GONE
-                    }
-                    else
-                    {
+                    } else {
                         binding.ivNoData.visibility = View.GONE
                         binding.dealsItemRecycler.visibility = View.VISIBLE
                         binding.tvNoData.visibility = View.GONE
-                        if(viewall_status == "1")
-                        {
+                        if (viewall_status == "1") {
                             setupData(productlist)
-                        }
-                        else
-                        {
+                        } else {
                             withoutPaginationAdapterSet(response.data as ArrayList<Product>)
                         }
                     }
@@ -193,7 +187,7 @@ class ProductListActivity : AppCompatActivity(),
                     ).show()
                 }
             }
-        })
+        }
 
         viewModeladdwishlist.addremovewishlist.observe(this) { response ->
             when (response) {
@@ -335,7 +329,7 @@ class ProductListActivity : AppCompatActivity(),
         }
         if(newproductlist.size>0)
         {
-            var newList = newproductlist.distinctBy { it.id}
+            val newList = newproductlist.distinctBy {it.id}
             adapter.updateItems(newList as ArrayList<Product>)
             //   binding.rvContestLeaderBoard.visibility = View.VISIBLE
             //   binding.noResult.visibility = View.GONE

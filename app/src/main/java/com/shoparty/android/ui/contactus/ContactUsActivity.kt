@@ -3,12 +3,11 @@ package com.shoparty.android.ui.contactus
 import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.ComponentName
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.telephony.PhoneNumberUtils
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -16,12 +15,9 @@ import com.shoparty.android.R
 import com.shoparty.android.app.MyApp
 import com.shoparty.android.databinding.ActivityContactUsBinding
 import com.shoparty.android.utils.Constants
+import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
-import java.lang.Exception
-import java.util.*
-import android.widget.Toast
-import com.shoparty.android.utils.Utils
 
 
 class ContactUsActivity : AppCompatActivity(){
@@ -112,28 +108,33 @@ class ContactUsActivity : AppCompatActivity(){
     @SuppressLint("SetTextI18n")
     private fun setObserver()
     {
-        viewModel.contactus.observe(this, { response ->
-            when (response)
-            {
+        viewModel.contactus.observe(this) { response ->
+            when (response) {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
-                    binding.txtNumber.text=response.data?.contact_no
-                    binding.txtWhatsappNo.text=response.data?.whatsapp_no
-                   facebookurl=response.data?.facebook_url
-                    twitter_url=response.data?.twitter_url
-                    youtube_url=response.data?.youtube_url
-                    instagram_url=response.data?.instagram_url
+                    binding.txtNumber.text = response.data?.contact_no
+                    binding.txtWhatsappNo.text = response.data?.whatsapp_no
+                    facebookurl = response.data?.facebook_url
+                    twitter_url = response.data?.twitter_url
+                    youtube_url = response.data?.youtube_url
+                    instagram_url = response.data?.instagram_url
 
-                    binding.txtPhone.text=response.data?.contact_time_start+" "+getString(R.string.txtto)+" "+
-                            response.data?.contact_time_end+" " +
-                            getString(R.string.ksatime)+" "+response.data?.contact_day_start+" "+getString(R.string.txtto)+" "+
-                            response.data?.contact_day_end
+                    binding.txtPhone.text =
+                        response.data?.contact_time_start + " " + getString(R.string.txtto) + " " +
+                                response.data?.contact_time_end + " " +
+                                getString(R.string.ksatime) + " " + response.data?.contact_day_start + " " + getString(
+                            R.string.txtto
+                        ) + " " +
+                                response.data?.contact_day_end
 
 
-                    binding.txtWhatsapp.text=response.data?.whatsapp_time_start+" "+getString(R.string.txtto)+" "+
-                            response.data?.whatsapp_time_end+" " +
-                            getString(R.string.ksatime)+" "+response.data?.whatsapp_day_start+" "+getString(R.string.txtto)+" "+
-                            response.data?.whatsapp_day_end
+                    binding.txtWhatsapp.text =
+                        response.data?.whatsapp_time_start + " " + getString(R.string.txtto) + " " +
+                                response.data?.whatsapp_time_end + " " +
+                                getString(R.string.ksatime) + " " + response.data?.whatsapp_day_start + " " + getString(
+                            R.string.txtto
+                        ) + " " +
+                                response.data?.whatsapp_day_end
                 }
                 is Resource.Loading -> {
                     com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
@@ -145,7 +146,7 @@ class ContactUsActivity : AppCompatActivity(){
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                 }
             }
-        })
+        }
     }
 
     override fun onBackPressed() {

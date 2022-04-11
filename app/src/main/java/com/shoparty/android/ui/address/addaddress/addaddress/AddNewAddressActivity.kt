@@ -43,17 +43,16 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun initialise() {
         if (intent.extras != null) {
-            var addressdata =
-                intent.getParcelableExtra<GetAddressListResponse.Data>(Constants.ADDRESSSDATA)!!
+            val addressData = intent.getParcelableExtra<GetAddressListResponse.Data>(Constants.ADDRESSSDATA)!!
             updatepagestatus = intent.getStringExtra(Constants.PAGESTATUS)!!
-            addressid = addressdata.address_id.toString()
-            viewModel.etFirstname.set(addressdata.first_name)
-            viewModel.etLasttName.set(addressdata.last_name)
-            viewModel.etStreatLandmark.set(addressdata.street_no)
-            viewModel.etBuildingnoApartment.set(addressdata.building_no)
-            viewModel.etMobile.set(addressdata.mobile)
+            addressid = addressData.address_id.toString()
+            viewModel.etFirstname.set(addressData.first_name)
+            viewModel.etLasttName.set(addressData.last_name)
+            viewModel.etStreatLandmark.set(addressData.street_no)
+            viewModel.etBuildingnoApartment.set(addressData.building_no)
+            viewModel.etMobile.set(addressData.mobile)
             binding.infoTool.tvTitle.text = getString(R.string.editaddress)
-            cityid = addressdata.city_id
+            cityid = addressData.city_id
         } else {
             binding.infoTool.tvTitle.text = getString(R.string.add_new_address)
         }
@@ -92,7 +91,7 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setObserver() {
-        viewModel.getcountry.observe(this, { response ->
+        viewModel.getcountry.observe(this) { response ->
             when (response) {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
@@ -124,10 +123,10 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener {
                     ).show()
                 }
             }
-        })
+        }
 
 
-        viewModel.getcity.observe(this, { response ->
+        viewModel.getcity.observe(this) { response ->
             when (response) {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
@@ -159,9 +158,9 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener {
                     ).show()
                 }
             }
-        })
+        }
 
-        viewModel.address.observe(this, { response ->
+        viewModel.address.observe(this) { response ->
             when (response) {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
@@ -193,10 +192,10 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener {
                     ).show()
                 }
             }
-        })
+        }
 
 
-        viewModel.updateaddress.observe(this, { response ->
+        viewModel.updateaddress.observe(this) { response ->
             when (response) {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
@@ -228,7 +227,7 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener {
                     ).show()
                 }
             }
-        })
+        }
 
 
     }

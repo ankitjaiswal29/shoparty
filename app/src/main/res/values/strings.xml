@@ -418,5 +418,17 @@
     <string name="minvalue">$50</string>
     <string name="pleaselogintochange">Please login to change language</string>
 
+    <string name="font">Font</string>
+    <string name="sign_in_sign_up">Sign in / Sign Up</string>
+    <string name="this_application_requires_location_servicies">This application requires location servicies to know your current city and provide better and offers</string>
+    <string name="allow_once">Allow Once</string>
+    <string name="allow_while_using_app">Allow While Using App</string>
+    <string name="dont_t_allow">Dont\'t Allow</string>
+    <string name="arabic">Arabic</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="wsatsapp_not_initialised">Whatsapp have not been installed.</string>
+    <string name="OngoingOrder">OngoingOrder</string>
+    <string name="Payment">Payment</string>
 
 </resources>

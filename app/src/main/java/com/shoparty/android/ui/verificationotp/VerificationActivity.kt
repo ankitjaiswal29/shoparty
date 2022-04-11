@@ -85,7 +85,7 @@ class VerificationActivity : AppCompatActivity() {
         txtotpcount.visibility=View.VISIBLE
         txtTimecount.visibility=View.VISIBLE
 
-        var timeleft = 2.toDouble().toString()
+        val timeleft = 2.toDouble().toString()
         binding.txtTimecount.text = timeleft
 
         countDownTimer.start()

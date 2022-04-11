@@ -121,7 +121,7 @@ class HomeFragment : Fragment(), View.OnClickListener, RecyclerViewFavouriteList
 
         setObserver()
 
-        val request = HomeRequestModel("1",PrefManager.read(PrefManager.USER_ID,""))
+        val request = HomeRequestModel(""+PrefManager.read(PrefManager.LANGUAGEID,1),PrefManager.read(PrefManager.USER_ID,""))
         viewModel.getDashboardData(request)
         viewModel_contactus.getContactus()
     }
@@ -243,7 +243,7 @@ class HomeFragment : Fragment(), View.OnClickListener, RecyclerViewFavouriteList
                     ).show()
                 }
                 else -> {
-                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         requireContext(),
                         response.message,
@@ -456,7 +456,7 @@ class HomeFragment : Fragment(), View.OnClickListener, RecyclerViewFavouriteList
             startActivity(sendIntent)
         } catch (ex: ActivityNotFoundException) {
             Toast.makeText(requireContext(),
-                "Whatsapp have not been installed.",
+                getString(R.string.wsatsapp_not_initialised),
                 Toast.LENGTH_SHORT
             ).show()
         }

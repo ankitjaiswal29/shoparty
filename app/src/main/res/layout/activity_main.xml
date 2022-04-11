@@ -86,7 +86,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="31dp"
                         android:layout_marginRight="20dp"
-                        android:text="Sign in / Sign Up"
+                        android:text="@string/sign_in_sign_up"
                         app:layout_constraintVertical_bias="0.2" />
 
 
@@ -263,9 +263,7 @@
                                 android:layout_toRightOf="@+id/iv_signout"
                                 android:text="@string/sign_out" />
 
-
                         </RelativeLayout>
-
                     </LinearLayout>
                 </LinearLayout>
 
@@ -278,7 +276,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".ui.main.mainactivity.MainActivity">
-
 
             <include
                 android:id="@+id/info_tools"
@@ -314,7 +311,6 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:menu="@menu/bottom_nav_menu" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>
 

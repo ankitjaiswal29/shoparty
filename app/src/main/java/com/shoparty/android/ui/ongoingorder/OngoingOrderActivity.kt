@@ -19,7 +19,7 @@ class OngoingOrderActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initialise() {
-        binding.infoTool.tvTitle.setText("OngoeingOrder")
+        binding.infoTool.tvTitle.text = getString(R.string.OngoingOrder)
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
         binding.btnCancel.setOnClickListener(this)
 

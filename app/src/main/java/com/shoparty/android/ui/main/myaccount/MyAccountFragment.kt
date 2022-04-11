@@ -218,19 +218,19 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
     override fun click(pos: String) {
         when(pos) {
             "idmyorder" ->{
-                val intent = Intent (getActivity(), MyOrdersActivity::class.java)
-                getActivity()?.startActivity(intent)
+                val intent = Intent (activity, MyOrdersActivity::class.java)
+                activity?.startActivity(intent)
             }
 
 
             "idvoucher" ->{
-                val intent = Intent (getActivity(), VouchersActivity::class.java)
-                getActivity()?.startActivity(intent)
+                val intent = Intent (activity, VouchersActivity::class.java)
+                activity?.startActivity(intent)
             }
 
             "idwishlist" -> {
-                val intent = Intent (getActivity(), WishListActivity::class.java)
-                getActivity()?.startActivity(intent)
+                val intent = Intent (activity, WishListActivity::class.java)
+                activity?.startActivity(intent)
             }
 
 
@@ -247,8 +247,8 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
             }
             "idaddress" ->
             {
-                val intent = Intent (getActivity(), AddressActivity::class.java)
-                getActivity()?.startActivity(intent)
+                val intent = Intent (activity, AddressActivity::class.java)
+                activity?.startActivity(intent)
             }
             "idrate" -> {
                 val intent = Intent(Intent.ACTION_VIEW)
@@ -263,7 +263,7 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
             }
             "idcontact" ->{
                 val intent = Intent (activity, ContactUsActivity::class.java)
-                getActivity()?.startActivity(intent)
+                activity?.startActivity(intent)
             }
             "idabout" ->{
                 val intent = Intent (activity, AboutUsActivity::class.java)
@@ -271,17 +271,17 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
             }
 
             "idtermcondition" -> {
-                val intent = Intent (getActivity(), TermAndConditionActivity::class.java)
-                getActivity()?.startActivity(intent)
+                val intent = Intent (activity, TermAndConditionActivity::class.java)
+                activity?.startActivity(intent)
             }
 
             "iprivacypolicy" ->{
-                val intent = Intent (getActivity(), PrivacyPolicyActivity::class.java)
-                getActivity()?.startActivity(intent)
+                val intent = Intent (activity, PrivacyPolicyActivity::class.java)
+                activity?.startActivity(intent)
             }
             "idreturnpolicy" ->{
                 val intent = Intent (activity, ReturnPolicyActivity::class.java)
-                getActivity()?.startActivity(intent)
+                activity?.startActivity(intent)
             }
             "idsignout" ->{
                 opendialog()
@@ -293,10 +293,10 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
     {
         dialog = Dialog(requireContext())
         dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog!!.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+        dialog!!.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog!!.setContentView(R.layout.alert_dialog_signout2)
         val lp = WindowManager.LayoutParams()
-        lp.copyFrom(dialog!!.getWindow()?.attributes)
+        lp.copyFrom(dialog!!.window?.attributes)
         lp.width = WindowManager.LayoutParams.MATCH_PARENT
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT
         lp.gravity = Gravity.CENTER
@@ -323,6 +323,4 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
             binding.tvName.text = PrefManager.read(PrefManager.NAME,"")
         }
     }
-
-
 }

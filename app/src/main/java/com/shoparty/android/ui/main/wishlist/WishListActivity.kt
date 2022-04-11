@@ -13,6 +13,7 @@ import com.shoparty.android.databinding.ActivityWishListBinding
 import com.shoparty.android.interfaces.RecyclerViewFavouriteListener
 import com.shoparty.android.ui.search.SearchActivity
 import com.shoparty.android.ui.shoppingbag.ShoppingBagActivity
+import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
@@ -29,7 +30,7 @@ class WishListActivity : AppCompatActivity(), View.OnClickListener,
         binding = DataBindingUtil.setContentView(this, R.layout.activity_wish_list)
         initialise()
         viewModel = ViewModelProvider(this, ViewModalFactory(this.application!!))[WishListViewModel::class.java]
-        viewModel.getWishlist("1")  //api call
+        viewModel.getWishlist(""+ PrefManager.read(PrefManager.LANGUAGEID,1))  //api call
         setObserver()
     }
 
@@ -104,7 +105,7 @@ class WishListActivity : AppCompatActivity(), View.OnClickListener,
             when (response) {
                 is Resource.Success -> {
                     //  ProgressDialog.hideProgressBar()
-                    viewModel.getWishlist("1")    //api call
+                    viewModel.getWishlist(""+PrefManager.read(PrefManager.LANGUAGEID,1))    //api call
                 }
                 is Resource.Loading -> {
                     //   ProgressDialog.showProgressBar(requireContext())

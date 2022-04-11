@@ -1,6 +1,5 @@
 package com.shoparty.android.ui.main.mainactivity
 
-
 import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
@@ -44,7 +43,6 @@ import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 
-
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private var langaugevalue: Int=1
@@ -64,7 +62,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         initialise()
         setObserver()
 
-        val request = CategoryRequestModel("1")
+        val request = CategoryRequestModel(""+PrefManager.read(PrefManager.USER_ID,""))
         viewModel.getCategory(request)
     }
 
@@ -80,8 +78,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         {
             binding.rlSignout.visibility = View.VISIBLE
             binding.btnSigninSignout.visibility = View.GONE
-            binding.tvName.setText(PrefManager.read(PrefManager.NAME, ""))
-            binding.tvPhoneno.setText(PrefManager.read(PrefManager.MOBILE, ""))
+            binding.tvName.text = PrefManager.read(PrefManager.NAME, "")
+            binding.tvPhoneno.text = PrefManager.read(PrefManager.MOBILE, "")
             Glide.with(this).load(PrefManager.read(PrefManager.IMAGE, ""))
                 .error(R.drawable.person_img)
                 .into(binding.ivProfilePic)
@@ -102,9 +100,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         binding.infoTools.ivDrawerIcon.setOnClickListener {
             if (PrefManager.read(PrefManager.LANGUAGEID, 1) == 1) {
-                binding.languageNavEndTxt.text = "English"
+                binding.languageNavEndTxt.text = R.string.english.toString()
             } else {
-                binding.languageNavEndTxt.text = "Arabic"
+                binding.languageNavEndTxt.text = R.string.arabic.toString()
             }
             binding.drawerLayout.openDrawer(GravityCompat.START)
         }
@@ -373,7 +371,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         dialog!!.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
         dialog!!.setContentView(R.layout.alert_dialog_signout2)
         val lp = WindowManager.LayoutParams()
-        lp.copyFrom(dialog!!.getWindow()?.attributes)
+        lp.copyFrom(dialog!!.window?.attributes)
         lp.width = WindowManager.LayoutParams.MATCH_PARENT
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT
         lp.gravity = Gravity.CENTER
@@ -521,7 +519,5 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             binding.bottomNavigatinView.findViewById<View>(R.id.homeFragment).performClick()
         }
     }
-
-
 
 }

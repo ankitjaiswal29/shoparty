@@ -425,9 +425,9 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
         lp.width = WindowManager.LayoutParams.MATCH_PARENT
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT
         lp.gravity = Gravity.CENTER
-        dialog?.getWindow()?.setAttributes(lp)
-        val cameraLayout: LinearLayout? = dialog?.findViewById<LinearLayout>(R.id.cameraLayout)
-        val galleryLayout: LinearLayout? = dialog?.findViewById<LinearLayout>(R.id.galleryLayout)
+        dialog?.window?.attributes = lp
+        val cameraLayout: LinearLayout? = dialog?.findViewById(R.id.cameraLayout)
+        val galleryLayout: LinearLayout? = dialog?.findViewById(R.id.galleryLayout)
         cameraLayout?.setOnClickListener {
             launchCameraIntent()
             dialog?.dismiss()
@@ -525,7 +525,7 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
     private fun updateDateInView() {
         val myFormat = "dd/MM/yyyy" // mention the format you need
         val sdf = SimpleDateFormat(myFormat, Locale.US)
-        binding.tvDateBirth!!.text = sdf.format(cal.time)
+        binding.tvDateBirth.text = sdf.format(cal.time)
         selecteddate=sdf.format(cal.time)
     }
 
@@ -614,12 +614,7 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
     }
-
-
 }
-
-
-
 
 private fun AlertDialog.Builder.setNegativeButton(function: (DialogInterface, Int) -> Unit) {
 

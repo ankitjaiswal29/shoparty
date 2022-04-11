@@ -120,7 +120,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
 
 
     private fun setObserver() {
-        viewModel.signUp.observe(this, { response ->
+        viewModel.signUp.observe(this) { response ->
             when (response) {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
@@ -152,14 +152,14 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                     ).show()
                 }
             }
-        })
+        }
     }
 
 
     private fun updateDateInView() {
         val myFormat = "dd/MM/yyyy" // mention the format you need
         val sdf = SimpleDateFormat(myFormat, Locale.US)
-        binding.tvDateOfBirth!!.text = sdf.format(cal.time)
+        binding.tvDateOfBirth.text = sdf.format(cal.time)
         selecteddate = sdf.format(cal.time)
     }
 }

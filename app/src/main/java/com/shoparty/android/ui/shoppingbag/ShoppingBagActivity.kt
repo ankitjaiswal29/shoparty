@@ -47,7 +47,7 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initialise() {
-        binding.infoTool.tvTitle.setText(getString(R.string.shippingbag))
+        binding.infoTool.tvTitle.text = getString(R.string.shippingbag)
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
         binding.btnProcessTocheckOut.setOnClickListener(this)
         binding.cbPickupBranch.setOnCheckedChangeListener { compoundButton, isChecked ->

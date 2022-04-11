@@ -20,7 +20,7 @@ class AddCardActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun initialise() {
         binding.btnSave.setOnClickListener(this)
-        binding.infoTool.tvTitle.setText(getString(R.string.add_card))
+        binding.infoTool.tvTitle.text = getString(R.string.add_card)
         binding.infoTool.back.setOnClickListener(this)
 
     }

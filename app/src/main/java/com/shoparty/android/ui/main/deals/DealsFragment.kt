@@ -100,7 +100,7 @@ class DealsFragment : Fragment(),View.OnClickListener {
 
        private fun callApi()
        {
-           val request = DealsRequestModel("1",
+           val request = DealsRequestModel(""+PrefManager.read(PrefManager.LANGUAGEID,0),
                pageOffset.toString(),
                pageLimit.toString(),PrefManager.read(PrefManager.USER_ID, ""))
                viewModel.getDeals(request)
@@ -241,7 +241,7 @@ class DealsFragment : Fragment(),View.OnClickListener {
             newproductlist.addAll(it)
         }
         if(newproductlist.size>0){
-            var newList = newproductlist.distinctBy { it.id}
+            val newList = newproductlist.distinctBy { it.id}
             adapter.updateItems(newList as ArrayList<Product>)
             adapter.notifyDataSetChanged()
             //   binding.rvContestLeaderBoard.visibility = View.VISIBLE

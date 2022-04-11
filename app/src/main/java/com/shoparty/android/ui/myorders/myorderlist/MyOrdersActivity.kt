@@ -35,20 +35,17 @@ class MyOrdersActivity : AppCompatActivity(), View.OnClickListener{
     }
 
     private fun setObserver() {
-        viewModel.myOrder.observe(this, { response ->
+        viewModel.myOrder.observe(this) { response ->
             when (response) {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
 
-                    if(response.data.isNullOrEmpty())
-                    {
-                        binding.clNoData.visibility=View.VISIBLE
-                        binding.myorderRecyclerview.visibility=View.GONE
-                    }
-                    else
-                    {
-                        binding.clNoData.visibility=View.GONE
-                        binding.myorderRecyclerview.visibility=View.VISIBLE
+                    if (response.data.isNullOrEmpty()) {
+                        binding.clNoData.visibility = View.VISIBLE
+                        binding.myorderRecyclerview.visibility = View.GONE
+                    } else {
+                        binding.clNoData.visibility = View.GONE
+                        binding.myorderRecyclerview.visibility = View.VISIBLE
                         myorderlist.clear()
                         myorderlist = response.data as ArrayList<MyOrderResponse.OrderHistory>
                         setMyOrderListAdapter(myorderlist)
@@ -74,7 +71,7 @@ class MyOrdersActivity : AppCompatActivity(), View.OnClickListener{
                     ).show()
                 }
             }
-        })
+        }
 
 
     }
