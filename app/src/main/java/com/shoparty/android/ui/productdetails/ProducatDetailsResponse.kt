@@ -1,19 +1,23 @@
 package com.shoparty.android.ui.productdetails
 
+import android.os.Parcelable
 import com.shoparty.android.ui.main.home.HomeResponse
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class ProducatDetailsResponse(
     val message: String,
     val response_code: Int,
     val result: ProductData
-)
-{
+) : Parcelable {
+    @Parcelize
     data class ProductData(
         val also_bought: List<ProductDetailList>,
         val product_details: ProductDetails,
         val you_may_also_like: List<ProductDetailList>
-    )
+    ) : Parcelable
 
+    @Parcelize
     data class ProductDetails(
         val age_from: String,
         val delivery_time: String,
@@ -26,7 +30,7 @@ data class ProducatDetailsResponse(
         val colors: List<Color>,
         val cost_price: String,
         val created_at: String,
-        val deleted_at: String,
+        val deleted_at: String?,
         val en_description: String,
         val en_name: String,
         val fav_status: Int,
@@ -49,10 +53,12 @@ data class ProducatDetailsResponse(
         val tax_type: Int,
         val theme_id: String,
         val updated_at: String
-    )
+    ) : Parcelable
+
+    @Parcelize
     data class Stock(
         val created_at: String,
-        val deleted_at: String,
+        val deleted_at: String?,
         val id: Int,
         val product_detail_id: Int,
         val product_id: Int,
@@ -60,8 +66,9 @@ data class ProducatDetailsResponse(
         val status: Int,
         val stock_quantity: String,
         val updated_at: String
-    )
+    ) : Parcelable
 
+    @Parcelize
     data class Size(
         val created_at: String,
         val id: Int,
@@ -70,42 +77,46 @@ data class ProducatDetailsResponse(
         val product_id: Int,
         val status: Int,
         val updated_at: String
-    )
+    ) : Parcelable
 
+    @Parcelize
     data class Image(
         val created_at: String,
-        val deleted_at: Any,
+        val deleted_at: String?,
         val id: Int,
         val name: String,
         val product_detail_id: Int,
         val product_id: Int,
         val status: Int,
         val updated_at: String
-    )
+    ) : Parcelable
 
+    @Parcelize
     data class Color(
         val color_id: Int,
-        var color_code:String,
+        var color_code: String,
         val created_at: String,
-        val deleted_at: String,
+        val deleted_at: String?,
         val id: Int,
         val product_detail_id: Int,
         val product_id: Int,
         val status: Int,
         val updated_at: String,
-        var ischecked:Boolean=false
-    )
+        var ischecked: Boolean = false
+    ) : Parcelable
 
+    @Parcelize
     data class Category(
         val category_id: Int,
         val created_at: String,
-        val deleted_at: String,
+        val deleted_at: String?,
         val id: Int,
         val product_id: Int,
         val status: Int,
         val updated_at: String
-    )
+    ) : Parcelable
 
+    @Parcelize
     data class AlsoBought(
         val age_from: String,
         val age_to: String,
@@ -116,7 +127,7 @@ data class ProducatDetailsResponse(
         val color_name: String,
         val cost_price: String,
         val created_at: String,
-        val deleted_at: String,
+        val deleted_at: String?,
         val en_description: String,
         val en_name: String,
         val fav_status: Int,
@@ -142,9 +153,9 @@ data class ProducatDetailsResponse(
         val tax_type: Int,
         val theme_id: String,
         val updated_at: String
-    )
+    ) : Parcelable
 
-
+    @Parcelize
     data class ProductDetailList(
         val age_from: String,
         val age_to: String,
@@ -155,7 +166,7 @@ data class ProducatDetailsResponse(
         val color_name: String,
         val cost_price: String,
         val created_at: String,
-        val deleted_at: String,
+        val deleted_at: String?,
         val en_description: String,
         val en_name: String,
         val fav_status: Int,
@@ -165,7 +176,7 @@ data class ProducatDetailsResponse(
         val is_customizable: Int,
         val is_deliverable: Int,
         val product_color_id: Int,
-        val product_descripion: Any,
+        val product_descripion: String,
         val product_detail_id: Int,
         val product_id: Int,
         val product_image_id: Int,
@@ -181,7 +192,7 @@ data class ProducatDetailsResponse(
         val tax_type: Int,
         val theme_id: String,
         val updated_at: String
-    )
+    ) : Parcelable
 
 
 }

@@ -18,8 +18,10 @@ import android.text.TextWatcher
 import android.util.Log
 import android.util.TypedValue
 import android.view.*
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.LinearLayout
 import android.widget.PopupWindow
+import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
@@ -50,6 +52,433 @@ class CustomizeActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityCustomizeBinding
     private val listFonts: ArrayList<Font> = ArrayList()
+
+    private val listSize: ArrayList<Int> = ArrayList()
+
+    var dialog: Dialog? = null
+    private val REQUEST_IMAGE = 999
+    private var imageZipperFile: File? = null
+
+    var mRootWidth = 0
+    var mRootHeight = 0
+
+    var mXDelta = 0
+    var mYDelta = 0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_customize)
+        initialise()
+    }
+
+    private fun initialise() {
+        binding.infoTool.tvTitle.setText(getString(R.string.customize_it))
+        val image = intent.getStringExtra("image")
+        // val data = intent.getParcelableExtra<ProducatDetailsResponse.ProductDetails>("productDetails")
+        Log.e("data", image.toString())
+        Glide.with(this@CustomizeActivity).asBitmap().load(image).into(binding.imgBanner)
+
+        binding.infoTool.ivBagBtn.visibility = View.VISIBLE
+
+        binding.infoTool.ivBagBtn.setOnClickListener(this)
+        binding.customizeApproveBtn.setOnClickListener(this)
+
+
+        binding.infoTool.ivDrawerBack.setOnClickListener {
+            onBackPressed()
+        }
+
+        binding.tvFont.setOnClickListener {
+            showAvailableFonts()
+        }
+
+        binding.tvSize.setOnClickListener {
+            showAvailableTextSize()
+        }
+
+        binding.llColor.setOnClickListener {
+            showAvailableColors()
+        }
+
+        binding.llText.setOnClickListener {
+            binding.etName.requestFocus()
+            Utils.showKeyboard(this@CustomizeActivity, binding.root)
+        }
+
+        binding.btnPreview.setOnClickListener {
+            showPreview()
+        }
+
+        binding.llPicture.setOnClickListener {
+            Dexter.withContext(this)
+                .withPermissions(
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                )
+                .withListener(object : MultiplePermissionsListener {
+                    override fun onPermissionsChecked(report: MultiplePermissionsReport) {
+                        if (report.areAllPermissionsGranted()) {
+                            openDialogToUpdateProfilePIC()
+                        }
+                        if (report.isAnyPermissionPermanentlyDenied) {
+                            showSettingsDialog()
+                        }
+                    }
+
+                    override fun onPermissionRationaleShouldBeShown(
+                        permissions: MutableList<com.karumi.dexter.listener.PermissionRequest>?,
+                        token: PermissionToken?
+                    ) {
+                        token?.continuePermissionRequest()
+                    }
+                }).check()
+        }
+
+        binding.etName.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                binding.tvData.text = s.toString()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+        })
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                val fonts = SystemFonts.getAvailableFonts()
+                //Log.e("fontsSize",fonts.size.toString())
+                fonts.forEach {
+                    //  Log.e("font",it.toString())
+                    listFonts.add(Font(it?.file?.name.toString(), it?.file!!))
+                }
+            } else {
+                val path = "/system/fonts"
+                val file = File(path)
+                val fonts: Array<File> = file.listFiles()
+                //  Log.e("fontsSize",fonts.size.toString())
+                fonts.forEach {
+                    listFonts.add(Font(it?.name.toString(), it))
+                    Log.e("font", it.name)
+                    //Log.e("fontsPath",it.absolutePath)
+                    //Log.e("fontsExt",it.extension)
+                }
+            }
+
+        }
+
+
+        binding.clView.viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    binding.clView.viewTreeObserver
+                        .removeOnGlobalLayoutListener(this)
+                }
+                mRootWidth = binding.clView.getWidth()
+                mRootHeight = binding.clView.getHeight()
+            }
+        })
+        binding.tvData.setOnTouchListener(mOnTouchListener)
+
+
+    }
+
+    private var mOnTouchListener = object : View.OnTouchListener {
+
+        override fun onTouch(view: View, event: MotionEvent): Boolean {
+            val xScreenTouch =
+                event.rawX.toInt() // x location relative to the screen
+            val yScreenTouch =
+                event.rawY.toInt() // y location relative to the screen
+
+            when (event.action and MotionEvent.ACTION_MASK) {
+                MotionEvent.ACTION_DOWN -> {
+                    val lParams = view.layoutParams as RelativeLayout.LayoutParams
+                    mXDelta = xScreenTouch - lParams.leftMargin
+                    mYDelta = yScreenTouch - lParams.topMargin
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    val layoutParams = view
+                        .layoutParams as RelativeLayout.LayoutParams
+                    layoutParams.leftMargin =
+                        Math.max(0, Math.min(mRootWidth - 20, xScreenTouch - mXDelta))
+                    layoutParams.topMargin =
+                        Math.max(0, Math.min(mRootHeight - 20, yScreenTouch - mYDelta))
+                    view.layoutParams = layoutParams
+                }
+            }
+            return true
+        }
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.customize_approve_btn -> {
+                val intent = Intent(this, ProductDetailsActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.ivBagBtn -> {
+                val intent = Intent(this, ShoppingBagActivity::class.java)
+                startActivity(intent)
+            }
+        }
+    }
+
+    private fun showPreview() {
+
+        val customView: View =
+            LayoutInflater.from(this).inflate(R.layout.preview_dialog_layout, null)
+        val popupWindow = PopupWindow(
+            customView,
+            ConstraintLayout.LayoutParams.MATCH_PARENT,
+            ConstraintLayout.LayoutParams.MATCH_PARENT
+        )
+        val popupBinding: PreviewDialogLayoutBinding = DataBindingUtil.bind(customView)!!
+        popupWindow.isFocusable = true
+        popupWindow.isOutsideTouchable = true
+        popupWindow.elevation = 5.0f
+        // popupWindow.softInputMode = PopupWindow.INPUT_METHOD_NEEDED
+        //popupWindow.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING
+        popupWindow.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        popupWindow.showAtLocation(binding.root, Gravity.CENTER, 0, 0)
+
+        val bitmap = Utils.screenShot(binding.clView)
+
+        popupBinding.imgBanner.setImageBitmap(bitmap)
+        popupBinding.ivClose.setOnClickListener {
+            popupWindow.dismiss()
+        }
+
+    }
+
+    private fun showAvailableFonts() {
+        val customView: View =
+            LayoutInflater.from(this).inflate(R.layout.popup_layout_available_fonts, null)
+        val popupWindow = PopupWindow(
+            customView,
+            ConstraintLayout.LayoutParams.WRAP_CONTENT,
+            ConstraintLayout.LayoutParams.WRAP_CONTENT
+        )
+        val popupBinding: PopupLayoutAvailableFontsBinding = DataBindingUtil.bind(customView)!!
+        popupWindow.isFocusable = true
+        popupWindow.isOutsideTouchable = true
+        popupWindow.elevation = 5.0f
+        // popupWindow.softInputMode = PopupWindow.INPUT_METHOD_NEEDED
+        //popupWindow.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING
+        popupWindow.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        //popupWindow.showAtLocation(binding.tvFont, Gravity.CENTER, 0, 0)
+        popupWindow.showAsDropDown(binding.tvFont, 0, 0, Gravity.CENTER)
+
+        val adapterFont = FontAdapter(this@CustomizeActivity, listFonts)
+        val gridLayoutManager = GridLayoutManager(this, 1)
+        popupBinding.rvData.apply {
+            layoutManager = gridLayoutManager
+            setHasFixedSize(true)
+            adapter = adapterFont
+        }
+        adapterFont.onItemClick(object : RVItemClickListener {
+            override fun onClick(pos: String, view: View?) {
+                binding.tvFont.text =
+                    listFonts[pos.toInt()].name.removeSuffix(".ttf").removeSuffix(".otf")
+                val typeface: Typeface = Typeface.createFromFile(listFonts[pos.toInt()].file)
+                binding.tvData.typeface = typeface
+                popupWindow.dismiss()
+            }
+        })
+    }
+
+    private fun showAvailableTextSize() {
+        val customView: View =
+            LayoutInflater.from(this).inflate(R.layout.popup_layout_available_fonts, null)
+        val popupWindow = PopupWindow(
+            customView,
+            ConstraintLayout.LayoutParams.WRAP_CONTENT,
+            ConstraintLayout.LayoutParams.WRAP_CONTENT
+        )
+        val popupBinding: PopupLayoutAvailableFontsBinding = DataBindingUtil.bind(customView)!!
+        popupWindow.isFocusable = true
+        popupWindow.isOutsideTouchable = true
+        popupWindow.elevation = 5.0f
+        // popupWindow.softInputMode = PopupWindow.INPUT_METHOD_NEEDED
+        //popupWindow.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING
+        popupWindow.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        //popupWindow.showAtLocation(binding.tvFont, Gravity.CENTER, 0, 0)
+        popupWindow.showAsDropDown(binding.tvSize, 0, 0, Gravity.CENTER)
+        listSize.clear()
+        for (i in 20..40) {
+            listSize.add(i)
+        }
+        val adapterSize = SizeAdapter(this@CustomizeActivity, listSize)
+        val gridLayoutManager = GridLayoutManager(this, 1)
+        popupBinding.rvData.apply {
+            layoutManager = gridLayoutManager
+            setHasFixedSize(true)
+            adapter = adapterSize
+        }
+        adapterSize.onItemClick(object : RVItemClickListener {
+            override fun onClick(pos: String, view: View?) {
+                binding.tvSize.text = listSize[pos.toInt()].toString()
+
+                binding.tvData.setTextSize(
+                    TypedValue.COMPLEX_UNIT_SP,
+                    listSize[pos.toInt()].toFloat()
+                )
+                popupWindow.dismiss()
+            }
+        })
+    }
+
+    private fun showAvailableColors() {
+        val customView: View =
+            LayoutInflater.from(this).inflate(R.layout.popup_layout_available_fonts, null)
+        val popupWindow = PopupWindow(
+            customView,
+            ConstraintLayout.LayoutParams.MATCH_PARENT,
+            ConstraintLayout.LayoutParams.WRAP_CONTENT
+        )
+        val popupBinding: PopupLayoutAvailableFontsBinding = DataBindingUtil.bind(customView)!!
+        popupWindow.isFocusable = true
+        popupWindow.isOutsideTouchable = true
+        popupWindow.elevation = 5.0f
+        // popupWindow.softInputMode = PopupWindow.INPUT_METHOD_NEEDED
+        //popupWindow.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING
+        popupWindow.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        //popupWindow.showAtLocation(binding.tvFont, Gravity.CENTER, 0, 0)
+        popupWindow.showAsDropDown(binding.tvSize, 0, 10, Gravity.CENTER)
+
+        val adapterColor = ColorAdapter(this@CustomizeActivity, listColor)
+        val gridLayoutManager = GridLayoutManager(this, 10)
+        popupBinding.rvData.apply {
+            layoutManager = gridLayoutManager
+            setHasFixedSize(true)
+            adapter = adapterColor
+        }
+        adapterColor.onItemClick(object : RVItemClickListener {
+            override fun onClick(pos: String, view: View?) {
+                binding.viewColor.setBackgroundColor(Color.parseColor(listColor[pos.toInt()]))
+                binding.tvData.setTextColor(Color.parseColor(listColor[pos.toInt()]))
+                popupWindow.dismiss()
+            }
+        })
+    }
+
+    fun openDialogToUpdateProfilePIC() {
+        dialog = Dialog(this)
+        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_curved_bg_inset)
+        dialog?.setContentView(R.layout.dialog_select)
+        val lp = WindowManager.LayoutParams()
+        lp.copyFrom(dialog?.getWindow()?.getAttributes())
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT
+        lp.gravity = Gravity.CENTER
+        dialog?.getWindow()?.setAttributes(lp)
+        val cameraLayout: LinearLayout? = dialog?.findViewById<LinearLayout>(R.id.cameraLayout)
+        val galleryLayout: LinearLayout? = dialog?.findViewById<LinearLayout>(R.id.galleryLayout)
+        cameraLayout?.setOnClickListener {
+            launchCameraIntent()
+            dialog?.dismiss()
+        }
+        galleryLayout?.setOnClickListener {
+            launchGalleryIntent()
+            dialog?.dismiss()
+        }
+        dialog?.show()
+    }
+
+    fun showSettingsDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.dialog_permission_title))
+        builder.setMessage(getString(R.string.dialog_permission_message))
+        builder.setPositiveButton(getString(R.string.go_to_settings)) { dialog: DialogInterface, which: Int ->
+            dialog.cancel()
+            openSettings()
+        }
+        builder.setNegativeButton(
+        ) { dialog: DialogInterface, which: Int -> dialog.cancel() }
+        builder.show()
+
+    }
+
+    private fun AlertDialog.Builder.setNegativeButton(function: (DialogInterface, Int) -> Unit) {
+
+    }
+
+    private fun openSettings() {
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+        val uri = Uri.fromParts("package", this.packageName, null)
+        intent.data = uri
+        startActivityForResult(intent, 101)
+    }
+
+    private fun launchCameraIntent() {
+        val intent = Intent(this, ImagePickerActivity::class.java)
+        intent.putExtra(
+            ImagePickerActivity.INTENT_IMAGE_PICKER_OPTION,
+            ImagePickerActivity.REQUEST_IMAGE_CAPTURE
+        )
+
+        // setting aspect ratio
+        intent.putExtra(ImagePickerActivity.INTENT_LOCK_ASPECT_RATIO, true)
+        intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_X, 1) // 16x9, 1x1, 3:4, 3:2
+        intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_Y, 1)
+
+        // setting maximum bitmap width and height
+        intent.putExtra(ImagePickerActivity.INTENT_SET_BITMAP_MAX_WIDTH_HEIGHT, true)
+        intent.putExtra(ImagePickerActivity.INTENT_BITMAP_MAX_WIDTH, 1000)
+        intent.putExtra(ImagePickerActivity.INTENT_BITMAP_MAX_HEIGHT, 1000)
+        startActivityForResult(intent, REQUEST_IMAGE)
+    }
+
+    private fun launchGalleryIntent() {
+        val intent = Intent(this, ImagePickerActivity::class.java)
+        intent.putExtra(
+            ImagePickerActivity.INTENT_IMAGE_PICKER_OPTION,
+            ImagePickerActivity.REQUEST_GALLERY_IMAGE
+        )
+
+        // setting aspect ratio
+        intent.putExtra(ImagePickerActivity.INTENT_LOCK_ASPECT_RATIO, true)
+        intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_X, 1) // 16x9, 1x1, 3:4, 3:2
+        intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_Y, 1)
+        startActivityForResult(intent, REQUEST_IMAGE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (data != null) {
+            checkPermissionOnActivityResult(requestCode, resultCode, data)
+        }
+        if (requestCode == REQUEST_IMAGE) {
+            if (resultCode == RESULT_OK) {
+                val uri = data!!.getParcelableExtra<Uri>("path")
+                val file = File(uri!!.path)
+                loadProfile(uri.toString())
+                try {
+                    imageZipperFile = ImageZipper(this)
+                        .setQuality(50)
+                        .setMaxWidth(300)
+                        .setMaxHeight(300)
+                        .compressToFile(file)
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+        }
+    }
+
+    private fun checkPermissionOnActivityResult(requestCode: Int, resultCode: Int, data: Intent) {}
+
+    private fun loadProfile(url: String) {
+        Glide.with(this).load(url).error(R.drawable.gallery_image_icon)
+            .placeholder(R.drawable.gallery_image_icon)
+            .into(binding.imgBanner)
+        //   binding.imgBanner.setColorFilter(ContextCompat.getColor(this, android.R.color.transparent))
+    }
+
     private val listColor = listOf<String>(
         "#B0171F",
         "#DC143C",
@@ -606,395 +1035,5 @@ class CustomizeActivity : AppCompatActivity(), View.OnClickListener {
         "#050505",
         "#030303"
     )
-    private val listSize: ArrayList<Int> = ArrayList()
-
-    var dialog: Dialog? = null
-    private val REQUEST_IMAGE = 999
-    private var imageZipperFile: File? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_customize)
-        initialise()
-    }
-
-    private fun initialise() {
-        binding.infoTool.tvTitle.setText(getString(R.string.customize_it))
-
-        binding.infoTool.ivBagBtn.setOnClickListener(this)
-        binding.infoTool.ivDrawerBack.setOnClickListener(this)
-        binding.customizeApproveBtn.setOnClickListener(this)
-        binding.infoTool.ivBagBtn.visibility = View.VISIBLE
-
-        binding.tvFont.setOnClickListener {
-            showAvailableFonts()
-        }
-
-        binding.tvSize.setOnClickListener {
-            showAvailableTextSize()
-        }
-
-        binding.llColor.setOnClickListener {
-            showAvailableColors()
-        }
-        binding.llText.setOnClickListener {
-            binding.etName.requestFocus()
-            Utils.showKeyboard(this@CustomizeActivity, binding.root)
-        }
-
-        binding.btnPreview.setOnClickListener {
-            showPreview()
-        }
-
-        binding.llPicture.setOnClickListener {
-            Dexter.withContext(this)
-                .withPermissions(
-                    Manifest.permission.CAMERA,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                )
-                .withListener(object : MultiplePermissionsListener {
-                    override fun onPermissionsChecked(report: MultiplePermissionsReport) {
-                        if (report.areAllPermissionsGranted()) {
-                            openDialogToUpdateProfilePIC()
-                        }
-                        if (report.isAnyPermissionPermanentlyDenied) {
-                            showSettingsDialog()
-                        }
-                    }
-
-                    override fun onPermissionRationaleShouldBeShown(
-                        permissions: MutableList<com.karumi.dexter.listener.PermissionRequest>?,
-                        token: PermissionToken?
-                    ) {
-                        token?.continuePermissionRequest()
-                    }
-                }).check()
-        }
-
-        binding.etName.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                binding.tvData.text = s.toString()
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-        })
-
-        lifecycleScope.launch(Dispatchers.IO) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                val fonts = SystemFonts.getAvailableFonts()
-                //Log.e("fontsSize",fonts.size.toString())
-                fonts.forEach {
-                    //  Log.e("font",it.toString())
-                    listFonts.add(Font(it?.file?.name.toString(), it?.file!!))
-                }
-            } else {
-                val path = "/system/fonts"
-                val file = File(path)
-                val fonts: Array<File> = file.listFiles()
-                //  Log.e("fontsSize",fonts.size.toString())
-                fonts.forEach {
-                    listFonts.add(Font(it?.name.toString(), it))
-                    Log.e("font", it.name)
-                    //Log.e("fontsPath",it.absolutePath)
-                    //Log.e("fontsExt",it.extension)
-                }
-            }
-
-        }
-
-
-    }
-
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            /* R.id.btnCancel -> {
-                 val intent = Intent(this, CancelOrderActivity::class.java)
-                 intent.putExtra("key","Ongoeing")
-                 startActivity(intent)
-             }*/
-            R.id.iv_drawer_back -> {
-                onBackPressed()
-            }
-            R.id.customize_approve_btn -> {
-                val intent = Intent(this, ProductDetailsActivity::class.java)
-                startActivity(intent)
-            }
-            R.id.ivBagBtn -> {
-                val intent = Intent(this, ShoppingBagActivity::class.java)
-                startActivity(intent)
-            }
-        }
-    }
-
-    private fun showPreview() {
-//        val builder = android.app.AlertDialog.Builder(this, R.style.CustomAlertDialogWithMargin)
-//        val inflater = layoutInflater
-//        val dialogLayout: View =
-//            inflater.inflate(R.layout.preview_dialog_layout, null)
-//        val iv_close = dialogLayout.findViewById<ImageView>(R.id.iv_close)
-//
-//        builder.setView(dialogLayout)
-//        val builderinstance = builder.show()
-//
-//        iv_close.setOnClickListener {
-//            builder.setCancelable(true)
-//            builderinstance.dismiss()
-//        }
-
-        val customView: View =
-            LayoutInflater.from(this).inflate(R.layout.preview_dialog_layout, null)
-        val popupWindow = PopupWindow(
-            customView,
-            ConstraintLayout.LayoutParams.MATCH_PARENT,
-            ConstraintLayout.LayoutParams.MATCH_PARENT
-        )
-        val popupBinding: PreviewDialogLayoutBinding = DataBindingUtil.bind(customView)!!
-        popupWindow.isFocusable = true
-        popupWindow.isOutsideTouchable = true
-        popupWindow.elevation = 5.0f
-        // popupWindow.softInputMode = PopupWindow.INPUT_METHOD_NEEDED
-        //popupWindow.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING
-        popupWindow.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        popupWindow.showAtLocation(binding.root, Gravity.CENTER, 0, 0)
-
-        val bitmap = Utils.screenShot(binding.clPreview)
-
-        popupBinding.imgBanner.setImageBitmap(bitmap)
-        popupBinding.ivClose.setOnClickListener {
-            popupWindow.dismiss()
-        }
-
-    }
-
-    private fun showAvailableFonts() {
-        val customView: View =
-            LayoutInflater.from(this).inflate(R.layout.popup_layout_available_fonts, null)
-        val popupWindow = PopupWindow(
-            customView,
-            ConstraintLayout.LayoutParams.WRAP_CONTENT,
-            ConstraintLayout.LayoutParams.WRAP_CONTENT
-        )
-        val popupBinding: PopupLayoutAvailableFontsBinding = DataBindingUtil.bind(customView)!!
-        popupWindow.isFocusable = true
-        popupWindow.isOutsideTouchable = true
-        popupWindow.elevation = 5.0f
-        // popupWindow.softInputMode = PopupWindow.INPUT_METHOD_NEEDED
-        //popupWindow.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING
-        popupWindow.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        //popupWindow.showAtLocation(binding.tvFont, Gravity.CENTER, 0, 0)
-        popupWindow.showAsDropDown(binding.tvFont, 0, 0, Gravity.CENTER)
-
-        val adapterFont = FontAdapter(this@CustomizeActivity, listFonts)
-        val gridLayoutManager = GridLayoutManager(this, 1)
-        popupBinding.rvData.apply {
-            layoutManager = gridLayoutManager
-            setHasFixedSize(true)
-            adapter = adapterFont
-        }
-        adapterFont.onItemClick(object : RVItemClickListener {
-            override fun onClick(pos: String, view: View?) {
-                binding.tvFont.text =
-                    listFonts[pos.toInt()].name.removeSuffix(".ttf").removeSuffix(".otf")
-                val typeface: Typeface = Typeface.createFromFile(listFonts[pos.toInt()].file)
-                binding.tvData.typeface = typeface
-                popupWindow.dismiss()
-            }
-        })
-    }
-
-    private fun showAvailableTextSize() {
-        val customView: View =
-            LayoutInflater.from(this).inflate(R.layout.popup_layout_available_fonts, null)
-        val popupWindow = PopupWindow(
-            customView,
-            ConstraintLayout.LayoutParams.WRAP_CONTENT,
-            ConstraintLayout.LayoutParams.WRAP_CONTENT
-        )
-        val popupBinding: PopupLayoutAvailableFontsBinding = DataBindingUtil.bind(customView)!!
-        popupWindow.isFocusable = true
-        popupWindow.isOutsideTouchable = true
-        popupWindow.elevation = 5.0f
-        // popupWindow.softInputMode = PopupWindow.INPUT_METHOD_NEEDED
-        //popupWindow.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING
-        popupWindow.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        //popupWindow.showAtLocation(binding.tvFont, Gravity.CENTER, 0, 0)
-        popupWindow.showAsDropDown(binding.tvSize, 0, 0, Gravity.CENTER)
-        listSize.clear()
-        for (i in 20..40) {
-            listSize.add(i)
-        }
-        val adapterSize = SizeAdapter(this@CustomizeActivity, listSize)
-        val gridLayoutManager = GridLayoutManager(this, 1)
-        popupBinding.rvData.apply {
-            layoutManager = gridLayoutManager
-            setHasFixedSize(true)
-            adapter = adapterSize
-        }
-        adapterSize.onItemClick(object : RVItemClickListener {
-            override fun onClick(pos: String, view: View?) {
-                binding.tvSize.text = listSize[pos.toInt()].toString()
-
-                binding.tvData.setTextSize(
-                    TypedValue.COMPLEX_UNIT_SP,
-                    listSize[pos.toInt()].toFloat()
-                )
-                popupWindow.dismiss()
-            }
-        })
-    }
-
-    private fun showAvailableColors() {
-        val customView: View =
-            LayoutInflater.from(this).inflate(R.layout.popup_layout_available_fonts, null)
-        val popupWindow = PopupWindow(
-            customView,
-            ConstraintLayout.LayoutParams.MATCH_PARENT,
-            ConstraintLayout.LayoutParams.WRAP_CONTENT
-        )
-        val popupBinding: PopupLayoutAvailableFontsBinding = DataBindingUtil.bind(customView)!!
-        popupWindow.isFocusable = true
-        popupWindow.isOutsideTouchable = true
-        popupWindow.elevation = 5.0f
-        // popupWindow.softInputMode = PopupWindow.INPUT_METHOD_NEEDED
-        //popupWindow.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING
-        popupWindow.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        //popupWindow.showAtLocation(binding.tvFont, Gravity.CENTER, 0, 0)
-        popupWindow.showAsDropDown(binding.tvSize, 0, 10, Gravity.CENTER)
-
-        val adapterColor = ColorAdapter(this@CustomizeActivity, listColor)
-        val gridLayoutManager = GridLayoutManager(this, 10)
-        popupBinding.rvData.apply {
-            layoutManager = gridLayoutManager
-            setHasFixedSize(true)
-            adapter = adapterColor
-        }
-        adapterColor.onItemClick(object : RVItemClickListener {
-            override fun onClick(pos: String, view: View?) {
-                binding.viewColor.setBackgroundColor(Color.parseColor(listColor[pos.toInt()]))
-                binding.tvData.setTextColor(Color.parseColor(listColor[pos.toInt()]))
-                popupWindow.dismiss()
-            }
-        })
-    }
-
-
-    fun openDialogToUpdateProfilePIC() {
-        dialog = Dialog(this)
-        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_curved_bg_inset)
-        dialog?.setContentView(R.layout.dialog_select)
-        val lp = WindowManager.LayoutParams()
-        lp.copyFrom(dialog?.window?.attributes)
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT
-        lp.gravity = Gravity.CENTER
-        dialog?.window?.attributes = lp
-        val cameraLayout: LinearLayout? = dialog?.findViewById(R.id.cameraLayout)
-        val galleryLayout: LinearLayout? = dialog?.findViewById(R.id.galleryLayout)
-        cameraLayout?.setOnClickListener {
-            launchCameraIntent()
-            dialog?.dismiss()
-        }
-        galleryLayout?.setOnClickListener {
-            launchGalleryIntent()
-            dialog?.dismiss()
-        }
-        dialog?.show()
-    }
-
-    fun showSettingsDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle(getString(R.string.dialog_permission_title))
-        builder.setMessage(getString(R.string.dialog_permission_message))
-        builder.setPositiveButton(getString(R.string.go_to_settings)) { dialog: DialogInterface, which: Int ->
-            dialog.cancel()
-            openSettings()
-        }
-        builder.setNegativeButton(
-        ) { dialog: DialogInterface, which: Int -> dialog.cancel() }
-        builder.show()
-
-    }
-
-    private fun AlertDialog.Builder.setNegativeButton(function: (DialogInterface, Int) -> Unit) {
-
-    }
-
-    private fun openSettings() {
-        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-        val uri = Uri.fromParts("package", this.packageName, null)
-        intent.data = uri
-        startActivityForResult(intent, 101)
-    }
-
-    private fun launchCameraIntent() {
-        val intent = Intent(this, ImagePickerActivity::class.java)
-        intent.putExtra(
-            ImagePickerActivity.INTENT_IMAGE_PICKER_OPTION,
-            ImagePickerActivity.REQUEST_IMAGE_CAPTURE
-        )
-
-        // setting aspect ratio
-        intent.putExtra(ImagePickerActivity.INTENT_LOCK_ASPECT_RATIO, true)
-        intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_X, 1) // 16x9, 1x1, 3:4, 3:2
-        intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_Y, 1)
-
-        // setting maximum bitmap width and height
-        intent.putExtra(ImagePickerActivity.INTENT_SET_BITMAP_MAX_WIDTH_HEIGHT, true)
-        intent.putExtra(ImagePickerActivity.INTENT_BITMAP_MAX_WIDTH, 1000)
-        intent.putExtra(ImagePickerActivity.INTENT_BITMAP_MAX_HEIGHT, 1000)
-        startActivityForResult(intent, REQUEST_IMAGE)
-    }
-
-    private fun launchGalleryIntent() {
-        val intent = Intent(this, ImagePickerActivity::class.java)
-        intent.putExtra(
-            ImagePickerActivity.INTENT_IMAGE_PICKER_OPTION,
-            ImagePickerActivity.REQUEST_GALLERY_IMAGE
-        )
-
-        // setting aspect ratio
-        intent.putExtra(ImagePickerActivity.INTENT_LOCK_ASPECT_RATIO, true)
-        intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_X, 1) // 16x9, 1x1, 3:4, 3:2
-        intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_Y, 1)
-        startActivityForResult(intent, REQUEST_IMAGE)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (data != null) {
-            checkPermissionOnActivityResult(requestCode, resultCode, data)
-        }
-        if (requestCode == REQUEST_IMAGE) {
-            if (resultCode == RESULT_OK) {
-                val uri = data!!.getParcelableExtra<Uri>("path")
-                val file = File(uri!!.path)
-                loadProfile(uri.toString())
-                try {
-                    imageZipperFile = ImageZipper(this)
-                        .setQuality(50)
-                        .setMaxWidth(300)
-                        .setMaxHeight(300)
-                        .compressToFile(file)
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-            }
-        }
-    }
-
-    private fun checkPermissionOnActivityResult(requestCode: Int, resultCode: Int, data: Intent) {}
-
-    private fun loadProfile(url: String) {
-        Glide.with(this).load(url).error(R.drawable.gallery_image_icon)
-            .placeholder(R.drawable.gallery_image_icon)
-            .into(binding.imgBanner)
-        //   binding.imgBanner.setColorFilter(ContextCompat.getColor(this, android.R.color.transparent))
-    }
 
 }

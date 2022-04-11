@@ -1,10 +1,14 @@
 package com.shoparty.android.ui.main.home
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
 data class HomeResponse(
     val message: String,
     val response_code: Int,
     val result: Home
 ) {
+
     data class Home(
         val top_banner: List<Banner>,
         val bottom_banner: List<Banner>,
@@ -19,9 +23,10 @@ data class HomeResponse(
         val topSubCategory: List<TopSubCategory>,
         )
     {
+        @Parcelize
         data class Banner(
             val created_at: String,
-            val deleted_at: Any,
+            val deleted_at: String,
             val id: Int,
             val name: String,
             val product_detail_id: Int,
@@ -29,27 +34,37 @@ data class HomeResponse(
             val status: Int,
             val updated_at: String,
             val image: String
-        )
+        ):Parcelable
+
+        @Parcelize
         data class Category(
             val category_id: String,
             val category_name: String,
             val category_image: String
-        )
+        ):Parcelable
+
+        @Parcelize
         data class Theme(
             val theme_id: String,
             val theame_name: String,
             val theme_image: String
-        )
+        ):Parcelable
+
+        @Parcelize
         data class Brand(
             val brand_id: String,
             val brand_name: String,
             val brand_image: String
-        )
+        ):Parcelable
+
+        @Parcelize
         data class Season(
             val season_id: String,
             val season_name: String,
             val season_image: String
-        )
+        ):Parcelable
+
+        @Parcelize
         data class ArrivalResponse(
             val age_from: String,
             val age_to: String,
@@ -61,7 +76,7 @@ data class HomeResponse(
             val color_name: String,
             val cost_price: String,
             val created_at: String,
-            val deleted_at: Any,
+            val deleted_at: String,
             val delivery_time: String,
             val discount: Int,
             val en_description: String,
@@ -83,15 +98,15 @@ data class HomeResponse(
             val product_size_id: Int,
             val quantity: String,
             val sale_price: String,
-            val season_id: Any,
+            val season_id: String,
             val size: String,
             val status: Int,
-            val store_id: Any,
+            val store_id: String,
             val tax: String,
             val tax_type: Int,
-            val theme_id: Any,
+            val theme_id: String,
             val updated_at: String
-        )
+        ):Parcelable
     }
 
     data class OffersAndDiscountedItem(
@@ -105,7 +120,7 @@ data class HomeResponse(
         val color_name: String,
         val cost_price: String,
         val created_at: String,
-        val deleted_at: Any,
+        val deleted_at: String,
         val discount: Int,
         val en_description: String,
         val en_name: String,
@@ -126,13 +141,13 @@ data class HomeResponse(
         val product_size_id: Int,
         val quantity: String,
         val sale_price: String,
-        val season_id: Any,
+        val season_id: String,
         val size: String,
         val status: Int,
-        val store_id: Any,
+        val store_id: String,
         val tax: String,
         val tax_type: Int,
-        val theme_id: Any,
+        val theme_id: String,
         val offer_code: String,
         val updated_at: String,
         val offer_discount: String,
@@ -155,8 +170,8 @@ data class HomeResponse(
         val color_name: String,
         val cost_price: String,
         val created_at: String,
-        val deleted_at: Any,
-        val discount: Any,
+        val deleted_at: String,
+        val discount: String,
         val en_description: String,
         val en_name: String,
         var fav_status: Int,
@@ -176,13 +191,13 @@ data class HomeResponse(
         val product_size_id: Int,
         val quantity: String,
         val sale_price: String,
-        val season_id: Any,
+        val season_id: String,
         val size: String,
         val status: Int,
-        val store_id: Any,
+        val store_id: String,
         val tax: String,
         val tax_type: Int,
-        val theme_id: Any,
+        val theme_id: String,
         val updated_at: String
     )
 

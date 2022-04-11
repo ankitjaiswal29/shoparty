@@ -23,8 +23,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clPreview"
+            <RelativeLayout
+                android:id="@+id/clView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -35,10 +35,10 @@
                     android:id="@+id/imgBanner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@null"
                     android:adjustViewBounds="true"
+                    android:contentDescription="@null"
                     android:maxHeight="@dimen/_200sdp"
-                    android:minHeight="@dimen/_150sdp"
+                    android:minHeight="@dimen/_175sdp"
                     android:src="@drawable/shoparty_icon"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -52,12 +52,14 @@
                     android:text="@string/name"
                     android:textColor="@color/black"
                     android:textSize="20sp"
+                    android:maxLines="2"
+                    android:layout_marginStart="@dimen/_175sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/imgBanner"
                     app:layout_constraintEnd_toEndOf="@+id/imgBanner"
                     app:layout_constraintStart_toStartOf="@+id/imgBanner"
                     app:layout_constraintTop_toTopOf="@id/imgBanner" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </RelativeLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ct_constrain_edit_lay"
@@ -69,7 +71,7 @@
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/clPreview">
+                app:layout_constraintTop_toBottomOf="@+id/clView">
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline"
