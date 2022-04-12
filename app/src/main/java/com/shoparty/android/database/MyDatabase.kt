@@ -12,7 +12,7 @@ import com.shoparty.android.database.dao.ProductDao
 /**
  * Created by Amit Gupta on 21-03-2022.
  */
-@Database(entities = [Product::class,CartProduct::class], version = 1)
+@Database(entities = [Product::class,CartProduct::class], version = 1,exportSchema = false)
 abstract class MyDatabase : RoomDatabase() {
 
     abstract fun getProductDao(): ProductDao

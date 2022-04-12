@@ -1,5 +1,6 @@
 package com.shoparty.android.ui.search
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -14,6 +15,7 @@ import com.shoparty.android.common_modal.Product
 import com.shoparty.android.database.MyDatabase
 import com.shoparty.android.databinding.ActivitySearchBinding
 import com.shoparty.android.interfaces.RVItemClickListener
+import com.shoparty.android.ui.productdetails.ProductDetailsActivity
 import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.ProgressDialog
@@ -23,6 +25,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class SearchActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivitySearchBinding
     private lateinit var viewModel: SearchViewModel
     private lateinit var searchHistoryAdapter: SearchHistoryAdapter
@@ -58,20 +61,25 @@ class SearchActivity : AppCompatActivity() {
             val dbList = MyDatabase.getInstance(this@SearchActivity).getProductDao().getAllProduct()
             list.addAll(dbList)
             lifecycleScope.launch(Dispatchers.Main) {
-                lifecycleScope.launch(Dispatchers.IO) {
-                    searchHistoryAdapter.notifyDataSetChanged()
-                }
-
+                searchHistoryAdapter.notifyDataSetChanged()
             }
 
         }
 
-        searchHistoryAdapter.onItemClick(object : RVItemClickListener{
+        searchHistoryAdapter.onItemClick(object : RVItemClickListener {
             override fun onClick(pos: String, view: View?) {
                 lifecycleScope.launch(Dispatchers.IO) {
                     MyDatabase.getInstance(this@SearchActivity).getProductDao()
                         .insertProduct(list[pos.toInt()])
                 }
+
+                val intent = Intent(this@SearchActivity, ProductDetailsActivity::class.java)
+                intent.putExtra(Constants.IDPRODUCT,list[pos.toInt()].product_id.toString())
+                intent.putExtra(Constants.PRODUCATNAME,list[pos.toInt()].product_name)
+                intent.putExtra(Constants.PRODUCATDETAILSID,list[pos.toInt()].product_detail_id.toString())
+                intent.putExtra(Constants.PRODUCTSIZEID,list[pos.toInt()].product_size_id.toString())
+                intent.putExtra(Constants.PRODUCTCOLORID,list[pos.toInt()].product_color_id.toString())
+                startActivity(intent)
             }
         })
         setObserver()
