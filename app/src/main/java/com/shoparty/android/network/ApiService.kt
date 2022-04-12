@@ -130,7 +130,6 @@ interface ApiService {
         @Body requestModel: CategoryRequestModel
     ): Response<CategoryResponse>
 
-
     @GET("list-genders")
     suspend fun getGenderList(
     ): Response<GenderResponse>
@@ -138,7 +137,6 @@ interface ApiService {
     @GET("list-ages")
     suspend fun changeAge(
     ): Response<AgeResponse>
-
 
     @POST("list-orders")
     suspend fun getMyOrderDataAsync(
@@ -154,7 +152,6 @@ interface ApiService {
     suspend fun getProductList(
         @Body productListRequestModel: ProductListRequestModel
     ): Response<ProductListResponse>
-
 
     @POST("arrival/and/top/list")
     suspend fun getTopProductList(
@@ -195,7 +192,6 @@ interface ApiService {
         @Body requestModel: SearchRequestModel
     ): Response<SearchResponseModel>
 
-
     @POST("product-details")
     suspend fun producatdetailsAsync(
         @Body producatDetailsRequestModel: ProducatDetailsRequestModel
@@ -205,5 +201,4 @@ interface ApiService {
     suspend fun changeLanguage(
         @Body changeLanguageRequestModel: ChangeLanguageRequestModel
     ): Response<ChangeLanguageResponse>
-
 }
