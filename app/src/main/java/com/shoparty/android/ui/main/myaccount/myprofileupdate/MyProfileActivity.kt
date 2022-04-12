@@ -54,6 +54,7 @@ import java.util.*
 
 
 class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
+    private var dob1= ""
     private lateinit var binding: ActivityMyProfileBinding
     private var cal = Calendar.getInstance()
     private lateinit var viewModel: MyAccountViewModel
@@ -223,7 +224,7 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
     }
 
 
-    private fun setupUI(data: GetProfileResponse.User?)
+   /* private fun setupUI(data: GetProfileResponse.User?)
     {
         PrefManager.write(PrefManager.NAME, binding.tvName.text.toString())
         PrefManager.write(PrefManager.IMAGE,data?.image.toString())
@@ -260,7 +261,7 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
             femaleGenderSet()
         }
     }
-
+*/
 
     private fun setPrefrenceData()
     {
@@ -278,9 +279,6 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
         binding.etEmail.setSelection(binding.etEmail.length())
         binding.ivEditProfile.visibility=View.VISIBLE
         binding.imgPencil.visibility=View.VISIBLE
-
-
-
         if(PrefManager.read(PrefManager.GENDER,"") == Constants.MALE)
         {
             maleGenderSet()
@@ -310,8 +308,7 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
                             builder.addFormDataPart(
                                 "image",
                                 imageZipperFile?.name,
-                                "".toRequestBody("image/*".toMediaTypeOrNull())
-                            )
+                                "".toRequestBody("image/*".toMediaTypeOrNull()))
                         }
                         builder.addFormDataPart("name", binding.etFirstname.text.toString())
                         builder.addFormDataPart("email", binding.etEmail.text.toString())
@@ -323,7 +320,6 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
                         builder.addFormDataPart("street_no",  binding.etStreet.text.toString())
                         builder.addFormDataPart("building_no",  binding.etHouseno.text.toString())
                         val body = builder.build()
-
                         viewModel.postupdateProfile(body)   //api call
                 }
             }
@@ -390,7 +386,7 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
 
     private fun DatePic()
     {
-        val dateSetListener =
+        /*val dateSetListener =
             DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 cal.set(Calendar.YEAR, year)
                 cal.set(Calendar.MONTH, monthOfYear)
@@ -406,13 +402,31 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
                 cal.get(Calendar.MONTH),
                 cal.get(Calendar.DAY_OF_MONTH)
             ).show()
+*/
 
-
+        val calender = Calendar.getInstance()
+        val datePickerDialog = DatePickerDialog(
+            this,
+            R.style.DialogTheme,
+            { _, year, monthOfYear, dayOfMonth ->
+                dob1= "$dayOfMonth-${monthOfYear + 1}-$year"
+                var dob= "$year-${monthOfYear + 1}-$dayOfMonth"
+                if(Utils.calculateAgeFromDob(dob,"YYYY-MM-dd")>=18)
+                {
+                    binding.tvDateBirth.text = dob1
+                }
+                else
+                {
+                    Utils.showLongToast(this,getString(R.string.agelimitismin))
+                }
+            },
+            calender.get(Calendar.YEAR),
+            calender.get(Calendar.MONTH),
+            calender.get(Calendar.DAY_OF_MONTH)
+        )
+        datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
+        datePickerDialog.show()
     }
-
-
-
-
 
     fun openDialogToUpdateProfilePIC() {
         dialog = Dialog(this)
@@ -521,12 +535,7 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
     }
 
 
-    private fun updateDateInView() {
-        val myFormat = "dd/MM/yyyy" // mention the format you need
-        val sdf = SimpleDateFormat(myFormat, Locale.US)
-        binding.tvDateBirth.text = sdf.format(cal.time)
-        selecteddate=sdf.format(cal.time)
-    }
+
 
     override fun onBackPressed() {
         super.onBackPressed()

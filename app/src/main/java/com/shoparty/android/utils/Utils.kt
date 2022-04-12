@@ -33,6 +33,40 @@ object Utils {
         )
     }
 
+    fun calculateAgeFromDob(birthDate: String,dateFormat:String): Int
+    {
+        val sdf = SimpleDateFormat(dateFormat)
+        val dob = Calendar.getInstance()
+        dob.time = sdf.parse(birthDate)
+
+        val today = Calendar.getInstance()
+
+        val curYear = today.get(Calendar.YEAR)
+        val dobYear = dob.get(Calendar.YEAR)
+
+        var age = curYear - dobYear
+
+        try {
+            // if dob is month or day is behind today's month or day
+            // reduce age by 1
+            val curMonth = today.get(Calendar.MONTH+1)
+            val dobMonth = dob.get(Calendar.MONTH+1)
+            if (dobMonth >curMonth) { // this year can't be counted!
+                age--
+            } else if (dobMonth == curMonth) { // same month? check for day
+                val curDay = today.get(Calendar.DAY_OF_MONTH)
+                val dobDay = dob.get(Calendar.DAY_OF_MONTH)
+                if (dobDay > curDay) { // this year can't be counted!
+                    age--
+                }
+            }
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        }
+
+        return age
+    }
+
     private fun hideKeyboard(activity: Activity, view: View) {
         val inputMethodManager =
             activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager

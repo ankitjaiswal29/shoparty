@@ -15,13 +15,15 @@ import com.shoparty.android.databinding.ActivityRegisterBinding
 import com.shoparty.android.ui.login.LoginActivity
 import com.shoparty.android.ui.main.myaccount.termandcondition.TermAndConditionActivity
 import com.shoparty.android.utils.PrefManager
+import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
-import kotlinx.android.synthetic.main.activity_register.*
+
 import java.text.SimpleDateFormat
 import java.util.*
 
 class RegisterActivity : AppCompatActivity(), View.OnClickListener {
+    private var dob1 = ""
     private lateinit var binding: ActivityRegisterBinding
     var cal = Calendar.getInstance()
     private lateinit var viewModel: RegisterViewModel
@@ -51,23 +53,29 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         binding.ivMale.setOnClickListener(this)
         binding.ivDateOfBirth.setOnClickListener(this)
         binding.signUpBtn.setOnClickListener(this)
-
-        val dateSetListener =
-            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                cal.set(Calendar.YEAR, year)
-                cal.set(Calendar.MONTH, monthOfYear)
-                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                updateDateInView()
-            }
-
         binding.signUpDobRelativeLay.setOnClickListener {
-            DatePickerDialog(
-                this@RegisterActivity, R.style.DialogTheme,
-                dateSetListener,
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH)
-            ).show()
+            val calender = Calendar.getInstance()
+            val datePickerDialog = DatePickerDialog(
+                this,
+                R.style.DialogTheme,
+                { _, year, monthOfYear, dayOfMonth ->
+                    dob1= "$dayOfMonth-${monthOfYear + 1}-$year"
+                    var dob= "$year-${monthOfYear + 1}-$dayOfMonth"
+                    if(Utils.calculateAgeFromDob(dob,"YYYY-MM-dd")>=18)
+                    {
+                        binding.tvDateOfBirth.text = dob1
+                    }
+                    else
+                    {
+                        Utils.showLongToast(this,getString(R.string.agelimitismin))
+                    }
+                },
+                calender.get(Calendar.YEAR),
+                calender.get(Calendar.MONTH),
+                calender.get(Calendar.DAY_OF_MONTH)
+            )
+            datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
+            datePickerDialog.show()
         }
 
         binding.cbTermconditon.setOnCheckedChangeListener { compoundButton, isChecked ->
@@ -85,19 +93,19 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(intent)
             }
             R.id.ly_male -> {
-                iv_male.visibility = View.VISIBLE
-                iv_female.visibility = View.GONE
+                binding.ivMale.visibility = View.VISIBLE
+                binding.ivFemale.visibility = View.GONE
                 binding.tvMale.setTextColor(Color.parseColor("#E30986"));
                 binding.tvFemale.setTextColor(Color.parseColor("#A19989"));
-                selectedgender = tv_male.text.toString()
+                selectedgender =  binding.tvMale.text.toString()
 
             }
             R.id.ly_female -> {
-                iv_male.visibility = View.GONE
-                iv_female.visibility = View.VISIBLE
+                binding.ivMale.visibility = View.GONE
+                binding.ivFemale.visibility = View.VISIBLE
                 binding.tvFemale.setTextColor(Color.parseColor("#E30986"));
                 binding.tvMale.setTextColor(Color.parseColor("#A19989"));
-                selectedgender = tv_female.text.toString()
+                selectedgender = binding.tvFemale.text.toString()
             }
 
             binding.signUpBtn.id -> {
@@ -150,10 +158,5 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     }
 
 
-    private fun updateDateInView() {
-        val myFormat = "dd/MM/yyyy" // mention the format you need
-        val sdf = SimpleDateFormat(myFormat, Locale.US)
-        binding.tvDateOfBirth.text = sdf.format(cal.time)
-        selecteddate = sdf.format(cal.time)
-    }
+
 }

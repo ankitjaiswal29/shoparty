@@ -47,8 +47,6 @@ class RegisterViewModel(private val app: Application) : ViewModel()
     
     private fun validation(condition_checkable: Boolean):Boolean
     {
-
-
         if (fullName.get().isNullOrBlank())
         {
             Utils.showShortToast(mContext,mContext.getString(R.string.enterfullname))

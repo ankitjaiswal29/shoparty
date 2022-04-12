@@ -232,8 +232,6 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
                 val intent = Intent (activity, WishListActivity::class.java)
                 activity?.startActivity(intent)
             }
-
-
             "idmyprofile" -> {
                 if(PrefManager.read(PrefManager.AUTH_TOKEN,"").isEmpty())
                 {

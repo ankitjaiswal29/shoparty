@@ -431,5 +431,6 @@
     <string name="wsatsapp_not_initialised">Whatsapp have not been installed.</string>
     <string name="OngoingOrder">OngoingOrder</string>
     <string name="Payment">Payment</string>
+    <string name="agelimitismin">Minimum required age is 18 year</string>
 
 </resources>

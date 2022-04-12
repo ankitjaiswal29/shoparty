@@ -64,7 +64,7 @@ class VerificationActivity : AppCompatActivity() {
 
 
     private var countDownTimer =
-        object : CountDownTimer(60000 * 2, 1000) {
+        object : CountDownTimer((60000 * 2).toLong(), 1000) {
             override fun onTick(millisUntilFinished: Long)
             {
                 val seconds = millisUntilFinished / 1000
@@ -104,7 +104,7 @@ class VerificationActivity : AppCompatActivity() {
             when (response) {
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
-                    setupUI(response.data?.data)
+                  //  setupUI(response.data?.data)
                     Toast.makeText(
                         applicationContext,
                         response.message,
@@ -184,6 +184,7 @@ class VerificationActivity : AppCompatActivity() {
         PrefManager.write(PrefManager.MOBILE, data?.mobile.toString())
         PrefManager.write(PrefManager.NAME, data?.name.toString())
         PrefManager.write(PrefManager.USER_ID, data?.user_id.toString())
+        PrefManager.write(PrefManager.EMAIL, data?.email.toString())
     }
 
     override fun onDestroy() {

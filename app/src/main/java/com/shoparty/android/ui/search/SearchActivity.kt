@@ -1,5 +1,6 @@
 package com.shoparty.android.ui.search
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -41,6 +42,7 @@ class SearchActivity : AppCompatActivity() {
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun initialise() {
         binding.infoTool.ivDrawerBack.setOnClickListener {
             onBackPressed()
@@ -112,7 +114,8 @@ class SearchActivity : AppCompatActivity() {
 
     }
 
-    private fun setObserver() {
+    private fun setObserver()
+    {
         viewModel.productList.observe(this) { response ->
             when (response) {
                 is Resource.Success -> {

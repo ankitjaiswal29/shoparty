@@ -233,7 +233,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     setImageInSlider(response.data?.product_details?.images!!)
                     setData(response.data?.product_details)
-
+                    productDetails=response.data.product_details
                     response.data?.product_details?.let { setData(it) }
                     setrecyclaryoumayalsolike(response.data?.you_may_also_like!!)
                     recyclarcustomeralsobought(response.data?.also_bought!!)
