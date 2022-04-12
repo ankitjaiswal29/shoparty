@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "689837356066",
+    "project_id": "shoparty-app",
+    "storage_bucket": "shoparty-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:689837356066:android:cd60ecd2e9f6db0ba6867b",
+        "android_client_info": {
+          "package_name": "com.shoparty.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "689837356066-299ucok21be0e6nlg8f5asoll9nojcmf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shoparty.android",
+            "certificate_hash": "c6e344857e8495c67f44d7d6a026af102d0807c0"
+          }
+        },
+        {
+          "client_id": "689837356066-k1eipce12l0irf28fcbg79m899sqrjg5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAk8F9m8bzn5GHv783WS8_dMSteW9iFYPY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "689837356066-k1eipce12l0irf28fcbg79m899sqrjg5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

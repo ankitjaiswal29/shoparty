@@ -3,23 +3,26 @@ package com.shoparty.android.ui.productdetails
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Paint
+import android.net.Uri
 import android.os.Bundle
 import android.text.InputType
 import android.text.Layout
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.firebase.dynamiclinks.DynamicLink
+import com.google.firebase.dynamiclinks.ktx.androidParameters
+import com.google.firebase.dynamiclinks.ktx.dynamicLinks
+import com.google.firebase.dynamiclinks.ktx.shortLinkAsync
+import com.google.firebase.ktx.Firebase
+import com.shoparty.android.BuildConfig
 import com.shoparty.android.R
-import com.shoparty.android.common_modal.CartProduct
-import com.shoparty.android.database.MyDatabase
 import com.shoparty.android.databinding.ActivityProductDetailsBinding
-
-
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.ui.customize.CustomizeActivity
 import com.shoparty.android.ui.main.home.HomeResponse
@@ -31,8 +34,6 @@ import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, RecyclerViewClickListener,
     ProductDetailCallback {
@@ -70,7 +71,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
         binding.tvWishlist.setOnClickListener(this)
         binding.tvReadmore.setOnClickListener(this)
-        //  binding.ivShare.setOnClickListener(this)
+        binding.ivShare.setOnClickListener(this)
 
 
         if (intent.extras != null) {
@@ -107,11 +108,58 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
             }
 
             binding.ivShare.setOnClickListener {
-                Utils.showLongToast(this, getString(R.string.comingsoon))
+                // Utils.showLongToast(this,getString(R.string.comingsoon))
+                val sharedLink =
+                    "https://shoparty.page.link/share?pid=$product_id&pdetail=" + product_details_id.replace(
+                        " ",
+                        "_"
+                    )
+
+                val DOMAIN_URI_PREFIX = "https://shoparty.page.link"
+//            val IOS_PACKAGE_NAME = "com.FighterDietRecipe"
+//            val IOS_APP_STORE_ID = "1570211295"
+                val dynamicLink = Firebase.dynamicLinks.shortLinkAsync {
+
+                    link = Uri.parse(sharedLink)
+                    val socialMetaTag = DynamicLink.SocialMetaTagParameters.Builder()
+                        .setTitle("Shoparty")
+                        .setImageUrl(Uri.parse(""))
+                        .build()
+
+                    setSocialMetaTagParameters(socialMetaTag)
+
+                    domainUriPrefix = DOMAIN_URI_PREFIX
+
+                    androidParameters {
+                        minimumVersion = BuildConfig.VERSION_CODE
+                    }
+
+//                iosParameters(IOS_PACKAGE_NAME) {
+//                    this.appStoreId = IOS_APP_STORE_ID
+//                }
+
+                }.addOnSuccessListener {
+                    val shortLink = it.shortLink
+                    val previewLink = it.previewLink
+                    Log.e("TAG", ">>>>> shortLink ::$shortLink")
+                    Log.e("TAG", ">>>>> previewLink ::$previewLink")
+                    shareLink(shortLink.toString())
+                }.addOnFailureListener {
+                    Log.e("TAG", ">>>>> exception ::${it.message}")
+                }
             }
         }
     }
 
+    private fun shareLink(link: String) {
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name))
+        intent.putExtra(Intent.EXTRA_TEXT, link)
+        startActivity(
+            Intent.createChooser(intent, getString(R.string.share_to))
+        )
+    }
 
     private fun choesColorRecyclaritem(colors: List<ProducatDetailsResponse.Color>) {
         colors.forEachIndexed { pos, it ->

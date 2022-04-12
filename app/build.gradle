@@ -4,6 +4,8 @@ plugins {
     id 'kotlin-android-extensions'
     //id 'kotlin-parcelize'
     id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
@@ -107,7 +109,13 @@ dependencies {
     //range seek bar
     implementation 'org.florescu.android.rangeseekbar:rangeseekbar-library:0.3.0'
 
-
-
+    //firebase setup,crashlytics
+    // Import the Firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:29.3.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-messaging-ktx'
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.firebase:firebase-dynamic-links-ktx'
 
 }
