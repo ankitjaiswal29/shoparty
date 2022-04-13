@@ -1,6 +1,7 @@
 package com.shoparty.android.interfaces
 
 import android.view.View
+import android.widget.TextView
 
 interface RVCartItemClickListener {
     fun onClick(pos: Int, view: View? = null)

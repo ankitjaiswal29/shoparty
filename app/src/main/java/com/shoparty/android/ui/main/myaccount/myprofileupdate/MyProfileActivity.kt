@@ -33,6 +33,7 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityMyProfileBinding
+
 import com.shoparty.android.ui.address.addaddress.AddressViewModel
 import com.shoparty.android.ui.main.mainactivity.MainActivity
 import com.shoparty.android.ui.main.myaccount.MyAccountViewModel

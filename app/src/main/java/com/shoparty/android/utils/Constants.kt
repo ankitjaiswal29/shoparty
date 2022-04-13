@@ -23,6 +23,9 @@ object Constants {
         const val MALE = "Male"
         const val EDIT_PROFILE_CODE = 100
         const val ADDADDRESS_CODE = 101
+        const val SHOPPINGBAG_CODE = 102
+        const val Coupon_Code = "Coupon_Code"
+        const val Coupon_Price = "Coupon_Price"
         const val UPDATEADDRESSSTATUS = "1"
         const val ADDRESSSDATA = "ADDRESSSDATA"
         const val PAGESTATUS = "PAGESTATUS"

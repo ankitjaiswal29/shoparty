@@ -1,6 +1,7 @@
 package com.shoparty.android.ui.shoppingbag
 
 import android.content.Context
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.shoparty.android.R
 import com.shoparty.android.common_modal.CartProduct
 import com.shoparty.android.databinding.BagItemLayoutBinding
+
 import com.shoparty.android.interfaces.RVCartItemClickListener
 
 class ShoppingBagItemAdapter(val context: Context, val list: List<CartProduct>) :
@@ -58,8 +60,21 @@ class ShoppingBagItemAdapter(val context: Context, val list: List<CartProduct>) 
         fun bind(modal: CartProduct) {
 
             Glide.with(context).asBitmap().load(modal.image).into(binding?.ivItem!!)
-            binding.tvCount.text = modal.quantity
+            binding.tvCount.text = modal.shopping_qnty
             binding.tvName.text = modal.en_name
+
+            if(modal.cost_price.toDouble()>modal.sale_price.toDouble())
+            {
+                binding.tvProductCostPrice.visibility=View.VISIBLE
+                binding.tvSalePrice.text=context.getString(R.string.dollor)+modal.sale_price
+                binding.tvProductCostPrice.text=context.getString(R.string.dollor)+modal.cost_price
+                binding.tvProductCostPrice.paintFlags =  binding.tvProductCostPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            }
+            else
+            {
+                binding.tvProductCostPrice.visibility=View.GONE
+                binding.tvSalePrice.text=context.getString(R.string.dollor)+modal.sale_price
+            }
 
             binding.ivClose.setOnClickListener {
                 listener?.onClear(adapterPosition)

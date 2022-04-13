@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:background="@color/white"
-        android:paddingLeft="@dimen/_12sdp"
+        android:paddingLeft="@dimen/_10sdp"
         android:paddingTop="@dimen/_4sdp"
         android:paddingRight="@dimen/_12sdp"
         android:paddingBottom="@dimen/_4sdp">
@@ -30,6 +30,7 @@
             android:id="@+id/tvName"
             style="@style/AppTheme.Text_15_Bold_dp"
             android:layout_width="0dp"
+            android:ellipsize="end"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_4sdp"
             android:text="@string/tesla_toys_kids_6_bundle_color_pack"
@@ -38,15 +39,31 @@
             app:layout_constraintTop_toTopOf="@+id/ivItem" />
 
         <TextView
-            android:id="@+id/tv_price"
+            android:id="@+id/tvSalePrice"
             style="@style/AppTheme.Text_16_dp_pink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/_7_10"
-            app:layout_constraintStart_toStartOf="@+id/tv_shopingitem_name"
-            app:layout_constraintTop_toBottomOf="@+id/tv_shopingitem_name"
+            android:layout_marginLeft="@dimen/_5sdp"
+            app:layout_constraintLeft_toRightOf="@+id/ivItem"
+            app:layout_constraintTop_toBottomOf="@+id/tvName"
             />
+
+
+
+        <TextView
+            android:id="@+id/tv_product_cost_price"
+            style="@style/AppTheme.Text_16_dp_gray"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            android:text="@string/_7_10"
+            android:layout_marginLeft="@dimen/_5sdp"
+            app:layout_constraintLeft_toRightOf="@+id/tvSalePrice"
+            app:layout_constraintTop_toBottomOf="@+id/tvName" />
+
 
         <ImageView
             android:id="@+id/iv_close"
@@ -83,7 +100,7 @@
         <TextView
             android:id="@+id/tv_count"
             style="@style/AppTheme.Text_14dp_Bold"
-            android:layout_width="20dp"
+            android:layout_width="25dp"
             android:layout_height="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"

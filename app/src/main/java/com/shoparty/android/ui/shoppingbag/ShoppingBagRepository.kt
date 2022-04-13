@@ -5,6 +5,6 @@ import com.shoparty.android.network.RetrofitBuilder
 
 class ShoppingBagRepository {
 
-//    suspend fun searchProduct(request: SearchRequestModel) =
-//        RetrofitBuilder.apiService?.searchProduct(request)
+    suspend fun shoppingBagList(request: ShoppingBagRequestModel) =
+       RetrofitBuilder.apiService?.shoppingListAsync(request)
 }

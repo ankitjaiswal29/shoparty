@@ -34,12 +34,16 @@ import com.shoparty.android.ui.myorders.myorderlist.MyOrderRequestModel
 import com.shoparty.android.ui.myorders.myorderlist.MyOrderResponse
 import com.shoparty.android.ui.myorders.orderdetails.OrderDetailsRequestModel
 import com.shoparty.android.ui.myorders.orderdetails.OrderDetailsResponse
+import com.shoparty.android.ui.productdetails.AddItemBagResponse
+import com.shoparty.android.ui.productdetails.AddItemToBagRequestModel
 import com.shoparty.android.ui.productdetails.ProducatDetailsRequestModel
 import com.shoparty.android.ui.productdetails.ProducatDetailsResponse
 import com.shoparty.android.ui.register.RegisterRequestModel
 import com.shoparty.android.ui.register.RegisterResponseModel
 import com.shoparty.android.ui.search.SearchRequestModel
 import com.shoparty.android.ui.search.SearchResponseModel
+import com.shoparty.android.ui.shoppingbag.ShoppingBagRequestModel
+import com.shoparty.android.ui.shoppingbag.ShoppingBagResponse
 import com.shoparty.android.ui.verificationotp.ResendOtpResponse
 import com.shoparty.android.ui.verificationotp.ResendRequestModel
 import com.shoparty.android.ui.verificationotp.VerifiyOtpResponse
@@ -196,6 +200,16 @@ interface ApiService {
     suspend fun producatdetailsAsync(
         @Body producatDetailsRequestModel: ProducatDetailsRequestModel
     ): Response<ProducatDetailsResponse>
+
+    @POST("add-to-bag")
+    suspend fun addtobagAsync(
+        @Body addItemToBagRequestModel: AddItemToBagRequestModel
+    ): Response<AddItemBagResponse>
+
+    @POST("shopping-list")
+    suspend fun shoppingListAsync(
+        @Body shoppingBagRequestModel: ShoppingBagRequestModel
+    ): Response<ShoppingBagResponse>
 
     @POST("change-language")
     suspend fun changeLanguage(

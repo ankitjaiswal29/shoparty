@@ -14,14 +14,18 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.dynamiclinks.DynamicLink
 import com.google.firebase.dynamiclinks.ktx.androidParameters
 import com.google.firebase.dynamiclinks.ktx.dynamicLinks
 import com.google.firebase.dynamiclinks.ktx.shortLinkAsync
 import com.google.firebase.ktx.Firebase
+
 import com.shoparty.android.BuildConfig
 import com.shoparty.android.R
+import com.shoparty.android.common_modal.CartProduct
+import com.shoparty.android.database.MyDatabase
 import com.shoparty.android.databinding.ActivityProductDetailsBinding
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.ui.customize.CustomizeActivity
@@ -31,13 +35,15 @@ import com.shoparty.android.ui.main.wishlist.WishListViewModel
 import com.shoparty.android.ui.shoppingbag.ShoppingBagActivity
 import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.PrefManager
+import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, RecyclerViewClickListener,
     ProductDetailCallback {
-
     private var l: Layout? = null
     private lateinit var binding: ActivityProductDetailsBinding
     var product_id = ""
@@ -45,6 +51,8 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
     var product_sizeId = ""
     var product_colorId = ""
     var fav_status = ""
+    var cost_price=""
+    var quantity:Int=0
     private lateinit var viewModel: ProducatDetailsViewModel
     private lateinit var wishlistviewModel: WishListViewModel
     private lateinit var productDetails: ProducatDetailsResponse.ProductDetails
@@ -72,9 +80,12 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
         binding.tvWishlist.setOnClickListener(this)
         binding.tvReadmore.setOnClickListener(this)
         binding.ivShare.setOnClickListener(this)
+        binding.ivPlus.setOnClickListener(this)
+        binding.ivMinus.setOnClickListener(this)
 
 
-        if (intent.extras != null) {
+        if (intent.extras != null)
+        {
             binding.infoTool.tvTitle.text =
                 intent.getStringExtra(Constants.PRODUCATNAME)?.substring(0, 1)?.toUpperCase() +
                         intent.getStringExtra(Constants.PRODUCATNAME)?.substring(1)?.toLowerCase()
@@ -82,30 +93,13 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
             product_details_id = intent.getStringExtra(Constants.PRODUCATDETAILSID)!!
             product_sizeId = intent.getStringExtra(Constants.PRODUCTSIZEID)!!
             product_colorId = intent.getStringExtra(Constants.PRODUCTCOLORID)!!
-            viewModel.postProducatDetails(
-                "1",
+
+            viewModel.postProducatDetails(PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
                 product_details_id,
                 product_id,
                 product_sizeId,
-                product_colorId
-            ) //api call
-            if (intent.extras != null) {
-                binding.infoTool.tvTitle.text =
-                    intent.getStringExtra(Constants.PRODUCATNAME)?.substring(0, 1)?.toUpperCase() +
-                            intent.getStringExtra(Constants.PRODUCATNAME)?.substring(1)
-                                ?.toLowerCase()
-                product_id = intent.getStringExtra(Constants.IDPRODUCT)!!
-                product_details_id = intent.getStringExtra(Constants.PRODUCATDETAILSID)!!
-                product_sizeId = intent.getStringExtra(Constants.PRODUCTSIZEID)!!
-                product_colorId = intent.getStringExtra(Constants.PRODUCTCOLORID)!!
-                viewModel.postProducatDetails(
-                    PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
-                    product_details_id,
-                    product_id,
-                    product_sizeId,
-                    product_colorId
-                ) //api call
-            }
+                product_colorId,
+                PrefManager.read(PrefManager.USER_ID,"").toString()) //api call
 
             binding.ivShare.setOnClickListener {
                 // Utils.showLongToast(this,getString(R.string.comingsoon))
@@ -114,30 +108,18 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                         " ",
                         "_"
                     )
-
                 val DOMAIN_URI_PREFIX = "https://shoparty.page.link"
-//            val IOS_PACKAGE_NAME = "com.FighterDietRecipe"
-//            val IOS_APP_STORE_ID = "1570211295"
                 val dynamicLink = Firebase.dynamicLinks.shortLinkAsync {
-
                     link = Uri.parse(sharedLink)
                     val socialMetaTag = DynamicLink.SocialMetaTagParameters.Builder()
                         .setTitle("Shoparty")
                         .setImageUrl(Uri.parse(""))
                         .build()
-
                     setSocialMetaTagParameters(socialMetaTag)
-
                     domainUriPrefix = DOMAIN_URI_PREFIX
-
                     androidParameters {
                         minimumVersion = BuildConfig.VERSION_CODE
                     }
-
-//                iosParameters(IOS_PACKAGE_NAME) {
-//                    this.appStoreId = IOS_APP_STORE_ID
-//                }
-
                 }.addOnSuccessListener {
                     val shortLink = it.shortLink
                     val previewLink = it.previewLink
@@ -196,25 +178,25 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                 binding.infoTool.ivDrawerBack.setOnClickListener(this)
             }
             R.id.tv_addtobag -> {
-                /*if(PrefManager.read(PrefManager.AUTH_TOKEN,"") == "")
+                if(PrefManager.read(PrefManager.AUTH_TOKEN,"") == "")
                 {
-                    lifecycleScope.launch(Dispatchers.IO) {
+                   /* lifecycleScope.launch(Dispatchers.IO) {
                         MyDatabase.getInstance(this@ProductDetailsActivity).getProductDao()
-                            .insertCartProduct(CartProduct(productDetails.en_name, productDetails.id, productDetails.images[0].image.toString(), "1"))
+                            .insertCartProduct(CartProduct(productDetails.en_name, productDetails.id.toString(), productDetails.images[0].image.toString(), "1"))
 
                         MyDatabase.getInstance(this@ProductDetailsActivity).getProductDao()
-                            .insertCartProduct(CartProduct(productDetails.en_name, productDetails.id, productDetails.images[0].image.toString(), "1"))
+                            .insertCartProduct(CartProduct(productDetails.en_name, productDetails.id.toString(), productDetails.images[0].image.toString(), "1"))
 
                         val intent = Intent(this@ProductDetailsActivity, ShoppingBagActivity::class.java)
                         startActivity(intent)
-                    }
+                    }*/
                 }
                 else
                 {
                     binding.tvAddtobag.visibility=View.GONE
                     binding.relativeAddMinus.visibility=View.VISIBLE
-                }*/
-                Utils.showLongToast(this, getString(R.string.comingsoon))
+                }
+             //   Utils.showLongToast(this, getString(R.string.comingsoon))
             }
             R.id.ivBagBtn -> {
                 val intent = Intent(this, ShoppingBagActivity::class.java)
@@ -233,8 +215,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                         1,
                         product_details_id.toInt(),
                         product_sizeId,
-                        product_colorId
-                    )
+                        product_colorId)
                     fav_status = "1"
                 } else {
                     wishlistviewModel.addremoveWishlist(
@@ -265,6 +246,19 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                     binding.tvReadmore.text=getString(R.string.str_hideless)
                 }
             }
+            R.id.iv_plus->
+            {
+                quantity += 1
+                viewModel.postAddProduct(product_id,product_details_id,product_sizeId,product_colorId,quantity,cost_price)
+            }
+
+            R.id.iv_minus-> {
+                if(quantity>0)
+                {
+                    quantity -= 1
+                    viewModel.postAddProduct(product_id,product_details_id,product_sizeId,product_colorId,quantity,cost_price)
+                }
+            }
         }
     }
 
@@ -278,11 +272,13 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
         viewModel.product.observe(this) { response ->
             when (response) {
                 is Resource.Success -> {
-                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    ProgressDialog.hideProgressBar()
                     setImageInSlider(response.data?.product_details?.images!!)
-                    setData(response.data?.product_details)
                     productDetails=response.data.product_details
-                    response.data?.product_details?.let { setData(it) }
+                    cost_price=response.data.product_details.cost_price
+
+                    response.data?.product_details?.let { setData(it) }     //for data set
+
                     setrecyclaryoumayalsolike(response.data?.you_may_also_like!!)
                     recyclarcustomeralsobought(response.data?.also_bought!!)
                     checkReadMore(response.data.product_details.product_desc)
@@ -351,6 +347,39 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                 }
                 else -> {
                    //   ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        this,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+
+        viewModel.addbag.observe(this) { response ->
+            when (response) {
+                is Resource.Success -> {
+                   ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        this,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    binding.tvCount.text=quantity.toString()
+                }
+                is Resource.Loading -> {
+                       ProgressDialog.showProgressBar(this)
+                }
+                is Resource.Error -> {
+                    ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        this,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         this,
                         response.message,
@@ -430,6 +459,18 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
             binding.tvOrdernowdate.text=getString(R.string.andgetitby)+" "+data.delivery_time
         }
 
+        quantity = data.cart_quantity!!                   //for quantity
+        binding.tvCount.text=quantity.toString()
+        if(quantity<=0)
+        {
+            binding.tvAddtobag.visibility=View.VISIBLE
+            binding.relativeAddMinus.visibility=View.GONE
+        }
+        else
+        {
+            binding.tvAddtobag.visibility=View.GONE
+            binding.relativeAddMinus.visibility=View.VISIBLE
+        }
     }
 
     private fun setImageInSlider(images: List<HomeResponse.Home.Banner>) {
@@ -446,7 +487,8 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
     }
 
     override fun onProductClick(product_detail_id: Int, product_id: Int,product_sizeId:String,product_colorId:String) {
-        viewModel.postProducatDetails(PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),product_detail_id.toString(),product_id.toString(),product_sizeId,product_colorId) //api call
+        viewModel.postProducatDetails(PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),product_detail_id.toString(),product_id.toString(),product_sizeId,product_colorId,
+        PrefManager.read(PrefManager.USER_ID,"")) //api call
         binding.nestedScrool.scrollTo(0,  binding.nestedScrool.top)
     }
 }

@@ -1,8 +1,11 @@
 package com.shoparty.android.ui.shoppingbag
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -10,56 +13,188 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.shoparty.android.R
 import com.shoparty.android.common_modal.CartProduct
-import com.shoparty.android.common_modal.Product
 import com.shoparty.android.database.MyDatabase
 import com.shoparty.android.databinding.ActivityShopingBagBinding
+
 import com.shoparty.android.interfaces.RVCartItemClickListener
 import com.shoparty.android.ui.login.LoginActivity
 import com.shoparty.android.ui.main.home.HomeCategoriesModel
 import com.shoparty.android.ui.productdetails.ProducatDetailsViewModel
 import com.shoparty.android.ui.productdetails.ProductDetailsActivity
 import com.shoparty.android.ui.shipping.ShippingActivity
+import com.shoparty.android.ui.vouchers.VouchersActivity
+import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.PrefManager
+import com.shoparty.android.utils.ProgressDialog
+import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener {
-
+    private var taxPrice: Double=0.00
+    private var clickAction: Int=0
+    private var summaryprice: Double=0.00
     private lateinit var binding: ActivityShopingBagBinding
     private lateinit var viewModel: ProducatDetailsViewModel
+    private lateinit var shoopingbagviewModel: ShoppingBagViewModel
+
 
     private lateinit var adapterShoppingBag: ShoppingBagItemAdapter
-    private val listCartProduct: ArrayList<CartProduct> = ArrayList()
-
-    private lateinit var cartProduct: CartProduct
-    private lateinit var product: Product
-
+    private var listCartProduct: ArrayList<CartProduct> = ArrayList()
+    private var quantity:Int=0
+    private var position:Int=0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_shoping_bag)
-        viewModel = ViewModelProvider(
-            this,
+        viewModel = ViewModelProvider(this,
             ViewModalFactory(application)
         )[ProducatDetailsViewModel::class.java]
-
+        shoopingbagviewModel = ViewModelProvider(this,
+            ViewModalFactory(application)
+        )[ShoppingBagViewModel::class.java]
         initialise()
+        setObserver()
+        if(PrefManager.read(PrefManager.AUTH_TOKEN,"") == "")
+        {
+            shoppingBagListLocal()
+        }
+        else                            //shopping Bag List Api
+        {
+            shoopingbagviewModel.cartItemList(PrefManager.read(PrefManager.LANGUAGEID,1).toString())
+        }
     }
 
     private fun initialise() {
         binding.infoTool.tvTitle.text = getString(R.string.shippingbag)
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
         binding.btnProcessTocheckOut.setOnClickListener(this)
-        binding.cbPickupBranch.setOnCheckedChangeListener { compoundButton, isChecked ->
+        binding.bagItemConsLay3.setOnClickListener(this)
+        binding.imgCoupenCross.setOnClickListener(this)
+        binding.cbPickupBranch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 binding.bagItemPickupRecycler.visibility = View.VISIBLE
             } else {
                 binding.bagItemPickupRecycler.visibility = View.GONE
             }
         }
-
-        shoppingBagList()
         shoppingBagPickup()
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setObserver()
+    {
+        shoopingbagviewModel.cartitems.observe(this) { response ->
+                when (response) {
+                    is Resource.Success -> {
+                        ProgressDialog.hideProgressBar()
+                        listCartProduct= response.data as ArrayList<CartProduct>
+                        if(listCartProduct.isNullOrEmpty())
+                        {
+                            binding.linearNoData.visibility=View.VISIBLE
+                            binding.linearBagData.visibility=View.GONE
+                        }
+                        else
+                        {
+                            listCartProduct.forEach {
+                               if(it.tax_type==1)  //calculation
+                               {
+                                   taxPrice += (it.shopping_price.toDouble() * it.shopping_qnty.toDouble()) * it.tax.toInt() / 100
+                               }
+                                summaryprice += it.shopping_price.toDouble() * it.shopping_qnty.toDouble()
+                            }
+                            binding.tvSummeryPrice.text=getString(R.string.dollor)+summaryprice.toString()
+                            binding.tvTaxPrice.text=getString(R.string.dollor)+taxPrice.toString()
+
+                            binding.linearNoData.visibility=View.GONE
+                            binding.linearBagData.visibility=View.VISIBLE
+                            shoppingBagListApi(listCartProduct)
+                        }
+                    }
+                    is Resource.Loading -> {
+                        ProgressDialog.showProgressBar(this)
+                    }
+                    is Resource.Error -> {
+                        ProgressDialog.hideProgressBar()
+                        Toast.makeText(
+                            applicationContext,
+                            response.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    else -> {
+                        ProgressDialog.hideProgressBar()
+                        Toast.makeText(
+                            applicationContext,
+                            response.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+
+
+        viewModel.addbag.observe(this) { response ->
+            when (response) {
+                is Resource.Success -> {
+                    ProgressDialog.hideProgressBar()
+                    if(clickAction==1)  //add
+                    {
+                        updateAddPrice()
+                    }
+                    else
+                    {
+                        updateMinusPrice()
+                    }
+                }
+                is Resource.Loading -> {
+                    ProgressDialog.showProgressBar(this)
+                }
+                is Resource.Error -> {
+                    ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
+    private fun updateAddPrice()
+    {
+        listCartProduct[position].shopping_qnty = quantity.toString()
+        adapterShoppingBag.notifyDataSetChanged()
+        summaryprice +=listCartProduct[position].shopping_price.toDouble()
+        binding.tvSummeryPrice.text=getString(R.string.dollor)+summaryprice.toString()
+
+        if(listCartProduct[position].tax_type==1)  //tax caluclation
+        {
+            taxPrice+=listCartProduct[position].shopping_price.toDouble()*listCartProduct[position].tax.toDouble()/100
+            binding.tvTaxPrice.text=getString(R.string.dollor)+taxPrice.toString()
+        }
+
+    }
+    private fun updateMinusPrice() {
+        listCartProduct[position].shopping_qnty = quantity.toString()
+        adapterShoppingBag.notifyDataSetChanged()
+        summaryprice -=listCartProduct[position].shopping_price.toDouble()
+        binding.tvSummeryPrice.text=getString(R.string.dollor)+summaryprice.toString()
+
+        if(listCartProduct[position].tax_type==1)  //tax caluclation
+        {
+            taxPrice-=listCartProduct[position].shopping_price.toDouble()*listCartProduct[position].tax.toDouble()/100
+            binding.tvTaxPrice.text=getString(R.string.dollor)+taxPrice.toString()
+        }
     }
 
     private fun shoppingBagPickup() {
@@ -72,7 +207,8 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener {
         binding.bagItemPickupRecycler.adapter = ShopingBagPickupAdapter(bagItemList)
     }
 
-    private fun shoppingBagList() {
+    private fun shoppingBagListLocal()
+    {
         lifecycleScope.launch(Dispatchers.IO) {
             listCartProduct.clear()
             val dbList =
@@ -87,7 +223,6 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener {
             isFocusable = false
             adapter = adapterShoppingBag
         }
-
         adapterShoppingBag.onItemClick(object : RVCartItemClickListener {
             override fun onClick(pos: Int, view: View?) {
                 startActivity(Intent(this@ShoppingBagActivity,ProductDetailsActivity::class.java))
@@ -103,7 +238,6 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener {
                         adapterShoppingBag.notifyDataSetChanged()
                     }
                 }
-
             }
 
             override fun onMinus(pos: Int, view: View?) {
@@ -140,6 +274,55 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener {
         })
     }
 
+
+    private fun shoppingBagListApi(listCartProduct: ArrayList<CartProduct>)
+    {
+        adapterShoppingBag = ShoppingBagItemAdapter(this@ShoppingBagActivity, listCartProduct)
+        val gridLayoutManager = GridLayoutManager(this, 1)
+        binding.rvShopingitem.apply {
+            layoutManager = gridLayoutManager
+            setHasFixedSize(true)
+            isFocusable = false
+            adapter = adapterShoppingBag
+        }
+        adapterShoppingBag.onItemClick(object : RVCartItemClickListener {
+            override fun onClick(pos: Int, view: View?)
+            {
+              //  startActivity(Intent(this@ShoppingBagActivity,ProductDetailsActivity::class.java))
+            }
+
+            override fun onPlus(pos: Int, view: View?)
+            {
+                position=pos
+                clickAction=1
+                quantity=listCartProduct[position].shopping_qnty.toInt()+1
+                viewModel.postAddProduct(listCartProduct[position].product_id.toString(),listCartProduct[position].product_detail_id.toString(),
+                    listCartProduct[position].product_size_id.toString(),listCartProduct[position].product_color_id.toString(),quantity,
+                    listCartProduct[position].sale_price)  //api call
+            }
+
+            override fun onMinus(pos: Int, view: View?) {
+                position=pos
+                clickAction=0
+                quantity=listCartProduct[pos].shopping_qnty.toInt()-1
+                viewModel.postAddProduct(listCartProduct[pos].product_id.toString(),listCartProduct[pos].product_detail_id.toString(),
+                    listCartProduct[pos].product_size_id.toString(),listCartProduct[pos].product_color_id.toString(),quantity,
+                    listCartProduct[pos].sale_price)      //api call
+            }
+
+            override fun onClear(pos: Int, view: View?) {
+
+            }
+        })
+    }
+
+    private fun updateSummaryPrice(position: Int) {
+        quantity=listCartProduct[position].shopping_qnty.toInt()+1
+        viewModel.postAddProduct(listCartProduct[position].product_id.toString(),listCartProduct[position].product_detail_id.toString(),
+            listCartProduct[position].product_size_id.toString(),listCartProduct[position].product_color_id.toString(),quantity,
+            listCartProduct[position].sale_price)  //api call
+    }
+
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.iv_drawer_back -> {
@@ -156,6 +339,30 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener {
                     startActivity(intent)
                 }
             }
+
+            R.id.bag_item_cons_lay3->
+            {
+                val intent = Intent(applicationContext, VouchersActivity::class.java)
+                startActivityForResult(intent, Constants.SHOPPINGBAG_CODE)
+            }
+
+            R.id.imgCoupenCross->
+            {
+                binding.imgCoupenCross.visibility=View.INVISIBLE
+                binding.txtapplycode.text=getString(R.string.apply_promo_code)
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
+    {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == Constants.SHOPPINGBAG_CODE && resultCode == Activity.RESULT_OK)
+        {
+           // Utils.showLongToast(this,data?.extras?.getString(Constants.Coupon_Code))
+               // Utils.showLongToast(this,data?.extras?.getString(Constants.Coupon_Price))
+            binding.txtapplycode.text=data?.extras?.getString(Constants.Coupon_Code)
+            binding.imgCoupenCross.visibility=View.VISIBLE
         }
     }
 

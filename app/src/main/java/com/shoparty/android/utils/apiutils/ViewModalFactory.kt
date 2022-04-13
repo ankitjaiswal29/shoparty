@@ -18,6 +18,7 @@ import com.shoparty.android.ui.myorders.MyOrderViewModel
 import com.shoparty.android.ui.productdetails.ProducatDetailsViewModel
 import com.shoparty.android.ui.register.RegisterViewModel
 import com.shoparty.android.ui.search.SearchViewModel
+import com.shoparty.android.ui.shoppingbag.ShoppingBagViewModel
 import com.shoparty.android.ui.verificationotp.VerifiyViewModel
 import com.shoparty.android.ui.vouchers.VoucherViewModel
 
@@ -86,6 +87,10 @@ class ViewModalFactory(private val app: Application) : ViewModelProvider.Factory
 
         if (modelClass.isAssignableFrom(ProducatDetailsViewModel::class.java)) {
             return ProducatDetailsViewModel(app) as T
+        }
+
+        if (modelClass.isAssignableFrom(ShoppingBagViewModel::class.java)) {
+            return ShoppingBagViewModel(app) as T
         }
         throw IllegalArgumentException("Unknown class name")
     }

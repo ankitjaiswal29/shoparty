@@ -433,5 +433,6 @@
     <string name="OngoingOrder">OngoingOrder</string>
     <string name="Payment">Payment</string>
     <string name="agelimitismin">Minimum required age is 18 year</string>
+    <string name="Apply">Apply</string>
 
 </resources>

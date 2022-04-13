@@ -1,24 +1,23 @@
 package com.shoparty.android.ui.vouchers
 
-import android.R.attr
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.util.Util
-import com.shoparty.android.R
-import com.shoparty.android.databinding.ActivityVouchersBinding
-import com.shoparty.android.interfaces.RecyclerViewClickListener
-import com.shoparty.android.ui.login.LoginViewModel
-import com.shoparty.android.utils.Utils
-import com.shoparty.android.utils.apiutils.Resource
-import com.shoparty.android.utils.apiutils.ViewModalFactory
 import android.R.attr.label
-
+import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.shoparty.android.R
+import com.shoparty.android.databinding.ActivityVouchersBinding
+import com.shoparty.android.interfaces.RecyclerViewClickListener
+import com.shoparty.android.utils.Constants
+import com.shoparty.android.utils.Utils
+import com.shoparty.android.utils.apiutils.Resource
+import com.shoparty.android.utils.apiutils.ViewModalFactory
 
 
 class VouchersActivity : AppCompatActivity(),RecyclerViewClickListener{
@@ -33,6 +32,7 @@ class VouchersActivity : AppCompatActivity(),RecyclerViewClickListener{
         viewModel.getVoucher()    //api call
         setObserver()
     }
+
 
     private fun initialise() {
         binding.infoTool.tvTitle.text = getString(R.string.vouchers)
@@ -76,11 +76,15 @@ class VouchersActivity : AppCompatActivity(),RecyclerViewClickListener{
 
     override fun click(couponcode: String)
     {
-        val clipboard: ClipboardManager =
+        /*val clipboard: ClipboardManager =
             getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clip = ClipData.newPlainText(label.toString(), couponcode)
         clipboard.setPrimaryClip(clip)
-        Utils.showShortToast(this,getString(R.string.copytoclipboard))
+        Utils.showShortToast(this,getString(R.string.copytoclipboard))*/
+        setResult(Activity.RESULT_OK, intent.putExtra(Constants.Coupon_Code,couponcode))
+     //   setResult(Activity.RESULT_OK, data?.extras?.getString(Constants.Coupon_Price))
+        finish()
+
     }
 
 }

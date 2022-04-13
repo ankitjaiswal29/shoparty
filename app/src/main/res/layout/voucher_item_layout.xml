@@ -83,7 +83,7 @@
         android:id="@+id/tv_Copy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/copy"
+        android:text="@string/Apply"
         android:paddingBottom="10dp"
         android:paddingEnd="10dp"
         style="@style/AppTheme.Text_pink_12ssp"

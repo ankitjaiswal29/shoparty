@@ -32,7 +32,7 @@ class DealsViewModel(private val app: Application) : ViewModel() {
 
 
     private fun handleDealsResponse(response: Response<ProductListResponse>): Resource<List<Product>> {
-        if (response?.isSuccessful) {
+        if (response?.isSuccessful == true) {
             response.body()?.let { res ->
                 return if (res.response_code == 200) {
                     Resource.Success(res.message, res.result)
