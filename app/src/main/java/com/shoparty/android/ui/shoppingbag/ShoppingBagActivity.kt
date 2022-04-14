@@ -32,14 +32,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener {
+    private var coupenapplied: Boolean=false
+    private var totaldiscountamount: Double=0.00
+    private var totalpayamount: Double=0.00
+    private var CoupenDiscount: Int=0
     private var taxPrice: Double=0.00
     private var clickAction: Int=0
     private var summaryprice: Double=0.00
+    private var totalprice: Double=0.00
     private lateinit var binding: ActivityShopingBagBinding
     private lateinit var viewModel: ProducatDetailsViewModel
     private lateinit var shoopingbagviewModel: ShoppingBagViewModel
-
-
     private lateinit var adapterShoppingBag: ShoppingBagItemAdapter
     private var listCartProduct: ArrayList<CartProduct> = ArrayList()
     private var quantity:Int=0
@@ -96,19 +99,7 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener {
                         }
                         else
                         {
-                            listCartProduct.forEach {
-                               if(it.tax_type==1)  //calculation
-                               {
-                                   taxPrice += (it.shopping_price.toDouble() * it.shopping_qnty.toDouble()) * it.tax.toInt() / 100
-                               }
-                                summaryprice += it.shopping_price.toDouble() * it.shopping_qnty.toDouble()
-                            }
-                            binding.tvSummeryPrice.text=getString(R.string.dollor)+summaryprice.toString()
-                            binding.tvTaxPrice.text=getString(R.string.dollor)+taxPrice.toString()
-
-                            binding.linearNoData.visibility=View.GONE
-                            binding.linearBagData.visibility=View.VISIBLE
-                            shoppingBagListApi(listCartProduct)
+                            calculateUpdatedPrice()
                         }
                     }
                     is Resource.Loading -> {
@@ -138,7 +129,7 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener {
             when (response) {
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
-                    if(clickAction==1)  //add
+                    if(clickAction==1)  //add item click
                     {
                         updateAddPrice()
                     }
@@ -168,32 +159,106 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
+
+        shoopingbagviewModel.cartitemsremove.observe(this) { response ->
+            when (response) {
+                is Resource.Success -> {
+                    ProgressDialog.hideProgressBar()
+                    listCartProduct= response.data as ArrayList<CartProduct>
+                    if(listCartProduct.isNullOrEmpty())
+                    {
+                        binding.linearNoData.visibility=View.VISIBLE
+                        binding.linearBagData.visibility=View.GONE
+                    }
+                    else
+                    {
+                        calculateUpdatedPrice()
+                    }
+                }
+                is Resource.Loading -> {
+                    ProgressDialog.showProgressBar(this)
+                }
+                is Resource.Error -> {
+                    ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
     }
+
+    private fun calculateUpdatedPrice()
+    {
+        taxPrice=0.0
+        summaryprice=0.0
+        listCartProduct.forEach {
+            if(it.tax_type==1)  //calculation
+            {
+                taxPrice += (it.sale_price.toDouble() * it.shopping_qnty.toDouble()) * it.tax.toInt() / 100
+            }
+            summaryprice += it.sale_price.toDouble() * it.shopping_qnty.toDouble()
+            totalprice=summaryprice+taxPrice
+        }
+        binding.tvSummeryPrice.text=getString(R.string.dollor)+summaryprice.toString()
+        binding.tvTaxPrice.text=getString(R.string.dollor)+taxPrice.toString()
+        binding.tvTotalPriceDetail.text=getString(R.string.dollor)+totalprice.toString()
+        binding.linearNoData.visibility=View.GONE
+        binding.linearBagData.visibility=View.VISIBLE
+        shoppingBagListApi(listCartProduct)
+    }
+
 
     private fun updateAddPrice()
     {
         listCartProduct[position].shopping_qnty = quantity.toString()
         adapterShoppingBag.notifyDataSetChanged()
-        summaryprice +=listCartProduct[position].shopping_price.toDouble()
+        summaryprice +=listCartProduct[position].sale_price.toDouble()
         binding.tvSummeryPrice.text=getString(R.string.dollor)+summaryprice.toString()
 
         if(listCartProduct[position].tax_type==1)  //tax caluclation
         {
-            taxPrice+=listCartProduct[position].shopping_price.toDouble()*listCartProduct[position].tax.toDouble()/100
+            taxPrice+=listCartProduct[position].sale_price.toDouble()*listCartProduct[position].tax.toDouble()/100
             binding.tvTaxPrice.text=getString(R.string.dollor)+taxPrice.toString()
         }
-
+        totalprice =summaryprice+taxPrice
+        if(coupenapplied)
+        {
+            showCoupenDiscount()
+        }
+        else
+        {
+            binding.tvTotalPriceDetail.text=getString(R.string.dollor)+totalprice.toString()
+        }
     }
     private fun updateMinusPrice() {
         listCartProduct[position].shopping_qnty = quantity.toString()
         adapterShoppingBag.notifyDataSetChanged()
-        summaryprice -=listCartProduct[position].shopping_price.toDouble()
+        summaryprice -=listCartProduct[position].sale_price.toDouble()
         binding.tvSummeryPrice.text=getString(R.string.dollor)+summaryprice.toString()
-
         if(listCartProduct[position].tax_type==1)  //tax caluclation
         {
-            taxPrice-=listCartProduct[position].shopping_price.toDouble()*listCartProduct[position].tax.toDouble()/100
+            taxPrice-=listCartProduct[position].sale_price.toDouble()*listCartProduct[position].tax.toDouble()/100
             binding.tvTaxPrice.text=getString(R.string.dollor)+taxPrice.toString()
+        }
+        totalprice =summaryprice+taxPrice
+        if(coupenapplied)
+        {
+            showCoupenDiscount()
+        }
+        else
+        {
+            binding.tvTotalPriceDetail.text=getString(R.string.dollor)+totalprice.toString()
         }
     }
 
@@ -240,7 +305,7 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
 
-            override fun onMinus(pos: Int, view: View?) {
+            override fun onMinus(pos: Int, view: View?, shoppingId: Int) {
                 lifecycleScope.launch(Dispatchers.IO) {
                     if (listCartProduct.size > 0) {
                         if (listCartProduct[pos].quantity.toInt() >= 2) {
@@ -301,27 +366,30 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener {
                     listCartProduct[position].sale_price)  //api call
             }
 
-            override fun onMinus(pos: Int, view: View?) {
+            override fun onMinus(pos: Int, view: View?, shoppingId: Int) {
                 position=pos
                 clickAction=0
                 quantity=listCartProduct[pos].shopping_qnty.toInt()-1
-                viewModel.postAddProduct(listCartProduct[pos].product_id.toString(),listCartProduct[pos].product_detail_id.toString(),
-                    listCartProduct[pos].product_size_id.toString(),listCartProduct[pos].product_color_id.toString(),quantity,
-                    listCartProduct[pos].sale_price)      //api call
+                if(quantity==0)
+                {
+                    shoopingbagviewModel.cartItemRemove(shoppingId.toString())
+                }
+               else
+               {
+                   viewModel.postAddProduct(listCartProduct[pos].product_id.toString(),listCartProduct[pos].product_detail_id.toString(),
+                       listCartProduct[pos].product_size_id.toString(),listCartProduct[pos].product_color_id.toString(),quantity,
+                       listCartProduct[pos].sale_price)      //api call
+               }
             }
 
-            override fun onClear(pos: Int, view: View?) {
-
+            override fun onClear(shopping_id: Int, view: View?)
+            {
+                //remove api
+                shoopingbagviewModel.cartItemRemove(shopping_id.toString())
             }
         })
     }
 
-    private fun updateSummaryPrice(position: Int) {
-        quantity=listCartProduct[position].shopping_qnty.toInt()+1
-        viewModel.postAddProduct(listCartProduct[position].product_id.toString(),listCartProduct[position].product_detail_id.toString(),
-            listCartProduct[position].product_size_id.toString(),listCartProduct[position].product_color_id.toString(),quantity,
-            listCartProduct[position].sale_price)  //api call
-    }
 
     override fun onClick(v: View?) {
         when (v?.id) {
@@ -348,8 +416,7 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener {
 
             R.id.imgCoupenCross->
             {
-                binding.imgCoupenCross.visibility=View.INVISIBLE
-                binding.txtapplycode.text=getString(R.string.apply_promo_code)
+               hideCoupenDiscount()
             }
         }
     }
@@ -359,11 +426,32 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == Constants.SHOPPINGBAG_CODE && resultCode == Activity.RESULT_OK)
         {
-           // Utils.showLongToast(this,data?.extras?.getString(Constants.Coupon_Code))
-               // Utils.showLongToast(this,data?.extras?.getString(Constants.Coupon_Price))
             binding.txtapplycode.text=data?.extras?.getString(Constants.Coupon_Code)
-            binding.imgCoupenCross.visibility=View.VISIBLE
+            CoupenDiscount= data?.extras?.getInt(Constants.Coupon_Discount)!!
+            showCoupenDiscount()
+            coupenapplied=true
         }
+    }
+
+    private fun showCoupenDiscount()
+    {
+        totaldiscountamount = totalprice * CoupenDiscount!! /100
+        totalpayamount=totalprice-totaldiscountamount
+        binding.imgCoupenCross.visibility=View.VISIBLE
+        binding.tvDiscount.visibility=View.VISIBLE
+        binding.tvDiscountPrice.visibility=View.VISIBLE
+        binding.tvDiscountPrice.text=totaldiscountamount.toString()
+        binding.tvTotalPriceDetail.text=totalpayamount.toString()
+    }
+
+    private fun hideCoupenDiscount() {
+        coupenapplied=false
+        binding.imgCoupenCross.visibility=View.INVISIBLE
+        binding.tvDiscount.visibility=View.GONE
+        binding.tvDiscountPrice.visibility=View.GONE
+        binding.tvDiscountPrice.text=totaldiscountamount.toString()
+        binding.txtapplycode.text=getString(R.string.apply_promo_code)
+        binding.tvTotalPriceDetail.text=totalprice.toString()
     }
 
 }

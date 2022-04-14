@@ -77,11 +77,11 @@ class ShoppingBagItemAdapter(val context: Context, val list: List<CartProduct>) 
             }
 
             binding.ivClose.setOnClickListener {
-                listener?.onClear(adapterPosition)
+                listener?.onClear(modal.shopping_id.toInt())
             }
 
             binding.ivMinus.setOnClickListener {
-                listener?.onMinus(adapterPosition, binding.tvCount)
+                listener?.onMinus(adapterPosition, binding.tvCount,modal.shopping_id.toInt())
             }
 
             binding.ivPlus.setOnClickListener {

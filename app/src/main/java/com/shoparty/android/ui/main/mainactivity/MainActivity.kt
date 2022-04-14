@@ -60,8 +60,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         myaccountviewModel = ViewModelProvider(this, ViewModalFactory(application))[MyAccountViewModel::class.java]
         initialise()
         setObserver()
-
-        val request = CategoryRequestModel("1")
+        val request = CategoryRequestModel(PrefManager.read(PrefManager.LANGUAGEID,1).toString())
         viewModel.getCategory(request)
     }
 

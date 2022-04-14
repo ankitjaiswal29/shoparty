@@ -358,7 +358,6 @@
     <string name="txtseconds">Seconds</string>
     <string name="brands">Brands</string>
     <string name="lorem_ipsum_dolar">Lorem Ipsum Dolar</string>
-    <string name="_0">0</string>
     <string name="shippingbag">Shopping bag</string>
     <string name="are_sure_exit">Are you sure you want to exit?</string>
     <string name="no">No</string>
@@ -434,5 +433,6 @@
     <string name="Payment">Payment</string>
     <string name="agelimitismin">Minimum required age is 18 year</string>
     <string name="Apply">Apply</string>
+    <string name="taxdiscount">Discount</string>
 
 </resources>

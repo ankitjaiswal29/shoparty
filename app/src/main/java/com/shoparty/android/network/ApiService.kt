@@ -42,6 +42,7 @@ import com.shoparty.android.ui.register.RegisterRequestModel
 import com.shoparty.android.ui.register.RegisterResponseModel
 import com.shoparty.android.ui.search.SearchRequestModel
 import com.shoparty.android.ui.search.SearchResponseModel
+import com.shoparty.android.ui.shoppingbag.CartItemRemoveRequestModel
 import com.shoparty.android.ui.shoppingbag.ShoppingBagRequestModel
 import com.shoparty.android.ui.shoppingbag.ShoppingBagResponse
 import com.shoparty.android.ui.verificationotp.ResendOtpResponse
@@ -209,6 +210,12 @@ interface ApiService {
     @POST("shopping-list")
     suspend fun shoppingListAsync(
         @Body shoppingBagRequestModel: ShoppingBagRequestModel
+    ): Response<ShoppingBagResponse>
+
+
+    @POST("delete-cart-product")
+    suspend fun deleteCartItemAsync(
+        @Body cartItemRemoveRequestModel: CartItemRemoveRequestModel
     ): Response<ShoppingBagResponse>
 
     @POST("change-language")

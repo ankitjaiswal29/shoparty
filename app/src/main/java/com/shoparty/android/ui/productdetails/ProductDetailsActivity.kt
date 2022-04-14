@@ -14,7 +14,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.dynamiclinks.DynamicLink
 import com.google.firebase.dynamiclinks.ktx.androidParameters
@@ -24,8 +23,6 @@ import com.google.firebase.ktx.Firebase
 
 import com.shoparty.android.BuildConfig
 import com.shoparty.android.R
-import com.shoparty.android.common_modal.CartProduct
-import com.shoparty.android.database.MyDatabase
 import com.shoparty.android.databinding.ActivityProductDetailsBinding
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.ui.customize.CustomizeActivity
@@ -36,11 +33,8 @@ import com.shoparty.android.ui.shoppingbag.ShoppingBagActivity
 import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.ProgressDialog
-import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, RecyclerViewClickListener,
     ProductDetailCallback {
@@ -51,7 +45,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
     var product_sizeId = ""
     var product_colorId = ""
     var fav_status = ""
-    var cost_price=""
+    var sale_price=""
     var quantity:Int=0
     private lateinit var viewModel: ProducatDetailsViewModel
     private lateinit var wishlistviewModel: WishListViewModel
@@ -68,6 +62,16 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
             ViewModelProvider(this, ViewModalFactory(application))[WishListViewModel::class.java]
         initialise()
         setObserver()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.postProducatDetails(PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
+            product_details_id,
+            product_id,
+            product_sizeId,
+            product_colorId,
+            PrefManager.read(PrefManager.USER_ID,"").toString()) //api call
     }
 
     @SuppressLint("SetTextI18n")
@@ -94,12 +98,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
             product_sizeId = intent.getStringExtra(Constants.PRODUCTSIZEID)!!
             product_colorId = intent.getStringExtra(Constants.PRODUCTCOLORID)!!
 
-            viewModel.postProducatDetails(PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
-                product_details_id,
-                product_id,
-                product_sizeId,
-                product_colorId,
-                PrefManager.read(PrefManager.USER_ID,"").toString()) //api call
+
 
             binding.ivShare.setOnClickListener {
                 // Utils.showLongToast(this,getString(R.string.comingsoon))
@@ -177,6 +176,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                 binding.infoTool.ivBagBtn.setOnClickListener(this)
                 binding.infoTool.ivDrawerBack.setOnClickListener(this)
             }
+
             R.id.tv_addtobag -> {
                 if(PrefManager.read(PrefManager.AUTH_TOKEN,"") == "")
                 {
@@ -193,10 +193,8 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                 }
                 else
                 {
-                    binding.tvAddtobag.visibility=View.GONE
-                    binding.relativeAddMinus.visibility=View.VISIBLE
+                   addToBagApi()
                 }
-             //   Utils.showLongToast(this, getString(R.string.comingsoon))
             }
             R.id.ivBagBtn -> {
                 val intent = Intent(this, ShoppingBagActivity::class.java)
@@ -249,17 +247,29 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
             R.id.iv_plus->
             {
                 quantity += 1
-                viewModel.postAddProduct(product_id,product_details_id,product_sizeId,product_colorId,quantity,cost_price)
+                viewModel.postAddProduct(product_id,product_details_id,product_sizeId,product_colorId,quantity,sale_price)
             }
 
-            R.id.iv_minus-> {
-                if(quantity>0)
+            R.id.iv_minus->
+            {
+                if(quantity>=2)
                 {
                     quantity -= 1
-                    viewModel.postAddProduct(product_id,product_details_id,product_sizeId,product_colorId,quantity,cost_price)
+                    viewModel.postAddProduct(product_id,product_details_id,product_sizeId,product_colorId,quantity,sale_price)
+                }
+                else if(quantity==1)
+                {
+                    quantity-=1
+                    viewModel.postAddProduct(product_id,product_details_id,product_sizeId,product_colorId,quantity,sale_price)
                 }
             }
         }
+    }
+
+    private fun addToBagApi()
+    {
+        quantity += 1
+        viewModel.postAddProduct(product_id,product_details_id,product_sizeId,product_colorId,quantity,sale_price)
     }
 
     override fun onBackPressed() {
@@ -274,29 +284,17 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
                     setImageInSlider(response.data?.product_details?.images!!)
-                    productDetails=response.data.product_details
-                    cost_price=response.data.product_details.cost_price
-
                     response.data?.product_details?.let { setData(it) }     //for data set
-
                     setrecyclaryoumayalsolike(response.data?.you_may_also_like!!)
                     recyclarcustomeralsobought(response.data?.also_bought!!)
                     checkReadMore(response.data.product_details.product_desc)
                     choesColorRecyclaritem(response.data.product_details.colors)
-                    binding.infoTool.tvTitle.text =
-                        response.data.product_details.product_name?.substring(0, 1)?.toUpperCase() +
-                                response.data.product_details.product_name.substring(1)
-                                    ?.toLowerCase()
-                    binding.infoTool.tvTitle.text=response.data.product_details.product_name?.substring(0, 1)?.toUpperCase() +
-                            response.data.product_details.product_name.substring(1)?.toLowerCase()
-                    binding.nestedScrool.scrollTo(0,0)
-                    binding.imageSliderr.requestFocus()
                 }
                 is Resource.Loading -> {
-                    com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
+                    ProgressDialog.showProgressBar(this)
                 }
                 is Resource.Error -> {
-                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         applicationContext,
                         response.message,
@@ -304,7 +302,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                     ).show()
                 }
                 else -> {
-                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                   ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         applicationContext,
                         response.message,
@@ -365,7 +363,15 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                         response.message,
                         Toast.LENGTH_SHORT
                     ).show()
-                    binding.tvCount.text=quantity.toString()
+                    if(quantity==0)
+                    {
+                        addToBagButtonVisible()
+                    }
+                    else
+                    {
+                        addToBagButtonInVisible()
+                    }
+
                 }
                 is Resource.Loading -> {
                        ProgressDialog.showProgressBar(this)
@@ -390,6 +396,18 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
         }
     }
 
+    private fun resetAllValues(
+        productdetail_id: Int,
+        productid: Int,
+        productsizeId: String,
+        productcolorId: String
+    ) {
+        product_id = productid.toString()
+        product_details_id = productdetail_id.toString()
+        product_sizeId = productsizeId
+        product_colorId =  productcolorId
+    }
+
     private fun checkReadMore(productDesc: String)
     {
         binding.tvProductDetailsDescr.text=productDesc
@@ -400,7 +418,6 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                 if (it.getEllipsisCount(lines - 1) > 0)
                 {
                     binding.tvReadmore.visibility=View.VISIBLE
-
                 }
                 else
                 {
@@ -412,6 +429,11 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
     @SuppressLint("SetTextI18n")
     private fun setData(data: ProducatDetailsResponse.ProductDetails)
     {
+        productDetails=data
+        sale_price=data.sale_price
+        fav_status = data.fav_status.toString()
+        quantity = data.cart_quantity!!
+
         if(data.fav_status==0)
         {
             binding.imgEmptyHeart.visibility=View.VISIBLE
@@ -458,19 +480,36 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
             binding.tvOrdernowdate.visibility=View.VISIBLE
             binding.tvOrdernowdate.text=getString(R.string.andgetitby)+" "+data.delivery_time
         }
-
         quantity = data.cart_quantity!!                   //for quantity
-        binding.tvCount.text=quantity.toString()
         if(quantity<=0)
         {
-            binding.tvAddtobag.visibility=View.VISIBLE
-            binding.relativeAddMinus.visibility=View.GONE
+           addToBagButtonVisible()
         }
         else
         {
-            binding.tvAddtobag.visibility=View.GONE
-            binding.relativeAddMinus.visibility=View.VISIBLE
+           addToBagButtonInVisible()
         }
+
+        binding.infoTool.tvTitle.text =
+            data.product_name?.substring(0, 1)?.toUpperCase() +
+                    data.product_name.substring(1)
+                        ?.toLowerCase()
+        binding.infoTool.tvTitle.text=data.product_name?.substring(0, 1)?.toUpperCase() +
+               data.product_name.substring(1)?.toLowerCase()
+        binding.nestedScrool.scrollTo(0,0)
+        binding.imageSliderr.requestFocus()
+    }
+
+    private fun addToBagButtonInVisible() {
+        binding.tvAddtobag.visibility=View.GONE
+        binding.relativeAddMinus.visibility=View.VISIBLE
+        binding.tvCount.text=quantity.toString()
+
+    }
+
+    private fun addToBagButtonVisible() {
+        binding.tvAddtobag.visibility=View.VISIBLE
+        binding.relativeAddMinus.visibility=View.GONE
     }
 
     private fun setImageInSlider(images: List<HomeResponse.Home.Banner>) {
@@ -487,6 +526,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
     }
 
     override fun onProductClick(product_detail_id: Int, product_id: Int,product_sizeId:String,product_colorId:String) {
+        resetAllValues(product_detail_id,product_id,product_sizeId,product_colorId)
         viewModel.postProducatDetails(PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),product_detail_id.toString(),product_id.toString(),product_sizeId,product_colorId,
         PrefManager.read(PrefManager.USER_ID,"")) //api call
         binding.nestedScrool.scrollTo(0,  binding.nestedScrool.top)

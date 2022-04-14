@@ -25,6 +25,7 @@ object Constants {
         const val ADDADDRESS_CODE = 101
         const val SHOPPINGBAG_CODE = 102
         const val Coupon_Code = "Coupon_Code"
+        const val Coupon_Discount = "Coupon_Discount"
         const val Coupon_Price = "Coupon_Price"
         const val UPDATEADDRESSSTATUS = "1"
         const val ADDRESSSDATA = "ADDRESSSDATA"

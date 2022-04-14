@@ -331,7 +331,7 @@
                             android:layout_height="@dimen/_50sdp"
                             android:layout_centerInParent="true"
                             android:gravity="center"
-                            android:text="@string/_0" />
+                            android:text="@string/_1" />
                         <ImageView
                             android:id="@+id/iv_plus"
                             android:layout_width="@dimen/_30sdp"

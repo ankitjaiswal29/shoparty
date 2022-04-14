@@ -22,6 +22,9 @@ class ShoppingBagViewModel(private val app: Application) : ViewModel() {
     private val mCartItems = MutableLiveData<Resource<List<CartProduct>>>()
     val cartitems: LiveData<Resource<List<CartProduct>>> = mCartItems
 
+    private val mCartItemsRemove = MutableLiveData<Resource<List<CartProduct>>>()
+    val cartitemsremove: LiveData<Resource<List<CartProduct>>> = mCartItemsRemove
+
     fun cartItemList(
         langauge_id: String
     ) = viewModelScope.launch {
@@ -39,11 +42,33 @@ class ShoppingBagViewModel(private val app: Application) : ViewModel() {
 
     }
 
+
+    fun cartItemRemove(
+        shopping_id: String,
+    ) = viewModelScope.launch {
+        val request = CartItemRemoveRequestModel(shopping_id)
+        if(Utils.hasInternetConnection(app.applicationContext))
+        {
+            mCartItemsRemove.postValue(Resource.Loading())
+            val response = repository.removeCartItem(request)
+            mCartItemsRemove.postValue(handleShoppingBagResponse(response!!))
+        }
+        else
+        {
+            mCartItemsRemove.postValue(Resource.Error(app.resources.getString(R.string.no_internet)))
+        }
+
+    }
+
     private fun handleShoppingBagResponse(response: Response<ShoppingBagResponse>): Resource<List<CartProduct>> {
         if (response?.isSuccessful == true)
         {
             response.body()?.let { res ->
                 return if (res.response_code==200)
+                {
+                    Resource.Success(res.message,res.result)
+                }
+                else if(res.response_code==204)
                 {
                     Resource.Success(res.message,res.result)
                 }
@@ -54,4 +79,6 @@ class ShoppingBagViewModel(private val app: Application) : ViewModel() {
         }
         return Resource.Error(response.message())
     }
+
+
 }

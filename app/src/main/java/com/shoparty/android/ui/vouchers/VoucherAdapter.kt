@@ -34,7 +34,7 @@ class VoucherAdapter(context:Context,private val mList: List<VoucherListResponse
         holder.txtExpiry.text=context.getString(R.string.strexpiry)+" "+ Utils.convertToCustomFormat(ItemsViewModel.end_date)
 
         holder.tvCopy.setOnClickListener {
-            recyclerViewClickListener.click(holder.tvCode.text.toString())
+            recyclerViewClickListener.click(position.toString())
         }
     }
     override fun getItemCount(): Int {

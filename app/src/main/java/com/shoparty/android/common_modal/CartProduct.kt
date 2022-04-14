@@ -45,5 +45,8 @@ data class CartProduct(
     val tax: String,
     val tax_type: Int,
     val theme_id: String,
-    val updated_at: String
+    val updated_at: String,
+    val shopping_id: String,
 ) : Parcelable
+
+

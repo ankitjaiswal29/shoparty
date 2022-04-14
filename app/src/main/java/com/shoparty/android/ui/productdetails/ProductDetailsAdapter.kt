@@ -44,4 +44,5 @@ class ProductDetailsAdapter(var productDetailCallback:ProductDetailCallback,
 interface ProductDetailCallback
 {
     fun onProductClick(product_detail_id:Int,product_id:Int,product_sizeId:String,product_colorId:String)
+
 }

@@ -19,11 +19,12 @@ import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 
-
 class VouchersActivity : AppCompatActivity(),RecyclerViewClickListener{
+    private var voucherlist: List<VoucherListResponse.Data>? = null
     private lateinit var binding: ActivityVouchersBinding
     private lateinit var viewModel: VoucherViewModel
     private lateinit var adapter: VoucherAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= DataBindingUtil.setContentView(this, R.layout.activity_vouchers)
@@ -32,8 +33,6 @@ class VouchersActivity : AppCompatActivity(),RecyclerViewClickListener{
         viewModel.getVoucher()    //api call
         setObserver()
     }
-
-
     private fun initialise() {
         binding.infoTool.tvTitle.text = getString(R.string.vouchers)
         binding.infoTool.ivDrawerBack.setOnClickListener {
@@ -52,7 +51,8 @@ class VouchersActivity : AppCompatActivity(),RecyclerViewClickListener{
             when (response) {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
-                    setVoucherListAdapter(response.data)
+                    voucherlist=response.data
+                    setVoucherListAdapter(voucherlist)
                 }
                 is Resource.Loading -> {
                     com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
@@ -67,24 +67,27 @@ class VouchersActivity : AppCompatActivity(),RecyclerViewClickListener{
         }
     }
 
-    private fun setVoucherListAdapter(data: List<VoucherListResponse.Data>?)
+    private fun setVoucherListAdapter(voucherlist: List<VoucherListResponse.Data>?)
     {
         binding.vouchersRecyclerview.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        adapter = VoucherAdapter(this, data!!,this)
+        adapter = VoucherAdapter(this, voucherlist!!,this)
         binding.vouchersRecyclerview.adapter = adapter
     }
 
-    override fun click(couponcode: String)
+    override fun click(pos: String)
     {
         /*val clipboard: ClipboardManager =
             getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clip = ClipData.newPlainText(label.toString(), couponcode)
         clipboard.setPrimaryClip(clip)
         Utils.showShortToast(this,getString(R.string.copytoclipboard))*/
-        setResult(Activity.RESULT_OK, intent.putExtra(Constants.Coupon_Code,couponcode))
-     //   setResult(Activity.RESULT_OK, data?.extras?.getString(Constants.Coupon_Price))
-        finish()
-
+       var coupen_code = voucherlist?.get(pos.toInt())?.coupon_code
+       var coupen_discount = voucherlist?.get(pos.toInt())?.discount
+        setResult(Activity.RESULT_OK, intent.putExtra(Constants.Coupon_Code,coupen_code)
+            .putExtra(Constants.Coupon_Discount,coupen_discount))
+           finish()
     }
+
+
 
 }
