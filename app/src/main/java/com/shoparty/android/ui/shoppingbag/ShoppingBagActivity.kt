@@ -212,10 +212,18 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener {
         }
         binding.tvSummeryPrice.text=getString(R.string.dollor)+summaryprice.toString()
         binding.tvTaxPrice.text=getString(R.string.dollor)+taxPrice.toString()
-        binding.tvTotalPriceDetail.text=getString(R.string.dollor)+totalprice.toString()
         binding.linearNoData.visibility=View.GONE
         binding.linearBagData.visibility=View.VISIBLE
         shoppingBagListApi(listCartProduct)
+        if(coupenapplied)
+        {
+            showCoupenDiscount()
+        }
+        else
+        {
+            binding.tvTotalPriceDetail.text=getString(R.string.dollor)+totalprice.toString()
+        }
+
     }
 
 
@@ -433,6 +441,7 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun showCoupenDiscount()
     {
         totaldiscountamount = totalprice * CoupenDiscount!! /100
@@ -440,8 +449,8 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener {
         binding.imgCoupenCross.visibility=View.VISIBLE
         binding.tvDiscount.visibility=View.VISIBLE
         binding.tvDiscountPrice.visibility=View.VISIBLE
-        binding.tvDiscountPrice.text=totaldiscountamount.toString()
-        binding.tvTotalPriceDetail.text=totalpayamount.toString()
+        binding.tvDiscountPrice.text="-"+" "+getString(R.string.dollor)+totaldiscountamount.toString()
+        binding.tvTotalPriceDetail.text=getString(R.string.dollor)+totalpayamount.toString()
     }
 
     private fun hideCoupenDiscount() {
@@ -451,7 +460,7 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener {
         binding.tvDiscountPrice.visibility=View.GONE
         binding.tvDiscountPrice.text=totaldiscountamount.toString()
         binding.txtapplycode.text=getString(R.string.apply_promo_code)
-        binding.tvTotalPriceDetail.text=totalprice.toString()
+        binding.tvTotalPriceDetail.text=getString(R.string.dollor)+totalprice.toString()
     }
 
 }
