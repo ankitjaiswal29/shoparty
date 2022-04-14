@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
@@ -28,6 +29,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.developers.imagezipper.ImageZipper
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
@@ -55,14 +60,14 @@ class CustomizeActivity : AppCompatActivity(), View.OnClickListener {
 
     private val listSize: ArrayList<Int> = ArrayList()
 
-    var dialog: Dialog? = null
+    private var dialog: Dialog? = null
     private val REQUEST_IMAGE = 999
     private var imageZipperFile: File? = null
 
-    var mRootWidth = 0
-    var mRootHeight = 0
+    private var mRootWidth = 0
+    private var mRootHeight = 0
 
-    var mXDelta = 0
+    private var mXDelta = 0
     var mYDelta = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,13 +82,54 @@ class CustomizeActivity : AppCompatActivity(), View.OnClickListener {
         val image = intent.getStringExtra("image")
         // val data = intent.getParcelableExtra<ProducatDetailsResponse.ProductDetails>("productDetails")
         Log.e("data", image.toString())
-        Glide.with(this@CustomizeActivity).asBitmap().load(image).into(binding.imgBanner)
+       // Glide.with(this@CustomizeActivity).asBitmap().load(image).into(binding.imgBanner)
+
+        Glide.with(this@CustomizeActivity).asBitmap()
+            .load(image.toString())
+            //.centerCrop()
+           // .placeholder(R.mipmap.ic_launcher)
+            .listener(object : RequestListener<Bitmap> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Bitmap>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+
+                    return true
+                }
+
+                override fun onResourceReady(
+                    resource: Bitmap?,
+                    model: Any?,
+                    target: Target<Bitmap>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+
+                    binding.clView.viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
+                        override fun onGlobalLayout() {
+                            // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                            binding.clView.viewTreeObserver
+                                .removeOnGlobalLayoutListener(this)
+                            // }
+                            mRootWidth = binding.clView.getWidth()
+                            mRootHeight = binding.clView.getHeight()
+                        }
+                    })
+
+                    binding.tvData.setOnTouchListener(mOnTouchListener)
+                    binding.tvData.requestFocus()
+                    return false
+                }
+
+            })
+            .into(binding.imgBanner)
 
         binding.infoTool.ivBagBtn.visibility = View.VISIBLE
 
         binding.infoTool.ivBagBtn.setOnClickListener(this)
         binding.customizeApproveBtn.setOnClickListener(this)
-
 
         binding.infoTool.ivDrawerBack.setOnClickListener {
             onBackPressed()
@@ -170,20 +216,6 @@ class CustomizeActivity : AppCompatActivity(), View.OnClickListener {
 
         }
 
-
-        binding.clView.viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    binding.clView.viewTreeObserver
-                        .removeOnGlobalLayoutListener(this)
-                }
-                mRootWidth = binding.clView.getWidth()
-                mRootHeight = binding.clView.getHeight()
-            }
-        })
-        binding.tvData.setOnTouchListener(mOnTouchListener)
-
-
     }
 
     private var mOnTouchListener = object : View.OnTouchListener {
@@ -250,6 +282,23 @@ class CustomizeActivity : AppCompatActivity(), View.OnClickListener {
         popupBinding.imgBanner.setImageBitmap(bitmap)
         popupBinding.ivClose.setOnClickListener {
             popupWindow.dismiss()
+            lifecycleScope.launch(Dispatchers.IO) {
+//                MyDatabase.getInstance(this@CustomizeActivity).getProductDao()
+//                    .insertCartProduct(
+//                        CartProduct(
+//                            "test",
+//                            101,
+//                            "",
+//                            "1",
+//                            bitmap =bitmap
+//                        )
+//                    )
+
+                val intent =
+                    Intent(this@CustomizeActivity, ShoppingBagActivity::class.java)
+                startActivity(intent)
+            }
+
         }
 
     }
@@ -476,7 +525,6 @@ class CustomizeActivity : AppCompatActivity(), View.OnClickListener {
         Glide.with(this).load(url).error(R.drawable.gallery_image_icon)
             .placeholder(R.drawable.gallery_image_icon)
             .into(binding.imgBanner)
-        //   binding.imgBanner.setColorFilter(ContextCompat.getColor(this, android.R.color.transparent))
     }
 
     private val listColor = listOf<String>(

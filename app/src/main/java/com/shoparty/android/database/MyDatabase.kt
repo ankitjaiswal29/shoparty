@@ -12,7 +12,8 @@ import com.shoparty.android.database.dao.ProductDao
 /**
  * Created by Amit Gupta on 21-03-2022.
  */
-@Database(entities = [Product::class,CartProduct::class], version = 1,exportSchema = false)
+@Database(entities = [Product::class, CartProduct::class], version = 1, exportSchema = false)
+@androidx.room.TypeConverters(Converters::class)
 abstract class MyDatabase : RoomDatabase() {
 
     abstract fun getProductDao(): ProductDao
@@ -22,10 +23,13 @@ abstract class MyDatabase : RoomDatabase() {
 
         @Synchronized
         fun getInstance(ctx: Context): MyDatabase {
-            if(instance == null)
-                instance = Room.databaseBuilder(ctx.applicationContext, MyDatabase::class.java,
-                    "shoparty_database")
+            if (instance == null)
+                instance = Room.databaseBuilder(
+                    ctx.applicationContext, MyDatabase::class.java,
+                    "shoparty_database"
+                )
                     .fallbackToDestructiveMigration()
+//                    .addTypeConverter(Converters::class.java)
 //                    .addCallback(roomCallback)
                     .build()
 

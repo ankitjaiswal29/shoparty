@@ -21,4 +21,5 @@
     <color name="grey">#F4F4F4</color>
     <color name="color_pink">#E30986</color>
 
+    <color name="backgroundColor">#F8F8F8</color>
 </resources>

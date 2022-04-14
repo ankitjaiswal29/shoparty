@@ -1,4 +1,5 @@
 package com.shoparty.android.ui.main.product_list
+
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -12,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.shoparty.android.R
 import com.shoparty.android.common_modal.Product
-import com.shoparty.android.databinding.ActivityTopSellingBinding
+import com.shoparty.android.databinding.ActivityProductListBinding
 import com.shoparty.android.interfaces.RecyclerViewFavouriteListener
 import com.shoparty.android.ui.filter.FilterActivity
 import com.shoparty.android.ui.login.LoginActivity
@@ -30,7 +31,7 @@ class ProductListActivity : AppCompatActivity(),
     View.OnClickListener,
     RecyclerViewFavouriteListener {
     private lateinit var layoutManager: GridLayoutManager
-    private lateinit var binding: ActivityTopSellingBinding
+    private lateinit var binding: ActivityProductListBinding
     private lateinit var viewModel: ProductListViewModel
     private lateinit var viewModeladdwishlist: WishListViewModel
     private var productlist: ArrayList<Product> = ArrayList()
@@ -49,7 +50,7 @@ class ProductListActivity : AppCompatActivity(),
     private lateinit var adapter:ProductListAdapters
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_top_selling)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_product_list)
         initialise()
         withpaginationAdapterSet()
 

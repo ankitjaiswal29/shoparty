@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.shoparty.android.R
 import com.shoparty.android.common_modal.CartProduct
+import com.shoparty.android.database.Converters
 import com.shoparty.android.databinding.BagItemLayoutBinding
 
 import com.shoparty.android.interfaces.RVCartItemClickListener
@@ -59,7 +60,8 @@ class ShoppingBagItemAdapter(val context: Context, val list: List<CartProduct>) 
 
         fun bind(modal: CartProduct) {
 
-            Glide.with(context).asBitmap().load(modal.image).into(binding?.ivItem!!)
+            //val bitmap = Converters.stringToBitMap(modal.file)
+            Glide.with(context).asBitmap().load(modal.bitmap).into(binding?.ivItem!!)
             binding.tvCount.text = modal.shopping_qnty
             binding.tvName.text = modal.en_name
 
@@ -77,11 +79,11 @@ class ShoppingBagItemAdapter(val context: Context, val list: List<CartProduct>) 
             }
 
             binding.ivClose.setOnClickListener {
-                listener?.onClear(modal.shopping_id.toInt())
+                //listener?.onClear(modal.shopping_id.toInt())
             }
 
             binding.ivMinus.setOnClickListener {
-                listener?.onMinus(adapterPosition, binding.tvCount,modal.shopping_id.toInt())
+               // listener?.onMinus(adapterPosition, binding.tvCount,modal.shopping_id.toInt())
             }
 
             binding.ivPlus.setOnClickListener {

@@ -7,50 +7,31 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.shoparty.android.ui.fragment.HomeFragment"
+        android:name="com.shoparty.android.ui.main.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+
     <fragment
         android:id="@+id/categoriesFragment"
-        android:name="com.shoparty.android.ui.fragment.CategoriesFragment"
+        android:name="com.shoparty.android.ui.main.categories.CategoriesFragment"
         android:label="fragment_categories"
         tools:layout="@layout/fragment_categories" />
+
     <fragment
         android:id="@+id/dealsFragment"
-        android:name="com.shoparty.android.ui.fragment.DealsFragment"
+        android:name="com.shoparty.android.ui.main.deals.DealsFragment"
         android:label="fragment_deals"
         tools:layout="@layout/fragment_deals" />
 
     <fragment
         android:id="@+id/WishlistFragment"
-        android:name="com.shoparty.android.ui.fragment.WishListFragment"
+        android:name="com.shoparty.android.ui.main.wishlist.WishListFragment"
         android:label="fragment_wishlist"
         tools:layout="@layout/fragment_wish_list" />
 
-
     <fragment
         android:id="@+id/MyAccountFragment"
-        android:name="com.shoparty.android.ui.fragment.MyAccountFragment"
+        android:name="com.shoparty.android.ui.main.myaccount.MyAccountFragment"
         android:label="MyAccountFragment" />
-    <fragment
-        android:id="@+id/topSellingItemListFragment"
-        android:name="com.shoparty.android.ui.fragment.TopSellingItemListFragment"
-        android:label="fragment_top_selling_item_list"
-        tools:layout="@layout/fragment_top_selling_item_list" />
-    <fragment
-        android:id="@+id/newArrivalsItemFragment"
-        android:name="com.shoparty.android.ui.fragment.NewArrivalsItemFragment"
-        android:label="fragment_new_arrivals_item"
-        tools:layout="@layout/fragment_new_arrivals_item" />
-    <fragment
-        android:id="@+id/newArrivalItemDetailsFragment"
-        android:name="com.shoparty.android.ui.fragment.NewArrivalItemDetailsFragment"
-        android:label="fragment_new_arrival_item_details"
-        tools:layout="@layout/fragment_new_arrival_item_details" />
-    <fragment
-        android:id="@+id/categoryItemListFragment"
-        android:name="com.shoparty.android.ui.fragment.CategoryItemListFragment"
-        android:label="fragment_category_item_list"
-        tools:layout="@layout/fragment_category_item_list" />
 
 </navigation>

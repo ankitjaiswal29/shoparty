@@ -237,7 +237,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="13dp"
-                android:src="@mipmap/ic_instagram_icon"
+                android:src="@drawable/instagram"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 android:layout_marginTop="20dp"
