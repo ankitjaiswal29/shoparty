@@ -8,6 +8,7 @@ data class ColorsResponse(
     data class Colors(
         val color_code: String,
         val color_name: String,
-        val id: String
+        val id: String,
+        var isChecked: Boolean,
     )
 }

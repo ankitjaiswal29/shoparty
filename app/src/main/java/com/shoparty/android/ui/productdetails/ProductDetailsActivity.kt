@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.dynamiclinks.DynamicLink
 import com.google.firebase.dynamiclinks.ktx.androidParameters
@@ -23,6 +24,8 @@ import com.google.firebase.ktx.Firebase
 
 import com.shoparty.android.BuildConfig
 import com.shoparty.android.R
+import com.shoparty.android.common_modal.CartProduct
+import com.shoparty.android.database.MyDatabase
 import com.shoparty.android.databinding.ActivityProductDetailsBinding
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.ui.customize.CustomizeActivity
@@ -86,23 +89,37 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
         binding.ivShare.setOnClickListener(this)
         binding.ivPlus.setOnClickListener(this)
         binding.ivMinus.setOnClickListener(this)
-
-
         if (intent.extras != null)
         {
-            binding.infoTool.tvTitle.text =
-                intent.getStringExtra(Constants.PRODUCATNAME)?.substring(0, 1)?.toUpperCase() +
-                        intent.getStringExtra(Constants.PRODUCATNAME)?.substring(1)?.toLowerCase()
+            try {
+                binding.infoTool.tvTitle.text =
+                    intent.getStringExtra(Constants.PRODUCATNAME)?.substring(0, 1)?.toUpperCase() +
+                            intent.getStringExtra(Constants.PRODUCATNAME)?.substring(1)?.toLowerCase()
+            } catch (e: Exception) {
+                binding.infoTool.tvTitle.text =""
+            }
+            val product_name=intent.getStringExtra(Constants.PRODUCATNAME)
             product_id = intent.getStringExtra(Constants.IDPRODUCT)!!
             product_details_id = intent.getStringExtra(Constants.PRODUCATDETAILSID)!!
             product_sizeId = intent.getStringExtra(Constants.PRODUCTSIZEID)!!
             product_colorId = intent.getStringExtra(Constants.PRODUCTCOLORID)!!
+            Toast.makeText(this, ""+product_id, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, ""+product_details_id, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, ""+product_sizeId, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, ""+product_colorId, Toast.LENGTH_SHORT).show()
 
 
+            viewModel.postProducatDetails(PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
+                product_details_id,
+                product_id,
+                product_sizeId,
+                product_colorId,
+                PrefManager.read(PrefManager.USER_ID,"")
+            ) //api call
 
             binding.ivShare.setOnClickListener {
                 val sharedLink =
-                    "https://shoparty.page.link/share?pid=$product_id&pdetail=" + product_details_id.replace(
+                    "https://shoparty.page.link/share?pid=$product_id&pdetail=$product_details_id&psize=$product_sizeId&pcolor=$product_colorId&pname="+product_name?.replace(
                         " ",
                         "_"
                     )
@@ -175,7 +192,6 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                 binding.infoTool.ivBagBtn.setOnClickListener(this)
                 binding.infoTool.ivDrawerBack.setOnClickListener(this)
             }
-
             R.id.tv_addtobag -> {
                 if(PrefManager.read(PrefManager.AUTH_TOKEN,"") == "")
                 {
@@ -284,9 +300,9 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
                     setImageInSlider(response.data?.product_details?.images!!)
-                    response.data?.product_details?.let { setData(it) }     //for data set
-                    setrecyclaryoumayalsolike(response.data?.you_may_also_like!!)
-                    recyclarcustomeralsobought(response.data?.also_bought!!)
+                    response.data.product_details.let { setData(it) }     //for data set
+                    setrecyclaryoumayalsolike(response.data.you_may_also_like)
+                    recyclarcustomeralsobought(response.data.also_bought)
                     checkReadMore(response.data.product_details.product_desc)
                     choesColorRecyclaritem(response.data.product_details.colors)
                 }
@@ -527,7 +543,8 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
 
     override fun onProductClick(product_detail_id: Int, product_id: Int,product_sizeId:String,product_colorId:String) {
         resetAllValues(product_detail_id,product_id,product_sizeId,product_colorId)
-        viewModel.postProducatDetails(PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),product_detail_id.toString(),product_id.toString(),product_sizeId,product_colorId,
+        viewModel.postProducatDetails(PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
+            product_detail_id.toString(),product_id.toString(),product_sizeId,product_colorId,
         PrefManager.read(PrefManager.USER_ID,"")) //api call
         binding.nestedScrool.scrollTo(0,  binding.nestedScrool.top)
     }

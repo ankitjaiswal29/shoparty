@@ -30,7 +30,12 @@ object PrefManager {
     const val LANGUAGEID: String = "languageId"
     const val IS_SHIPPING_PAGE: String = "IS_SHIPPING_PAGE"
 
-
+    const val IDPRODUCT1: String = "idProduct"
+    const val PRODUCATNAME1: String = "ProductName"
+    const val PRODUCATDETAILSID1: String = "ProductDetailId"
+    const val PRODUCTSIZEID1: String = "ProductSize"
+    const val PRODUCTCOLORID1: String = "ProductColor"
+    const val isFromLink: String = "isFromLink"
 
     private lateinit var preferences: SharedPreferences
 

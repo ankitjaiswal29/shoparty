@@ -18,22 +18,22 @@ import com.shoparty.android.databinding.ActivityFilterBinding
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.ui.filter.age.AgeResponse
 import com.shoparty.android.ui.filter.age.FilterAgeAdapter
-import com.shoparty.android.ui.filter.color.FilterColorsAdapters
 import com.shoparty.android.ui.filter.color.ColorsResponse
+import com.shoparty.android.ui.filter.color.FilterColorsAdapters
 import com.shoparty.android.ui.filter.gender.FilterGenderAdapter
 import com.shoparty.android.ui.filter.size.SizeAdapters
-
-import com.shoparty.android.utils.SpacesItemDecoration
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 
-class FilterActivity : AppCompatActivity(),View.OnClickListener, RecyclerViewClickListener {
+class FilterActivity : AppCompatActivity(),View.OnClickListener,QuantityListner, RecyclerViewClickListener {
     private lateinit var binding: ActivityFilterBinding
     private lateinit var viewModel: FilterViewModel
     private var colorlist: ArrayList<ColorsResponse.Colors> = ArrayList()
     private var sizelist: ArrayList<String> = ArrayList()
     private var recyvlerviewItemList=ArrayList<RecyclerView>()
     private var filterIconItem=ArrayList<TextView>()
+    var selectedColorList: ArrayList<ColorsResponse.Colors> = ArrayList()
+    private lateinit var adapterColor: FilterColorsAdapters
     var color=false
     var size=false
     var age=false
@@ -225,13 +225,15 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener, RecyclerViewCli
 
 
     private fun setColorsListAdapter(data: ArrayList<ColorsResponse.Colors>) {
-        val gridLayoutManager = GridLayoutManager(this, 9)
-        binding.rvColorRecyclarview.apply {
-            layoutManager = gridLayoutManager
-            setHasFixedSize(true)
-            isFocusable = false
-            adapter = FilterColorsAdapters(data,this@FilterActivity)
-        }
+        binding.rvColorRecyclarview.setHasFixedSize(true)
+        binding.rvColorRecyclarview.layoutManager = GridLayoutManager(
+            this,
+            9,
+            RecyclerView.VERTICAL,
+            false
+        )
+        adapterColor = FilterColorsAdapters(data,this@FilterActivity, quantityListner = this)
+        binding.rvColorRecyclarview.adapter = adapterColor
     }
 
     private fun setSizeListAdapter(data: ArrayList<String>) {
@@ -358,5 +360,16 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener, RecyclerViewCli
 
     override fun click(pos: String) {
     Toast.makeText(this,pos,Toast.LENGTH_LONG).show()
+    }
+
+    private fun getSelectedList()
+    {
+
+    }
+
+    override fun onQuantitychanged(userlist: ArrayList<ColorsResponse.Colors>) {
+        selectedColorList.clear()
+        selectedColorList.addAll(userlist.toList())
+        Toast.makeText(this, ""+selectedColorList.toString(), Toast.LENGTH_SHORT).show()
     }
 }

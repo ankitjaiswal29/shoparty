@@ -35,6 +35,7 @@ import com.shoparty.android.ui.main.myaccount.MyAccountFragment
 import com.shoparty.android.ui.main.myaccount.MyAccountViewModel
 import com.shoparty.android.ui.main.myaccount.myprofileupdate.MyProfileActivity
 import com.shoparty.android.ui.main.wishlist.WishListFragment
+import com.shoparty.android.ui.productdetails.ProductDetailsActivity
 import com.shoparty.android.ui.search.SearchActivity
 import com.shoparty.android.ui.shoppingbag.ShoppingBagActivity
 import com.shoparty.android.utils.Constants
@@ -55,13 +56,24 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        viewModel =
-            ViewModelProvider(this, ViewModalFactory(application)).get(MainViewModal::class.java)
+        viewModel = ViewModelProvider(this, ViewModalFactory(application))[MainViewModal::class.java]
         myaccountviewModel = ViewModelProvider(this, ViewModalFactory(application))[MyAccountViewModel::class.java]
         initialise()
         setObserver()
         val request = CategoryRequestModel(PrefManager.read(PrefManager.LANGUAGEID,1).toString())
         viewModel.getCategory(request)
+
+        if(PrefManager.read(PrefManager.isFromLink,false)){
+            PrefManager.write(PrefManager.isFromLink,false)
+            Toast.makeText(this, ""+PrefManager.read(PrefManager.IDPRODUCT1,""), Toast.LENGTH_SHORT).show()
+            val dashIntent = Intent(this, ProductDetailsActivity::class.java)
+            intent.putExtra(Constants.IDPRODUCT,PrefManager.read(PrefManager.IDPRODUCT1,""))
+            intent.putExtra(Constants.PRODUCATNAME,PrefManager.read(PrefManager.PRODUCATNAME1,""))
+            intent.putExtra(Constants.PRODUCATDETAILSID,PrefManager.read(PrefManager.PRODUCATDETAILSID1,""))
+            intent.putExtra(Constants.PRODUCTSIZEID,PrefManager.read(PrefManager.PRODUCTSIZEID1,""))
+            intent.putExtra(Constants.PRODUCTCOLORID, PrefManager.read(PrefManager.PRODUCTCOLORID1,""))
+            startActivity(dashIntent)
+        }
     }
 
     private fun initialise()
