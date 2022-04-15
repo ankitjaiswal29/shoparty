@@ -9,9 +9,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.JsonObject
 import com.mohammedalaa.seekbar.DoubleValueSeekBarView
 import com.mohammedalaa.seekbar.OnDoubleValueSeekBarChangeListener
 import com.shoparty.android.R
+import com.shoparty.android.databinding.ActivityFilterBinding
 
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.ui.filter.age.AgeResponse
@@ -25,9 +27,8 @@ import com.shoparty.android.utils.SpacesItemDecoration
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 
-
 class FilterActivity : AppCompatActivity(),View.OnClickListener, RecyclerViewClickListener {
-    private lateinit var binding: com.shoparty.android.databinding.ActivityFilterBinding
+    private lateinit var binding: ActivityFilterBinding
     private lateinit var viewModel: FilterViewModel
     private var colorlist: ArrayList<ColorsResponse.Colors> = ArrayList()
     private var sizelist: ArrayList<String> = ArrayList()
@@ -86,7 +87,6 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener, RecyclerViewCli
                 binding.tvUsdMin.text=getString(R.string.dollor)+min.toString()
                 binding.tvUsdMax.text=getString(R.string.dollor)+max.toString()
             }
-
             override fun onValueChanged(seekBar: DoubleValueSeekBarView?, min: Int, max: Int, fromUser: Boolean)
             {
              //   Toast.makeText(this@FilterActivity,min.toString()+max.toString(),Toast.LENGTH_LONG).show()

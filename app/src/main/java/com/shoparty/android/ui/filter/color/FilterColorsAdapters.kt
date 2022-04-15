@@ -47,12 +47,12 @@ class FilterColorsAdapters(private val colorList: List<ColorsResponse.Colors>,
             recyclerViewClickListener.click(items.color_name)
         })
     }
+
     override fun getItemCount(): Int {
         return colorList.size
     }
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
            val view_circle: View = itemView.findViewById(R.id.view_circle)
-        val iv_check: ImageView = itemView.findViewById(R.id.iv_check)
-
+           val iv_check: ImageView = itemView.findViewById(R.id.iv_check)
     }
 }

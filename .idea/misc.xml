@@ -3,16 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/drawable/background_edittext.xml" value="0.1165" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_address.xml" value="0.17314814814814813" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_customize.xml" value="0.17314814814814813" />
+        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_filter.xml" value="0.17314814814814813" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_my_profile.xml" value="0.17314814814814813" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_product_details.xml" value="0.17314814814814813" />
+        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_product_list.xml" value="0.20416666666666666" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_shoping_bag.xml" value="0.16" />
+        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_top_selling.xml" value="0.17314814814814813" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_vouchers.xml" value="0.17314814814814813" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/bag_item_layout.xml" value="0.18" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/bag_pickup_item_layout.xml" value="0.25" />
+        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/filter_color_item_layout.xml" value="0.17314814814814813" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/fragment_deals.xml" value="0.17314814814814813" />
+        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/fragment_wish_list.xml" value="0.17330861909175163" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/voucher_item_layout.xml" value="0.17314814814814813" />
+        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/wishlist_item_layout.xml" value="0.25" />
       </map>
     </option>
   </component>

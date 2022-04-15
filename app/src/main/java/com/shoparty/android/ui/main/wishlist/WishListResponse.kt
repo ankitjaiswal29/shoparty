@@ -38,6 +38,7 @@ data class WishListResponse(
         val sale_price: String,
         val season_id: String,
         val size: String,
+        var cart_quantity: Int?,
         val status: Int,
         val tax: String,
         val tax_type: Int,

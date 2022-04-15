@@ -101,7 +101,6 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
 
 
             binding.ivShare.setOnClickListener {
-                // Utils.showLongToast(this,getString(R.string.comingsoon))
                 val sharedLink =
                     "https://shoparty.page.link/share?pid=$product_id&pdetail=" + product_details_id.replace(
                         " ",
@@ -269,7 +268,8 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
     private fun addToBagApi()
     {
         quantity += 1
-        viewModel.postAddProduct(product_id,product_details_id,product_sizeId,product_colorId,quantity,sale_price)
+        viewModel.postAddProduct(product_id,product_details_id,
+            product_sizeId,product_colorId,quantity,sale_price)
     }
 
     override fun onBackPressed() {

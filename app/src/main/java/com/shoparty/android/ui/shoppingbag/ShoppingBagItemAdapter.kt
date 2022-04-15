@@ -61,7 +61,7 @@ class ShoppingBagItemAdapter(val context: Context, val list: List<CartProduct>) 
         fun bind(modal: CartProduct) {
 
             //val bitmap = Converters.stringToBitMap(modal.file)
-            Glide.with(context).asBitmap().load(modal.bitmap).into(binding?.ivItem!!)
+            Glide.with(context).asBitmap().load(modal.image).into(binding?.ivItem!!)
             binding.tvCount.text = modal.shopping_qnty
             binding.tvName.text = modal.en_name
 
@@ -79,11 +79,11 @@ class ShoppingBagItemAdapter(val context: Context, val list: List<CartProduct>) 
             }
 
             binding.ivClose.setOnClickListener {
-                //listener?.onClear(modal.shopping_id.toInt())
+                listener?.onClear(modal.shopping_id.toInt())
             }
 
             binding.ivMinus.setOnClickListener {
-               // listener?.onMinus(adapterPosition, binding.tvCount,modal.shopping_id.toInt())
+                listener?.onMinus(adapterPosition, binding.tvCount,modal.shopping_id.toInt())
             }
 
             binding.ivPlus.setOnClickListener {

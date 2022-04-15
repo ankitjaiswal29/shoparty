@@ -39,6 +39,7 @@ data class CartProduct(
     var quantity: String ,
     var sale_price: String ,
     var season_id: String? = "",
+    var shopping_id: String="",
     var shopping_price: String = "",
     var shopping_qnty: String = "",
     var size: String? = "",
@@ -47,6 +48,6 @@ data class CartProduct(
     var tax_type: Int = 0,
     var theme_id: String? = "",
     var updated_at: String? = "",
-    var bitmap: Bitmap? = null
+    var bitmap: Bitmap? = null,
 ) : Parcelable {
 }

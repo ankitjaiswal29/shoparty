@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.gson.JsonObject
 import com.shoparty.android.R
 import com.shoparty.android.common_modal.Product
 import com.shoparty.android.databinding.ActivityProductListBinding
@@ -47,67 +48,27 @@ class ProductListActivity : AppCompatActivity(),
     var pageLimit=10
     var fav_position:Int = 0
     var fav_type:Int = 0
+    var filter_applied=0
+    var filterarray= JsonObject()
     private lateinit var adapter:ProductListAdapters
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_list)
         initialise()
         withpaginationAdapterSet()
-
         if(intent.extras != null)
         {
-            if(intent.getStringExtra(Constants.CATEGORYFRAGMENT).equals("1"))
-            {
-                binding.infoTool.tvTitle.text = intent.getStringExtra("categoryname")
-                productListApi(intent.getStringExtra(Constants.PRODUCTID).toString())
-            }
-            else if(intent.getStringExtra(Constants.TOP20SELLING).equals("2"))  //top20selling view all
+            if(intent.getStringExtra(Constants.TOP20SELLING).equals("2"))  //top20selling view all
             {
                 binding.infoTool.tvTitle.text = getString(R.string.top_20_selling_items)
                 viewall_status = "1"
                 setupPaginationRecylarview()
-                viewAllApi("1") //api call
+                viewAllApi("1",filter_applied.toString(),filterarray) //api call
             }
-
-            else if (intent.getStringExtra(Constants.DRAWERSUBCATEGORY).equals("3"))  //drawer page
+            else
             {
                 binding.infoTool.tvTitle.text = intent.getStringExtra(Constants.CATEGORYNAME)
-                productListApi(intent.getStringExtra(Constants.PRODUCTID).toString())
-            }
-
-            else if(intent.getStringExtra(Constants.HOMECATEGORYITEM).equals("4"))  //home category item
-            {
-                binding.infoTool.tvTitle.text = intent.getStringExtra(Constants.CATEGORYNAME)
-                productListApi(intent.getStringExtra(Constants.PRODUCTID).toString())
-            }
-            else if(intent.getStringExtra(Constants.THEMESITEMS).equals("5"))  //theme item
-            {
-                binding.infoTool.tvTitle.text = intent.getStringExtra(Constants.CATEGORYNAME)
-                productListApi(intent.getStringExtra(Constants.PRODUCTID).toString())
-            }
-
-            else if(intent.getStringExtra(Constants.NEWARRIVALSITEM).equals("6"))  //New Arrival item
-            {
-                binding.infoTool.tvTitle.text = intent.getStringExtra(Constants.CATEGORYNAME)
-                productListApi(intent.getStringExtra(Constants.PRODUCTID).toString())
-            }
-
-            else if(intent.getStringExtra(Constants.BRANDITEM).equals("7"))  //New Arrival item
-            {
-                binding.infoTool.tvTitle.text = intent.getStringExtra(Constants.CATEGORYNAME)
-                productListApi(intent.getStringExtra(Constants.PRODUCTID).toString())
-            }
-
-            else if(intent.getStringExtra( Constants.SEASONITEMS).equals("8"))  //New Arrival item
-            {
-                binding.infoTool.tvTitle.text = intent.getStringExtra(Constants.CATEGORYNAME)
-                productListApi(intent.getStringExtra(Constants.PRODUCTID).toString())
-            }
-
-            else if(intent.getStringExtra( Constants.TOPSELLINGSUBCATEGORY).equals("9"))  //top selling category
-            {
-                binding.infoTool.tvTitle.text = intent.getStringExtra(Constants.CATEGORYNAME)
-                productListApi(intent.getStringExtra(Constants.PRODUCTID).toString())
+                productListApi(PrefManager.read(PrefManager.LANGUAGEID,1).toString(),filter_applied.toString(),filterarray)
             }
         }
         setObserver()
@@ -269,15 +230,16 @@ class ProductListActivity : AppCompatActivity(),
     }
 
 
-    private fun viewAllApi(type: String) {
-        viewModel.topSellingProducatList(PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
+    private fun viewAllApi(type: String, filter_applied: String, filterarray: JsonObject)
+    {
+            viewModel.topSellingProducatList(
+            PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
             type,
             pageOffset.toString(),pageLimit.toString(),
-            PrefManager.read(PrefManager.USER_ID, ""))
+            PrefManager.read(PrefManager.USER_ID, ""),filter_applied,filterarray.toString())
     }
-        private fun productListApi(product_id: String) {
-            viewModel.producatList(product_id, "3",
-                PrefManager.read(PrefManager.LANGUAGEID, 1).toString(), PrefManager.read(PrefManager.USER_ID, ""))   //api call
+        private fun productListApi(langauge_id: String, filter_applied: String, filter: JsonObject) {
+            viewModel.producatList(langauge_id, filter_applied,filter.toString())   //api call
         }
 
 
@@ -356,11 +318,10 @@ class ProductListActivity : AppCompatActivity(),
             EndlessRecyclerViewScrollListener(layoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int) {
                 pageOffset=newproductlist.size
-                viewAllApi("1")  //api call
+                viewAllApi("1", filter_applied.toString(), filterarray)  //api call
             }
         })
     }
-
     }
 
 

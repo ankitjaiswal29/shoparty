@@ -13,17 +13,24 @@ import com.shoparty.android.R
 import com.shoparty.android.databinding.FragmentWishListBinding
 
 import com.shoparty.android.interfaces.RecyclerViewFavouriteListener
+import com.shoparty.android.interfaces.WishListAddBagClickListener
 import com.shoparty.android.ui.main.mainactivity.MainActivity
+import com.shoparty.android.ui.productdetails.ProducatDetailsViewModel
+import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
-class WishListFragment : Fragment(), RecyclerViewFavouriteListener {
+class WishListFragment : Fragment(), RecyclerViewFavouriteListener, WishListAddBagClickListener {
     private var operationalPos: Int = -1
     private lateinit var binding: FragmentWishListBinding
     private lateinit var viewModel: WishListViewModel
+    private lateinit var productdetailsViewModel: ProducatDetailsViewModel
     private lateinit var adapterWishlist: WishListAdapters
     private var listWishlistt: ArrayList<WishListResponse.Result> = ArrayList()
+    var quantity:Int=0
+    private var position: Int=0
+    private var action_type: Int=0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -33,6 +40,7 @@ class WishListFragment : Fragment(), RecyclerViewFavouriteListener {
     override fun onResume() {
         super.onResume()
         (activity as MainActivity).manageUi(ivLogo = true, ivBag = true,ivSearch = true)
+        viewModel.getWishlist(PrefManager.read(PrefManager.LANGUAGEID, 1).toString())  //api call
     }
 
     override fun onCreateView(
@@ -41,7 +49,7 @@ class WishListFragment : Fragment(), RecyclerViewFavouriteListener {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_wish_list, container, false)
         viewModel = ViewModelProvider(this, ViewModalFactory(activity?.application!!))[WishListViewModel::class.java]
-        viewModel.getWishlist(PrefManager.read(PrefManager.LANGUAGEID, 1).toString())        //api call
+        productdetailsViewModel = ViewModelProvider(this, ViewModalFactory(activity?.application!!))[ProducatDetailsViewModel::class.java]
         setObserver()
         return binding.root
     }
@@ -57,7 +65,7 @@ class WishListFragment : Fragment(), RecyclerViewFavouriteListener {
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
                     listWishlistt=response.data!! as ArrayList<WishListResponse.Result>
-                    initFavResponse()
+                    setwishlistAdapter()
                 }
                 is Resource.Loading -> {
                     ProgressDialog.showProgressBar(requireContext())
@@ -91,11 +99,14 @@ class WishListFragment : Fragment(), RecyclerViewFavouriteListener {
                         response.message,
                         Toast.LENGTH_SHORT
                     ).show()
-                    if(listWishlistt.isNotEmpty()){
+
+                    if(listWishlistt.isNotEmpty())
+                    {
                         listWishlistt.removeAt(operationalPos)
                         adapterWishlist.notifyItemRemoved(operationalPos)
-                        if(listWishlistt.isEmpty()){
-                            initFavResponse()
+                        if(listWishlistt.isEmpty())
+                        {
+                            setwishlistAdapter()
                         }
                     }
                 }
@@ -120,9 +131,42 @@ class WishListFragment : Fragment(), RecyclerViewFavouriteListener {
                 }
             }
         }
+
+
+        productdetailsViewModel.addbag.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Success -> {
+                    ProgressDialog.hideProgressBar()
+                    Toast.makeText(requireContext(),
+                        response.message,
+                        Toast.LENGTH_SHORT).show()
+                        adapterWishlist.updateData(position,quantity)
+                }
+                is Resource.Loading -> {
+                    ProgressDialog.showProgressBar(requireContext())
+                }
+                is Resource.Error -> {
+                    ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        requireContext(),
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        requireContext(),
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
     }
 
-    private fun initFavResponse() {
+    private fun setwishlistAdapter()
+    {
         if(listWishlistt.isNullOrEmpty())
         {
             binding.clNoData.visibility=View.VISIBLE
@@ -132,16 +176,10 @@ class WishListFragment : Fragment(), RecyclerViewFavouriteListener {
         {
             binding.clNoData.visibility=View.GONE
             binding.wishlistRecyclerview.visibility=View.VISIBLE
-            setWishListAdapter(listWishlistt)
+            adapterWishlist = WishListAdapters(requireContext(),listWishlistt!!,this,this)
+            binding.wishlistRecyclerview.layoutManager = LinearLayoutManager(requireContext())
+            binding.wishlistRecyclerview.adapter = adapterWishlist
         }
-    }
-
-
-    private fun setWishListAdapter(data: List<WishListResponse.Result>?)
-    {
-        adapterWishlist = WishListAdapters(requireContext(),data!!,this)
-        binding.wishlistRecyclerview.layoutManager = LinearLayoutManager(requireContext())
-        binding.wishlistRecyclerview.adapter = adapterWishlist
     }
 
     override fun favourite(
@@ -154,5 +192,51 @@ class WishListFragment : Fragment(), RecyclerViewFavouriteListener {
     ) {
         operationalPos = position
         viewModel.addremoveWishlist(producat_id,type.toInt(),product_detail_id.toInt(),product_sizeId,product_colorId)
+    }
+
+
+    override fun addBagClick(pos: Int, actiontype: Int) {
+        if(PrefManager.read(PrefManager.AUTH_TOKEN,"") == "")
+        {
+            /* lifecycleScope.launch(Dispatchers.IO) {
+                 MyDatabase.getInstance(this@ProductDetailsActivity).getProductDao()
+                     .insertCartProduct(CartProduct(productDetails.en_name, productDetails.id.toString(), productDetails.images[0].image.toString(), "1"))
+
+                 MyDatabase.getInstance(this@ProductDetailsActivity).getProductDao()
+                     .insertCartProduct(CartProduct(productDetails.en_name, productDetails.id.toString(), productDetails.images[0].image.toString(), "1"))
+
+                 val intent = Intent(this@ProductDetailsActivity, ShoppingBagActivity::class.java)
+                 startActivity(intent)
+             }*/
+        }
+        else
+        {
+            position=pos
+            action_type=actiontype
+            quantity= listWishlistt[pos].cart_quantity!!
+            if(action_type==Constants.CARTACTIONMINUSTYPE)   //for minus
+            {
+                quantity -= 1
+                if(listWishlistt[pos].cart_quantity!=0)
+                {
+                    productdetailsViewModel.postAddProduct(listWishlistt[pos].product_id.toString(),
+                        listWishlistt[pos].product_detail_id.toString(),
+                        listWishlistt[pos].product_size_id.toString(),
+                        listWishlistt[pos].product_color_id.toString(),
+                        quantity,
+                        listWishlistt[pos].sale_price)
+                }
+            }
+            else
+            {
+                quantity += 1
+                productdetailsViewModel.postAddProduct(listWishlistt[pos].product_id.toString(),
+                    listWishlistt[pos].product_detail_id.toString(),
+                    listWishlistt[pos].product_size_id.toString(),
+                    listWishlistt[pos].product_color_id.toString(),
+                    quantity,
+                    listWishlistt[pos].sale_price)
+            }
+        }
     }
 }

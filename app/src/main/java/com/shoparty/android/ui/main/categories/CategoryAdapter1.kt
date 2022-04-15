@@ -41,7 +41,7 @@ class CategoryAdapter1( val context: Context,
             val intent = Intent(context, ProductListActivity::class.java)
             intent.putExtra(Constants.PRODUCTID,modal.id)  //categoryid
             intent.putExtra(Constants.CATEGORYFRAGMENT,"1")
-            intent.putExtra("categoryname",holder.categoryName?.text.toString())
+            intent.putExtra(Constants.CATEGORYNAME,holder.categoryName?.text.toString())
             context.startActivity(intent)
         }
 

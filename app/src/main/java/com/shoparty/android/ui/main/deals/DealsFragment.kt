@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.gson.JsonObject
 import com.shoparty.android.R
 import com.shoparty.android.common_modal.Product
 import com.shoparty.android.databinding.FragmentDealsBinding
@@ -43,6 +44,8 @@ class DealsFragment : Fragment(),View.OnClickListener {
     var pageLimit=10
     var fav_position:Int = 0
     var fav_type:Int = 0
+    var filter_applied=0
+    var filterarray= JsonObject()
 
     private var recyclerViewFavouriteListener=object :RecyclerViewFavouriteListener{
           override fun favourite(
@@ -96,14 +99,14 @@ class DealsFragment : Fragment(),View.OnClickListener {
         initilize()
         setObserver()
         setupRecylarview()
-        callApi() //api call
+        callApi(filter_applied,filterarray) //api call
     }
 
-       private fun callApi()
+       private fun callApi(filter_applied: Int, filterarray: JsonObject)
        {
            val request = DealsRequestModel(PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
                pageOffset.toString(),
-               pageLimit.toString(),PrefManager.read(PrefManager.USER_ID, ""))
+               pageLimit.toString(),PrefManager.read(PrefManager.USER_ID, ""),filter_applied.toString(),filterarray.toString())
                viewModel.getDeals(request)
        }
 
@@ -274,9 +277,8 @@ class DealsFragment : Fragment(),View.OnClickListener {
             EndlessRecyclerViewScrollListener(layoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int) {
                 pageOffset=newproductlist.size
-                callApi()  //api call
-                /*  if (listSize > productlist.size) {
-                 }*/
+                callApi(filter_applied, filterarray)  //api call
+
             }
         })
     }

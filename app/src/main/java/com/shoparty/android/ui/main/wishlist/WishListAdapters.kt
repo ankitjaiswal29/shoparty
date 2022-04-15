@@ -14,14 +14,17 @@ import com.bumptech.glide.Glide
 
 import com.shoparty.android.R
 import com.shoparty.android.interfaces.RecyclerViewFavouriteListener
-import com.shoparty.android.ui.main.product_list.ProductListActivity
+import com.shoparty.android.interfaces.WishListAddBagClickListener
 import com.shoparty.android.ui.productdetails.ProductDetailsActivity
 import com.shoparty.android.utils.Constants
-import com.shoparty.android.utils.Utils
+import com.shoparty.android.utils.Constants.CARTACTIONMINUSTYPE
+import com.shoparty.android.utils.Constants.CARTACTIONPLUSTYPE
+
 class WishListAdapters(
     var context: Context,
     private val mList: List<WishListResponse.Result>,
-    var recyclerViewFavouriteListener: RecyclerViewFavouriteListener
+    var recyclerViewFavouriteListener: RecyclerViewFavouriteListener,
+    var wishListAddBagClickListener: WishListAddBagClickListener
 ) : RecyclerView.Adapter<WishListAdapters.ViewHolder>()
 {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -36,6 +39,23 @@ class WishListAdapters(
         holder.tv_ItemName.text = ItemsViewModel.product_name
         holder.tvItemSubtitle.text = ItemsViewModel.product_descripion
         holder.tvPrice.text = context.getString(R.string.dollor)+ItemsViewModel.sale_price
+        if(ItemsViewModel.cart_quantity==0)
+        {
+            holder.txtAdd.visibility=View.VISIBLE
+            holder.iv_minus.visibility=View.GONE
+            holder.iv_plus.visibility=View.GONE
+            holder.tv_count.visibility=View.GONE
+        }
+        else
+        {
+            holder.txtAdd.visibility=View.GONE
+            holder.iv_minus.visibility=View.VISIBLE
+            holder.iv_plus.visibility=View.VISIBLE
+            holder.tv_count.visibility=View.VISIBLE
+            holder.tv_count.text=ItemsViewModel.cart_quantity.toString()
+        }
+
+
         if(!ItemsViewModel.discount.isNullOrEmpty())
         {
             holder.tvOffer.visibility=View.VISIBLE
@@ -48,8 +68,19 @@ class WishListAdapters(
         Glide.with(context).asBitmap().load(ItemsViewModel.image).into(holder.iv_Productimg!!)
 
         holder.txtAdd.setOnClickListener {
-            Utils.showLongToast(context,context.getString(R.string.comingsoon))
+            wishListAddBagClickListener.addBagClick(position,Constants.CARTACTIONADDBUTTONTYPE)
         }
+
+        holder.iv_plus.setOnClickListener {
+            wishListAddBagClickListener.addBagClick(position,Constants.CARTACTIONPLUSTYPE)
+        }
+
+        holder.iv_minus.setOnClickListener {
+            wishListAddBagClickListener.addBagClick(position,Constants.CARTACTIONMINUSTYPE)
+        }
+
+
+
 
         holder.relativeLike.setOnClickListener {
             recyclerViewFavouriteListener.favourite(
@@ -69,10 +100,12 @@ class WishListAdapters(
             context.startActivity(intent)
         }
 
+    }
 
-
-
-
+    public fun updateData(position: Int, quantity: Int)
+    {
+        mList[position].cart_quantity=quantity
+        notifyItemChanged(position)
     }
     override fun getItemCount(): Int {
         return mList.size
@@ -90,6 +123,9 @@ class WishListAdapters(
         val tv_ItemName :TextView = itemView.findViewById(R.id.tv_ItemName)
         val tvPrice: TextView = itemView.findViewById(R.id.tvPrice)
         val tvOffer: TextView = itemView.findViewById(R.id.tv_Offer)
+        val iv_minus: ImageView = itemView.findViewById(R.id.iv_minus)
+        val iv_plus: ImageView = itemView.findViewById(R.id.iv_plus)
+        val tv_count: TextView = itemView.findViewById(R.id.tv_count)
         val txtAdd: TextView = itemView.findViewById(R.id.txtAdd)
         val tvItemSubtitle: TextView = itemView.findViewById(R.id.tv_Item_subtitle)
         val relativeLike: RelativeLayout = itemView.findViewById(R.id.relative_like)

@@ -20,9 +20,9 @@ class ProductListViewModel(private val app: Application) : ViewModel()
     private val mProductList = MutableLiveData<Resource<List<Product>>>()
     val productList: LiveData<Resource<List<Product>>> = mProductList
 
-    fun producatList(filter_id:String,type:String,langauge_id:String,user_id:String) = viewModelScope.launch {
+    fun producatList(langauge_id:String,filter_applied:String,filter:String) = viewModelScope.launch {
 
-        val request = ProductListRequestModel(filter_id,type,langauge_id,user_id)
+        val request = ProductListRequestModel(langauge_id,filter_applied,filter)
         if(Utils.hasInternetConnection(app.applicationContext))
         {
             mProductList.postValue(Resource.Loading())
@@ -37,8 +37,16 @@ class ProductListViewModel(private val app: Application) : ViewModel()
     }
 
 
-    fun topSellingProducatList(langauge_id:String,type:String,offset:String,limit:String,user_id:String) = viewModelScope.launch {
-        val request = TopSellingRequestModel(langauge_id,type,offset,limit,user_id)
+    fun topSellingProducatList(
+        langauge_id: String,
+        type: String,
+        offset: String,
+        limit: String,
+        user_id: String,
+        filter_applied: String,
+        filter_array: String
+    ) = viewModelScope.launch {
+        val request = TopSellingRequestModel(langauge_id,type,offset,limit,user_id,filter_applied,filter_array)
         if(Utils.hasInternetConnection(app.applicationContext))
         {
             mProductList.postValue(Resource.Loading())
