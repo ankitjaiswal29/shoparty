@@ -4,13 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.datatransport.runtime.scheduling.jobscheduling.SchedulerConfig
 import com.shoparty.android.R
 import com.shoparty.android.ui.main.mainactivity.MainActivity
-import com.shoparty.android.ui.productdetails.ProductDetailsActivity
-import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.PrefManager
-import com.shoparty.android.utils.Utils
 
 
 class SplashActivity : AppCompatActivity() {

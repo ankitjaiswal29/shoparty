@@ -14,18 +14,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.dynamiclinks.DynamicLink
 import com.google.firebase.dynamiclinks.ktx.androidParameters
 import com.google.firebase.dynamiclinks.ktx.dynamicLinks
 import com.google.firebase.dynamiclinks.ktx.shortLinkAsync
 import com.google.firebase.ktx.Firebase
-
 import com.shoparty.android.BuildConfig
 import com.shoparty.android.R
-import com.shoparty.android.common_modal.CartProduct
-import com.shoparty.android.database.MyDatabase
 import com.shoparty.android.databinding.ActivityProductDetailsBinding
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.ui.customize.CustomizeActivity
@@ -48,8 +44,9 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
     var product_sizeId = ""
     var product_colorId = ""
     var fav_status = ""
-    var sale_price=""
-    var quantity:Int=0
+    var sale_price = ""
+    var product_name = ""
+    var quantity: Int = 0
     private lateinit var viewModel: ProducatDetailsViewModel
     private lateinit var wishlistviewModel: WishListViewModel
     private lateinit var productDetails: ProducatDetailsResponse.ProductDetails
@@ -89,61 +86,61 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
         binding.ivShare.setOnClickListener(this)
         binding.ivPlus.setOnClickListener(this)
         binding.ivMinus.setOnClickListener(this)
-        if (intent.extras != null)
-        {
-            try {
-                binding.infoTool.tvTitle.text =
-                    intent.getStringExtra(Constants.PRODUCATNAME)?.substring(0, 1)?.toUpperCase() +
-                            intent.getStringExtra(Constants.PRODUCATNAME)?.substring(1)?.toLowerCase()
-            } catch (e: Exception) {
-                binding.infoTool.tvTitle.text =""
+        if (PrefManager.read(PrefManager.isFromLink, false)) {
+            PrefManager.write(PrefManager.isFromLink, false)
+            product_id = PrefManager.read(PrefManager.IDPRODUCT1, "")
+            product_name = PrefManager.read(PrefManager.PRODUCATNAME1, "")
+            product_details_id = PrefManager.read(PrefManager.PRODUCATDETAILSID1, "")
+            product_sizeId = PrefManager.read(PrefManager.PRODUCTSIZEID1, "")
+            product_colorId = PrefManager.read(PrefManager.PRODUCTCOLORID1, "")
+        } else {
+            if (intent.extras != null) {
+                product_name = intent.getStringExtra(Constants.PRODUCATNAME).toString()
+                product_id = intent.getStringExtra(Constants.IDPRODUCT)!!
+                product_details_id = intent.getStringExtra(Constants.PRODUCATDETAILSID)!!
+                product_sizeId = intent.getStringExtra(Constants.PRODUCTSIZEID)!!
+                product_colorId = intent.getStringExtra(Constants.PRODUCTCOLORID)!!
             }
-            val product_name=intent.getStringExtra(Constants.PRODUCATNAME)
-            product_id = intent.getStringExtra(Constants.IDPRODUCT)!!
-            product_details_id = intent.getStringExtra(Constants.PRODUCATDETAILSID)!!
-            product_sizeId = intent.getStringExtra(Constants.PRODUCTSIZEID)!!
-            product_colorId = intent.getStringExtra(Constants.PRODUCTCOLORID)!!
-            Toast.makeText(this, ""+product_id, Toast.LENGTH_SHORT).show()
-            Toast.makeText(this, ""+product_details_id, Toast.LENGTH_SHORT).show()
-            Toast.makeText(this, ""+product_sizeId, Toast.LENGTH_SHORT).show()
-            Toast.makeText(this, ""+product_colorId, Toast.LENGTH_SHORT).show()
+        }
+        binding.infoTool.tvTitle.text =
+            product_name.substring(0, 1).toUpperCase() +
+                    intent.getStringExtra(Constants.PRODUCATNAME)?.substring(1)
+                        ?.toLowerCase()
+        viewModel.postProducatDetails(
+            PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
+            product_details_id,
+            product_id,
+            product_sizeId,
+            product_colorId,
+            PrefManager.read(PrefManager.USER_ID, "")
+        ) //api call
 
-
-            viewModel.postProducatDetails(PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
-                product_details_id,
-                product_id,
-                product_sizeId,
-                product_colorId,
-                PrefManager.read(PrefManager.USER_ID,"")
-            ) //api call
-
-            binding.ivShare.setOnClickListener {
-                val sharedLink =
-                    "https://shoparty.page.link/share?pid=$product_id&pdetail=$product_details_id&psize=$product_sizeId&pcolor=$product_colorId&pname="+product_name?.replace(
-                        " ",
-                        "_"
-                    )
-                val DOMAIN_URI_PREFIX = "https://shoparty.page.link"
-                val dynamicLink = Firebase.dynamicLinks.shortLinkAsync {
-                    link = Uri.parse(sharedLink)
-                    val socialMetaTag = DynamicLink.SocialMetaTagParameters.Builder()
-                        .setTitle("Shoparty")
-                        .setImageUrl(Uri.parse(""))
-                        .build()
-                    setSocialMetaTagParameters(socialMetaTag)
-                    domainUriPrefix = DOMAIN_URI_PREFIX
-                    androidParameters {
-                        minimumVersion = BuildConfig.VERSION_CODE
-                    }
-                }.addOnSuccessListener {
-                    val shortLink = it.shortLink
-                    val previewLink = it.previewLink
-                    Log.e("TAG", ">>>>> shortLink ::$shortLink")
-                    Log.e("TAG", ">>>>> previewLink ::$previewLink")
-                    shareLink(shortLink.toString())
-                }.addOnFailureListener {
-                    Log.e("TAG", ">>>>> exception ::${it.message}")
+        binding.ivShare.setOnClickListener {
+            val sharedLink =
+                "https://shoparty.page.link/share?pid=$product_id&pdetail=$product_details_id&psize=$product_sizeId&pcolor=$product_colorId&pname=" + product_name?.replace(
+                    " ",
+                    "_"
+                )
+            val DOMAIN_URI_PREFIX = "https://shoparty.page.link"
+            val dynamicLink = Firebase.dynamicLinks.shortLinkAsync {
+                link = Uri.parse(sharedLink)
+                val socialMetaTag = DynamicLink.SocialMetaTagParameters.Builder()
+                    .setTitle("Shoparty")
+                    .setImageUrl(Uri.parse(""))
+                    .build()
+                setSocialMetaTagParameters(socialMetaTag)
+                domainUriPrefix = DOMAIN_URI_PREFIX
+                androidParameters {
+                    minimumVersion = BuildConfig.VERSION_CODE
                 }
+            }.addOnSuccessListener {
+                val shortLink = it.shortLink
+                val previewLink = it.previewLink
+                Log.e("TAG", ">>>>> shortLink ::$shortLink")
+                Log.e("TAG", ">>>>> previewLink ::$previewLink")
+                shareLink(shortLink.toString())
+            }.addOnFailureListener {
+                Log.e("TAG", ">>>>> exception ::${it.message}")
             }
         }
     }

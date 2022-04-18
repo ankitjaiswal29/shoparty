@@ -64,14 +64,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         viewModel.getCategory(request)
 
         if(PrefManager.read(PrefManager.isFromLink,false)){
-            PrefManager.write(PrefManager.isFromLink,false)
-            Toast.makeText(this, ""+PrefManager.read(PrefManager.IDPRODUCT1,""), Toast.LENGTH_SHORT).show()
             val dashIntent = Intent(this, ProductDetailsActivity::class.java)
-            intent.putExtra(Constants.IDPRODUCT,PrefManager.read(PrefManager.IDPRODUCT1,""))
-            intent.putExtra(Constants.PRODUCATNAME,PrefManager.read(PrefManager.PRODUCATNAME1,""))
-            intent.putExtra(Constants.PRODUCATDETAILSID,PrefManager.read(PrefManager.PRODUCATDETAILSID1,""))
-            intent.putExtra(Constants.PRODUCTSIZEID,PrefManager.read(PrefManager.PRODUCTSIZEID1,""))
-            intent.putExtra(Constants.PRODUCTCOLORID, PrefManager.read(PrefManager.PRODUCTCOLORID1,""))
             startActivity(dashIntent)
         }
     }
