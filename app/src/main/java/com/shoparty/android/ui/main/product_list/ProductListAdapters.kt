@@ -82,7 +82,7 @@ class ProductListAdapters(
         val cl_productlist_root_item: ConstraintLayout = itemView.findViewById(R.id.cl_productlist_root_item)
         val tv_productname: TextView = itemView.findViewById(R.id.tv_productname)
         val iv_dealsimg: ImageView = itemView.findViewById(R.id.iv_dealsimg)
-       val tv_price:TextView = itemView.findViewById(R.id.tv_price)
+        val tv_price:TextView = itemView.findViewById(R.id.tv_price)
         val tv_offer:TextView = itemView.findViewById(R.id.tv_offer)
         val tv_product_subtitle:TextView = itemView.findViewById(R.id.tv_product_subtitle)
     }

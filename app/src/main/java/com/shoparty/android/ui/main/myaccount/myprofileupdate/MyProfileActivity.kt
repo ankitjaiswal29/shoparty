@@ -418,6 +418,8 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
                 }
                 else
                 {
+                    dob1=""
+                    binding.tvDateBirth.text = dob1
                     Utils.showLongToast(this,getString(R.string.agelimitismin))
                 }
             },

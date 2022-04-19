@@ -1,5 +1,6 @@
 package com.shoparty.android.ui.main.product_list
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -11,12 +12,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.gson.JsonObject
 import com.shoparty.android.R
 import com.shoparty.android.common_modal.Product
 import com.shoparty.android.databinding.ActivityProductListBinding
+import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.interfaces.RecyclerViewFavouriteListener
 import com.shoparty.android.ui.filter.FilterActivity
+import com.shoparty.android.ui.filter.age.AgeRequest
 import com.shoparty.android.ui.login.LoginActivity
 import com.shoparty.android.ui.main.deals.EndlessRecyclerViewScrollListener
 import com.shoparty.android.ui.main.wishlist.WishListViewModel
@@ -30,7 +32,9 @@ import com.shoparty.android.utils.apiutils.ViewModalFactory
 
 class ProductListActivity : AppCompatActivity(),
     View.OnClickListener,
-    RecyclerViewFavouriteListener {
+    RecyclerViewFavouriteListener, RecyclerViewClickListener {
+    private var sortclickName: String = ""
+    private var bottomlist: ArrayList<String> = ArrayList()
     private lateinit var layoutManager: GridLayoutManager
     private lateinit var binding: ActivityProductListBinding
     private lateinit var viewModel: ProductListViewModel
@@ -44,38 +48,56 @@ class ProductListActivity : AppCompatActivity(),
     var gender = false
     var progressshow = true
     var viewall_status = ""
-    var pageOffset=0
-    var pageLimit=10
-    var fav_position:Int = 0
-    var fav_type:Int = 0
-    var filter_applied=0
-    var filterarray= JsonObject()
-    private lateinit var adapter:ProductListAdapters
+    var pageOffset = 0
+    var pageLimit = 10
+    var fav_position: Int = 0
+    var fav_type: Int = 0
+    var filter_applied = 0
+    var sort_applied = 0
+    var sort_type = 0
+
+    private var selectedColorList:ArrayList<String> =  ArrayList()
+    private var selectedSizeList:ArrayList<String> =  ArrayList()
+    private var selectedAgeList:ArrayList<AgeRequest> =  ArrayList()
+    private var selectedGenderList:ArrayList<String> =  ArrayList()
+    private var selectedminprice = 0
+    private var selectedmaxprice = 0
+
+    private lateinit var adapter: ProductListAdapters
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_list)
         initialise()
-        withpaginationAdapterSet()
-        if(intent.extras != null)
+        withpaginationAdapterSet(newproductlist)
+        if (intent.extras != null)
         {
-            if(intent.getStringExtra(Constants.TOP20SELLING).equals("2"))  //top20selling view all
+            if (intent.getStringExtra(Constants.TOP20SELLING).equals("2"))  //top20selling view all
             {
                 binding.infoTool.tvTitle.text = getString(R.string.top_20_selling_items)
                 viewall_status = "1"
                 setupPaginationRecylarview()
-                viewAllApi("1",filter_applied.toString(),filterarray) //api call
-            }
-            else
-            {
+                viewAllApi(
+                    "1",
+                    filter_applied.toString(),
+                    ProductListRequestModel.Filter(),
+                    sort_applied,
+                    sort_type
+                ) //api call
+            } else {
                 binding.infoTool.tvTitle.text = intent.getStringExtra(Constants.CATEGORYNAME)
-                productListApi(PrefManager.read(PrefManager.LANGUAGEID,1).toString(),filter_applied.toString(),filterarray)
+                productListApiCall(
+                    PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
+                    filter_applied.toString(),
+                    ProductListRequestModel.Filter(),
+                    sort_applied,
+                    sort_type
+                )
             }
         }
         setObserver()
     }
 
-    private fun initialise()
-    {
+    private fun initialise() {
         viewModel =
             ViewModelProvider(this, ViewModalFactory(application))[ProductListViewModel::class.java]
         viewModeladdwishlist =
@@ -88,23 +110,26 @@ class ProductListActivity : AppCompatActivity(),
         binding.infoTool.ivBtnsearch.setOnClickListener(this)
         binding.tvFilter.setOnClickListener(this)
         binding.tvSort.setOnClickListener(this)
+        saveSortLocal()
+    }
+
+    private fun saveSortLocal() {
+        PrefManager.write(PrefManager.SORTSELECTEDNAME, sortclickName)
     }
 
 
-    private fun withpaginationAdapterSet()
-    {
-        layoutManager = GridLayoutManager(this,2)
-        binding. dealsItemRecycler.layoutManager = layoutManager
-        adapter = ProductListAdapters(this, newproductlist,this)
+    private fun withpaginationAdapterSet(newList: List<Product>) {
+        layoutManager = GridLayoutManager(this, 2)
+        binding.dealsItemRecycler.layoutManager = layoutManager
+        adapter = ProductListAdapters(this, newList as ArrayList<Product>, this)
         binding.dealsItemRecycler.adapter = adapter
     }
 
 
-    private fun withoutPaginationAdapterSet(arrayList: ArrayList<Product>)
-    {
-        layoutManager = GridLayoutManager(this,2)
-        binding. dealsItemRecycler.layoutManager = layoutManager
-        adapter = ProductListAdapters(this, arrayList,this)
+    private fun withoutPaginationAdapterSet(arrayList: ArrayList<Product>) {
+        layoutManager = GridLayoutManager(this, 2)
+        binding.dealsItemRecycler.layoutManager = layoutManager
+        adapter = ProductListAdapters(this, arrayList, this)
         binding.dealsItemRecycler.adapter = adapter
     }
 
@@ -113,36 +138,45 @@ class ProductListActivity : AppCompatActivity(),
         viewModel.productList.observe(this) { response ->
             when (response) {
                 is Resource.Success -> {
-                    if(progressshow)
-                    {
+                    if (progressshow) {
                         com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     }
-                    progressshow=false
+                    progressshow = false
                     productlist = response.data as ArrayList<Product>
-                    if (productlist.isNullOrEmpty() && newproductlist.isNullOrEmpty()) {
+                    if(productlist.isNullOrEmpty() && newproductlist.isNullOrEmpty())
+                    {
                         binding.ivNoData.visibility = View.VISIBLE
                         binding.tvNoData.visibility = View.VISIBLE
                         binding.dealsItemRecycler.visibility = View.GONE
-                    } else {
+                    }
+                    else
+                    {
                         binding.ivNoData.visibility = View.GONE
                         binding.dealsItemRecycler.visibility = View.VISIBLE
                         binding.tvNoData.visibility = View.GONE
-                        if (viewall_status == "1") {
+
+                        if(viewall_status == "1")
+                        {
                             setupData(productlist)
-                        } else {
-                            withoutPaginationAdapterSet(response.data as ArrayList<Product>)
+                        }
+                        else
+                        {
+                            withoutPaginationAdapterSet(response.data)
+                        }
+                        if(sort_applied != 0)     //sort applied
+                        {
+                            dialog.dismiss()         //update bottom sheet dialog
+                            saveSortLocal()
                         }
                     }
                 }
                 is Resource.Loading -> {
-                    if(progressshow)
-                    {
+                    if (progressshow) {
                         com.shoparty.android.utils.ProgressDialog.showProgressBar(this)
                     }
                 }
                 is Resource.Error -> {
-                    if(progressshow)
-                    {
+                    if (progressshow) {
                         com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     }
                     Toast.makeText(
@@ -216,7 +250,11 @@ class ProductListActivity : AppCompatActivity(),
             }
             R.id.tv_filter -> {
                 val intent = Intent(this, FilterActivity::class.java)
-                startActivity(intent)
+                intent.putStringArrayListExtra("colorList",selectedColorList)
+                intent.putParcelableArrayListExtra("ageList",selectedAgeList)
+                intent.putStringArrayListExtra("genderList",selectedGenderList)
+                intent.putStringArrayListExtra("sizeList",selectedSizeList)
+                startActivityForResult(intent, 101)
             }
             R.id.ivBagBtn -> {
                 val intent = Intent(this, ShoppingBagActivity::class.java)
@@ -230,38 +268,56 @@ class ProductListActivity : AppCompatActivity(),
     }
 
 
-    private fun viewAllApi(type: String, filter_applied: String, filterarray: JsonObject)
-    {
-            viewModel.topSellingProducatList(
+    private fun viewAllApi(
+        type: String,
+        filter_applied: String,
+        filterlist: ProductListRequestModel.Filter,
+        sort_applied: Int,
+        sort_type: Int
+    ) {
+        viewModel.topSellingProducatList(
             PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
             type,
-            pageOffset.toString(),pageLimit.toString(),
-            PrefManager.read(PrefManager.USER_ID, ""),filter_applied,filterarray.toString())
+            pageOffset.toString(), pageLimit.toString(),
+            PrefManager.read(PrefManager.USER_ID, ""), filter_applied,
+            filterlist, sort_applied, sort_type
+        )
     }
-        private fun productListApi(langauge_id: String, filter_applied: String, filter: JsonObject) {
-            viewModel.producatList(langauge_id, filter_applied,filter.toString())   //api call
-        }
+
+    private fun productListApiCall(
+        langauge_id: String,
+        filter_applied: String,
+        filterlist: ProductListRequestModel.Filter,
+        sort_applied: Int,
+        sort_type: Int,
+    ) {
+        viewModel.producatList(
+            langauge_id,
+            filter_applied,
+            filterlist,
+            sort_applied,
+            sort_type
+        )   //api call
+    }
 
 
-        private fun showBottomsheetDialog() {
-            val view = layoutInflater.inflate(R.layout.top_selling_bottomsheet_layout, null)
-            dialog = BottomSheetDialog(this, R.style.BottomSheetDialog)
-            val recyclerView =
-                view.findViewById<RecyclerView>(R.id.rv_top_selling_bottomsheetrecyclar)
-            recyclerView.layoutManager = LinearLayoutManager(this)
-            val data = ArrayList<String>()
-            data.add("Newest To Oldest")
-            data.add("Oldest To Newest")
-            data.add("Price - Low To High")
-            data.add("Price - High To Low")
-            val adapter = ProductListSortingBottomSheetAdapter(data)
-            recyclerView.adapter = adapter
-            dialog.setCancelable(true)
-            dialog.setContentView(view)
-            dialog.show()
-
-
-        }
+    private fun showBottomsheetDialog() {
+        val view = layoutInflater.inflate(R.layout.top_selling_bottomsheet_layout, null)
+        dialog = BottomSheetDialog(this, R.style.BottomSheetDialog)
+        val recyclerView =
+            view.findViewById<RecyclerView>(R.id.rv_top_selling_bottomsheetrecyclar)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        bottomlist = ArrayList<String>()
+        bottomlist.add(getString(R.string.newest_to_oldest))
+        bottomlist.add(getString(R.string.oldest_to_newest))
+        bottomlist.add(getString(R.string.price_low_to_high))
+        bottomlist.add(getString(R.string.price_high_to_low))
+        val bottomsheetadapter = ProductListSortingBottomSheetAdapter(bottomlist, this)
+        recyclerView.adapter = bottomsheetadapter
+        dialog.setCancelable(true)
+        dialog.setContentView(view)
+        dialog.show()
+    }
 
 
     override fun onBackPressed() {
@@ -276,53 +332,127 @@ class ProductListActivity : AppCompatActivity(),
         product_detail_id: String,
         product_sizeId: String,
         product_colorId: String
-    )
-    {
-        fav_position=position
-        fav_type=type.toInt()
-        if(PrefManager.read(PrefManager.AUTH_TOKEN, "").isEmpty()) {
+    ) {
+        fav_position = position
+        fav_type = type.toInt()
+        if (PrefManager.read(PrefManager.AUTH_TOKEN, "").isEmpty()) {
             val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent) }
-        else
-        {
+            startActivity(intent)
+        } else {
             viewModeladdwishlist.addremoveWishlist(
                 producat_id,
                 type.toInt(),
                 product_detail_id.toInt(),
                 product_sizeId,
-                product_colorId)
+                product_colorId
+            )
         }
     }
 
 
-    private fun setupData(mproductlist: ArrayList<Product>)
-    {
+    private fun setupData(mproductlist: ArrayList<Product>) {
         mproductlist.let {
             newproductlist.addAll(it)
         }
-        if(newproductlist.size>0)
-        {
-            val newList = newproductlist.distinctBy {it.id}
-            adapter.updateItems(newList as ArrayList<Product>)
-            //   binding.rvContestLeaderBoard.visibility = View.VISIBLE
-            //   binding.noResult.visibility = View.GONE
-        }else{
-            //   binding.rvContestLeaderBoard.visibility = View.GONE
-            //   binding.noResult.visibility = View.VISIBLE
+        if(newproductlist.size > 0) {
+            val newList = newproductlist.distinctBy { it.id }
+            withpaginationAdapterSet(newList)
+            //adapter.updateItems(newList as ArrayList<Product>)
         }
+        else { }
     }
 
-    private fun setupPaginationRecylarview()
-    {
+    private fun setupPaginationRecylarview() {
         binding.dealsItemRecycler.addOnScrollListener(object :
             EndlessRecyclerViewScrollListener(layoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int) {
-                pageOffset=newproductlist.size
-                viewAllApi("1", filter_applied.toString(), filterarray)  //api call
+                pageOffset = newproductlist.size
+                viewAllApi(
+                    "1",
+                    filter_applied.toString(),
+                    ProductListRequestModel.Filter(),
+                    sort_applied,
+                    sort_type
+                )  //api call
             }
         })
     }
+
+    override fun click(pos: String)
+    {
+        sortclickName = bottomlist[pos.toInt()].toString()
+        if (bottomlist[pos.toInt()] == getString(R.string.newest_to_oldest)) {
+            sort_type = 1
+        } else if (bottomlist[pos.toInt()] == getString(R.string.oldest_to_newest)) {
+            sort_type = 2
+        } else if (bottomlist[pos.toInt()] == getString(R.string.price_low_to_high)) {
+            sort_type = 3
+        } else if (bottomlist[pos.toInt()] == getString(R.string.price_high_to_low)) {
+            sort_type = 4
+        }
+        sort_applied = 1
+        progressshow = true
+        newproductlist.clear()
+        productlist.clear()
+        pageOffset = 1
+        productListApiCall(
+            PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
+            filter_applied.toString(), ProductListRequestModel.Filter(), sort_applied, sort_type
+        )
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == 101) {
+            selectedColorList = data?.getStringArrayListExtra("colorList") as ArrayList<String>
+            selectedAgeList = data?.getParcelableArrayListExtra<AgeRequest>("ageList") as ArrayList<AgeRequest>
+            selectedSizeList = data?.getStringArrayListExtra("sizeList") as ArrayList<String>
+            selectedGenderList = data?.getStringArrayListExtra("genderList") as ArrayList<String>
+            selectedminprice = data?.getIntExtra("selectedminprice",0)!!
+            selectedmaxprice = data?.getIntExtra("selectedmaxprice",0)!!
+
+            val filterList = ProductListRequestModel.Filter()
+            val priceObj = ProductListRequestModel.Filter.Price()
+            filterList.color.addAll( selectedColorList)
+            filterList.size.addAll( selectedSizeList)
+            filterList.age.addAll( selectedAgeList)
+            filterList.gender.addAll( selectedGenderList)
+            filter_applied =1
+            progressshow=true
+
+            if(selectedmaxprice != 0) {
+                priceObj.from = selectedminprice
+                priceObj.to = selectedmaxprice
+            }
+            filterList.price = priceObj
+            newproductlist.clear()
+            productlist.clear()
+            pageOffset = 1
+            if (intent.getStringExtra(Constants.TOP20SELLING).equals("2"))  //top20selling view all
+            {
+                binding.infoTool.tvTitle.text = getString(R.string.top_20_selling_items)
+                viewall_status = "1"
+                setupPaginationRecylarview()
+                viewAllApi(
+                    "1",
+                    filter_applied.toString(),
+                    filterList,
+                    sort_applied,
+                    sort_type) //api call
+            }
+            else {
+                binding.infoTool.tvTitle.text = intent.getStringExtra(Constants.CATEGORYNAME)
+                productListApiCall(
+                    PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
+                    filter_applied.toString(),filterList, sort_applied, sort_type)
+            }
+
+
+
+
+        }
+    }
+}
 
 
 

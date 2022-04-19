@@ -1,6 +1,9 @@
 package com.shoparty.android.ui.filter
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -9,40 +12,51 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.JsonObject
+import com.google.gson.Gson
 import com.mohammedalaa.seekbar.DoubleValueSeekBarView
 import com.mohammedalaa.seekbar.OnDoubleValueSeekBarChangeListener
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityFilterBinding
 
 import com.shoparty.android.interfaces.RecyclerViewClickListener
+import com.shoparty.android.ui.filter.age.AgeRequest
 import com.shoparty.android.ui.filter.age.AgeResponse
 import com.shoparty.android.ui.filter.age.FilterAgeAdapter
 import com.shoparty.android.ui.filter.color.ColorsResponse
 import com.shoparty.android.ui.filter.color.FilterColorsAdapters
 import com.shoparty.android.ui.filter.gender.FilterGenderAdapter
 import com.shoparty.android.ui.filter.size.SizeAdapters
+import com.shoparty.android.ui.main.product_list.ProductListRequestModel
+import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 
-class FilterActivity : AppCompatActivity(),View.OnClickListener,QuantityListner, RecyclerViewClickListener {
+class FilterActivity : AppCompatActivity(), View.OnClickListener, QuantityListner,
+    RecyclerViewClickListener {
+    private var selectedAgeList: ArrayList<AgeRequest>? = ArrayList()
     private lateinit var binding: ActivityFilterBinding
     private lateinit var viewModel: FilterViewModel
     private var colorlist: ArrayList<ColorsResponse.Colors> = ArrayList()
     private var sizelist: ArrayList<String> = ArrayList()
-    private var recyvlerviewItemList=ArrayList<RecyclerView>()
-    private var filterIconItem=ArrayList<TextView>()
-    var selectedColorList: ArrayList<ColorsResponse.Colors> = ArrayList()
-    private lateinit var adapterColor: FilterColorsAdapters
-    var color=false
-    var size=false
-    var age=false
-    var gender=false
+    private var recyvlerviewItemList = ArrayList<RecyclerView>()
+    private var filterIconItem = ArrayList<TextView>()
+    private var selectedColorList: ArrayList<String> = ArrayList()
+     private var selectedSizeList: ArrayList<String> = ArrayList()
+     private var selectedGenderList: ArrayList<String> = ArrayList()
     private var genderlist: ArrayList<String> = ArrayList()
+    var selectedminprice =0
+    var selectedmaxprice = 0
+    private lateinit var adapterColor: FilterColorsAdapters
+    var color = false
+    var size = false
+    var age = false
+    var gender = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= DataBindingUtil.setContentView(this, R.layout.activity_filter)
-        viewModel = ViewModelProvider(this, ViewModalFactory(application))[FilterViewModel::class.java]
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_filter)
+        viewModel =
+            ViewModelProvider(this, ViewModalFactory(application))[FilterViewModel::class.java]
         viewModel.colors()//color api call
         viewModel.sizes()//size api call
         viewModel.gender()//gender api call
@@ -53,17 +67,22 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener,QuantityListner,
     }
 
     private fun initialise() {
+        if (intent.extras !=null)
+        {
+            selectedColorList = intent.getStringArrayListExtra("colorList") as ArrayList<String>
+        }
         binding.tvColor.setOnClickListener(this)
         binding.tvSize.setOnClickListener(this)
-        binding.btnApplay.setOnClickListener(this)
-        binding.infoTool.tvClearall.visibility=View.VISIBLE
-        binding.infoTool.tvTitle.text =getString(R.string.filter)
+        binding.btnApply.setOnClickListener(this)
+        binding.infoTool.tvClearall.visibility = View.VISIBLE
+        binding.infoTool.tvTitle.text = getString(R.string.filter)
         binding.tvAge.setOnClickListener(this)
         binding.tvGender.setOnClickListener(this)
         binding.tvPrice.setOnClickListener(this)
         binding.clPrice.setOnClickListener(this)
-        binding.doubleRangeSeekbar.currentMinValue=50
-        binding.doubleRangeSeekbar.currentMaxValue=150
+        binding.infoTool.tvClearall.setOnClickListener(this)
+        binding.doubleRangeSeekbar.currentMinValue = getString(R.string.minvalue).toInt()
+        binding.doubleRangeSeekbar.currentMaxValue = getString(R.string.maxvalue).toInt()
 
         recyvlerviewItemList.add(binding.rvColorRecyclarview)
         recyvlerviewItemList.add(binding.rvSizeRecyclarview)
@@ -74,22 +93,30 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener,QuantityListner,
         filterIconItem.add(binding.tvAge)
         filterIconItem.add(binding.tvGender)
 
-        binding.doubleRangeSeekbar.setOnRangeSeekBarViewChangeListener(object :OnDoubleValueSeekBarChangeListener{
+        binding.doubleRangeSeekbar.setOnRangeSeekBarViewChangeListener(object :
+            OnDoubleValueSeekBarChangeListener {
             override fun onStartTrackingTouch(
                 seekBar: DoubleValueSeekBarView?,
                 min: Int,
-                max: Int)
-            {
-               // Toast.makeText(this@FilterActivity,min.toString()+max.toString(),Toast.LENGTH_LONG).show()
+                max: Int
+            ) {
+                // Toast.makeText(this@FilterActivity,min.toString()+max.toString(),Toast.LENGTH_LONG).show()
             }
-            override fun onStopTrackingTouch(seekBar: DoubleValueSeekBarView?, min: Int, max: Int)
-            {
-                binding.tvUsdMin.text=getString(R.string.dollor)+min.toString()
-                binding.tvUsdMax.text=getString(R.string.dollor)+max.toString()
+
+            override fun onStopTrackingTouch(seekBar: DoubleValueSeekBarView?, min: Int, max: Int) {
+                binding.tvUsdMin.text = getString(R.string.dollor) + min.toString()
+                binding.tvUsdMax.text = getString(R.string.dollor) + max.toString()
+                selectedminprice = min
+                selectedmaxprice = max
             }
-            override fun onValueChanged(seekBar: DoubleValueSeekBarView?, min: Int, max: Int, fromUser: Boolean)
-            {
-             //   Toast.makeText(this@FilterActivity,min.toString()+max.toString(),Toast.LENGTH_LONG).show()
+
+            override fun onValueChanged(
+                seekBar: DoubleValueSeekBarView?,
+                min: Int,
+                max: Int,
+                fromUser: Boolean
+            ) {
+                //   Toast.makeText(this@FilterActivity,min.toString()+max.toString(),Toast.LENGTH_LONG).show()
             }
         })
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
@@ -173,12 +200,9 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener,QuantityListner,
             when (response) {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
-                    if(response.data.isNullOrEmpty())
-                    {
+                    if (response.data.isNullOrEmpty()) {
                         //no data
-                    }
-                    else
-                    {
+                    } else {
                         genderlist = response.data as ArrayList<String>
                         setGenderListAdapter(genderlist)
                     }
@@ -232,7 +256,7 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener,QuantityListner,
             RecyclerView.VERTICAL,
             false
         )
-        adapterColor = FilterColorsAdapters(data,this@FilterActivity, quantityListner = this)
+        adapterColor = FilterColorsAdapters(data, quantityListner = this)
         binding.rvColorRecyclarview.adapter = adapterColor
     }
 
@@ -242,7 +266,7 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener,QuantityListner,
             layoutManager = gridLayoutManager
             setHasFixedSize(true)
             isFocusable = false
-            adapter = SizeAdapters(this@FilterActivity,data,this@FilterActivity)
+            adapter = SizeAdapters(this@FilterActivity, data, this@FilterActivity)
         }
 
     }
@@ -252,8 +276,9 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener,QuantityListner,
         binding.rvGenderRecyclarview.apply {
             layoutManager = gridLayoutManager
             setHasFixedSize(true)
-            adapter = FilterGenderAdapter(data,this@FilterActivity)
-        } }
+            adapter = FilterGenderAdapter(data, this@FilterActivity, this@FilterActivity)
+        }
+    }
 
 
     private fun setAgeData(data: List<AgeResponse.Result>?) {
@@ -261,56 +286,104 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener,QuantityListner,
         binding.rvAgeRecyclarview.apply {
             layoutManager = gridLayoutManager
             setHasFixedSize(false)
-            adapter = FilterAgeAdapter(data!!,context)
+            adapter = FilterAgeAdapter(data!!, context, this@FilterActivity)
         }
     }
 
 
-
     override fun onClick(v: View?) {
-        when(v?.id) {
-             R.id.tv_color -> {
-                 goneHide(binding.rvColorRecyclarview)
-                 iconGoneHide(binding.tvColor)
-                 color=!color;
-             }
+        when (v?.id) {
+            R.id.tv_color -> {
+                goneHide(binding.rvColorRecyclarview)
+                iconGoneHide(binding.tvColor)
+                color = !color;
+            }
             R.id.tv_size -> {
                 goneHide(binding.rvSizeRecyclarview)
                 iconGoneHide(binding.tvSize)
-                size=!size
+                size = !size
             }
             R.id.tv_age -> {
                 goneHide(binding.rvAgeRecyclarview)
                 iconGoneHide(binding.tvAge)
-                age=!age;
+                age = !age;
             }
             R.id.tv_gender -> {
                 goneHide(binding.rvGenderRecyclarview)
                 iconGoneHide(binding.tvGender)
-                gender=!gender
+                gender = !gender
             }
             R.id.tv_price -> {
-                binding.clPrice.visibility=View.VISIBLE
-                binding.tvPrice.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_aero_new_downs, 0);
-                binding.tvColor.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_aerou_new_up, 0);
-                binding.tvSize.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_aerou_new_up, 0);
-                binding.tvGender.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_aerou_new_up, 0);
-                binding.tvAge.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_aerou_new_up, 0);
+                binding.clPrice.visibility = View.VISIBLE
+                binding.tvPrice.setCompoundDrawablesWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.ic_aero_new_downs,
+                    0
+                );
+                binding.tvColor.setCompoundDrawablesWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.ic_aerou_new_up,
+                    0
+                );
+                binding.tvSize.setCompoundDrawablesWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.ic_aerou_new_up,
+                    0
+                );
+                binding.tvGender.setCompoundDrawablesWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.ic_aerou_new_up,
+                    0
+                );
+                binding.tvAge.setCompoundDrawablesWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.ic_aerou_new_up,
+                    0
+                );
 
 
-                binding.rvGenderRecyclarview.visibility=View.GONE
-                binding.rvSizeRecyclarview.visibility=View.GONE
-                binding.rvAgeRecyclarview.visibility=View.GONE
-                binding.rvColorRecyclarview.visibility=View.GONE
+                binding.rvGenderRecyclarview.visibility = View.GONE
+                binding.rvSizeRecyclarview.visibility = View.GONE
+                binding.rvAgeRecyclarview.visibility = View.GONE
+                binding.rvColorRecyclarview.visibility = View.GONE
 
             }
             R.id.iv_drawer_back -> {
                 onBackPressed()
             }
-            R.id.btn_Applay -> {
-             finish()
+            R.id.btnApply -> {
+                val intent = Intent()
+                intent.putStringArrayListExtra("colorList", selectedColorList)
+                intent.putParcelableArrayListExtra("ageList",selectedAgeList)
+                intent.putStringArrayListExtra("sizeList", selectedSizeList)
+                intent.putStringArrayListExtra("genderList", selectedGenderList)
+                intent.putExtra("selectedminprice", selectedminprice)
+                intent.putExtra("selectedmaxprice", selectedmaxprice)
+                setResult(Activity.RESULT_OK, intent)
+                finish()
+
+            }
+
+            R.id.tv_clearall -> {
+                clearAllFilter()
             }
         }
+    }
+
+    private fun clearAllFilter() {
+        selectedColorList.clear()
+        selectedSizeList.clear()
+        genderlist.clear()
+        selectedAgeList == null
+        selectedminprice = 0
+        selectedmaxprice = 0
+        Utils.showLongToast(this, getString(R.string.clearsuccess))
+        finish()
     }
 
     private fun iconGoneHide(clickFilterItem: TextView) {
@@ -320,16 +393,16 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener,QuantityListner,
             R.drawable.ic_aerou_new_up,
             0
         );
-        for (textview in filterIconItem){
+        for (textview in filterIconItem) {
 
-            if (textview == clickFilterItem){
+            if (textview == clickFilterItem) {
                 textview.setCompoundDrawablesWithIntrinsicBounds(
                     0,
                     0,
                     R.drawable.ic_aero_new_downs,
                     0
                 );
-            }else{
+            } else {
                 textview.setCompoundDrawablesWithIntrinsicBounds(
                     0,
                     0,
@@ -343,10 +416,10 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener,QuantityListner,
     }
 
     private fun goneHide(clickRecyclerview: RecyclerView) {
-              binding.clPrice.visibility=View.GONE
-            for (recyclerview in recyvlerviewItemList) {
+        binding.clPrice.visibility = View.GONE
+        for (recyclerview in recyvlerviewItemList) {
 
-                if (recyclerview == clickRecyclerview) {
+            if (recyclerview == clickRecyclerview) {
                 recyclerview.visibility = View.VISIBLE
             } else {
                 recyclerview.visibility = View.GONE
@@ -359,17 +432,29 @@ class FilterActivity : AppCompatActivity(),View.OnClickListener,QuantityListner,
     }
 
     override fun click(pos: String) {
-    Toast.makeText(this,pos,Toast.LENGTH_LONG).show()
+        Toast.makeText(this, pos, Toast.LENGTH_LONG).show()
     }
 
-    private fun getSelectedList()
-    {
-
-    }
-
-    override fun onQuantitychanged(userlist: ArrayList<ColorsResponse.Colors>) {
+    override fun onColorQuantitychanged(userlist: ArrayList<String>) {
         selectedColorList.clear()
         selectedColorList.addAll(userlist.toList())
-        Toast.makeText(this, ""+selectedColorList.toString(), Toast.LENGTH_SHORT).show()
+      //  Toast.makeText(this, "" + selectedColorList, Toast.LENGTH_SHORT).show()
     }
+
+    override fun onSizeQuantitychanged(userlist: ArrayList<String>) {
+        selectedSizeList.clear()
+        selectedSizeList.addAll(userlist.toList())
+     //   Toast.makeText(this, "" + selectedSizeList, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onAgeQuantitychanged(userlist: ArrayList<AgeRequest>) {
+        selectedAgeList = userlist
+    }
+
+    override fun onGenderQuantitychanged(userlist: ArrayList<String>) {
+        selectedGenderList.clear()
+        selectedGenderList.addAll(userlist.toList())
+    }
+
+
 }

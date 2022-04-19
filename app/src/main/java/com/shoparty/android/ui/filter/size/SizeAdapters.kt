@@ -15,52 +15,55 @@ import androidx.recyclerview.widget.RecyclerView
 
 import com.shoparty.android.R
 import com.shoparty.android.interfaces.RecyclerViewClickListener
+import com.shoparty.android.ui.filter.QuantityListner
+import com.shoparty.android.ui.filter.age.FilterAgeAdapter
+import com.shoparty.android.utils.inflate
+
 import kotlinx.android.synthetic.main.filter_color_item_layout.view.*
 import kotlinx.android.synthetic.main.filter_recyclar_gender_item_layout.view.*
 import kotlinx.android.synthetic.main.filter_recyclar_item_layout.view.*
+import kotlinx.android.synthetic.main.filter_recyclar_item_layout.view.cl_rootitem
 import kotlinx.android.synthetic.main.filter_recyclar_item_layout.view.tv_text
 
 
 class SizeAdapters(val context: Context,private val sizeList: List<String>,
-                   var recyclerViewClickListener: RecyclerViewClickListener) : RecyclerView.Adapter<SizeAdapters.ViewHolder>() {
-
-    private var lastCheckedPosition = -1
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.filter_recyclar_item_layout, parent, false)
-        return ViewHolder(view)
+                   var quantityListner: QuantityListner) :
+    RecyclerView.Adapter<SizeAdapters.TopSellingSubcategoriesViewHolder>()
+{
+    inner class TopSellingSubcategoriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    var checkedItems = ArrayList<String>()
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
+            SizeAdapters.TopSellingSubcategoriesViewHolder
+    {
+        return TopSellingSubcategoriesViewHolder(parent.inflate(R.layout.filter_recyclar_item_layout))
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
+
+    override fun onBindViewHolder(holder: SizeAdapters.TopSellingSubcategoriesViewHolder,
+                                  @SuppressLint("RecyclerView") position: Int) {
         val items = sizeList[position]
-        holder.tv_text.text = items
+        holder.itemView.tv_text.text = items
 
-        if(position == lastCheckedPosition)
-        {
-            holder.itemView.tv_text.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_baseline_check_24, 0);
-            holder.itemView.cl_rootitem.background = ContextCompat.getDrawable(context, R.drawable.background_sellected_filter);
+        holder.itemView.cl_rootitem.setOnClickListener {
+            if(holder.itemView.imgChecked.visibility == View.VISIBLE)
+            {
+                holder.itemView.imgChecked.visibility = View.GONE
+                holder.itemView.imgUnchecked.visibility = View.VISIBLE
+                holder.itemView.cl_rootitem.background = ContextCompat.getDrawable(context, R.drawable.background_unsellected_filter)
+                sizeList[position].let { checkedItems.remove(it) }
+            }
+            else
+            {
+                holder.itemView.imgChecked.visibility = View.VISIBLE
+                holder.itemView.imgUnchecked.visibility = View.GONE
+                holder.itemView.cl_rootitem.background = ContextCompat.getDrawable(context, R.drawable.background_sellected_filter);
+                sizeList[position].let { checkedItems.add(it) }
+            }
+            quantityListner.onSizeQuantitychanged(checkedItems)
         }
-        else
-        {
-            holder.itemView.tv_text.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.check_black, 0);
-            holder.itemView.cl_rootitem.background = ContextCompat.getDrawable(context, R.drawable.background_unsellected_filter);
-        }
-
-        holder.itemView.tv_text.setOnClickListener(View.OnClickListener {
-            val copyOfLastCheckedPosition = lastCheckedPosition
-            lastCheckedPosition = position
-            notifyItemChanged(copyOfLastCheckedPosition)
-            notifyItemChanged(lastCheckedPosition)
-            recyclerViewClickListener.click(items)
-        })
 
     }
     override fun getItemCount(): Int {
         return sizeList.size
-    }
-    class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
-           val tv_text: TextView = itemView.findViewById(R.id.tv_text)
-
-
     }
 }

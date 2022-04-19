@@ -23,11 +23,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class RegisterActivity : AppCompatActivity(), View.OnClickListener {
-    private var dob1 = ""
     private lateinit var binding: ActivityRegisterBinding
     var cal = Calendar.getInstance()
     private lateinit var viewModel: RegisterViewModel
-    private var selecteddate = ""
+    private var dob1 = ""
     private var selectedgender = ""
     private var condition_checkable=false
 
@@ -67,6 +66,8 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                     }
                     else
                     {
+                        dob1=""
+                        binding.tvDateOfBirth.text = dob1
                         Utils.showLongToast(this,getString(R.string.agelimitismin))
                     }
                 },

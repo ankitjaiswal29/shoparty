@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         style="@style/AppTheme.Text_14dp_Bold"
-    app:layout_constraintStart_toEndOf="@+id/bag_pickup_item_img"
+        app:layout_constraintStart_toEndOf="@+id/bag_pickup_item_img"
          android:text="@string/bend_the_trend"
         app:layout_constraintTop_toTopOf="@+id/bag_pickup_item_img"
         />
@@ -40,6 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/tv_subTitle"
         app:layout_constraintStart_toEndOf="@+id/bag_pickup_item_img"
         android:text="@string/_8km"
@@ -47,6 +48,7 @@
 
 
     <RadioButton
+        android:id="@+id/radiobutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
        app:layout_constraintEnd_toEndOf="parent"

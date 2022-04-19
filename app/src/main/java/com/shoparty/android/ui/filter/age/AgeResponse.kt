@@ -8,6 +8,6 @@ data class AgeResponse(
 {
     data class Result(
         val age_from: String,
-        val age_to: String
+        val age_to: String,
     )
 }

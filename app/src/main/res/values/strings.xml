@@ -374,6 +374,7 @@
     <string name="Profile">Profile</string>
     <string name="usd_4_00">USD 4.00</string>
     <string name="usd_39_00">$150</string>
+    <string name="usdprice">$1000000</string>
     <string name="clear_all">Clear All</string>
     <string name="pleaselogin">Please Login Once</string>
     <string name="addresstitle">Address</string>
@@ -414,7 +415,10 @@
     <string name="comingsoon">Coming Soon</string>
     <string name="str_hideless"><![CDATA[Show Less >]]></string>
     <string name="editaddress">Edit Address</string>
-    <string name="minvalue">$50</string>
+    <string name="minvalue">50</string>
+    <string name="maxvalue">150</string>
+    <string name="dollorminvalue">$50</string>
+    <string name="dollormaxvalue">$150</string>
     <string name="pleaselogintochange">Please login to change language</string>
     <string name="arebic">Arabic</string>
     <string name="share_to">Share to</string>
@@ -434,5 +438,6 @@
     <string name="agelimitismin">Minimum required age is 18 year</string>
     <string name="Apply">Apply</string>
     <string name="taxdiscount">Discount</string>
+    <string name="clearsuccess">Clear Sucessfully All Filter</string>
 
 </resources>

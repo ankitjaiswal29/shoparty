@@ -25,6 +25,10 @@ class ShoppingBagViewModel(private val app: Application) : ViewModel() {
     private val mCartItemsRemove = MutableLiveData<Resource<List<CartProduct>>>()
     val cartitemsremove: LiveData<Resource<List<CartProduct>>> = mCartItemsRemove
 
+    private val mStoreList = MutableLiveData<Resource<List<StoreListResponse.Result>>>()
+    val storeList: LiveData<Resource<List<StoreListResponse.Result>>> = mStoreList
+
+
     fun cartItemList(
         langauge_id: String
     ) = viewModelScope.launch {
@@ -60,7 +64,44 @@ class ShoppingBagViewModel(private val app: Application) : ViewModel() {
 
     }
 
+
+    fun storeList(langauge_id: String) = viewModelScope.launch {
+        val request = ShoppingBagRequestModel(langauge_id)
+        if(Utils.hasInternetConnection(app.applicationContext))
+        {
+            mStoreList.postValue(Resource.Loading())
+            val response = repository.storeList(request)
+            mStoreList.postValue(handleStoreList(response!!))
+        }
+        else
+        {
+            mStoreList.postValue(Resource.Error(app.resources.getString(R.string.no_internet)))
+        }
+
+    }
+
     private fun handleShoppingBagResponse(response: Response<ShoppingBagResponse>): Resource<List<CartProduct>> {
+        if (response?.isSuccessful == true)
+        {
+            response.body()?.let { res ->
+                return if (res.response_code==200)
+                {
+                    Resource.Success(res.message,res.result)
+                }
+                else if(res.response_code==204)
+                {
+                    Resource.Success(res.message,res.result)
+                }
+                else {
+                    Resource.Error(res.message)
+                }
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+
+    private fun handleStoreList(response: Response<StoreListResponse>): Resource<List<StoreListResponse.Result>> {
         if (response?.isSuccessful == true)
         {
             response.body()?.let { res ->

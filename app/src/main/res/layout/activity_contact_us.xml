@@ -223,7 +223,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="13dp"
-
                 android:src="@drawable/ic_youtube_icon"
                 app:layout_constraintEnd_toStartOf="@+id/ivInsta"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -234,8 +233,8 @@
 
             <ImageView
                 android:id="@+id/ivInsta"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_36sdp"
+                android:layout_height="@dimen/_36sdp"
                 android:layout_marginLeft="13dp"
                 android:src="@drawable/instagram"
                 app:layout_constraintEnd_toEndOf="parent"

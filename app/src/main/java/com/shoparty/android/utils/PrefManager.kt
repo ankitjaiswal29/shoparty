@@ -28,6 +28,7 @@ object PrefManager {
     const val MALE: String = "Male"
     const val IS_LOGIN: String = "isLogin"
     const val LANGUAGEID: String = "languageId"
+    const val SORTSELECTEDNAME: String = "SORTSTATUS"
     const val IS_SHIPPING_PAGE: String = "IS_SHIPPING_PAGE"
 
     const val IDPRODUCT1: String = "idProduct"

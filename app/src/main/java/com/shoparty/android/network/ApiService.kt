@@ -45,6 +45,7 @@ import com.shoparty.android.ui.search.SearchResponseModel
 import com.shoparty.android.ui.shoppingbag.CartItemRemoveRequestModel
 import com.shoparty.android.ui.shoppingbag.ShoppingBagRequestModel
 import com.shoparty.android.ui.shoppingbag.ShoppingBagResponse
+import com.shoparty.android.ui.shoppingbag.StoreListResponse
 import com.shoparty.android.ui.verificationotp.ResendOtpResponse
 import com.shoparty.android.ui.verificationotp.ResendRequestModel
 import com.shoparty.android.ui.verificationotp.VerifiyOtpResponse
@@ -211,6 +212,12 @@ interface ApiService {
     suspend fun shoppingListAsync(
         @Body shoppingBagRequestModel: ShoppingBagRequestModel
     ): Response<ShoppingBagResponse>
+
+
+    @POST("stores-list")
+    suspend fun storeListAsync(
+        @Body shoppingBagRequestModel: ShoppingBagRequestModel
+    ): Response<StoreListResponse>
 
 
     @POST("delete-cart-product")

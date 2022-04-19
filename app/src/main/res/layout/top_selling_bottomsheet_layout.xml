@@ -41,5 +41,57 @@
             app:layout_constraintTop_toBottomOf="@+id/view" />
 
 
+      <!--  <TextView
+            android:id="@+id/tv_newesttooldest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/newest_to_oldest"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            style="@style/AppTheme.Text_15__dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view"/>
+
+
+        <TextView
+            android:id="@+id/tv_oldesttonew"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/oldest_to_newest"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            style="@style/AppTheme.Text_15__dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_newesttooldest"/>
+
+
+        <TextView
+            android:id="@+id/tv_pricelowtohigh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/price_low_to_high"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            style="@style/AppTheme.Text_15__dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_oldesttonew"/>
+
+
+
+        <TextView
+            android:id="@+id/tv_pricehighttolow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/price_high_to_low"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            style="@style/AppTheme.Text_15__dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_pricelowtohigh"/>-->
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -11,4 +11,8 @@ class ShoppingBagRepository {
 
     suspend fun removeCartItem(request: CartItemRemoveRequestModel) =
         RetrofitBuilder.apiService?.deleteCartItemAsync(request)
+
+
+    suspend fun storeList(request: ShoppingBagRequestModel) =
+        RetrofitBuilder.apiService?.storeListAsync(request)
 }

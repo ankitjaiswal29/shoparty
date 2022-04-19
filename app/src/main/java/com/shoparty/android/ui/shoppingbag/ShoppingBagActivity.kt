@@ -11,14 +11,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import com.bumptech.glide.util.Util
 import com.shoparty.android.R
 import com.shoparty.android.common_modal.CartProduct
 import com.shoparty.android.database.MyDatabase
 import com.shoparty.android.databinding.ActivityShopingBagBinding
 
 import com.shoparty.android.interfaces.RVCartItemClickListener
+import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.ui.login.LoginActivity
-import com.shoparty.android.ui.main.home.HomeCategoriesModel
 import com.shoparty.android.ui.productdetails.ProducatDetailsViewModel
 import com.shoparty.android.ui.productdetails.ProductDetailsActivity
 import com.shoparty.android.ui.shipping.ShippingActivity
@@ -26,12 +27,13 @@ import com.shoparty.android.ui.vouchers.VouchersActivity
 import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.ProgressDialog
+import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener {
+class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerViewClickListener {
     private var coupenapplied: Boolean=false
     private var totaldiscountamount: Double=0.00
     private var totalpayamount: Double=0.00
@@ -40,11 +42,14 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener {
     private var clickAction: Int=0
     private var summaryprice: Double=0.00
     private var totalprice: Double=0.00
+    private var storeSelectedId: Int=0
+    private var pickupHomeSelected: Int=0
     private lateinit var binding: ActivityShopingBagBinding
     private lateinit var viewModel: ProducatDetailsViewModel
     private lateinit var shoopingbagviewModel: ShoppingBagViewModel
     private lateinit var adapterShoppingBag: ShoppingBagItemAdapter
     private var listCartProduct: ArrayList<CartProduct> = ArrayList()
+    private var storeList: ArrayList<StoreListResponse.Result> = ArrayList()
     private var quantity:Int=0
     private var position:Int=0
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,20 +73,44 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun initialise() {
+    private fun initialise()
+    {
         binding.infoTool.tvTitle.text = getString(R.string.shippingbag)
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
         binding.btnProcessTocheckOut.setOnClickListener(this)
         binding.bagItemConsLay3.setOnClickListener(this)
         binding.imgCoupenCross.setOnClickListener(this)
+        binding.btnProcessTocheckOut.setOnClickListener(this)
+
+        shoopingbagviewModel.storeList(PrefManager.read(PrefManager.LANGUAGEID,1).toString()) //api call
+
         binding.cbPickupBranch.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
+            if (isChecked)
+            {
                 binding.bagItemPickupRecycler.visibility = View.VISIBLE
-            } else {
+                binding.checkPickuphome.isChecked=false
+            }
+            else
+            {
                 binding.bagItemPickupRecycler.visibility = View.GONE
             }
         }
-        shoppingBagPickup()
+
+        binding.checkPickuphome.setOnCheckedChangeListener { _, isChecked ->
+            if(isChecked)
+            {
+                binding.bagItemPickupRecycler.visibility = View.GONE
+                binding.cbPickupBranch.isChecked=false
+                pickupHomeSelected=1
+            }
+
+        }
+
+        binding.checkPurchaseGuast.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                Utils.showLongToast(this, getString(R.string.comingsoon))
+            }
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -123,6 +152,39 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener {
                     }
                 }
             }
+
+
+        shoopingbagviewModel.storeList.observe(this) { response ->
+            when (response) {
+                is Resource.Success -> {
+                    ProgressDialog.hideProgressBar()
+                    storeList= response.data as ArrayList<StoreListResponse.Result>
+                    shoppingBagPickup(storeList)
+
+                }
+                is Resource.Loading -> {
+                    ProgressDialog.showProgressBar(this)
+                }
+                is Resource.Error -> {
+                    ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    ProgressDialog.hideProgressBar()
+                    Toast.makeText(
+                        applicationContext,
+                        response.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+
+
 
 
         viewModel.addbag.observe(this) { response ->
@@ -270,14 +332,9 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun shoppingBagPickup() {
-        val bagItemList = listOf<HomeCategoriesModel>(
-            HomeCategoriesModel("Bend the Trend"),
-            HomeCategoriesModel("Bend the Trend"),
-            HomeCategoriesModel("Bend the Trend")
-        )
-
-        binding.bagItemPickupRecycler.adapter = ShopingBagPickupAdapter(bagItemList)
+    private fun shoppingBagPickup(storeList: ArrayList<StoreListResponse.Result>)
+    {
+        binding.bagItemPickupRecycler.adapter = ShopingBagPickupAdapter(storeList,this)
     }
 
     private fun shoppingBagListLocal()
@@ -426,6 +483,11 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener {
             {
                hideCoupenDiscount()
             }
+
+            R.id.btn_ProcessTocheckOut->
+            {
+               Utils.showLongToast(this,getString(R.string.comingsoon))
+            }
         }
     }
 
@@ -461,6 +523,11 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener {
         binding.tvDiscountPrice.text=totaldiscountamount.toString()
         binding.txtapplycode.text=getString(R.string.apply_promo_code)
         binding.tvTotalPriceDetail.text=getString(R.string.dollor)+totalprice.toString()
+    }
+
+    override fun click(pos: String) {
+        storeSelectedId=storeList[pos.toInt()].id.toInt()
+        Utils.showLongToast(this,storeSelectedId.toString())
     }
 
 }

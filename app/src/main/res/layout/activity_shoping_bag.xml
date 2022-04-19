@@ -274,6 +274,7 @@
                             app:layout_constraintTop_toTopOf="@+id/vw_purchasguest" />
 
                         <CheckBox
+                            android:id="@+id/check_PurchaseGuast"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:buttonTint="@color/pink"
@@ -341,6 +342,7 @@
                             app:layout_constraintTop_toTopOf="@+id/vw_home" />
 
                         <CheckBox
+                            android:id="@+id/check_pickuphome"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:buttonTint="@color/pink"
