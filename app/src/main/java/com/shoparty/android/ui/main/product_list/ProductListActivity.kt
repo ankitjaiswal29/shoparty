@@ -433,6 +433,7 @@ class ProductListActivity : AppCompatActivity(),
                 binding.infoTool.tvTitle.text = getString(R.string.top_20_selling_items)
                 viewall_status = "1"
                 setupPaginationRecylarview()
+
                 viewAllApi(
                     "1",
                     filter_applied.toString(),
