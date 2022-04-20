@@ -11,14 +11,11 @@ import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.utils.inflate
 import kotlinx.android.synthetic.main.bag_pickup_item_layout.view.*
 
-
 class ShopingBagPickupAdapter(private val itemList: ArrayList<StoreListResponse.Result>,
                               var recyclerviewclicklistener:RecyclerViewClickListener):
     RecyclerView.Adapter<ShopingBagPickupAdapter.ShopingBagPickupViewHolder>(){
     private var checkedRadioButton: CompoundButton? = null
-    private var pos=0
     inner class ShopingBagPickupViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopingBagPickupViewHolder {
         return ShopingBagPickupViewHolder(parent.inflate(R.layout.bag_pickup_item_layout))
     }

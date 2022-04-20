@@ -14,7 +14,6 @@ import com.shoparty.android.databinding.ActivityAddNewAddressBinding
 import com.shoparty.android.ui.address.addaddress.AddressViewModel
 import com.shoparty.android.ui.address.addaddress.getaddress.GetAddressListResponse
 import com.shoparty.android.utils.Constants
-import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener {
@@ -43,7 +42,7 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun initialise() {
         if (intent.extras != null) {
-            val addressData = intent.getParcelableExtra<GetAddressListResponse.Data>(Constants.ADDRESSSDATA)!!
+            val addressData = intent.getParcelableExtra<GetAddressListResponse.AddressData>(Constants.ADDRESSSDATA)!!
             updatepagestatus = intent.getStringExtra(Constants.PAGESTATUS)!!
             addressid = addressData.address_id.toString()
             viewModel.etFirstname.set(addressData.first_name)

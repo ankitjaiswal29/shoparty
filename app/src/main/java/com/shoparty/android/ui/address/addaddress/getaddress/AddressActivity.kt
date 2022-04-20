@@ -22,7 +22,8 @@ class AddressActivity : AppCompatActivity(), View.OnClickListener,
     private lateinit var adapter: AddressAdapter
     private lateinit var binding: ActivityAddressBinding
     private lateinit var viewModel: AddressViewModel
-    private var addresslist: ArrayList<GetAddressListResponse.Data> = ArrayList()
+    private var addresslist: ArrayList<GetAddressListResponse.AddressData> = ArrayList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= DataBindingUtil.setContentView(this, R.layout.activity_address)
@@ -60,7 +61,7 @@ class AddressActivity : AppCompatActivity(), View.OnClickListener,
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
 
                     addresslist.clear()
-                    addresslist = response.data as ArrayList<GetAddressListResponse.Data>
+                    addresslist = response.data as ArrayList<GetAddressListResponse.AddressData>
                     setAddressListAdapter(addresslist)
                 }
                 is Resource.Loading -> {
@@ -122,7 +123,7 @@ class AddressActivity : AppCompatActivity(), View.OnClickListener,
 
     }
 
-    private fun setAddressListAdapter(data: List<GetAddressListResponse.Data>?)
+    private fun setAddressListAdapter(data: List<GetAddressListResponse.AddressData>?)
     {
         adapter = AddressAdapter(data!!,this)
         binding.rvAddressrecyclarview.layoutManager = LinearLayoutManager(this)
@@ -144,9 +145,9 @@ class AddressActivity : AppCompatActivity(), View.OnClickListener,
     }
 
 
-    override fun editclick(address_id: Int, addressData: GetAddressListResponse.Data) {
+    override fun editclick(address_id: Int, addressAddressData: GetAddressListResponse.AddressData) {
         val intent = Intent(this, AddNewAddressActivity::class.java)
-        intent.putExtra(Constants.ADDRESSSDATA,addressData)
+        intent.putExtra(Constants.ADDRESSSDATA,addressAddressData)
         intent.putExtra(Constants.PAGESTATUS,Constants.UPDATEADDRESSSTATUS)
         startActivityForResult(intent, Constants.ADDADDRESS_CODE)
     }
@@ -155,5 +156,16 @@ class AddressActivity : AppCompatActivity(), View.OnClickListener,
         viewModel.deleteAddress(address_id)
         addresslist.removeAt(position)
         adapter.notifyDataSetChanged()
+    }
+
+    override fun addressitemclick(address_id: Int, fulladdress: String) {
+        if(intent.extras!=null)
+        {
+            val intent = Intent()
+            intent.putExtra("fulladdress",fulladdress)
+            intent.putExtra("addressid", address_id)
+            setResult(Activity.RESULT_OK, intent)
+            finish()
+        }
     }
 }

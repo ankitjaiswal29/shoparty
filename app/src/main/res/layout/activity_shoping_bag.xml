@@ -347,6 +347,7 @@
                             android:layout_height="wrap_content"
                             android:buttonTint="@color/pink"
                             android:paddingEnd="10dp"
+                            android:checked="true"
                             app:layout_constraintBottom_toBottomOf="@id/vw_home"
                             app:layout_constraintEnd_toEndOf="@id/vw_home"
                             app:layout_constraintTop_toTopOf="@+id/vw_home" />

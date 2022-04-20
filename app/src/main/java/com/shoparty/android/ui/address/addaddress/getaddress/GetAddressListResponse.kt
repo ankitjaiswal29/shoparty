@@ -6,20 +6,20 @@ import kotlinx.android.parcel.Parcelize
 data class GetAddressListResponse(
     val message: String,
     val response_code: Int,
-    val result: List<Data>
+    val result: List<AddressData>
 ): Parcelable
 {
     @Parcelize
-    data class Data(
+    data class AddressData(
         val address_id: Int,
-        val building_no: String,
+        val building_no: String?="",
         val city_name: String,
         val country_id: Int,
         val created_at: String,
         val first_name: String,
         val last_name: String,
         val mobile: String,
-        val street_no: String,
+        val street_no: String?="",
         val country_name: String,
         val city_id: String,
     ):Parcelable

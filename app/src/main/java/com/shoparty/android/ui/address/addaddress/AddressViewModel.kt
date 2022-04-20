@@ -17,12 +17,6 @@ import com.shoparty.android.utils.apiutils.Resource
 
 import kotlinx.coroutines.launch
 import retrofit2.Response
-import android.text.Editable
-
-import com.google.android.material.internal.TextWatcherAdapter
-
-import android.text.TextWatcher
-import java.util.*
 
 
 class AddressViewModel(private val app: Application) : ViewModel()
@@ -45,8 +39,8 @@ class AddressViewModel(private val app: Application) : ViewModel()
 
 
 
-    private val mgetaddresslist = MutableLiveData<Resource<List<GetAddressListResponse.Data>>>()
-    val getaddress: LiveData<Resource<List<GetAddressListResponse.Data>>> = mgetaddresslist
+    private val mgetaddresslist = MutableLiveData<Resource<List<GetAddressListResponse.AddressData>>>()
+    val getaddress: LiveData<Resource<List<GetAddressListResponse.AddressData>>> = mgetaddresslist
 
 
     private val mdeleteaddress = MutableLiveData<Resource<DeleteAddressResponse>>()
@@ -263,7 +257,7 @@ class AddressViewModel(private val app: Application) : ViewModel()
         return Resource.Error(response.message())
     }
 
-    private fun handlegetAddressResponse(response: Response<GetAddressListResponse>): Resource<List<GetAddressListResponse.Data>>? {
+    private fun handlegetAddressResponse(response: Response<GetAddressListResponse>): Resource<List<GetAddressListResponse.AddressData>>? {
         if (response?.isSuccessful == true)
         {
             response.body()?.let { res ->

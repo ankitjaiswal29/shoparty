@@ -93,19 +93,21 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
             product_details_id = PrefManager.read(PrefManager.PRODUCATDETAILSID1, "")
             product_sizeId = PrefManager.read(PrefManager.PRODUCTSIZEID1, "")
             product_colorId = PrefManager.read(PrefManager.PRODUCTCOLORID1, "")
-        } else {
+        }
+        else
+        {
             if (intent.extras != null) {
                 product_name = intent.getStringExtra(Constants.PRODUCATNAME).toString()
                 product_id = intent.getStringExtra(Constants.IDPRODUCT)!!
                 product_details_id = intent.getStringExtra(Constants.PRODUCATDETAILSID)!!
                 product_sizeId = intent.getStringExtra(Constants.PRODUCTSIZEID)!!
                 product_colorId = intent.getStringExtra(Constants.PRODUCTCOLORID)!!
+                binding.infoTool.tvTitle.text =
+                    product_name.substring(0, 1).toUpperCase() +
+                            intent.getStringExtra(Constants.PRODUCATNAME)?.substring(1)
+                                ?.toLowerCase()
             }
         }
-        binding.infoTool.tvTitle.text =
-            product_name.substring(0, 1).toUpperCase() +
-                    intent.getStringExtra(Constants.PRODUCATNAME)?.substring(1)
-                        ?.toLowerCase()
         viewModel.postProducatDetails(
             PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
             product_details_id,
@@ -475,7 +477,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
         }
         if(data.is_customizable==0)
         {
-           binding.btnCostomizeit.visibility=View.VISIBLE
+           binding.btnCostomizeit.visibility=View.GONE
         }
         else
         {

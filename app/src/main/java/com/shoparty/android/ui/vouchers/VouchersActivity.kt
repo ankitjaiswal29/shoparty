@@ -84,7 +84,8 @@ class VouchersActivity : AppCompatActivity(),RecyclerViewClickListener{
        var coupen_code = voucherlist?.get(pos.toInt())?.coupon_code
        var coupen_discount = voucherlist?.get(pos.toInt())?.discount
         setResult(Activity.RESULT_OK, intent.putExtra(Constants.Coupon_Code,coupen_code)
-            .putExtra(Constants.Coupon_Discount,coupen_discount))
+            .putExtra(Constants.Coupon_Discount,coupen_discount).putExtra(Constants.
+            CouponID,voucherlist?.get(pos.toInt())?.voucher_id))
            finish()
     }
 

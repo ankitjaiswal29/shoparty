@@ -11,7 +11,7 @@ import com.shoparty.android.R
 import com.shoparty.android.interfaces.RecyclerViewAddressClickListener
 
 
-class AddressAdapter(private val mList: List<GetAddressListResponse.Data>,
+class AddressAdapter(private val mList: List<GetAddressListResponse.AddressData>,
                      var recyclerViewaddressClickListener: RecyclerViewAddressClickListener) : RecyclerView.Adapter<AddressAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -36,6 +36,13 @@ class AddressAdapter(private val mList: List<GetAddressListResponse.Data>,
         holder.tvRemove.setOnClickListener {
             recyclerViewaddressClickListener.removeclick(ItemsViewModel.address_id,position)
         }
+
+        holder.itemView.setOnClickListener {
+            recyclerViewaddressClickListener.addressitemclick(ItemsViewModel.address_id,
+                holder.tv_AddressData.text.toString())
+        }
+
+
 
     }
     override fun getItemCount(): Int {

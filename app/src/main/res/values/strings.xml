@@ -87,7 +87,7 @@
     <string name="welcome_back">Welcome Back</string>
     <string name="shapes">Shapes</string>
 
-    <string name="_2_items">(2 items)</string>
+    <string name="_2_items">(2items)</string>
     <string name="candles">Candles</string>
     <string name="letters">Letters</string>
     <string name="sparkling">Sparkling</string>
@@ -439,5 +439,6 @@
     <string name="Apply">Apply</string>
     <string name="taxdiscount">Discount</string>
     <string name="clearsuccess">Clear Sucessfully All Filter</string>
+    <string name="pleaseselectdeliveredaddress">Please Select Delivered Address</string>
 
 </resources>

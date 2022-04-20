@@ -120,7 +120,6 @@ class FilterActivity : AppCompatActivity(), View.OnClickListener, QuantityListne
             }
         })
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
-
     }
 
 

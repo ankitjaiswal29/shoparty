@@ -55,14 +55,14 @@ class ProductListActivity : AppCompatActivity(),
     var filter_applied = 0
     var sort_applied = 0
     var sort_type = 0
-
+    var category_id = ""
+    var filter = ProductListRequestModel.Filter()
     private var selectedColorList:ArrayList<String> =  ArrayList()
     private var selectedSizeList:ArrayList<String> =  ArrayList()
     private var selectedAgeList:ArrayList<AgeRequest> =  ArrayList()
     private var selectedGenderList:ArrayList<String> =  ArrayList()
     private var selectedminprice = 0
     private var selectedmaxprice = 0
-
     private lateinit var adapter: ProductListAdapters
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,7 +71,7 @@ class ProductListActivity : AppCompatActivity(),
         withpaginationAdapterSet(newproductlist)
         if (intent.extras != null)
         {
-            if (intent.getStringExtra(Constants.TOP20SELLING).equals("2"))  //top20selling view all
+            if(intent.getStringExtra(Constants.TOP20SELLING).equals("2"))  //top20selling view all
             {
                 binding.infoTool.tvTitle.text = getString(R.string.top_20_selling_items)
                 viewall_status = "1"
@@ -83,18 +83,30 @@ class ProductListActivity : AppCompatActivity(),
                     sort_applied,
                     sort_type
                 ) //api call
-            } else {
+            }
+            else
+            {
+                getCategoryId()
                 binding.infoTool.tvTitle.text = intent.getStringExtra(Constants.CATEGORYNAME)
                 productListApiCall(
                     PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
                     filter_applied.toString(),
-                    ProductListRequestModel.Filter(),
+                    filter,
                     sort_applied,
-                    sort_type
-                )
+                    sort_type)
             }
         }
         setObserver()
+    }
+
+    private fun getCategoryId()
+    {
+        category_id=intent.getStringExtra(Constants.PRODUCTID).toString()
+        if(category_id.isNotEmpty())
+        {
+            filter_applied=1
+            filter.category_id=category_id
+        }
     }
 
     private fun initialise() {
@@ -137,12 +149,18 @@ class ProductListActivity : AppCompatActivity(),
     {
         viewModel.productList.observe(this) { response ->
             when (response) {
-                is Resource.Success -> {
+                is Resource.Success ->
+                {
                     if (progressshow) {
                         com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     }
                     progressshow = false
                     productlist = response.data as ArrayList<Product>
+                    if(sort_applied != 0)     //sort applied
+                    {
+                        dialog.dismiss()         //update bottom sheet dialog
+                        saveSortLocal()
+                    }
                     if(productlist.isNullOrEmpty() && newproductlist.isNullOrEmpty())
                     {
                         binding.ivNoData.visibility = View.VISIBLE
@@ -154,7 +172,6 @@ class ProductListActivity : AppCompatActivity(),
                         binding.ivNoData.visibility = View.GONE
                         binding.dealsItemRecycler.visibility = View.VISIBLE
                         binding.tvNoData.visibility = View.GONE
-
                         if(viewall_status == "1")
                         {
                             setupData(productlist)
@@ -162,11 +179,6 @@ class ProductListActivity : AppCompatActivity(),
                         else
                         {
                             withoutPaginationAdapterSet(response.data)
-                        }
-                        if(sort_applied != 0)     //sort applied
-                        {
-                            dialog.dismiss()         //update bottom sheet dialog
-                            saveSortLocal()
                         }
                     }
                 }
@@ -273,8 +285,8 @@ class ProductListActivity : AppCompatActivity(),
         filter_applied: String,
         filterlist: ProductListRequestModel.Filter,
         sort_applied: Int,
-        sort_type: Int
-    ) {
+        sort_type: Int)
+    {
         viewModel.topSellingProducatList(
             PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
             type,
@@ -395,10 +407,22 @@ class ProductListActivity : AppCompatActivity(),
         newproductlist.clear()
         productlist.clear()
         pageOffset = 1
-        productListApiCall(
-            PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
-            filter_applied.toString(), ProductListRequestModel.Filter(), sort_applied, sort_type
-        )
+
+        if(intent.extras!=null)
+        {
+            getCategoryId()
+            productListApiCall(
+                PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
+                filter_applied.toString(), filter, sort_applied, sort_type)
+        }
+        else
+        {
+            productListApiCall(
+                PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
+                filter_applied.toString(), filter, sort_applied, sort_type)
+        }
+
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -411,12 +435,12 @@ class ProductListActivity : AppCompatActivity(),
             selectedminprice = data?.getIntExtra("selectedminprice",0)!!
             selectedmaxprice = data?.getIntExtra("selectedmaxprice",0)!!
 
-            val filterList = ProductListRequestModel.Filter()
+             filter = ProductListRequestModel.Filter()
             val priceObj = ProductListRequestModel.Filter.Price()
-            filterList.color.addAll( selectedColorList)
-            filterList.size.addAll( selectedSizeList)
-            filterList.age.addAll( selectedAgeList)
-            filterList.gender.addAll( selectedGenderList)
+            filter.color.addAll( selectedColorList)
+            filter.size.addAll( selectedSizeList)
+            filter.age.addAll( selectedAgeList)
+            filter.gender.addAll( selectedGenderList)
             filter_applied =1
             progressshow=true
 
@@ -424,28 +448,33 @@ class ProductListActivity : AppCompatActivity(),
                 priceObj.from = selectedminprice
                 priceObj.to = selectedmaxprice
             }
-            filterList.price = priceObj
+            filter.price = priceObj
             newproductlist.clear()
             productlist.clear()
             pageOffset = 1
-            if (intent.getStringExtra(Constants.TOP20SELLING).equals("2"))  //top20selling view all
+            if(intent.getStringExtra(Constants.TOP20SELLING).equals("2"))  //top20selling view all
             {
                 binding.infoTool.tvTitle.text = getString(R.string.top_20_selling_items)
                 viewall_status = "1"
+                pageOffset=0
                 setupPaginationRecylarview()
-
                 viewAllApi(
                     "1",
                     filter_applied.toString(),
-                    filterList,
+                    filter,
                     sort_applied,
                     sort_type) //api call
             }
-            else {
+            else
+            {
+                if(intent.extras!=null)
+                {
+                    getCategoryId()
+                }
                 binding.infoTool.tvTitle.text = intent.getStringExtra(Constants.CATEGORYNAME)
                 productListApiCall(
                     PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
-                    filter_applied.toString(),filterList, sort_applied, sort_type)
+                    filter_applied.toString(),filter, sort_applied, sort_type)
             }
 
 

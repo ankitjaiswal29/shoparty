@@ -11,7 +11,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.bumptech.glide.util.Util
 import com.shoparty.android.R
 import com.shoparty.android.common_modal.CartProduct
 import com.shoparty.android.database.MyDatabase
@@ -19,10 +18,11 @@ import com.shoparty.android.databinding.ActivityShopingBagBinding
 
 import com.shoparty.android.interfaces.RVCartItemClickListener
 import com.shoparty.android.interfaces.RecyclerViewClickListener
+import com.shoparty.android.ui.address.addaddress.getaddress.AddressActivity
 import com.shoparty.android.ui.login.LoginActivity
+import com.shoparty.android.ui.payment.PaymentActivity
 import com.shoparty.android.ui.productdetails.ProducatDetailsViewModel
 import com.shoparty.android.ui.productdetails.ProductDetailsActivity
-import com.shoparty.android.ui.shipping.ShippingActivity
 import com.shoparty.android.ui.vouchers.VouchersActivity
 import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.PrefManager
@@ -34,21 +34,27 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerViewClickListener {
+    private var fulladdress: String=""
+    private var addressid: String=""
     private var coupenapplied: Boolean=false
     private var totaldiscountamount: Double=0.00
     private var totalpayamount: Double=0.00
     private var CoupenDiscount: Int=0
+    private var CoupenId: Int=0
     private var taxPrice: Double=0.00
     private var clickAction: Int=0
     private var summaryprice: Double=0.00
     private var totalprice: Double=0.00
     private var storeSelectedId: Int=0
-    private var pickupHomeSelected: Int=0
+    private var pickupHomeSelected: Int=1
+    private var ordertype: Int=1
+    private var isDeliverable: Int=0
     private lateinit var binding: ActivityShopingBagBinding
     private lateinit var viewModel: ProducatDetailsViewModel
     private lateinit var shoopingbagviewModel: ShoppingBagViewModel
     private lateinit var adapterShoppingBag: ShoppingBagItemAdapter
     private var listCartProduct: ArrayList<CartProduct> = ArrayList()
+    private var shoopingidlist: ArrayList<String> = ArrayList()
     private var storeList: ArrayList<StoreListResponse.Result> = ArrayList()
     private var quantity:Int=0
     private var position:Int=0
@@ -102,6 +108,7 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
                 binding.bagItemPickupRecycler.visibility = View.GONE
                 binding.cbPickupBranch.isChecked=false
                 pickupHomeSelected=1
+                ordertype=1
             }
 
         }
@@ -264,6 +271,8 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
     {
         taxPrice=0.0
         summaryprice=0.0
+        shoopingidlist.clear()
+
         listCartProduct.forEach {
             if(it.tax_type==1)  //calculation
             {
@@ -271,6 +280,9 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
             }
             summaryprice += it.sale_price.toDouble() * it.shopping_qnty.toDouble()
             totalprice=summaryprice+taxPrice
+            shoopingidlist.addAll(listOf(it.shopping_id))
+
+            isDeliverable=it.is_deliverable
         }
         binding.tvSummeryPrice.text=getString(R.string.dollor)+summaryprice.toString()
         binding.tvTaxPrice.text=getString(R.string.dollor)+taxPrice.toString()
@@ -285,6 +297,9 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
         {
             binding.tvTotalPriceDetail.text=getString(R.string.dollor)+totalprice.toString()
         }
+
+
+
 
     }
 
@@ -461,15 +476,38 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
             R.id.iv_drawer_back -> {
                 onBackPressed()
             }
-            R.id.btn_ProcessTocheckOut -> {
-                if (PrefManager.read(PrefManager.AUTH_TOKEN, "").isEmpty()) {
+            R.id.btn_ProcessTocheckOut ->
+            {
+                if(PrefManager.read(PrefManager.AUTH_TOKEN, "").isEmpty())
+                {
                     val intent = Intent(applicationContext, LoginActivity::class.java)
                     PrefManager.write(PrefManager.IS_SHIPPING_PAGE, "1")
                     startActivity(intent)
-                } else {
-                    val intent = Intent(applicationContext, ShippingActivity::class.java)
-                    PrefManager.write(PrefManager.IS_SHIPPING_PAGE, "2")
-                    startActivity(intent)
+                }
+                else
+                {
+                        if(addressid.isNullOrEmpty())
+                          {
+                              val intent = Intent(this, AddressActivity::class.java)
+                              intent.putExtra("pagestatus","1")
+                              startActivityForResult(intent,Constants.SHOPPINGBAGTOADDRESS)
+                          }
+                        else
+                          {
+                              val intent = Intent(applicationContext, PaymentActivity::class.java)
+                              intent.putExtra(Constants.SUMMERYPRICE,binding.tvSummeryPrice.text.toString())
+                              intent.putExtra(Constants.TOTALAMOUNT,binding.tvTotalPriceDetail.text.toString())
+                              intent.putExtra(Constants.TOTALTAX,binding.tvTaxPrice.text.toString())
+                              intent.putStringArrayListExtra(Constants.SHOPPINGID,shoopingidlist)
+                              intent.putExtra(Constants.TOTALTAX,binding.tvTaxPrice.text.toString())
+                              intent.putExtra(Constants.ORDERTYPE,ordertype.toString())
+                              intent.putExtra(Constants.PROMOCODEID,CoupenId.toString())
+                              intent.putExtra(Constants.DISCOUNTAMOUNT,totaldiscountamount.toString())
+                              intent.putExtra(Constants.ISDELIVERABLE,isDeliverable.toString())
+                              intent.putExtra(Constants.STOREID,storeSelectedId.toString())
+                              startActivity(intent)
+                           }
+                   //   Utils.showLongToast(this,getString(R.string.comingsoon))
                 }
             }
 
@@ -484,10 +522,6 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
                hideCoupenDiscount()
             }
 
-            R.id.btn_ProcessTocheckOut->
-            {
-               Utils.showLongToast(this,getString(R.string.comingsoon))
-            }
         }
     }
 
@@ -498,8 +532,14 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
         {
             binding.txtapplycode.text=data?.extras?.getString(Constants.Coupon_Code)
             CoupenDiscount= data?.extras?.getInt(Constants.Coupon_Discount)!!
+            CoupenId= data?.extras?.getInt(Constants.CouponID)!!
             showCoupenDiscount()
             coupenapplied=true
+        }
+        else if(requestCode == Constants.SHOPPINGBAGTOADDRESS && resultCode == Activity.RESULT_OK)
+        {
+            addressid=data?.getStringExtra("addressid").toString()
+            fulladdress=data?.getStringExtra("fulladdress").toString()
         }
     }
 
@@ -527,7 +567,10 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
 
     override fun click(pos: String) {
         storeSelectedId=storeList[pos.toInt()].id.toInt()
-        Utils.showLongToast(this,storeSelectedId.toString())
+        ordertype=0
+       // Utils.showLongToast(this,storeSelectedId.toString())
     }
+
+
 
 }
