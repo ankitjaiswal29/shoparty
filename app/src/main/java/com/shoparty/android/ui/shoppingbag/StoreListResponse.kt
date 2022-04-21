@@ -8,6 +8,9 @@ data class StoreListResponse(
 {
     data class Result(
         val store_name: String,
-        val id: String
+        val id: String,
+        val address: String,
+        val image: String,
+        val distance: String,
     )
 }

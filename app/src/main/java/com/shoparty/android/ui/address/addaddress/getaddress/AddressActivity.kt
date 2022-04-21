@@ -163,7 +163,7 @@ class AddressActivity : AppCompatActivity(), View.OnClickListener,
         {
             val intent = Intent()
             intent.putExtra("fulladdress",fulladdress)
-            intent.putExtra("addressid", address_id)
+            intent.putExtra("addressid", address_id.toString())
             setResult(Activity.RESULT_OK, intent)
             finish()
         }

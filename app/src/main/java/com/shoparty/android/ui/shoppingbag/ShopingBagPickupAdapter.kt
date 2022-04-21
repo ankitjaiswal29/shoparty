@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.CompoundButton
 import android.widget.RadioButton
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.shoparty.android.R
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.utils.inflate
@@ -26,6 +27,8 @@ class ShopingBagPickupAdapter(private val itemList: ArrayList<StoreListResponse.
         val items = itemList[position]
         holder.itemView.apply {
             tv_title.text = items.store_name
+            tv_subTitle.text = items.address
+            Glide.with(context).asBitmap().load(items.image).into(bag_pickup_item_img!!)
         }
         holder.itemView.radiobutton.setOnCheckedChangeListener{compoundButton, isChecked ->
             checkedRadioButton?.apply { setChecked(!isChecked) }

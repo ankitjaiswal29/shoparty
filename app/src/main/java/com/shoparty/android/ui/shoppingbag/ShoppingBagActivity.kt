@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.service.autofill.FieldClassification
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -32,6 +33,8 @@ import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.regex.Matcher
+import kotlin.math.roundToLong
 
 class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerViewClickListener {
     private var fulladdress: String=""
@@ -495,11 +498,11 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
                         else
                           {
                               val intent = Intent(applicationContext, PaymentActivity::class.java)
-                              intent.putExtra(Constants.SUMMERYPRICE,binding.tvSummeryPrice.text.toString())
-                              intent.putExtra(Constants.TOTALAMOUNT,binding.tvTotalPriceDetail.text.toString())
-                              intent.putExtra(Constants.TOTALTAX,binding.tvTaxPrice.text.toString())
-                              intent.putStringArrayListExtra(Constants.SHOPPINGID,shoopingidlist)
-                              intent.putExtra(Constants.TOTALTAX,binding.tvTaxPrice.text.toString())
+                              intent.putExtra(Constants.SUMMERYPRICE,summaryprice.toString())
+                              intent.putExtra(Constants.TOTALAMOUNT,binding.tvTotalPriceDetail.text.toString().replace("$",""))
+                              intent.putExtra(Constants.SHOPPINGID,shoopingidlist)
+                              intent.putExtra(Constants.TOTALTAX,taxPrice.toString())
+                              intent.putExtra(Constants.ADDRESSID,addressid)
                               intent.putExtra(Constants.ORDERTYPE,ordertype.toString())
                               intent.putExtra(Constants.PROMOCODEID,CoupenId.toString())
                               intent.putExtra(Constants.DISCOUNTAMOUNT,totaldiscountamount.toString())
@@ -552,11 +555,13 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
         binding.tvDiscount.visibility=View.VISIBLE
         binding.tvDiscountPrice.visibility=View.VISIBLE
         binding.tvDiscountPrice.text="-"+" "+getString(R.string.dollor)+totaldiscountamount.toString()
-        binding.tvTotalPriceDetail.text=getString(R.string.dollor)+totalpayamount.toString()
+        binding.tvTotalPriceDetail.text=getString(R.string.dollor)+ totalpayamount.roundToLong().toString()
     }
 
-    private fun hideCoupenDiscount() {
+    private fun hideCoupenDiscount()
+    {
         coupenapplied=false
+        totaldiscountamount=0.0
         binding.imgCoupenCross.visibility=View.INVISIBLE
         binding.tvDiscount.visibility=View.GONE
         binding.tvDiscountPrice.visibility=View.GONE

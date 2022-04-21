@@ -60,7 +60,7 @@ class ThemeAdapter(
             view.setOnClickListener {
                 val intent = Intent(context, ProductListActivity::class.java)
                 intent.putExtra(Constants.THEMESITEMS,"5")
-                intent.putExtra(Constants.PRODUCTID,modal.theme_id)  //themeid
+                intent.putExtra(Constants.PRODUCTID,modal.category_id)  //themeid
                 intent.putExtra(Constants.CATEGORYNAME,modal.theame_name)
                 context.startActivity(intent)
             }

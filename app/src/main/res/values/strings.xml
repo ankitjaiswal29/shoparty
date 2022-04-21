@@ -172,7 +172,7 @@
 
     <string name="tax_vat_5">Tax</string>
     <string name="order_placed_successfully">Order Placed Successfully</string>
-    <string name="total_price_for_2_item">Total price for 2 item</string>
+    <string name="total_price_for_2_item">Total price for</string>
     <string name="done">Done</string>
     <string name="cups">Cups</string>
     <string name="table_cover">Table Cover</string>
@@ -440,5 +440,8 @@
     <string name="taxdiscount">Discount</string>
     <string name="clearsuccess">Clear Sucessfully All Filter</string>
     <string name="pleaseselectdeliveredaddress">Please Select Delivered Address</string>
+    <string name="on">On</string>
+    <string name="ordernumber">Order Number :-</string>
+    <string name="orderdelivered">Order Delivered</string>
 
 </resources>

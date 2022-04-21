@@ -34,8 +34,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingBottom="67dp"
-                >
+                android:paddingBottom="67dp">
 
               <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -49,9 +48,9 @@
                 tools:ignore="MissingConstraints">
 
                 <TextView
-                    android:id="@+id/tvOrderid"
+                    android:id="@+id/tvOrderNumber"
                     style="@style/AppTheme.Text_12ssp"
-                     android:text="@string/orderId"
+                     android:text="@string/ordernumber"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -63,44 +62,20 @@
                     app:layout_constraintStart_toStartOf="parent"
                     android:background="@color/lightgray"
                     android:layout_marginTop="@dimen/_10sdp"
-                    app:layout_constraintTop_toBottomOf="@id/tvOrderid"/>
+                    app:layout_constraintTop_toBottomOf="@id/tvOrderNumber"/>
 
-                <View
-                    android:id="@+id/vViewractangle"
-                    android:layout_width="match_parent"
-                    android:layout_height="67dp"
-                    android:padding="5dp"
-                    android:background="@drawable/background_rectangular_white"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/view1"
-                    android:layout_marginTop="15dp"/>
+                  <androidx.recyclerview.widget.RecyclerView
+                      android:id="@+id/recyclerOrderList"
+                      android:layout_width="match_parent"
+                      android:layout_height="@dimen/_150sdp"
+                      app:layout_constraintStart_toStartOf="parent"
+                      app:layout_constraintEnd_toEndOf="parent"
+                      app:layout_constraintTop_toBottomOf="@+id/view1"
+                      android:layout_marginTop="15dp"
+                      tools:itemCount="3"
+                      tools:listitem="@layout/item_order_list">
 
-                <ImageView
-                    android:id="@+id/ivProductImg"
-                    android:layout_width="50dp"
-                    android:layout_height="60dp"
-                    app:layout_constraintStart_toStartOf="@+id/vViewractangle"
-                    app:layout_constraintTop_toTopOf="@+id/vViewractangle"
-                    android:src="@drawable/icon_shippingbag"
-                    app:layout_constraintBottom_toBottomOf="@id/vViewractangle"/>
-
-
-                <TextView
-                    android:id="@+id/productName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/AppTheme.Text_12ssp"
-                    app:layout_constraintStart_toEndOf="@+id/ivProductImg"
-                    android:text="@string/tesla_toys_kids_6_bundle_color_pack"
-                    app:layout_constraintTop_toTopOf="@+id/ivProductImg"
-                    app:layout_constraintBottom_toBottomOf="@id/ivProductImg"
-                    android:layout_marginLeft="14dp"
-                    android:paddingRight="@dimen/_20sdp"/>
-
-
-
-
+                  </androidx.recyclerview.widget.RecyclerView>
 
 
 
@@ -111,7 +86,7 @@
                       android:layout_width="wrap_content"
                       android:layout_marginTop="@dimen/_10sdp"
                       app:layout_constraintStart_toStartOf="parent"
-                      app:layout_constraintTop_toBottomOf="@id/vViewractangle" />
+                      app:layout_constraintTop_toBottomOf="@id/recyclerOrderList" />
 
 
                   <TextView
@@ -183,7 +158,7 @@
 
 
                      <View
-                   android:id="@+id/view3"
+                         android:id="@+id/view3"
                          android:layout_width="match_parent"
                          android:layout_height="2dp"
                          android:layout_marginTop="5dp"
@@ -195,6 +170,8 @@
 
 
 
+                    <!-- order placed-->
+
                      <ImageView
                          android:id="@+id/ivImageOrderplace"
                          android:layout_width="wrap_content"
@@ -202,14 +179,16 @@
                          app:layout_constraintStart_toStartOf="parent"
                          android:layout_marginTop="10dp"
                          app:layout_constraintTop_toBottomOf="@+id/view3"
-                         android:src="@drawable/ic_order_placed"/>
+                         android:src="@drawable/img_gry_order_placed"/>
+
+
 
                      <TextView
                          android:id="@+id/tv_orderplaced"
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
                          app:layout_constraintTop_toTopOf="@+id/ivImageOrderplace"
-                      android:layout_marginTop="10dp"
+                         android:layout_marginTop="10dp"
                          app:layout_constraintStart_toEndOf="@+id/ivImageOrderplace"
                          android:text="@string/order_placed"
                          style="@style/AppTheme.Text_16_Bold_dp"
@@ -222,26 +201,32 @@
                          app:layout_constraintStart_toStartOf="@+id/tv_orderplaced"
                          app:layout_constraintTop_toBottomOf="@+id/tv_orderplaced"
                          android:text="@string/we_have_received_your_order"
-                         style="@style/AppTheme.Text_12_graydp"
-                        />
+                         style="@style/AppTheme.Text_12_graydp" />
 
                      <ImageView
-                         android:id="@+id/iv_Pinkine1"
+                         android:id="@+id/ivOrderPlacedLine"
                          android:layout_width="4dp"
                          android:layout_height="32dp"
-                         android:src="@drawable/ic_pink_line_img"
+                         android:src="@drawable/img_gry_line"
                          app:layout_constraintTop_toBottomOf="@+id/ivImageOrderplace"
                          app:layout_constraintStart_toStartOf="@id/ivImageOrderplace"
                          app:layout_constraintEnd_toEndOf="@id/ivImageOrderplace"/>
 
+
+
+
+
+                     <!--order confirmed-->
 
                      <ImageView
                          android:id="@+id/ivOrderConfirm"
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
                          app:layout_constraintStart_toStartOf="parent"
-                         app:layout_constraintTop_toBottomOf="@+id/iv_Pinkine1"
-                         android:src="@drawable/ic_order_placed"/>
+                         app:layout_constraintTop_toBottomOf="@+id/ivOrderPlacedLine"
+                         android:src="@drawable/img_gry_order_confirm"/>
+
+
 
                      <TextView
                          android:id="@+id/tv_OrderConfirm"
@@ -253,7 +238,6 @@
                          android:text="@string/order_confirmed"
                          style="@style/AppTheme.Text_16_Bold_dp"
                          android:layout_marginLeft="16dp"/>
-
                      <TextView
                          android:id="@+id/tv_OrderConfirm_subtitle"
                          android:layout_width="wrap_content"
@@ -261,25 +245,40 @@
                          app:layout_constraintStart_toStartOf="@+id/tv_OrderConfirm"
                          app:layout_constraintTop_toBottomOf="@+id/tv_OrderConfirm"
                          android:text="@string/we_have_received_your_order"
-                         style="@style/AppTheme.Text_12_graydp"
-                         />
-
+                         style="@style/AppTheme.Text_12_graydp" />
                      <ImageView
-                         android:id="@+id/im_Pinkine2"
+                         android:id="@+id/ivOrderConfirmLine"
                          android:layout_width="4dp"
                          android:layout_height="32dp"
+                         android:src="@drawable/img_gry_line"
+                         app:layout_constraintTop_toBottomOf="@+id/ivOrderConfirm"
+                         app:layout_constraintStart_toStartOf="@id/ivOrderConfirm"
+                         app:layout_constraintEnd_toEndOf="@id/ivOrderConfirm"/>
+                     <ImageView
+                         android:id="@+id/ivOrderConfirmLineColor"
+                         android:layout_width="4dp"
+                         android:layout_height="32dp"
+                         android:visibility="gone"
                          android:src="@drawable/ic_pink_line_img"
                          app:layout_constraintTop_toBottomOf="@+id/ivOrderConfirm"
                          app:layout_constraintStart_toStartOf="@id/ivOrderConfirm"
                          app:layout_constraintEnd_toEndOf="@id/ivOrderConfirm"/>
+
+
+                    <!-- out for delivery-->
 
                      <ImageView
                          android:id="@+id/ivOutForDelivery"
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
                          app:layout_constraintStart_toStartOf="parent"
-                         app:layout_constraintTop_toBottomOf="@+id/im_Pinkine2"
-                         android:src="@drawable/ic_out_for_delivery"/>
+                         app:layout_constraintTop_toBottomOf="@+id/ivOrderConfirmLine"
+                         android:src="@drawable/img_gry_outfordelivery"/>
+
+
+
+
+
 
                      <TextView
                          android:id="@+id/tv_OutForDelivery"
@@ -303,21 +302,26 @@
                          />
 
                      <ImageView
-                         android:id="@+id/im_Pinkine3"
+                         android:id="@+id/ivOutForDeliveryLine"
                          android:layout_width="4dp"
                          android:layout_height="32dp"
-                         android:src="@drawable/ic_pink_line_img"
+                         android:src="@drawable/img_gry_line"
                          app:layout_constraintTop_toBottomOf="@+id/ivOutForDelivery"
                          app:layout_constraintStart_toStartOf="@id/ivOutForDelivery"
                          app:layout_constraintEnd_toEndOf="@id/ivOutForDelivery"/>
+
+
+
+
+
 
                      <ImageView
                          android:id="@+id/ivOrderDelivered"
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
                          app:layout_constraintStart_toStartOf="parent"
-                         app:layout_constraintTop_toBottomOf="@+id/im_Pinkine3"
-                         android:src="@drawable/ic_order_delivered_icon"/>
+                         app:layout_constraintTop_toBottomOf="@+id/ivOutForDeliveryLine"
+                         android:src="@drawable/img_gry_order_delivery"/>
 
                      <TextView
                          android:id="@+id/tv_OrderDelivered"
@@ -326,7 +330,7 @@
                          app:layout_constraintTop_toTopOf="@+id/ivOrderDelivered"
                          android:layout_marginTop="10dp"
                          app:layout_constraintStart_toEndOf="@+id/ivOrderDelivered"
-                         android:text="@string/out_for_delivery"
+                         android:text="@string/orderdelivered"
                          style="@style/AppTheme.Text_16_Bold_dp"
                          android:layout_marginLeft="16dp"/>
 
@@ -433,7 +437,7 @@ android:layout_marginTop="5dp"
                <TextView
                    android:id="@+id/tvSummeryPrice"
                    style="@style/AppTheme.Text_14dp"
-                   android:text="@string/_14_0"
+                   tools:text="@string/_14_0"
                    android:gravity="end"
                    android:paddingLeft="10dp"
                    android:paddingRight="10dp"

@@ -29,6 +29,10 @@ class MyOrderViewModel(private val app: Application) : ViewModel()
     private val mOrdersdetails = MutableLiveData<Resource<OrderDetailsResponse.OrderList>>()
     val Orderdetails: LiveData<Resource<OrderDetailsResponse.OrderList>> = mOrdersdetails
 
+
+  /*  private val mOrdersdetails = MutableLiveData<Resource<OrderDetailsResponse.OrderList>>()
+    val Orderdetails: LiveData<Resource<OrderDetailsResponse.OrderList>> = mOrdersdetails*/
+
     fun myOrders() = viewModelScope.launch {
 
         val request = MyOrderRequestModel(PrefManager.read(PrefManager.LANGUAGEID, 1).toString())
@@ -46,7 +50,7 @@ class MyOrderViewModel(private val app: Application) : ViewModel()
     }
 
 
-    fun orderDetails(order_id: String) = viewModelScope.launch {
+    fun orderDetails(order_id: Int) = viewModelScope.launch {
         val request = OrderDetailsRequestModel(PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),order_id)
         if(Utils.hasInternetConnection(app.applicationContext))
         {

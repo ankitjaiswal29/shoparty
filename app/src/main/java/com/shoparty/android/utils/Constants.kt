@@ -41,7 +41,7 @@ object Constants {
         const val ADDRESSELIST = "ADDRESSEID"
         const val Coupon_Discount = "Coupon_Discount"
         const val CouponID = "CouponID"
-        const val ADDRESSPOSITION = "ADDRESSPOSITION"
+        const val ADDRESSID = "ADDRESSID"
         const val Coupon_Price = "Coupon_Price"
         const val UPDATEADDRESSSTATUS = "1"
         const val ADDRESSSDATA = "ADDRESSSDATA"

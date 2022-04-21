@@ -46,6 +46,7 @@ data class HomeResponse(
         @Parcelize
         data class Theme(
             val theme_id: String,
+            val category_id: String,
             val theame_name: String,
             val theme_image: String
         ):Parcelable
@@ -60,6 +61,7 @@ data class HomeResponse(
         @Parcelize
         data class Season(
             val season_id: String,
+            val category_id: String,
             val season_name: String,
             val season_image: String
         ):Parcelable

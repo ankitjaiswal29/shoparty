@@ -123,7 +123,7 @@
 
 
                     <TextView
-                        android:id="@+id/tvOrderid"
+                        android:id="@+id/tvOrderNumber"
                         style="@style/AppTheme.TextBold_12ssp"
                         android:layout_marginTop="@dimen/_50sdp"
                         android:text="@string/billing_details"
@@ -138,7 +138,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         android:background="@color/colorGrey"
                         android:layout_marginTop="@dimen/_10sdp"
-                        app:layout_constraintTop_toBottomOf="@id/tvOrderid"/>
+                        app:layout_constraintTop_toBottomOf="@id/tvOrderNumber"/>
 
 
                     <TextView
@@ -164,10 +164,14 @@
                     <TextView
                         android:id="@+id/tvTax"
                         style="@style/AppTheme.Text_12ssp"
-                        android:text="@string/summary"
+                        android:text="@string/tax_vat_5"
                         android:layout_marginTop="@dimen/_10sdp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tvSummeryPrice" />
+
+
+
+
 
 
                     <TextView
@@ -179,6 +183,26 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tvSummeryPrice" />
 
+                    <TextView
+                        android:id="@+id/tvDiscount"
+                        style="@style/AppTheme.Text_12ssp"
+                        android:text="@string/taxdiscount"
+                        android:visibility="gone"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvTaxPrice" />
+
+
+                    <TextView
+                        android:id="@+id/tvDiscountPrice"
+                        style="@style/AppTheme.Text_12ssp"
+                        android:text="$0.0"
+                        android:gravity="end"
+                        android:visibility="gone"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvTaxPrice" />
+
 
                     <View
                         android:id="@+id/view2"
@@ -188,7 +212,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         android:background="@color/colorGrey"
                         android:layout_marginTop="@dimen/_10sdp"
-                        app:layout_constraintTop_toBottomOf="@id/tvTaxPrice"/>
+                        app:layout_constraintTop_toBottomOf="@id/tvDiscountPrice"/>
 
                     <TextView
                         android:id="@+id/tvTotal"
@@ -216,7 +240,6 @@
                         style="@style/AppTheme.Text_12ssp"
                         android:text="@string/_20_0"
                         android:gravity="end"
-                        android:layout_marginTop="@dimen/_10sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/tvTotal"
                         app:layout_constraintBottom_toBottomOf="@id/tvTotal"/>

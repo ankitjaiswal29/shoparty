@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingRight="20dp"
@@ -8,7 +9,8 @@
     android:layout_marginBottom="5dp"
     android:paddingBottom="10dp"
     android:background="@color/white"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/cl_myorder_root_item"
@@ -24,7 +26,7 @@
 
     <ImageView
         android:id="@+id/iv_Productimg"
-        android:layout_width="49dp"
+        android:layout_width="52dp"
         android:layout_height="60dp"
         android:src="@drawable/icon_shippingbag"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,25 +35,32 @@
 
     <TextView
         android:id="@+id/tv_ItemName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         style="@style/AppTheme.Text_14dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:text="@string/cancelled_on_aug_05"
+        android:layout_marginRight="@dimen/_5sdp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toStartOf="@+id/imgNextarrow"
+        app:layout_constraintStart_toEndOf="@+id/iv_Productimg"
         app:layout_constraintTop_toTopOf="@+id/iv_Productimg"
-        app:layout_constraintStart_toEndOf="@+id/iv_Productimg"/>
+        tools:text="@string/cancelled_on_aug_05" />
 
     <TextView
         android:id="@+id/tv_productdetailsData"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         style="@style/AppTheme.Text_12_graydp"
-        android:text="@string/cancelled_on_aug_05"
+        android:lines="2"
+        android:ellipsize="end"
+        tools:text="@string/cancelled_on_aug_05"
+        android:layout_marginRight="@dimen/_5sdp"
+        app:layout_constraintEnd_toStartOf="@+id/imgNextarrow"
         app:layout_constraintStart_toStartOf="@+id/tv_ItemName"
-     app:layout_constraintTop_toBottomOf="@+id/tv_ItemName"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_ItemName"/>
 
 <ImageView
+    android:id="@+id/imgNextarrow"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:layout_constraintEnd_toEndOf="parent"

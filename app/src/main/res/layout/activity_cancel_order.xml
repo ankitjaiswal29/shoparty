@@ -47,7 +47,7 @@
                 tools:ignore="MissingConstraints">
 
                 <TextView
-                    android:id="@+id/tvOrderid"
+                    android:id="@+id/tvOrderNumber"
                     style="@style/AppTheme.Text_12ssp"
                     android:text="@string/orderId"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -61,7 +61,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     android:background="@color/lightgray"
                     android:layout_marginTop="@dimen/_10sdp"
-                    app:layout_constraintTop_toBottomOf="@id/tvOrderid"/>
+                    app:layout_constraintTop_toBottomOf="@id/tvOrderNumber"/>
 
                 <View
                     android:id="@+id/vViewractangle"

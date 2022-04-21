@@ -59,7 +59,7 @@ class HomeSeasonsAdapter(
             view.setOnClickListener {
                 val intent = Intent(context, ProductListActivity::class.java)
                 intent.putExtra(Constants.SEASONITEMS,"8")
-                intent.putExtra(Constants.PRODUCTID,modal.season_id)  //themeid
+                intent.putExtra(Constants.PRODUCTID,modal.category_id)  //themeid
                 intent.putExtra(Constants.CATEGORYNAME,modal.season_name)
                 context.startActivity(intent)
             }

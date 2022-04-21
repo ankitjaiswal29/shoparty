@@ -34,6 +34,8 @@ import com.shoparty.android.ui.myorders.myorderlist.MyOrderRequestModel
 import com.shoparty.android.ui.myorders.myorderlist.MyOrderResponse
 import com.shoparty.android.ui.myorders.orderdetails.OrderDetailsRequestModel
 import com.shoparty.android.ui.myorders.orderdetails.OrderDetailsResponse
+import com.shoparty.android.ui.payment.orderplaced.OrderPlacedRequestModel
+import com.shoparty.android.ui.payment.orderplaced.OrderPlacedSuccessResponse
 import com.shoparty.android.ui.productdetails.AddItemBagResponse
 import com.shoparty.android.ui.productdetails.AddItemToBagRequestModel
 import com.shoparty.android.ui.productdetails.ProducatDetailsRequestModel
@@ -202,6 +204,12 @@ interface ApiService {
     suspend fun producatdetailsAsync(
         @Body producatDetailsRequestModel: ProducatDetailsRequestModel
     ): Response<ProducatDetailsResponse>
+
+
+    @POST("add-order")
+    suspend fun orderPlacedAsync(
+        @Body orderPlacedRequestModel: OrderPlacedRequestModel
+    ): Response<OrderPlacedSuccessResponse>
 
     @POST("add-to-bag")
     suspend fun addtobagAsync(

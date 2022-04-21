@@ -54,7 +54,7 @@
         tools:ignore="MissingConstraints">
 
         <TextView
-            android:id="@+id/tvOrderid"
+            android:id="@+id/tvOrderNumber"
             style="@style/AppTheme.Text_12ssp"
             android:text="@string/orderId"
             app:layout_constraintEnd_toEndOf="parent"
@@ -68,7 +68,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:background="@color/lightgray"
             android:layout_marginTop="@dimen/_10sdp"
-            app:layout_constraintTop_toBottomOf="@id/tvOrderid"/>
+            app:layout_constraintTop_toBottomOf="@id/tvOrderNumber"/>
 
         <View
             android:id="@+id/vViewractangle"
@@ -145,7 +145,7 @@
                 />
 
             <ImageView
-                android:id="@+id/iv_Pinkine1"
+                android:id="@+id/ivOrderPlacedLine"
                 android:layout_width="4dp"
                 android:layout_height="32dp"
                 android:src="@drawable/ic_pink_line_img"
@@ -159,7 +159,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_Pinkine1"
+                app:layout_constraintTop_toBottomOf="@+id/ivOrderPlacedLine"
                 android:src="@drawable/ic_order_cancelled_pink"/>
 
             <TextView
