@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:background="@color/lightgraybackground"
         tools:context=".ui.myorders.cancelorder.cancelorder.CancelOrderActivity">
+
         <include
             android:id="@+id/info_tool"
             layout="@layout/toolbar_layout"
@@ -33,14 +34,12 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingBottom="67dp"
-                >
+                android:paddingBottom="67dp">
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:id="@+id/constraint1"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:padding="20dp"
@@ -49,7 +48,7 @@
                 <TextView
                     android:id="@+id/tvOrderNumber"
                     style="@style/AppTheme.Text_12ssp"
-                    android:text="@string/orderId"
+                    android:text="@string/ordernumber"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -63,67 +62,19 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     app:layout_constraintTop_toBottomOf="@id/tvOrderNumber"/>
 
-                <View
-                    android:id="@+id/vViewractangle"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerOrderList"
                     android:layout_width="match_parent"
-                    android:layout_height="67dp"
-                    android:padding="5dp"
-                    android:background="@drawable/background_rectangular_white"
+                    android:layout_height="0dp"
+                    android:maxHeight="@dimen/_150sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/view1"
-                    android:layout_marginTop="15dp"/>
-                <ImageView
-                    android:id="@+id/ivProductImg"
-                    android:layout_width="50dp"
-                    android:layout_height="60dp"
-                    app:layout_constraintStart_toStartOf="@+id/vViewractangle"
-                    app:layout_constraintTop_toTopOf="@+id/vViewractangle"
-                    android:src="@drawable/icon_shippingbag"
-                    app:layout_constraintBottom_toBottomOf="@id/vViewractangle"/>
+                    android:layout_marginTop="15dp"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/item_order_list">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/AppTheme.Text_12ssp"
-                    app:layout_constraintStart_toEndOf="@+id/ivProductImg"
-                    android:text="@string/tesla_toys_kids_6_bundle_color_pack"
-                    app:layout_constraintTop_toTopOf="@+id/ivProductImg"
-                    app:layout_constraintBottom_toBottomOf="@id/ivProductImg"
-                    android:layout_marginLeft="14dp"
-                    android:paddingRight="@dimen/_41sdp"/>
-
-
-                <View
-                    android:id="@+id/vViewractangle2"
-                    android:layout_width="match_parent"
-                    android:layout_height="67dp"
-                    android:paddingLeft="5dp"
-                    android:padding="5dp"
-                    android:background="@drawable/background_rectangular_white"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/vViewractangle"
-                    android:layout_marginTop="15dp"/>
-                <ImageView
-                    android:id="@+id/ivProductImg2"
-                    android:layout_width="50dp"
-                    android:layout_height="60dp"
-                    app:layout_constraintStart_toStartOf="@+id/vViewractangle2"
-                    app:layout_constraintTop_toTopOf="@+id/vViewractangle2"
-                    android:src="@drawable/icon_shippingbag"
-                    app:layout_constraintBottom_toBottomOf="@id/vViewractangle2"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/AppTheme.Text_12ssp"
-                    app:layout_constraintStart_toEndOf="@+id/ivProductImg2"
-                    tools:text="@string/lorem_ipsum_dolar"
-                    app:layout_constraintTop_toTopOf="@+id/ivProductImg2"
-                    app:layout_constraintBottom_toBottomOf="@id/ivProductImg2"
-                    android:layout_marginLeft="14dp"
-                    android:paddingRight="@dimen/_41sdp"/>
+                </androidx.recyclerview.widget.RecyclerView>
 
 
 
@@ -134,19 +85,8 @@
                     android:layout_width="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/vViewractangle2" />
+                    app:layout_constraintTop_toBottomOf="@id/recyclerOrderList" />
 
-
-                <TextView
-                    android:id="@+id/tvTotalItem"
-                    style="@style/AppTheme.Text_12ssp"
-                    android:text="@string/_2_items"
-                    android:layout_width="wrap_content"
-                    app:layout_constraintStart_toEndOf="@+id/tvTotal"
-                    app:layout_constraintTop_toTopOf="@+id/tvTotal"
-                    app:layout_constraintBottom_toBottomOf="@id/tvTotal"
-
-                    />
 
                 <TextView
                     android:id="@+id/tvTotalPrice"
@@ -157,6 +97,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tvTotal"
                     app:layout_constraintBottom_toBottomOf="@id/tvTotal"/>
+
 
 
 
@@ -207,8 +148,16 @@
                           android:background="@color/lightgray"
                           app:layout_constraintTop_toBottomOf="@+id/tv_Reasonofcancel"/>
 
+                      <androidx.recyclerview.widget.RecyclerView
+                          android:id="@+id/recyclerReason"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          app:layout_constraintTop_toBottomOf="@+id/view3">
+                      </androidx.recyclerview.widget.RecyclerView>
 
-                      <CheckBox
+
+
+                     <!-- <CheckBox
                           android:id="@+id/checkBox1"
                           android:layout_width="match_parent"
                           android:layout_height="wrap_content"
@@ -264,7 +213,7 @@
                           app:layout_constraintStart_toStartOf="parent"
                           app:layout_constraintTop_toBottomOf="@+id/checkBox4"
                           android:textSize="18sp"
-                          android:padding="7dp"/>
+                          android:padding="7dp"/>-->
 
 
 
@@ -281,7 +230,7 @@
                           android:layout_marginRight="15dp"
                           android:layout_marginTop="19dp"
                           android:gravity="top"
-                          app:layout_constraintTop_toBottomOf="@+id/checkBox5"
+                          app:layout_constraintTop_toBottomOf="@+id/recyclerReason"
                           />
 
 

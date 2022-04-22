@@ -23,9 +23,13 @@ class MyOrdersActivity : AppCompatActivity(), View.OnClickListener{
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_my_orders)
         viewModel = ViewModelProvider(this, ViewModalFactory(application))[MyOrderViewModel::class.java]
-        viewModel.myOrders()      //api call
         initialise()
         setObserver()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.myOrders()      //api call
     }
 
     private fun initialise() {

@@ -13,11 +13,12 @@ import com.shoparty.android.databinding.HomeCategoriesLayoutItemBinding
 import com.shoparty.android.databinding.ItemOrderListBinding
 import com.shoparty.android.interfaces.RVItemClickListener
 import com.shoparty.android.ui.main.product_list.ProductListActivity
+import com.shoparty.android.ui.myorders.cancelorder.cancelorder.CancelReasonResponse
 import com.shoparty.android.utils.Constants
 
 class OrderDetailsAdapter(
     private val list: List<OrderDetailsResponse.ProductResponse>,
-    val context: OrderDetailsActivity
+    val context: Context
 ) : RecyclerView.Adapter<OrderDetailsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

@@ -1,6 +1,7 @@
 package com.shoparty.android.ui.myorders.orderdetails
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -8,42 +9,43 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityOrderDetailsBinding
 import com.shoparty.android.ui.myorders.MyOrderViewModel
+import com.shoparty.android.ui.myorders.cancelorder.cancelorder.CancelOrderActivity
 
 import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.ProgressDialog
-import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 class OrderDetailsActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityOrderDetailsBinding
     private lateinit var viewModel: MyOrderViewModel
+    private var order_id=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_order_details)
         initialise()
-        viewModel.orderDetails(intent.getStringExtra("order_id")!!.toInt())   //api call
+        viewModel.orderDetails(order_id.toInt())   //api call
         setObserver()
     }
 
     private fun initialise()
     {
+        order_id=intent.getStringExtra("order_id")!!
         viewModel = ViewModelProvider(this, ViewModalFactory(application!!))[MyOrderViewModel::class.java]
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
         binding.btnCancel.setOnClickListener(this)
-
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btnCancel -> {
-               /* val intent = Intent(this, CancelOrderActivity::class.java)
-                intent.putExtra("key", "OrderDetails")
-                startActivity(intent)*/
-                Utils.showLongToast(this,getString(R.string.comingsoon))
+                val intent = Intent(this, CancelOrderActivity::class.java)
+                intent.putExtra("order_id",order_id)
+                startActivity(intent)
+                finish()
+               // Utils.showLongToast(this,getString(R.string.comingsoon))
             }
             R.id.iv_drawer_back -> {
                 onBackPressed()
@@ -55,8 +57,6 @@ class OrderDetailsActivity : AppCompatActivity(), View.OnClickListener {
         super.onBackPressed()
     }
 
-
-    @SuppressLint("SetTextI18n")
     private fun setObserver()
     {
         viewModel.Orderdetails.observe(this) { response ->
@@ -87,16 +87,18 @@ class OrderDetailsActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
+
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setData(data: OrderDetailsResponse.OrderList?)
     {
         binding.tvOrderNumber.text=getString(R.string.ordernumber)+" "+data?.order_number
-        //  binding.tvSummeryPrice.text=getString(R.string.dollor)+response.data?.
+        binding.tvSummeryPrice.text=getString(R.string.dollor)+data?.total_amount
         //  binding.tvTax.text=getString(R.string.tax_vat_5)+" "+"("+response.data?.tax+"%"+")"
         binding.tvTaxPrice.text=getString(R.string.dollor)+data?.tax
-        binding.tvTotalPriceDetail.text=getString(R.string.dollor)+data?.total_amount
-        binding.tvTotalPrice.text=getString(R.string.dollor)+data?.total_amount
+        binding.tvTotalPriceDetail.text=getString(R.string.dollor)+data?.amount_to_paid
+        binding.tvTotalPrice.text=getString(R.string.dollor)+data?.amount_to_paid
         if(data?.action_status.equals(Constants.ONGOING))
         {
             binding.infoTool.tvTitle.setText(R.string.ongoingorderdetails)
@@ -133,14 +135,33 @@ class OrderDetailsActivity : AppCompatActivity(), View.OnClickListener {
             outForDeliveryOrderShow()
             deliveredOrderShow()
         }
-        else if(actionStatus == "5")  //5===for order cancel
+        else if(actionStatus == "5")  //5 === for order cancel
+        {
+            cancelOrderStatusShow()
+
+        }
+        else if(actionStatus == "6")  //6 === for order failed
         {
 
         }
-        else if(actionStatus == "6")  //5===for order failed
-        {
+    }
 
-        }
+    private fun cancelOrderStatusShow() {
+        binding.ivImageOrderplace.setImageDrawable(resources.getDrawable(R.drawable.img_pink_order_placed))
+        binding.ivOrderConfirm.setImageDrawable(resources.getDrawable(R.drawable.ic_order_cancelled_pink))
+        binding.ivOrderPlacedLine.setImageDrawable(resources.getDrawable(R.drawable.img_colorline))
+        binding.infoTool.tvTitle.setText(R.string.cancel_order)
+        binding.tvOrderConfirm.text=getString(R.string.order_cancelled)
+        binding.btnCancel.visibility=View.GONE
+        binding.ivOrderConfirmLine.visibility=View.GONE
+        binding.ivOrderConfirmLineColor.visibility=View.GONE
+        binding.tvOutForDelivery.visibility=View.GONE
+        binding.ivOutForDelivery.visibility=View.GONE
+        binding.tvOutForDeliverySubtitle.visibility=View.GONE
+        binding.ivOutForDeliveryLine.visibility=View.GONE
+        binding.ivOrderDelivered.visibility=View.GONE
+        binding.tvOrderDelivered.visibility=View.GONE
+        binding.tvOrderDeliveredSutitle.visibility=View.GONE
     }
 
     private fun placeOrderShow()
@@ -164,10 +185,10 @@ class OrderDetailsActivity : AppCompatActivity(), View.OnClickListener {
         binding.ivOrderDelivered.setImageDrawable(resources.getDrawable(R.drawable.img_pink_order_delivered))
         binding.ivOutForDeliveryLine.setImageDrawable(resources.getDrawable(R.drawable.img_colorline))
     }
-
     private fun setOrderListAdapter(productResponse: List<OrderDetailsResponse.ProductResponse>) {
-       var adapter = OrderDetailsAdapter(productResponse!!,this)
+        var adapter = OrderDetailsAdapter(productResponse!!,this)
         binding.recyclerOrderList.layoutManager = LinearLayoutManager(this)
         binding.recyclerOrderList.adapter = adapter
     }
+
 }

@@ -443,5 +443,6 @@
     <string name="on">On</string>
     <string name="ordernumber">Order Number :-</string>
     <string name="orderdelivered">Order Delivered</string>
+    <string name="pleaseselectreason">Please select cancel reason</string>
 
 </resources>

@@ -280,9 +280,10 @@ class CustomizeActivity : AppCompatActivity(), View.OnClickListener {
         val bitmap = Utils.screenShot(binding.clView)
 
         popupBinding.imgBanner.setImageBitmap(bitmap)
+
         popupBinding.ivClose.setOnClickListener {
             popupWindow.dismiss()
-            lifecycleScope.launch(Dispatchers.IO) {
+           /* lifecycleScope.launch(Dispatchers.IO) {
 //                MyDatabase.getInstance(this@CustomizeActivity).getProductDao()
 //                    .insertCartProduct(
 //                        CartProduct(
@@ -297,7 +298,7 @@ class CustomizeActivity : AppCompatActivity(), View.OnClickListener {
                 val intent =
                     Intent(this@CustomizeActivity, ShoppingBagActivity::class.java)
                 startActivity(intent)
-            }
+            }*/
 
         }
 

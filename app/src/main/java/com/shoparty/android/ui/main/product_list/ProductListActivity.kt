@@ -301,8 +301,7 @@ class ProductListActivity : AppCompatActivity(),
         filter_applied: String,
         filterlist: ProductListRequestModel.Filter,
         sort_applied: Int,
-        sort_type: Int,
-    ) {
+        sort_type: Int) {
         viewModel.producatList(
             langauge_id,
             filter_applied,
@@ -407,22 +406,26 @@ class ProductListActivity : AppCompatActivity(),
         newproductlist.clear()
         productlist.clear()
         pageOffset = 1
-
-        if(intent.extras!=null)
+        if(intent.getStringExtra(Constants.TOP20SELLING).equals("2"))  //top20selling view all
         {
-            getCategoryId()
-            productListApiCall(
-                PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
-                filter_applied.toString(), filter, sort_applied, sort_type)
+            binding.infoTool.tvTitle.text = getString(R.string.top_20_selling_items)
+            viewall_status = "1"
+            setupPaginationRecylarview()
+            viewAllApi(
+                "1",
+                filter_applied.toString(),
+                filter,
+                sort_applied,
+                sort_type) //api call
         }
         else
         {
+            getCategoryId()
+            binding.infoTool.tvTitle.text = intent.getStringExtra(Constants.CATEGORYNAME)
             productListApiCall(
                 PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
-                filter_applied.toString(), filter, sort_applied, sort_type)
+                filter_applied.toString(),filter, sort_applied, sort_type)
         }
-
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -452,6 +455,7 @@ class ProductListActivity : AppCompatActivity(),
             newproductlist.clear()
             productlist.clear()
             pageOffset = 1
+
             if(intent.getStringExtra(Constants.TOP20SELLING).equals("2"))  //top20selling view all
             {
                 binding.infoTool.tvTitle.text = getString(R.string.top_20_selling_items)

@@ -67,7 +67,8 @@
                   <androidx.recyclerview.widget.RecyclerView
                       android:id="@+id/recyclerOrderList"
                       android:layout_width="match_parent"
-                      android:layout_height="@dimen/_150sdp"
+                      android:layout_height="0dp"
+                      android:maxHeight="@dimen/_150sdp"
                       app:layout_constraintStart_toStartOf="parent"
                       app:layout_constraintEnd_toEndOf="parent"
                       app:layout_constraintTop_toBottomOf="@+id/view1"
@@ -110,12 +111,7 @@
                       app:layout_constraintBottom_toBottomOf="@id/tvTotal"/>
 
 
-                  <androidx.constraintlayout.widget.Group
-                      android:id="@+id/group1"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content">
 
-                  </androidx.constraintlayout.widget.Group>
 
 
 
@@ -356,33 +352,16 @@
                          app:layout_constraintVertical_bias="0.2" />
 
 
-                     <androidx.constraintlayout.widget.Group
-                         android:id="@+id/group2"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:visibility="visible"
-                         app:constraint_referenced_ids="tv_Trackorder,view3,btnCancel"/>
-
-
                  </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-             <!--   <View
-                    android:id="@+id/view4"
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imgProfile"
-                    android:background="@color/lightgray"
-                    android:layout_marginTop="20dp"
-                    />-->
+
 
            <androidx.constraintlayout.widget.ConstraintLayout
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:padding="20dp"
-android:layout_marginTop="5dp"
+               android:layout_marginTop="5dp"
                android:background="@color/white"
                app:layout_constraintStart_toStartOf="parent"
                app:layout_constraintEnd_toEndOf="parent"

@@ -8,12 +8,13 @@ data class OrderDetailsResponse(
 {
     data class OrderList(
         val action_status: String,
-        val order_id: Any,
+        val order_id: String,
         val order_number: String,
         val order_title: String,
         val product_response: List<ProductResponse>,
         val tax: String,
         val total_amount: String,
+        val amount_to_paid: String,
         val total_qnty: String)
 
     data class ProductResponse(
@@ -50,14 +51,14 @@ data class OrderDetailsResponse(
         val product_size_id: Int,
         val quantity: String,
         val sale_price: String,
-        val season_id: Any,
+        val season_id: Int,
         val size: String,
         val status: Int,
-        val store_id: Any,
+        val store_id: Int,
         val tax: String,
         val tax_type: Int,
-        val theme_id: Any,
-        val updated_at: String
+        val theme_id: Int,
+        val updated_at: String,
     )
 
 

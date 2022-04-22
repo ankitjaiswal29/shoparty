@@ -30,6 +30,9 @@ import com.shoparty.android.ui.main.wishlist.RemoveWishListRequestModel
 import com.shoparty.android.ui.main.wishlist.RemoveWishlistResponse
 import com.shoparty.android.ui.main.wishlist.WishListRequestModel
 import com.shoparty.android.ui.main.wishlist.WishListResponse
+import com.shoparty.android.ui.myorders.cancelorder.cancelorder.CancelReasonResponse
+import com.shoparty.android.ui.myorders.cancelorder.cancelorder.OrderCancelSucessRequestModel
+import com.shoparty.android.ui.myorders.cancelorder.cancelorder.OrderCancelSuccessfully
 import com.shoparty.android.ui.myorders.myorderlist.MyOrderRequestModel
 import com.shoparty.android.ui.myorders.myorderlist.MyOrderResponse
 import com.shoparty.android.ui.myorders.orderdetails.OrderDetailsRequestModel
@@ -226,6 +229,17 @@ interface ApiService {
     suspend fun storeListAsync(
         @Body shoppingBagRequestModel: ShoppingBagRequestModel
     ): Response<StoreListResponse>
+
+    @POST("cancellation-reasons")
+    suspend fun cancelReasonAsync(
+        @Body myOrderRequestModel: MyOrderRequestModel
+    ): Response<CancelReasonResponse>
+
+    @POST("cancel-order")
+    suspend fun orderCancelAsync(
+        @Body orderCancelSucessRequestModel: OrderCancelSucessRequestModel
+    ): Response<OrderCancelSuccessfully>
+
 
 
     @POST("delete-cart-product")

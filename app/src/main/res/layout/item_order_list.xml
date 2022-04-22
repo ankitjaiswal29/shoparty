@@ -20,6 +20,7 @@
     android:layout_width="match_parent"
     android:layout_height="70dp"
     android:padding="5dp"
+    android:layout_marginLeft="@dimen/_3sdp"
     android:background="@drawable/background_rectangular_white"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"/>
@@ -28,15 +29,16 @@
 android:id="@+id/ivProductImg"
 android:layout_width="50dp"
 android:layout_height="60dp"
-app:layout_constraintStart_toStartOf="parent"
-app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintStart_toStartOf="@+id/vViewractangle"
+app:layout_constraintTop_toTopOf="@+id/vViewractangle"
 android:src="@drawable/icon_shippingbag"
+    android:layout_marginLeft="@dimen/_5sdp"
 app:layout_constraintBottom_toBottomOf="parent"/>
 
 
         <TextView
             android:id="@+id/productName"
-            android:layout_width="@dimen/_260sdp"
+            android:layout_width="@dimen/_210sdp"
             android:layout_height="wrap_content"
             style="@style/AppTheme.Text_12ssp"
             android:lines="2"
