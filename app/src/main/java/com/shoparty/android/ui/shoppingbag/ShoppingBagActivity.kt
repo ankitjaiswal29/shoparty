@@ -33,10 +33,12 @@ import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 import java.util.regex.Matcher
 import kotlin.math.roundToLong
 
 class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerViewClickListener {
+
     private var fulladdress: String=""
     private var addressid: String=""
     private var coupenapplied: Boolean=false
@@ -61,8 +63,10 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
     private var storeList: ArrayList<StoreListResponse.Result> = ArrayList()
     private var quantity:Int=0
     private var position:Int=0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_shoping_bag)
         viewModel = ViewModelProvider(this,
             ViewModalFactory(application)
@@ -70,8 +74,10 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
         shoopingbagviewModel = ViewModelProvider(this,
             ViewModalFactory(application)
         )[ShoppingBagViewModel::class.java]
+
         initialise()
         setObserver()
+
         if(PrefManager.read(PrefManager.AUTH_TOKEN,"") == "")
         {
             shoppingBagListLocal()
@@ -444,9 +450,10 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
                 position=pos
                 clickAction=1
                 quantity=listCartProduct[position].shopping_qnty.toInt()+1
-                viewModel.postAddProduct(listCartProduct[position].product_id.toString(),listCartProduct[position].product_detail_id.toString(),
-                    listCartProduct[position].product_size_id.toString(),listCartProduct[position].product_color_id.toString(),quantity,
-                    listCartProduct[position].sale_price)  //api call
+                addToBagApi(pos)
+//                viewModel.postAddProduct(listCartProduct[position].product_id.toString(),listCartProduct[position].product_detail_id.toString(),
+//                    listCartProduct[position].product_size_id.toString(),listCartProduct[position].product_color_id.toString(),quantity,
+//                    listCartProduct[position].sale_price)  //api call
             }
 
             override fun onMinus(pos: Int, view: View?, shoppingId: Int) {
@@ -459,9 +466,8 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
                 }
                else
                {
-                   viewModel.postAddProduct(listCartProduct[pos].product_id.toString(),listCartProduct[pos].product_detail_id.toString(),
-                       listCartProduct[pos].product_size_id.toString(),listCartProduct[pos].product_color_id.toString(),quantity,
-                       listCartProduct[pos].sale_price)      //api call
+                   addToBagApi(pos)
+
                }
             }
 
@@ -576,6 +582,21 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
        // Utils.showLongToast(this,storeSelectedId.toString())
     }
 
-
+    private fun addToBagApi(pos: Int) {
+        val builder = MultipartBody.Builder()
+        builder.setType(MultipartBody.FORM)
+        builder.addFormDataPart("is_customizable", listCartProduct[pos].is_customizable.toString())
+        builder.addFormDataPart("product_id", listCartProduct[pos].product_id.toString())
+        builder.addFormDataPart(
+            "product_detail_id",
+            listCartProduct[pos].product_detail_id.toString()
+        )
+        builder.addFormDataPart("product_size_id", listCartProduct[pos].product_size_id.toString())
+        builder.addFormDataPart("product_color_id", listCartProduct[pos].product_color_id.toString())
+        builder.addFormDataPart("quantity", quantity.toString())
+        builder.addFormDataPart("price", listCartProduct[pos].sale_price)
+        val body = builder.build()
+        viewModel.postAddProduct(body)
+    }
 
 }

@@ -39,10 +39,14 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.shoparty.android.R
+import com.shoparty.android.common_modal.CartProduct
+import com.shoparty.android.database.MyDatabase
 import com.shoparty.android.databinding.ActivityCustomizeBinding
 import com.shoparty.android.databinding.PopupLayoutAvailableFontsBinding
 import com.shoparty.android.databinding.PreviewDialogLayoutBinding
 import com.shoparty.android.interfaces.RVItemClickListener
+import com.shoparty.android.ui.productdetails.AddItemToBagRequestModel
+import com.shoparty.android.ui.productdetails.ProducatDetailsResponse
 import com.shoparty.android.ui.productdetails.ProductDetailsActivity
 import com.shoparty.android.ui.shoppingbag.ShoppingBagActivity
 import com.shoparty.android.utils.ImagePickerActivity
@@ -80,8 +84,10 @@ class CustomizeActivity : AppCompatActivity(), View.OnClickListener {
     private fun initialise() {
         binding.infoTool.tvTitle.setText(getString(R.string.customize_it))
         val image = intent.getStringExtra("image")
+        val modal = intent.getParcelableExtra<ProducatDetailsResponse.ProductDetails>("modal")
         // val data = intent.getParcelableExtra<ProducatDetailsResponse.ProductDetails>("productDetails")
         Log.e("data", image.toString())
+        Log.e("modal", modal.toString())
        // Glide.with(this@CustomizeActivity).asBitmap().load(image).into(binding.imgBanner)
 
         Glide.with(this@CustomizeActivity).asBitmap()
@@ -286,13 +292,8 @@ class CustomizeActivity : AppCompatActivity(), View.OnClickListener {
            /* lifecycleScope.launch(Dispatchers.IO) {
 //                MyDatabase.getInstance(this@CustomizeActivity).getProductDao()
 //                    .insertCartProduct(
-//                        CartProduct(
-//                            "test",
-//                            101,
-//                            "",
-//                            "1",
-//                            bitmap =bitmap
-//                        )
+//                        AddItemToBagRequestModel(product_id.toInt(),product_detail_id,product_size_id,
+//                            product_color_id,quantity,price)
 //                    )
 
                 val intent =

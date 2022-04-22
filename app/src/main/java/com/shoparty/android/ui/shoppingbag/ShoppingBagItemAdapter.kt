@@ -14,6 +14,7 @@ import com.shoparty.android.database.Converters
 import com.shoparty.android.databinding.BagItemLayoutBinding
 
 import com.shoparty.android.interfaces.RVCartItemClickListener
+import com.shoparty.android.utils.PrefManager
 
 class ShoppingBagItemAdapter(val context: Context, val list: List<CartProduct>) :
     RecyclerView.Adapter<ShoppingBagItemAdapter.ViewHolder>() {
@@ -79,15 +80,27 @@ class ShoppingBagItemAdapter(val context: Context, val list: List<CartProduct>) 
             }
 
             binding.ivClose.setOnClickListener {
-                listener?.onClear(modal.shopping_id.toInt())
+                if (PrefManager.read(PrefManager.AUTH_TOKEN, "") == "") {
+                    listener?.onClear(adapterPosition)
+                }else {
+                    listener?.onClear(modal.shopping_id.toInt())
+                }
             }
 
             binding.ivMinus.setOnClickListener {
-                listener?.onMinus(adapterPosition, binding.tvCount,modal.shopping_id.toInt())
+                if (PrefManager.read(PrefManager.AUTH_TOKEN, "") == "") {
+                    listener?.onClear(adapterPosition)
+                }else {
+                    listener?.onMinus(adapterPosition, binding.tvCount, modal.shopping_id.toInt())
+                }
             }
 
             binding.ivPlus.setOnClickListener {
-                listener?.onPlus(adapterPosition, binding.tvCount)
+                if (PrefManager.read(PrefManager.AUTH_TOKEN, "") == "") {
+                    listener?.onClear(adapterPosition)
+                }else {
+                    listener?.onPlus(adapterPosition, binding.tvCount)
+                }
             }
         }
     }

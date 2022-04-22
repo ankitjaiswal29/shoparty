@@ -24,13 +24,11 @@ data class ProducatDetailsResponse(
         val age_to: String,
         val ar_description: String,
         val ar_name: String,
-        val barcode: String,
+        val barcode: String?,
         val brand_id: Int,
         val categories: List<Category>,
         val colors: List<Color>,
         val cost_price: String,
-        val created_at: String,
-        val deleted_at: String?,
         val en_description: String,
         val en_name: String,
         val fav_status: Int,
@@ -44,78 +42,63 @@ data class ProducatDetailsResponse(
         val product_id: Int,
         val product_name: String,
         val sale_price: String,
-        val season_id: String,
+        val season_id: String?,
         val sizes: List<Size>,
-        val sold_quantity: String,
+        val sold_quantity: String?,
         val status: Int,
         val stocks: List<Stock>,
         val tax: String,
         val tax_type: Int,
-        val theme_id: String,
-        val updated_at: String,
+        val theme_id: String?,
         val in_cart: String?,
         val cart_quantity: Int?,
     ) : Parcelable
 
     @Parcelize
     data class Stock(
-        val created_at: String,
-        val deleted_at: String?,
         val id: Int,
         val product_detail_id: Int,
         val product_id: Int,
         val product_size_id: Int,
         val status: Int,
-        val stock_quantity: String,
-        val updated_at: String
+        val stock_quantity: String
     ) : Parcelable
 
     @Parcelize
     data class Size(
-        val created_at: String,
         val id: Int,
         val name: String,
         val product_detail_id: Int,
         val product_id: Int,
         val status: Int,
-        val updated_at: String
     ) : Parcelable
 
     @Parcelize
     data class Image(
-        val created_at: String,
-        val deleted_at: String?,
         val id: Int,
         val name: String,
         val product_detail_id: Int,
         val product_id: Int,
         val status: Int,
-        val updated_at: String
     ) : Parcelable
 
     @Parcelize
     data class Color(
         val color_id: Int,
         var color_code: String,
-        val created_at: String,
-        val deleted_at: String?,
         val id: Int,
         val product_detail_id: Int,
         val product_id: Int,
         val status: Int,
-        val updated_at: String,
         var ischecked: Boolean = false
     ) : Parcelable
 
     @Parcelize
     data class Category(
         val category_id: Int,
-        val created_at: String,
-        val deleted_at: String?,
         val id: Int,
         val product_id: Int,
         val status: Int,
-        val updated_at: String
     ) : Parcelable
 
     @Parcelize
@@ -128,8 +111,6 @@ data class ProducatDetailsResponse(
         val brand_id: Int,
         val color_name: String,
         val cost_price: String,
-        val created_at: String,
-        val deleted_at: String?,
         val en_description: String,
         val en_name: String,
         val fav_status: Int,
@@ -148,13 +129,12 @@ data class ProducatDetailsResponse(
         val product_size_id: Int,
         val quantity: String,
         val sale_price: String,
-        val season_id: String,
+        val season_id: String?,
         val size: String,
         val status: Int,
         val tax: String,
         val tax_type: Int,
-        val theme_id: String,
-        val updated_at: String
+        val theme_id: String?,
     ) : Parcelable
 
 

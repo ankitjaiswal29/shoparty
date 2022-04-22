@@ -25,14 +25,11 @@ data class HomeResponse(
     {
         @Parcelize
         data class Banner(
-            val created_at: String,
-            val deleted_at: String,
             val id: Int,
             val name: String,
             val product_detail_id: Int,
             val product_id: Int,
             val status: Int,
-            val updated_at: String,
             val image: String
         ):Parcelable
 
@@ -77,8 +74,6 @@ data class HomeResponse(
             val color_id: String,
             val color_name: String,
             val cost_price: String,
-            val created_at: String,
-            val deleted_at: String,
             val delivery_time: String,
             val discount: Int,
             val en_description: String,
@@ -106,8 +101,7 @@ data class HomeResponse(
             val store_id: String,
             val tax: String,
             val tax_type: Int,
-            val theme_id: String,
-            val updated_at: String
+            val theme_id: String
         ):Parcelable
     }
 
@@ -121,8 +115,6 @@ data class HomeResponse(
         val color_id: String,
         val color_name: String,
         val cost_price: String,
-        val created_at: String,
-        val deleted_at: String,
         val discount: Int,
         val en_description: String,
         val en_name: String,
@@ -151,7 +143,6 @@ data class HomeResponse(
         val tax_type: Int,
         val theme_id: String,
         val offer_code: String,
-        val updated_at: String,
         val offer_discount: String,
         val offer_amount: String,
     )
@@ -171,8 +162,6 @@ data class HomeResponse(
         val color_id: String,
         val color_name: String,
         val cost_price: String,
-        val created_at: String,
-        val deleted_at: String,
         val discount: String,
         val en_description: String,
         val en_name: String,
@@ -199,8 +188,7 @@ data class HomeResponse(
         val store_id: String,
         val tax: String,
         val tax_type: Int,
-        val theme_id: String,
-        val updated_at: String
+        val theme_id: String
     )
 
 

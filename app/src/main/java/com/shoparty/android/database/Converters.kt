@@ -12,7 +12,6 @@ import java.io.ByteArrayOutputStream
  */
 class Converters {
 
-
     @TypeConverter
     fun bitMapToString(bitmap: Bitmap): String? {
         val baos = ByteArrayOutputStream()

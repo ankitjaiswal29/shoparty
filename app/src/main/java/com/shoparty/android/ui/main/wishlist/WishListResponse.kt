@@ -15,8 +15,6 @@ data class WishListResponse(
         val brand_id: Int,
         val color_name: String,
         val cost_price: String,
-        val created_at: String,
-        val deleted_at: String,
         val discount: String,
         val en_description: String,
         val en_name: String,
@@ -42,6 +40,6 @@ data class WishListResponse(
         val status: Int,
         val tax: String,
         val tax_type: Int,
-        val theme_id: String,
-        val updated_at: String)
+        val theme_id: String
+        )
 }

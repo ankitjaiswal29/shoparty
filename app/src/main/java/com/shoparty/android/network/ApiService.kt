@@ -60,6 +60,7 @@ import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
 
 interface ApiService {
@@ -214,9 +215,10 @@ interface ApiService {
         @Body orderPlacedRequestModel: OrderPlacedRequestModel
     ): Response<OrderPlacedSuccessResponse>
 
+    @Multipart
     @POST("add-to-bag")
     suspend fun addtobagAsync(
-        @Body addItemToBagRequestModel: AddItemToBagRequestModel
+        @Body requestBody: RequestBody
     ): Response<AddItemBagResponse>
 
     @POST("shopping-list")

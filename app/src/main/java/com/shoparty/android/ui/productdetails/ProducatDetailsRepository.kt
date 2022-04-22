@@ -1,6 +1,7 @@
 package com.shoparty.android.ui.productdetails
 
 import com.shoparty.android.network.RetrofitBuilder
+import okhttp3.RequestBody
 
 
 class ProducatDetailsRepository {
@@ -8,6 +9,6 @@ class ProducatDetailsRepository {
         RetrofitBuilder.apiService?.producatdetailsAsync(request)
 
 
-    suspend fun addtobagapi(request:AddItemToBagRequestModel) =
-        RetrofitBuilder.apiService?.addtobagAsync(request)
+    suspend fun addtobagapi(requestBody: RequestBody) =
+        RetrofitBuilder.apiService?.addtobagAsync(requestBody)
 }

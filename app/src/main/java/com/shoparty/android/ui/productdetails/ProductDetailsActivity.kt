@@ -1,7 +1,10 @@
 package com.shoparty.android.ui.productdetails
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Paint
 import android.net.Uri
 import android.os.Bundle
@@ -14,6 +17,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.dynamiclinks.DynamicLink
 import com.google.firebase.dynamiclinks.ktx.androidParameters
@@ -22,6 +26,8 @@ import com.google.firebase.dynamiclinks.ktx.shortLinkAsync
 import com.google.firebase.ktx.Firebase
 import com.shoparty.android.BuildConfig
 import com.shoparty.android.R
+import com.shoparty.android.common_modal.CartProduct
+import com.shoparty.android.database.MyDatabase
 import com.shoparty.android.databinding.ActivityProductDetailsBinding
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.ui.customize.CustomizeActivity
@@ -34,9 +40,19 @@ import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.File
+
 
 class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, RecyclerViewClickListener,
     ProductDetailCallback {
+
+    private val imageFile: File?=null
     private var l: Layout? = null
     private lateinit var binding: ActivityProductDetailsBinding
     var product_id = ""
@@ -51,6 +67,8 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
     private lateinit var wishlistviewModel: WishListViewModel
     private lateinit var productDetails: ProducatDetailsResponse.ProductDetails
 
+    private lateinit var icon: Bitmap
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_details)
@@ -60,18 +78,25 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
         )[ProducatDetailsViewModel::class.java]
         wishlistviewModel =
             ViewModelProvider(this, ViewModalFactory(application))[WishListViewModel::class.java]
+        icon = BitmapFactory.decodeResource(
+            resources,
+            R.mipmap.ic_success_logo
+        )
         initialise()
         setObserver()
     }
 
+
     override fun onResume() {
         super.onResume()
-        viewModel.postProducatDetails(PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
+        viewModel.postProducatDetails(
+            PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
             product_details_id,
             product_id,
             product_sizeId,
             product_colorId,
-            PrefManager.read(PrefManager.USER_ID,"").toString()) //api call
+            PrefManager.read(PrefManager.USER_ID, "").toString()
+        ) //api call
     }
 
     @SuppressLint("SetTextI18n")
@@ -93,9 +118,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
             product_details_id = PrefManager.read(PrefManager.PRODUCATDETAILSID1, "")
             product_sizeId = PrefManager.read(PrefManager.PRODUCTSIZEID1, "")
             product_colorId = PrefManager.read(PrefManager.PRODUCTCOLORID1, "")
-        }
-        else
-        {
+        } else {
             if (intent.extras != null) {
                 product_name = intent.getStringExtra(Constants.PRODUCATNAME).toString()
                 product_id = intent.getStringExtra(Constants.IDPRODUCT)!!
@@ -103,9 +126,9 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                 product_sizeId = intent.getStringExtra(Constants.PRODUCTSIZEID)!!
                 product_colorId = intent.getStringExtra(Constants.PRODUCTCOLORID)!!
                 binding.infoTool.tvTitle.text =
-                    product_name.substring(0, 1).toUpperCase() +
+                    product_name.substring(0, 1).uppercase() +
                             intent.getStringExtra(Constants.PRODUCATNAME)?.substring(1)
-                                ?.toLowerCase()
+                                ?.lowercase()
             }
         }
         viewModel.postProducatDetails(
@@ -145,6 +168,8 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                 Log.e("TAG", ">>>>> exception ::${it.message}")
             }
         }
+
+
     }
 
     private fun shareLink(link: String) {
@@ -164,8 +189,12 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
             }
         }
         val gridLayoutManager = GridLayoutManager(this, 9)
-        binding.rvColorrecyclarview.layoutManager= gridLayoutManager
-        binding.rvColorrecyclarview.adapter = ProductDetailsColorAdapter(this@ProductDetailsActivity,colors,this@ProductDetailsActivity)
+        binding.rvColorrecyclarview.layoutManager = gridLayoutManager
+        binding.rvColorrecyclarview.adapter = ProductDetailsColorAdapter(
+            this@ProductDetailsActivity,
+            colors,
+            this@ProductDetailsActivity
+        )
     }
 
     private fun setrecyclaryoumayalsolike(productDetailList: List<ProducatDetailsResponse.ProductDetailList>) {
@@ -186,28 +215,43 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
             R.id.btn_costomizeit -> {
                 val intent = Intent(this, CustomizeActivity::class.java)
                     .putExtra("image", productDetails?.images?.get(0)?.image.toString())
-                startActivity(intent)
-                binding.tvAddtobag.setOnClickListener(this)
-                binding.infoTool.ivBagBtn.setOnClickListener(this)
-                binding.infoTool.ivDrawerBack.setOnClickListener(this)
+                    .putExtra("modal", productDetails)
+                startActivityForResult(intent,101)
+//                binding.tvAddtobag.setOnClickListener(this)
+//                binding.infoTool.ivBagBtn.setOnClickListener(this)
+//                binding.infoTool.ivDrawerBack.setOnClickListener(this)
             }
             R.id.tv_addtobag -> {
-                if(PrefManager.read(PrefManager.AUTH_TOKEN,"") == "")
-                {
-                   /* lifecycleScope.launch(Dispatchers.IO) {
-                        MyDatabase.getInstance(this@ProductDetailsActivity).getProductDao()
-                            .insertCartProduct(CartProduct(productDetails.en_name, productDetails.id.toString(), productDetails.images[0].image.toString(), "1"))
 
+                if (PrefManager.read(PrefManager.AUTH_TOKEN, "") == "") {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        quantity += 1
                         MyDatabase.getInstance(this@ProductDetailsActivity).getProductDao()
-                            .insertCartProduct(CartProduct(productDetails.en_name, productDetails.id.toString(), productDetails.images[0].image.toString(), "1"))
+                            .insertCartProduct(
+                                CartProduct(
+                                    en_name = productDetails.en_name,
+                                    id = productDetails.id,
+                                    product_details_id = productDetails.product_detail_id,
+                                    product_size_id = product_sizeId.toInt(),
+                                    product_colorId = product_colorId.toInt(),
+                                    image = productDetails.images[0].image,
+                                    sale_price = productDetails.sale_price,
+                                    cost_price = productDetails.cost_price,
+                                    tax = productDetails.tax,
+                                    shopping_qnty = quantity.toString(),
+                                    bitmap = icon
+                                )
+                            )
+                    }
+                    if (quantity == 0) {
+                        addToBagButtonVisible()
+                    } else {
+                        addToBagButtonInVisible()
+                    }
+                } else {
+                    quantity += 1
+                    addToBagApi()
 
-                        val intent = Intent(this@ProductDetailsActivity, ShoppingBagActivity::class.java)
-                        startActivity(intent)
-                    }*/
-                }
-                else
-                {
-                   addToBagApi()
                 }
             }
             R.id.ivBagBtn -> {
@@ -227,7 +271,8 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                         1,
                         product_details_id.toInt(),
                         product_sizeId,
-                        product_colorId)
+                        product_colorId
+                    )
                     fav_status = "1"
                 } else {
                     wishlistviewModel.addremoveWishlist(
@@ -243,48 +288,137 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
 
 
             R.id.tv_readmore -> {
-                if(binding.tvReadmore.text.equals(getString(R.string.str_hideless)))
-                {
-                    binding.tvProductDetailsDescr.ellipsize =TextUtils.TruncateAt.END
+                if (binding.tvReadmore.text.equals(getString(R.string.str_hideless))) {
+                    binding.tvProductDetailsDescr.ellipsize = TextUtils.TruncateAt.END
                     binding.tvProductDetailsDescr.maxLines = 2
-                    binding.tvReadmore.text=getString(R.string.read_more_withforword)
-                }
-                else
-                {
+                    binding.tvReadmore.text = getString(R.string.read_more_withforword)
+                } else {
                     binding.tvProductDetailsDescr.ellipsize = null
                     binding.tvProductDetailsDescr.isElegantTextHeight = true
                     binding.tvProductDetailsDescr.inputType = InputType.TYPE_TEXT_FLAG_MULTI_LINE;
                     binding.tvProductDetailsDescr.isSingleLine = false
-                    binding.tvReadmore.text=getString(R.string.str_hideless)
+                    binding.tvReadmore.text = getString(R.string.str_hideless)
                 }
             }
-            R.id.iv_plus->
-            {
-                quantity += 1
-                viewModel.postAddProduct(product_id,product_details_id,product_sizeId,product_colorId,quantity,sale_price)
+            R.id.iv_plus -> {
+                if (PrefManager.read(PrefManager.AUTH_TOKEN, "") == "") {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        quantity += 1
+                        MyDatabase.getInstance(this@ProductDetailsActivity).getProductDao()
+                            .insertCartProduct(
+                                CartProduct(
+                                    en_name = productDetails.en_name,
+                                    id = productDetails.id,
+                                    product_details_id = productDetails.product_detail_id,
+                                    product_size_id = product_sizeId.toInt(),
+                                    product_colorId = product_colorId.toInt(),
+                                    image = productDetails.images[0].image,
+                                    sale_price = productDetails.sale_price,
+                                    cost_price = productDetails.cost_price,
+                                    tax = productDetails.tax,
+                                    shopping_qnty = quantity.toString(),
+                                    bitmap = icon
+                                )
+                            )
+
+                    }
+                    if (quantity == 0) {
+                        addToBagButtonVisible()
+                    } else {
+                        addToBagButtonInVisible()
+                    }
+
+                } else {
+                    quantity += 1
+                    addToBagApi()
+                }
             }
 
-            R.id.iv_minus->
-            {
-                if(quantity>=2)
-                {
-                    quantity -= 1
-                    viewModel.postAddProduct(product_id,product_details_id,product_sizeId,product_colorId,quantity,sale_price)
-                }
-                else if(quantity==1)
-                {
-                    quantity-=1
-                    viewModel.postAddProduct(product_id,product_details_id,product_sizeId,product_colorId,quantity,sale_price)
+            R.id.iv_minus -> {
+                if (PrefManager.read(PrefManager.AUTH_TOKEN, "") == "") {
+                    lifecycleScope.launch(Dispatchers.IO) {
+
+                        if (quantity == 1) {
+                            quantity -= 1
+                            val product =
+                                MyDatabase.getInstance(this@ProductDetailsActivity).getProductDao()
+                                    .getCartProduct(productDetails?.product_id?.toString())
+                            if (product != null)
+                                MyDatabase.getInstance(this@ProductDetailsActivity).getProductDao()
+                                    .deleteCartProduct(product)
+                        } else {
+                            quantity -= 1
+                            MyDatabase.getInstance(this@ProductDetailsActivity).getProductDao()
+                                .insertCartProduct(
+                                    CartProduct(
+                                        en_name = productDetails.en_name,
+                                        id = productDetails.id,
+                                        product_details_id = productDetails.product_detail_id,
+                                        product_size_id = product_sizeId.toInt(),
+                                        product_colorId = product_colorId.toInt(),
+                                        image = productDetails.images[0].image,
+                                        sale_price = productDetails.sale_price,
+                                        cost_price = productDetails.cost_price,
+                                        tax = productDetails.tax,
+                                        shopping_qnty = quantity.toString(),
+                                        bitmap = icon
+                                    )
+                                )
+                        }
+
+
+                    }
+                    if (quantity == 0) {
+                        addToBagButtonVisible()
+                    } else {
+                        addToBagButtonInVisible()
+                    }
+
+                } else {
+                    if (quantity >= 2) {
+                        quantity -= 1
+                        addToBagApi()
+                    } else if (quantity == 1) {
+                        quantity -= 1
+                        addToBagApi()
+                    }
                 }
             }
         }
     }
 
-    private fun addToBagApi()
-    {
-        quantity += 1
-        viewModel.postAddProduct(product_id,product_details_id,
-            product_sizeId,product_colorId,quantity,sale_price)
+    private fun addToBagApi() {
+        val builder = MultipartBody.Builder()
+        builder.setType(MultipartBody.FORM)
+        if(imageFile != null)
+        {
+            builder.addFormDataPart(
+                "image",
+                imageFile?.name,
+                imageFile!!.asRequestBody("image/*".toMediaTypeOrNull())
+            )
+            builder.addFormDataPart("is_customizable", "1")
+        }
+        else
+        {
+//            builder.addFormDataPart(
+//                "image",
+//                imageFile?.name,
+//                "".toRequestBody("image/*".toMediaTypeOrNull()))
+            builder.addFormDataPart("is_customizable", "0")
+        }
+        builder.addFormDataPart("product_id", product_id)
+        builder.addFormDataPart("product_detail_id", product_details_id)
+        builder.addFormDataPart("product_size_id",product_sizeId)
+        builder.addFormDataPart("product_color_id",product_colorId)
+        builder.addFormDataPart("quantity",  quantity.toString())
+        builder.addFormDataPart("price",  sale_price)
+        val body = builder.build()
+//        viewModel.postAddProduct(
+//            product_id, product_details_id,
+//            product_sizeId, product_colorId, quantity, sale_price
+//        )
+        viewModel.postAddProduct(body)
     }
 
     override fun onBackPressed() {
@@ -292,8 +426,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
     }
 
     @SuppressLint("SetTextI18n")
-    private fun setObserver()
-    {
+    private fun setObserver() {
         viewModel.product.observe(this) { response ->
             when (response) {
                 is Resource.Success -> {
@@ -317,7 +450,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                     ).show()
                 }
                 else -> {
-                   ProgressDialog.hideProgressBar()
+                    ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         applicationContext,
                         response.message,
@@ -330,25 +463,22 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
         wishlistviewModel.addremovewishlist.observe(this) { response ->
             when (response) {
                 is Resource.Success -> {
-                      //ProgressDialog.hideProgressBar()
+                    //ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         this,
                         response.message,
                         Toast.LENGTH_SHORT
                     ).show()
-                    if(fav_status=="0")
-                    {
-                        binding.imgEmptyHeart.visibility=View.VISIBLE
-                        binding.imgFillHeart.visibility=View.GONE
-                    }
-                    else
-                    {
-                        binding.imgEmptyHeart.visibility=View.GONE
-                        binding.imgFillHeart.visibility=View.VISIBLE
+                    if (fav_status == "0") {
+                        binding.imgEmptyHeart.visibility = View.VISIBLE
+                        binding.imgFillHeart.visibility = View.GONE
+                    } else {
+                        binding.imgEmptyHeart.visibility = View.GONE
+                        binding.imgFillHeart.visibility = View.VISIBLE
                     }
                 }
                 is Resource.Loading -> {
-                   //   ProgressDialog.showProgressBar(requireContext())
+                    //   ProgressDialog.showProgressBar(requireContext())
                 }
                 is Resource.Error -> {
                     //  ProgressDialog.hideProgressBar()
@@ -359,7 +489,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                     ).show()
                 }
                 else -> {
-                   //   ProgressDialog.hideProgressBar()
+                    //   ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         this,
                         response.message,
@@ -372,24 +502,21 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
         viewModel.addbag.observe(this) { response ->
             when (response) {
                 is Resource.Success -> {
-                   ProgressDialog.hideProgressBar()
+                    ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         this,
                         response.message,
                         Toast.LENGTH_SHORT
                     ).show()
-                    if(quantity==0)
-                    {
+                    if (quantity == 0) {
                         addToBagButtonVisible()
-                    }
-                    else
-                    {
+                    } else {
                         addToBagButtonInVisible()
                     }
 
                 }
                 is Resource.Loading -> {
-                       ProgressDialog.showProgressBar(this)
+                    ProgressDialog.showProgressBar(this)
                 }
                 is Resource.Error -> {
                     ProgressDialog.hideProgressBar()
@@ -420,111 +547,108 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
         product_id = productid.toString()
         product_details_id = productdetail_id.toString()
         product_sizeId = productsizeId
-        product_colorId =  productcolorId
+        product_colorId = productcolorId
     }
 
-    private fun checkReadMore(productDesc: String)
-    {
-        binding.tvProductDetailsDescr.text=productDesc
+    private fun checkReadMore(productDesc: String) {
+        binding.tvProductDetailsDescr.text = productDesc
         l = binding.tvProductDetailsDescr.layout
-        l?.let{
+        l?.let {
             val lines: Int = it.lineCount
             if (lines > 0)
-                if (it.getEllipsisCount(lines - 1) > 0)
-                {
-                    binding.tvReadmore.visibility=View.VISIBLE
-                }
-                else
-                {
-                    binding.tvReadmore.visibility=View.GONE
+                if (it.getEllipsisCount(lines - 1) > 0) {
+                    binding.tvReadmore.visibility = View.VISIBLE
+                } else {
+                    binding.tvReadmore.visibility = View.GONE
                 }
         }
     }
 
     @SuppressLint("SetTextI18n")
-    private fun setData(data: ProducatDetailsResponse.ProductDetails)
-    {
-        productDetails=data
-        sale_price=data.sale_price
+    private fun setData(data: ProducatDetailsResponse.ProductDetails) {
+        productDetails = data
+        lifecycleScope.launch(Dispatchers.IO) {
+            val product = MyDatabase.getInstance(this@ProductDetailsActivity).getProductDao()
+                .getCartProduct(productDetails.product_id.toString())
+            if (product != null) {
+                if (product.shopping_qnty !="")
+                quantity = product.shopping_qnty.toInt()
+                lifecycleScope.launch(Dispatchers.Main) {
+                    if (quantity == 0) {
+                        addToBagButtonVisible()
+                    } else {
+                        addToBagButtonInVisible()
+                    }
+                }
+            }
+        }
+
+        sale_price = data.sale_price
         fav_status = data.fav_status.toString()
         quantity = data.cart_quantity!!
 
-        if(data.fav_status==0)
-        {
-            binding.imgEmptyHeart.visibility=View.VISIBLE
-            binding.imgFillHeart.visibility=View.GONE
-            fav_status="0"
+        if (data.fav_status == 0) {
+            binding.imgEmptyHeart.visibility = View.VISIBLE
+            binding.imgFillHeart.visibility = View.GONE
+            fav_status = "0"
+        } else {
+            binding.imgEmptyHeart.visibility = View.GONE
+            binding.imgFillHeart.visibility = View.VISIBLE
+            fav_status = "1"
         }
-        else
-        {
-            binding.imgEmptyHeart.visibility=View.GONE
-            binding.imgFillHeart.visibility=View.VISIBLE
-            fav_status="1"
-        }
-        binding.tvProductTitle.text=data.product_name
+        binding.tvProductTitle.text = data.product_name
 
-        if(data.cost_price.toDouble()>data.sale_price.toDouble())
-        {
-            binding.tvProductCostPrice.visibility=View.VISIBLE
-            binding.tvProductPrice.text=getString(R.string.dollor)+data.sale_price
-            binding.tvProductCostPrice.text=getString(R.string.dollor)+data.cost_price
-            binding.tvProductCostPrice.paintFlags =  binding.tvProductCostPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+        if (data.cost_price.toDouble() > data.sale_price.toDouble()) {
+            binding.tvProductCostPrice.visibility = View.VISIBLE
+            binding.tvProductPrice.text = getString(R.string.dollor) + data.sale_price
+            binding.tvProductCostPrice.text = getString(R.string.dollor) + data.cost_price
+            binding.tvProductCostPrice.paintFlags =
+                binding.tvProductCostPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+        } else {
+            binding.tvProductCostPrice.visibility = View.GONE
+            binding.tvProductPrice.text = getString(R.string.dollor) + data.sale_price
         }
-        else
-        {
-            binding.tvProductCostPrice.visibility=View.GONE
-            binding.tvProductPrice.text=getString(R.string.dollor)+data.sale_price
-        }
-        if(data.is_customizable==0)
-        {
-           binding.btnCostomizeit.visibility=View.GONE
-        }
-        else
-        {
-            binding.btnCostomizeit.visibility=View.VISIBLE
+        if (data.is_customizable == 0) {
+            binding.btnCostomizeit.visibility = View.GONE
+        } else {
+            binding.btnCostomizeit.visibility = View.VISIBLE
         }
 
-        if(data.delivery_time.isNullOrEmpty())
-        {
-            binding.tvOrdernow.visibility=View.GONE
-            binding.tvOrdernowdate.visibility=View.GONE
-        }
-        else
-        {
-            binding.tvOrdernow.visibility=View.VISIBLE
-            binding.tvOrdernowdate.visibility=View.VISIBLE
-            binding.tvOrdernowdate.text=getString(R.string.andgetitby)+" "+data.delivery_time
+        if (data.delivery_time.isNullOrEmpty()) {
+            binding.tvOrdernow.visibility = View.GONE
+            binding.tvOrdernowdate.visibility = View.GONE
+        } else {
+            binding.tvOrdernow.visibility = View.VISIBLE
+            binding.tvOrdernowdate.visibility = View.VISIBLE
+            binding.tvOrdernowdate.text = getString(R.string.andgetitby) + " " + data.delivery_time
         }
         quantity = data.cart_quantity!!                   //for quantity
-        if(quantity<=0)
-        {
-           addToBagButtonVisible()
-        }
-        else
-        {
-           addToBagButtonInVisible()
+        if (quantity <= 0) {
+            addToBagButtonVisible()
+        } else {
+            addToBagButtonInVisible()
         }
 
         binding.infoTool.tvTitle.text =
             data.product_name?.substring(0, 1)?.toUpperCase() +
                     data.product_name.substring(1)
                         ?.toLowerCase()
-        binding.infoTool.tvTitle.text=data.product_name?.substring(0, 1)?.toUpperCase() +
-               data.product_name.substring(1)?.toLowerCase()
-        binding.nestedScrool.scrollTo(0,0)
+        binding.infoTool.tvTitle.text = data.product_name?.substring(0, 1)?.toUpperCase() +
+                data.product_name.substring(1)?.toLowerCase()
+        binding.nestedScrool.scrollTo(0, 0)
         binding.imageSliderr.requestFocus()
     }
 
     private fun addToBagButtonInVisible() {
-        binding.tvAddtobag.visibility=View.GONE
-        binding.relativeAddMinus.visibility=View.VISIBLE
-        binding.tvCount.text=quantity.toString()
+        binding.tvAddtobag.visibility = View.GONE
+        binding.relativeAddMinus.visibility = View.VISIBLE
+        binding.tvCount.text = quantity.toString()
 
     }
 
     private fun addToBagButtonVisible() {
-        binding.tvAddtobag.visibility=View.VISIBLE
-        binding.relativeAddMinus.visibility=View.GONE
+        binding.tvAddtobag.visibility = View.VISIBLE
+        binding.relativeAddMinus.visibility = View.GONE
     }
 
     private fun setImageInSlider(images: List<HomeResponse.Home.Banner>) {
@@ -535,16 +659,30 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
         binding.imageSliderr.startAutoCycle()
     }
 
-    override fun click(color_id: String)
-    {
-       // Utils.showLongToast(this,color_id)
+    override fun click(color_id: String) {
+        // Utils.showLongToast(this,color_id)
     }
 
-    override fun onProductClick(product_detail_id: Int, product_id: Int,product_sizeId:String,product_colorId:String) {
-        resetAllValues(product_detail_id,product_id,product_sizeId,product_colorId)
-        viewModel.postProducatDetails(PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
-            product_detail_id.toString(),product_id.toString(),product_sizeId,product_colorId,
-        PrefManager.read(PrefManager.USER_ID,"")) //api call
-        binding.nestedScrool.scrollTo(0,  binding.nestedScrool.top)
+    override fun onProductClick(
+        product_detail_id: Int,
+        product_id: Int,
+        product_sizeId: String,
+        product_colorId: String
+    ) {
+        resetAllValues(product_detail_id, product_id, product_sizeId, product_colorId)
+        viewModel.postProducatDetails(
+            PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
+            product_detail_id.toString(), product_id.toString(), product_sizeId, product_colorId,
+            PrefManager.read(PrefManager.USER_ID, "")
+        ) //api call
+        binding.nestedScrool.scrollTo(0, binding.nestedScrool.top)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode==101 && resultCode == Activity.RESULT_OK){
+            addToBagApi()
+        }
     }
 }

@@ -13,7 +13,7 @@ object Constants {
         const val PACKAGENAME = "com.shoparty.android"
         const val PLAYSTORE = "https://play.google.com/store/apps/details?id="
         const val DEVICE_TYPE= "ANDROID"
-        const val DEVICE_TOKEN = "Adssdnsdcnsdcknsdckjn"
+        var DEVICE_TOKEN = ""
         const val TYPE = "1"
         const val USERID= "USERID"
         const val OTP= "OTP"

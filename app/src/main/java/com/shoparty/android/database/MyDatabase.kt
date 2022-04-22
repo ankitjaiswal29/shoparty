@@ -8,6 +8,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.shoparty.android.common_modal.CartProduct
 import com.shoparty.android.common_modal.Product
 import com.shoparty.android.database.dao.ProductDao
+import com.shoparty.android.ui.productdetails.AddItemToBagRequestModel
 
 /**
  * Created by Amit Gupta on 21-03-2022.

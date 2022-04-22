@@ -13,6 +13,7 @@ import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 
 import kotlinx.coroutines.launch
+import okhttp3.RequestBody
 import retrofit2.Response
 
 class ProducatDetailsViewModel(private val app: Application) : ViewModel()
@@ -54,19 +55,14 @@ class ProducatDetailsViewModel(private val app: Application) : ViewModel()
 
 
     fun postAddProduct(
-        product_id: String,
-        product_detail_id: String,
-        product_size_id: String,
-        product_color_id:String,
-        quantity:Int,
-        price:String,
+        requestBody: RequestBody
     ) = viewModelScope.launch {
-        val request = AddItemToBagRequestModel(product_id,product_detail_id,product_size_id,
-            product_color_id,quantity,price)
+//        val request = AddItemToBagRequestModel(product_id.toInt(),product_detail_id,product_size_id,
+//            product_color_id,quantity,price)
         if(Utils.hasInternetConnection(app.applicationContext))
         {
             mAddBag.postValue(Resource.Loading())
-            val response = repository.addtobagapi(request)
+            val response = repository.addtobagapi(requestBody)
             mAddBag.postValue(handleAddToBagResponse(response!!))
         }
         else
