@@ -215,7 +215,6 @@ interface ApiService {
         @Body orderPlacedRequestModel: OrderPlacedRequestModel
     ): Response<OrderPlacedSuccessResponse>
 
-    @Multipart
     @POST("add-to-bag")
     suspend fun addtobagAsync(
         @Body requestBody: RequestBody

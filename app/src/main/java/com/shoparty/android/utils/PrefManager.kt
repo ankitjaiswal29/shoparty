@@ -16,6 +16,7 @@ object PrefManager {
     }
     const val AUTH_TOKEN: String = "authToken"
     const val USER_ID: String = "user_id"
+    const val PageBack: String = "PageBack"
     const val MOBILE: String = "MOBILE"
     const val NAME: String = "NAME"
     const val IMAGE: String = "IMAGE"

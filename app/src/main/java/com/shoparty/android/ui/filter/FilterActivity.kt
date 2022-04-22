@@ -3,7 +3,6 @@ package com.shoparty.android.ui.filter
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -12,7 +11,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
 import com.mohammedalaa.seekbar.DoubleValueSeekBarView
 import com.mohammedalaa.seekbar.OnDoubleValueSeekBarChangeListener
 import com.shoparty.android.R
@@ -26,7 +24,6 @@ import com.shoparty.android.ui.filter.color.ColorsResponse
 import com.shoparty.android.ui.filter.color.FilterColorsAdapters
 import com.shoparty.android.ui.filter.gender.FilterGenderAdapter
 import com.shoparty.android.ui.filter.size.SizeAdapters
-import com.shoparty.android.ui.main.product_list.ProductListRequestModel
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
@@ -255,7 +252,7 @@ class FilterActivity : AppCompatActivity(), View.OnClickListener, QuantityListne
             RecyclerView.VERTICAL,
             false
         )
-        adapterColor = FilterColorsAdapters(data, quantityListner = this)
+        adapterColor = FilterColorsAdapters(data, quantityListner = this,this)
         binding.rvColorRecyclarview.adapter = adapterColor
     }
 

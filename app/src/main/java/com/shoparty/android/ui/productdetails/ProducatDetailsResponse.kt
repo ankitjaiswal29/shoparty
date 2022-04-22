@@ -132,7 +132,7 @@ data class ProducatDetailsResponse(
         val season_id: String?,
         val size: String,
         val status: Int,
-        val tax: String,
+        val tax: String?="",
         val tax_type: Int,
         val theme_id: String?,
     ) : Parcelable

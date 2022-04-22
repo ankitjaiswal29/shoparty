@@ -1,6 +1,7 @@
 package com.shoparty.android.ui.myorders.myorderlist
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -10,7 +11,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityMyOrdersBinding
+import com.shoparty.android.ui.main.mainactivity.MainActivity
 import com.shoparty.android.ui.myorders.MyOrderViewModel
+import com.shoparty.android.ui.myorders.orderdetails.OrderDetailsActivity
+import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 
@@ -89,12 +93,46 @@ class MyOrdersActivity : AppCompatActivity(), View.OnClickListener{
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.iv_drawer_back -> {
-                onBackPressed()
+                if(intent.extras!=null)
+                {
+                    if(intent.getStringExtra("page_status").equals("1"))  //cancel order page
+                    {
+                        val intent = Intent(this, MainActivity::class.java)
+                        intent.putExtra("page_status","1")
+                        startActivity(intent)
+                        finish()
+                    }
+                    else
+                    {
+                        finish()
+                    }
+                }
+                else
+                {
+                    finish()
+                }
             }
         }
     }
 
     override fun onBackPressed() {
+        if(intent.extras!=null)
+        {
+            if(intent.getStringExtra("page_status").equals("1"))  //cancel order page
+            {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+            else
+            {
+                finish()
+            }
+        }
+        else
+        {
+            finish()
+        }
         super.onBackPressed()
     }
 }

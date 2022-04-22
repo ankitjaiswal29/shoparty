@@ -15,6 +15,7 @@ import com.bumptech.glide.util.Util
 
 import com.shoparty.android.R
 import com.shoparty.android.ui.myorders.orderdetails.OrderDetailsActivity
+import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.Utils
 
 
@@ -36,7 +37,6 @@ class MyOrderAdapters(var context: Context, private val mList: List<MyOrderRespo
             val intent = Intent(context, OrderDetailsActivity::class.java)
             intent.putExtra("order_id",items.order_id.toString())
             context.startActivity(intent)
-         //   Utils.showLongToast(context,context.getString(R.string.comingsoon))
         }
     }
     override fun getItemCount(): Int {

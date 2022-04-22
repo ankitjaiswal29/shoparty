@@ -13,8 +13,10 @@ import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityOrderDetailsBinding
 import com.shoparty.android.ui.myorders.MyOrderViewModel
 import com.shoparty.android.ui.myorders.cancelorder.cancelorder.CancelOrderActivity
+import com.shoparty.android.ui.myorders.myorderlist.MyOrdersActivity
 
 import com.shoparty.android.utils.Constants
+import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
@@ -48,13 +50,48 @@ class OrderDetailsActivity : AppCompatActivity(), View.OnClickListener {
                // Utils.showLongToast(this,getString(R.string.comingsoon))
             }
             R.id.iv_drawer_back -> {
-                onBackPressed()
+                if(intent.extras!=null)
+                {
+                    if(intent.getStringExtra("page_status").equals("1"))  //cancel order page
+                    {
+                        val intent = Intent(this, MyOrdersActivity::class.java)
+                        intent.putExtra("page_status","1")
+                        startActivity(intent)
+                        finish()
+                    }
+                    else
+                    {
+                        finish()
+                    }
+                }
+                else
+                {
+                    finish()
+                }
             }
         }
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
+        if(intent.extras!=null)
+        {
+            if(intent.getStringExtra("page_status").equals("1"))  //cancel order page
+            {
+                val intent = Intent(this, MyOrdersActivity::class.java)
+                intent.putExtra("page_status","1")
+                startActivity(intent)
+                finish()
+            }
+            else
+            {
+                finish()
+            }
+        }
+        else
+        {
+            finish()
+        }
     }
 
     private fun setObserver()

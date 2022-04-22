@@ -33,7 +33,9 @@ import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import java.util.regex.Matcher
 import kotlin.math.roundToLong
 
@@ -582,15 +584,25 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
        // Utils.showLongToast(this,storeSelectedId.toString())
     }
 
-    private fun addToBagApi(pos: Int) {
+    private fun addToBagApi(pos: Int)
+    {
         val builder = MultipartBody.Builder()
         builder.setType(MultipartBody.FORM)
+        if(listCartProduct[pos].is_customizable.toString() == "0")
+        {
+            builder.addFormDataPart(
+                "customized_image",listCartProduct[pos].image)
+        }
+        else
+        {
+            builder.addFormDataPart(
+                "customized_image",listCartProduct[pos].image)
+        }
         builder.addFormDataPart("is_customizable", listCartProduct[pos].is_customizable.toString())
         builder.addFormDataPart("product_id", listCartProduct[pos].product_id.toString())
         builder.addFormDataPart(
             "product_detail_id",
-            listCartProduct[pos].product_detail_id.toString()
-        )
+            listCartProduct[pos].product_detail_id.toString())
         builder.addFormDataPart("product_size_id", listCartProduct[pos].product_size_id.toString())
         builder.addFormDataPart("product_color_id", listCartProduct[pos].product_color_id.toString())
         builder.addFormDataPart("quantity", quantity.toString())

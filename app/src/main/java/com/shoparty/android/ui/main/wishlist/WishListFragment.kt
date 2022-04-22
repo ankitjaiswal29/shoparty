@@ -221,12 +221,16 @@ class WishListFragment : Fragment(), RecyclerViewFavouriteListener, WishListAddB
             position = pos
             action_type = actiontype
             quantity = listWishlistt[pos].cart_quantity!!
+
             if (action_type == Constants.CARTACTIONMINUSTYPE)   //for minus
             {
                 if (listWishlistt[pos].is_customizable == 1) {
-
-                    val intent = Intent(context, ProductDetailsActivity::class.java)
-                    intent.putExtra(Constants.IDPRODUCT, listWishlistt[pos].product_id.toString())
+                    val intent =
+                        Intent(requireContext(), ProductDetailsActivity::class.java)
+                    intent.putExtra(
+                        Constants.IDPRODUCT,
+                        listWishlistt[pos].product_id.toString()
+                    )
                     intent.putExtra(
                         Constants.PRODUCATDETAILSID,
                         listWishlistt[pos].product_detail_id.toString()
@@ -242,26 +246,55 @@ class WishListFragment : Fragment(), RecyclerViewFavouriteListener, WishListAddB
                     )
                     startActivity(intent)
                 } else {
-
                     quantity -= 1
                     if (listWishlistt[pos].cart_quantity != 0) {
                         addToBagApi(pos)
-                    } else {
-                        quantity += 1
-                        addToBagApi(pos)
                     }
                 }
-
+            } else {
+                if (listWishlistt[pos].is_customizable == 1) {
+                    val intent =
+                        Intent(requireContext(), ProductDetailsActivity::class.java)
+                    intent.putExtra(
+                        Constants.IDPRODUCT,
+                        listWishlistt[pos].product_id.toString()
+                    )
+                    intent.putExtra(
+                        Constants.PRODUCATDETAILSID,
+                        listWishlistt[pos].product_detail_id.toString()
+                    )
+                    intent.putExtra(Constants.PRODUCATNAME, listWishlistt[pos].product_name)
+                    intent.putExtra(
+                        Constants.PRODUCTSIZEID,
+                        listWishlistt[pos].product_size_id.toString()
+                    )
+                    intent.putExtra(
+                        Constants.PRODUCTCOLORID,
+                        listWishlistt[pos].product_color_id.toString()
+                    )
+                    startActivity(intent)
+                } else {
+                    quantity += 1
+                    addToBagApi(pos)
+                }
             }
         }
-
     }
 
     private fun addToBagApi(pos: Int) {
         val builder = MultipartBody.Builder()
         builder.setType(MultipartBody.FORM)
-
-        builder.addFormDataPart("is_customizable", "0")
+        if(listWishlistt[pos].is_customizable.toString() == "0")
+        {
+            builder.addFormDataPart(
+                "customized_image",listWishlistt[pos].image)
+        }
+        else
+        {
+            builder.addFormDataPart(
+                "customized_image",listWishlistt[pos].image)
+        }
+        builder.addFormDataPart("is_customizable", listWishlistt[pos].is_customizable.toString())
         builder.addFormDataPart("product_id", listWishlistt[pos].product_id.toString())
         builder.addFormDataPart(
             "product_detail_id",

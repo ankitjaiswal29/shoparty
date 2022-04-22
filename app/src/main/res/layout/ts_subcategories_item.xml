@@ -23,18 +23,19 @@
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:src="@drawable/icon_shippingbag"
-            app:layout_constraintBottom_toBottomOf="@+id/v_circleview"
+            android:layout_marginTop="@dimen/_10sdp"
             app:layout_constraintEnd_toEndOf="@+id/v_circleview"
             app:layout_constraintStart_toStartOf="@+id/v_circleview"
-            app:layout_constraintTop_toTopOf="@+id/v_circleview"
-
-            />
+            app:layout_constraintTop_toTopOf="@+id/v_circleview" />
 
          <TextView
              android:id="@+id/ts_subcategories_item_name_tv"
-             android:layout_width="wrap_content"
+             android:layout_width="@dimen/_70sdp"
              android:layout_height="wrap_content"
              android:text="@string/toys_kid"
+             android:lines="2"
+             android:gravity="center_horizontal"
+             android:ellipsize="end"
              app:layout_constraintStart_toStartOf="@id/ts_subcategories_item_img"
              app:layout_constraintEnd_toEndOf="@id/ts_subcategories_item_img"
              app:layout_constraintTop_toBottomOf="@id/ts_subcategories_item_img"

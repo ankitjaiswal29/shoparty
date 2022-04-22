@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Paint
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.text.InputType
 import android.text.Layout
 import android.text.TextUtils
@@ -46,13 +47,16 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.FileOutputStream
 
 
 class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, RecyclerViewClickListener,
     ProductDetailCallback {
 
-    private val imageFile: File?=null
+    private var pageClick:Boolean=false
+    private var imageFile: File?=null
     private var l: Layout? = null
     private lateinit var binding: ActivityProductDetailsBinding
     var product_id = ""
@@ -62,7 +66,10 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
     var fav_status = ""
     var sale_price = ""
     var product_name = ""
+    var is_customizable = ""
+    var sliderfirstimage = ""
     var quantity: Int = 0
+    var prgressshow: Boolean=false
     private lateinit var viewModel: ProducatDetailsViewModel
     private lateinit var wishlistviewModel: WishListViewModel
     private lateinit var productDetails: ProducatDetailsResponse.ProductDetails
@@ -91,12 +98,11 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
         super.onResume()
         viewModel.postProducatDetails(
             PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
-            product_details_id,
-            product_id,
-            product_sizeId,
-            product_colorId,
-            PrefManager.read(PrefManager.USER_ID, "").toString()
-        ) //api call
+                product_details_id,
+                product_id,
+                product_sizeId,
+                product_colorId,
+                PrefManager.read(PrefManager.USER_ID, "")) //api call
     }
 
     @SuppressLint("SetTextI18n")
@@ -215,7 +221,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
             R.id.btn_costomizeit -> {
                 val intent = Intent(this, CustomizeActivity::class.java)
                     .putExtra("image", productDetails?.images?.get(0)?.image.toString())
-                    .putExtra("modal", productDetails)
+                   // .putExtra("modal", productDetails)
                 startActivityForResult(intent,101)
 //                binding.tvAddtobag.setOnClickListener(this)
 //                binding.infoTool.ivBagBtn.setOnClickListener(this)
@@ -342,7 +348,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                             quantity -= 1
                             val product =
                                 MyDatabase.getInstance(this@ProductDetailsActivity).getProductDao()
-                                    .getCartProduct(productDetails?.product_id?.toString())
+                                    .getCartProduct(productDetails?.product_id?.toString()!!)
                             if (product != null)
                                 MyDatabase.getInstance(this@ProductDetailsActivity).getProductDao()
                                     .deleteCartProduct(product)
@@ -387,37 +393,31 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
         }
     }
 
-    private fun addToBagApi() {
+    private fun addToBagApi()
+    {
         val builder = MultipartBody.Builder()
         builder.setType(MultipartBody.FORM)
         if(imageFile != null)
         {
-            builder.addFormDataPart(
-                "image",
+                builder.addFormDataPart(
+                "customized_image",
                 imageFile?.name,
-                imageFile!!.asRequestBody("image/*".toMediaTypeOrNull())
-            )
-            builder.addFormDataPart("is_customizable", "1")
+                imageFile!!.asRequestBody("image/*".toMediaTypeOrNull()))
+
         }
         else
         {
-//            builder.addFormDataPart(
-//                "image",
-//                imageFile?.name,
-//                "".toRequestBody("image/*".toMediaTypeOrNull()))
-            builder.addFormDataPart("is_customizable", "0")
+            builder.addFormDataPart(
+                "customized_image",sliderfirstimage)
         }
+        builder.addFormDataPart("is_customizable", is_customizable)
         builder.addFormDataPart("product_id", product_id)
         builder.addFormDataPart("product_detail_id", product_details_id)
         builder.addFormDataPart("product_size_id",product_sizeId)
         builder.addFormDataPart("product_color_id",product_colorId)
-        builder.addFormDataPart("quantity",  quantity.toString())
+        builder.addFormDataPart("quantity",quantity.toString())
         builder.addFormDataPart("price",  sale_price)
         val body = builder.build()
-//        viewModel.postAddProduct(
-//            product_id, product_details_id,
-//            product_sizeId, product_colorId, quantity, sale_price
-//        )
         viewModel.postAddProduct(body)
     }
 
@@ -432,6 +432,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
                     setImageInSlider(response.data?.product_details?.images!!)
+                    sliderfirstimage=response.data?.product_details.images[0].image
                     response.data.product_details.let { setData(it) }     //for data set
                     setrecyclaryoumayalsolike(response.data.you_may_also_like)
                     recyclarcustomeralsobought(response.data.also_bought)
@@ -463,7 +464,6 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
         wishlistviewModel.addremovewishlist.observe(this) { response ->
             when (response) {
                 is Resource.Success -> {
-                    //ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         this,
                         response.message,
@@ -478,10 +478,10 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                     }
                 }
                 is Resource.Loading -> {
-                    //   ProgressDialog.showProgressBar(requireContext())
+                //    ProgressDialog.showProgressBar(this)
                 }
                 is Resource.Error -> {
-                    //  ProgressDialog.hideProgressBar()
+                    //ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         this,
                         response.message,
@@ -489,7 +489,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                     ).show()
                 }
                 else -> {
-                    //   ProgressDialog.hideProgressBar()
+                    //ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         this,
                         response.message,
@@ -508,9 +508,24 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                         response.message,
                         Toast.LENGTH_SHORT
                     ).show()
-                    if (quantity == 0) {
+                    if(pageClick)
+                    {
+                        viewModel.postProducatDetails(
+                            PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
+                            product_details_id,
+                            product_id,
+                            product_sizeId,
+                            product_colorId,
+                            PrefManager.read(PrefManager.USER_ID, "").toString()
+                        ) //api call
+                        pageClick=false
+                    }
+                    if(quantity == 0)
+                    {
                         addToBagButtonVisible()
-                    } else {
+                    }
+                    else
+                    {
                         addToBagButtonInVisible()
                     }
 
@@ -586,6 +601,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
         sale_price = data.sale_price
         fav_status = data.fav_status.toString()
         quantity = data.cart_quantity!!
+        is_customizable=data.is_customizable.toString()
 
         if (data.fav_status == 0) {
             binding.imgEmptyHeart.visibility = View.VISIBLE
@@ -613,7 +629,6 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
         } else {
             binding.btnCostomizeit.visibility = View.VISIBLE
         }
-
         if (data.delivery_time.isNullOrEmpty()) {
             binding.tvOrdernow.visibility = View.GONE
             binding.tvOrdernowdate.visibility = View.GONE
@@ -680,9 +695,12 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         if (requestCode==101 && resultCode == Activity.RESULT_OK){
+            imageFile= data?.getSerializableExtra("file") as File?
+            quantity+=1
+            pageClick=true
             addToBagApi()
         }
     }
+
 }

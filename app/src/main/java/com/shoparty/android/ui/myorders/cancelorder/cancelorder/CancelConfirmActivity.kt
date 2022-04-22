@@ -9,6 +9,7 @@ import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityCancelConfirmBinding
 import com.shoparty.android.ui.myorders.orderdetails.OrderDetailsActivity
 import com.shoparty.android.ui.myorders.orderdetails.OrderDetailsAdapter
+import com.shoparty.android.utils.PrefManager
 
 
 class CancelConfirmActivity : AppCompatActivity(), View.OnClickListener  {
@@ -32,6 +33,7 @@ class CancelConfirmActivity : AppCompatActivity(), View.OnClickListener  {
             R.id.btnDone -> {
                 val intent = Intent(this, OrderDetailsActivity::class.java)
                 intent.putExtra("order_id",order_id)
+                intent.putExtra("page_status","1")
                 startActivity(intent)
                 finish()
             }

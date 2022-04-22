@@ -1,6 +1,7 @@
 package com.shoparty.android.ui.customize
 
 import android.Manifest
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.DialogInterface
@@ -13,6 +14,7 @@ import android.graphics.fonts.SystemFonts
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
@@ -53,7 +55,9 @@ import com.shoparty.android.utils.ImagePickerActivity
 import com.shoparty.android.utils.Utils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
 
 
@@ -82,7 +86,8 @@ class CustomizeActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initialise() {
-        binding.infoTool.tvTitle.setText(getString(R.string.customize_it))
+        binding.infoTool.tvTitle.text = getString(R.string.customize_it)
+
         val image = intent.getStringExtra("image")
         val modal = intent.getParcelableExtra<ProducatDetailsResponse.ProductDetails>("modal")
         // val data = intent.getParcelableExtra<ProducatDetailsResponse.ProductDetails>("productDetails")
@@ -135,7 +140,6 @@ class CustomizeActivity : AppCompatActivity(), View.OnClickListener {
         binding.infoTool.ivBagBtn.visibility = View.VISIBLE
 
         binding.infoTool.ivBagBtn.setOnClickListener(this)
-        binding.customizeApproveBtn.setOnClickListener(this)
 
         binding.infoTool.ivDrawerBack.setOnClickListener {
             onBackPressed()
@@ -152,7 +156,14 @@ class CustomizeActivity : AppCompatActivity(), View.OnClickListener {
         binding.llColor.setOnClickListener {
             showAvailableColors()
         }
-
+        binding.customizeApproveBtn.setOnClickListener {
+                val bitmap=Utils.screenShot(binding.clView)
+                val file= bitmapToFile(bitmap!!,"cdc")
+                val intent = Intent()
+                setResult(Activity.RESULT_OK,
+                intent.putExtra("file",file))
+                finish()
+        }
         binding.llText.setOnClickListener {
             binding.etName.requestFocus()
             Utils.showKeyboard(this@CustomizeActivity, binding.root)
@@ -254,14 +265,34 @@ class CustomizeActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.customize_approve_btn -> {
-                val intent = Intent(this, ProductDetailsActivity::class.java)
-                startActivity(intent)
-            }
             R.id.ivBagBtn -> {
                 val intent = Intent(this, ShoppingBagActivity::class.java)
                 startActivity(intent)
             }
+        }
+    }
+
+    fun bitmapToFile(bitmap: Bitmap, fileNameToSave: String): File? { // File name like "image.png"
+        //create a file to write bitmap data
+        var file: File? = null
+        return try {
+            file = File(Environment.getExternalStorageDirectory().toString() + File.separator + fileNameToSave)
+            file.createNewFile()
+
+            //Convert bitmap to byte array
+            val bos = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.PNG, 0, bos) // YOU can also save it in JPEG
+            val bitmapdata = bos.toByteArray()
+
+            //write the bytes in file
+            val fos = FileOutputStream(file)
+            fos.write(bitmapdata)
+            fos.flush()
+            fos.close()
+            file
+        } catch (e: Exception) {
+            e.printStackTrace()
+            file // it will return null
         }
     }
 
