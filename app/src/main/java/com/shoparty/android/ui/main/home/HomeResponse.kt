@@ -75,7 +75,7 @@ data class HomeResponse(
             val color_name: String,
             val cost_price: String,
             val delivery_time: String,
-            val discount: Int,
+            val discount: String?,
             val en_description: String,
             val en_name: String,
             val fav_status: Int,
@@ -101,7 +101,7 @@ data class HomeResponse(
             val store_id: String,
             val tax: String,
             val tax_type: Int,
-            val theme_id: String
+            val theme_id: String?
         ):Parcelable
     }
 
@@ -115,7 +115,7 @@ data class HomeResponse(
         val color_id: String,
         val color_name: String,
         val cost_price: String,
-        val discount: Int,
+        val discount: String?,
         val en_description: String,
         val en_name: String,
         val fav_status: Int,

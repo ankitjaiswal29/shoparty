@@ -347,7 +347,7 @@ class HomeFragment : Fragment(), View.OnClickListener, RecyclerViewFavouriteList
 
     private fun setNewArrival() {
         adapterArrival = NewArrivalsHomeAdapter(listArrival, requireContext())
-        val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
+        val gridLayoutManager = GridLayoutManager(requireActivity(),2, GridLayoutManager.HORIZONTAL, false)
         binding.homeNewArrivalsRecycler.apply {
             layoutManager = gridLayoutManager
             setHasFixedSize(true)
@@ -359,7 +359,7 @@ class HomeFragment : Fragment(), View.OnClickListener, RecyclerViewFavouriteList
 
     private fun setBrands() {
         adapterBrands = BrandsAdapter(listBrand, requireContext())
-        val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
+        val gridLayoutManager = GridLayoutManager(requireActivity(),2, GridLayoutManager.HORIZONTAL, false)
         binding.rvBrands.apply {
             layoutManager = gridLayoutManager
             setHasFixedSize(true)
@@ -369,7 +369,7 @@ class HomeFragment : Fragment(), View.OnClickListener, RecyclerViewFavouriteList
     }
 
     private fun OfferDiscoutItem(offersAndDiscountedItems: List<HomeResponse.OffersAndDiscountedItem>?) {
-        val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
+        val gridLayoutManager = GridLayoutManager(requireActivity(),2, GridLayoutManager.HORIZONTAL, false)
         binding.homeOffersRecycler.apply {
             layoutManager = gridLayoutManager
             setHasFixedSize(true)
@@ -379,7 +379,7 @@ class HomeFragment : Fragment(), View.OnClickListener, RecyclerViewFavouriteList
     }
 
     private fun TopsellingSubcategories(topSubCategory: List<HomeResponse.TopSubCategory>?) {
-        val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
+        val gridLayoutManager = GridLayoutManager(requireActivity(),2, GridLayoutManager.HORIZONTAL, false)
         binding.tsSubcategoriesRecycler.apply {
             layoutManager = gridLayoutManager
             setHasFixedSize(true)

@@ -10,7 +10,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:background="@color/white"
         android:orientation="vertical"
         tools:context=".ui.fragment.HomeFragment">
@@ -73,7 +72,7 @@
                         android:id="@+id/top_selling_htv"
                         style="@style/AppTheme.Text_14dp_Bold"
                         android:layout_marginTop="@dimen/_16sdp"
-                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/top_20_selling_items"
@@ -96,8 +95,8 @@
                         android:id="@+id/topSellingRecycler"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:paddingStart="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:paddingStart="@dimen/_10sdp"
                         android:paddingEnd="0dp"
                         android:orientation="horizontal"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -113,19 +112,17 @@
                     android:id="@+id/rvBanner2"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_100sdp"
-                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-
                     app:layout_constraintTop_toBottomOf="@+id/constraint1" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraint2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="@dimen/_15sdp"
                     android:background="@color/white"
-                    android:padding="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rvBanner2">
@@ -135,6 +132,7 @@
                         style="@style/AppTheme.Text_14dp_Bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
                         android:text="@string/categories"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -143,8 +141,8 @@
                         android:id="@+id/rvCategories"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/_10sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/home_categories_htv" />
@@ -154,6 +152,7 @@
                         style="@style/AppTheme.Text_12dp_Bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_12sdp"
                         android:text="@string/view_all"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -164,9 +163,9 @@
                     android:id="@+id/constraint3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="@dimen/_15sdp"
                     android:background="@color/white"
-                    android:padding="20dp"
+                    android:layout_marginStart="@dimen/_10sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraint2">
@@ -199,9 +198,8 @@
                     android:id="@+id/constraint4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="@dimen/_15sdp"
                     android:background="@color/white"
-                    android:padding="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraint3">
@@ -211,6 +209,7 @@
                         style="@style/AppTheme.Text_14dp_Bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
                         android:text="@string/themes"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -219,7 +218,7 @@
                         android:id="@+id/rvThemes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/home_themes_htv" />
@@ -231,7 +230,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="@dimen/_15sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraint4">
@@ -241,7 +240,7 @@
                         style="@style/AppTheme.Text_14dp_Bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
                         android:text="@string/upcoming_season"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -262,9 +261,8 @@
                     android:id="@+id/constraint6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="@dimen/_15sdp"
                     android:background="@color/white"
-                    android:padding="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraint5">
@@ -275,6 +273,7 @@
                         style="@style/AppTheme.Text_14dp_Bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
                         android:text="@string/new_arrivals"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -283,7 +282,7 @@
                         android:id="@+id/home_new_arrivals_recycler"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/home_new_arrivals_htv" />
@@ -296,9 +295,8 @@
                     android:id="@+id/constraint7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="@dimen/_15sdp"
                     android:background="@color/white"
-                    android:padding="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraint6">
@@ -309,6 +307,7 @@
                         style="@style/AppTheme.Text_14dp_Bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
                         android:text="@string/top_selling_sub_categories"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -319,7 +318,7 @@
                         android:id="@+id/ts_subcategories_recycler"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/ts_subcategories_htv" />
@@ -332,9 +331,8 @@
                     android:id="@+id/constraint8"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="@dimen/_15sdp"
                     android:background="@color/white"
-                    android:padding="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraint7">
@@ -345,6 +343,7 @@
                         style="@style/AppTheme.Text_14dp_Bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10sdp"
                         android:text="@string/offers_discounted_items"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -353,9 +352,7 @@
                         android:id="@+id/home_offers_recycler"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="@dimen/_10sdp"
                         app:layout_constraintTop_toBottomOf="@+id/home_offers_htv" />
 
 
@@ -366,9 +363,8 @@
                     android:id="@+id/constraint9"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="@dimen/_15sdp"
                     android:background="@color/white"
-                    android:padding="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraint8">
@@ -379,6 +375,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/brands"
+                        android:layout_marginLeft="@dimen/_10sdp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -386,7 +383,7 @@
                         android:id="@+id/rvBrands"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/home_bonds_htv" />
@@ -399,9 +396,9 @@
                     android:id="@+id/constraint10"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:padding="@dimen/_10sdp"
                     android:background="@color/white"
-                    android:padding="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraint9">

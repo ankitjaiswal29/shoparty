@@ -2,16 +2,16 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
 
-    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/newarrivel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="1dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_16sdp"
+        android:padding="@dimen/_2sdp"
         android:background="@drawable/home_top_selling_items_bg">
 
         <ImageView

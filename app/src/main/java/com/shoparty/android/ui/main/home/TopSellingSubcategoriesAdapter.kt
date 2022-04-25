@@ -2,6 +2,7 @@ package com.shoparty.android.ui.main.home
 
 import android.content.Context
 import android.content.Intent
+import android.util.DisplayMetrics
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -28,9 +29,15 @@ class TopSellingSubcategoriesAdapter(var context:Context,private val itemList: L
     override fun onBindViewHolder(holder: TopSellingSubcategoriesViewHolder, position: Int) {
         val items = itemList[position]
 
+
+        val metrics: DisplayMetrics = context.resources.displayMetrics
+        val deviceTotalWidth = metrics.widthPixels
+
         holder.itemView.apply {
             ts_subcategories_item_name_tv.text = items.category_name
             Glide.with(context).asBitmap().load(items.category_image).into(ts_subcategories_item_img)
+            clCategoryItemRoot?.minimumWidth  = (deviceTotalWidth/2.3).toInt()
+            clCategoryItemRoot?.maxWidth  = (deviceTotalWidth/2.3).toInt()
         }
 
         holder.itemView.setOnClickListener {

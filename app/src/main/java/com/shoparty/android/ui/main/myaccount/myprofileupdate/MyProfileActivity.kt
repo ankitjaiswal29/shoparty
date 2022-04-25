@@ -12,6 +12,7 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.util.Patterns
 import android.view.Gravity
 import android.view.View
@@ -224,46 +225,6 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
         }
     }
 
-
-   /* private fun setupUI(data: GetProfileResponse.User?)
-    {
-        PrefManager.write(PrefManager.NAME, binding.tvName.text.toString())
-        PrefManager.write(PrefManager.IMAGE,data?.image.toString())
-        PrefManager.write(PrefManager.MOBILE, data?.mobile.toString())
-        PrefManager.write(PrefManager.EMAIL, data?.email.toString())
-        PrefManager.write(PrefManager.DOB, data?.dob.toString())
-        PrefManager.write(PrefManager.GENDER, data?.gender.toString())
-       //  PrefManager.write(PrefManager.STREET, data?..toString())
-         PrefManager.write(PrefManager.HOUSENO, data?.gender.toString())
-
-        Glide.with(this).load(PrefManager.read(PrefManager.IMAGE,"")).error(R.drawable.person_img).into(binding.ivProfilePic)
-        binding.etFirstname.setText(data?.name.toString())
-        binding.etMobile.setText(data?.mobile.toString())
-        binding.etEmail.setText(data?.email.toString())
-        binding.tvName.text = data?.name?.replaceFirstChar {
-            if (it.isLowerCase()) it.titlecase(
-                Locale.getDefault()
-            ) else it.toString()
-        }
-        binding.tvMobile.text = data?.mobile.toString()
-        binding.tvDateBirth.text = data?.dob
-        binding.etStreet.setText("")
-        binding.etHouseno.setText("")
-
-        binding.etFirstname.setSelection(binding.etFirstname.length())
-        binding.etMobile.isEnabled = false
-        binding.etEmail.setSelection(binding.etEmail.length())
-        if(data?.gender == Constants.MALE)
-        {
-            maleGenderSet()
-        }
-        else
-        {
-            femaleGenderSet()
-        }
-    }
-*/
-
     private fun setPrefrenceData()
     {
         Glide.with(this).load(PrefManager.read(PrefManager.IMAGE,"")).error(R.drawable.person_img).into(binding.ivProfilePic)
@@ -276,6 +237,9 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
         binding.etStreet.setText(PrefManager.read(PrefManager.STREET,""))
         binding.etHouseno.setText(PrefManager.read(PrefManager.HOUSENO,""))
         binding.etFirstname.setSelection(binding.etFirstname.length())
+
+
+        Log.d("dob",PrefManager.read(PrefManager.DOB,""))
         binding.etMobile.isEnabled = false
         binding.etEmail.setSelection(binding.etEmail.length())
         binding.ivEditProfile.visibility=View.VISIBLE
@@ -387,24 +351,6 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
 
     private fun DatePic()
     {
-        /*val dateSetListener =
-            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                cal.set(Calendar.YEAR, year)
-                cal.set(Calendar.MONTH, monthOfYear)
-                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                updateDateInView()
-            }
-
-
-            DatePickerDialog(
-                this, R.style.DialogTheme,
-                dateSetListener,
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH)
-            ).show()
-*/
-
         val calender = Calendar.getInstance()
         val datePickerDialog = DatePickerDialog(
             this,

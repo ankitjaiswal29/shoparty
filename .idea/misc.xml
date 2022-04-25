@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/drawable/background_edittext.xml" value="0.1165" />
+        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/drawable/home_top_selling_items_bg.xml" value="0.1345" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/drawable/ic_pink_line_img.xml" value="0.1195" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/drawable/ic_youtube_icon.xml" value="0.1195" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_add_card.xml" value="0.1787037037037037" />
@@ -35,15 +36,22 @@
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/filter_recyclar_item_layout.xml" value="0.2" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/filter_size_recyclar_item_layout.xml" value="0.20416666666666666" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/fragment_deals.xml" value="0.17314814814814813" />
+        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/fragment_home.xml" value="0.20102564102564102" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/fragment_wish_list.xml" value="0.17330861909175163" />
+        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/home_brand_item.xml" value="0.20416666666666666" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/home_categories_layout_item.xml" value="0.20416666666666666" />
+        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/home_offers_item_layout.xml" value="0.17" />
+        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/home_seasons_item.xml" value="0.20102564102564102" />
+        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/home_theme_item.xml" value="0.20416666666666666" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/item_order_list.xml" value="0.16" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/item_size.xml" value="0.20416666666666666" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/myorder_item_layout.xml" value="0.22" />
+        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/new_arrival_item.xml" value="0.18" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/toolbar_layout.xml" value="0.1787037037037037" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/top_selling_bottomsheet_layout.xml" value="0.20416666666666666" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/top_selling_bottomsheet_recyclar_item_layout.xml" value="0.20416666666666666" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/top_selling_home_item.xml" value="0.18055555555555555" />
+        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/top_selling_layout_item.xml" value="0.20102564102564102" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/ts_subcategories_item.xml" value="0.18055555555555555" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/voucher_item_layout.xml" value="0.17314814814814813" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/wishlist_item_layout.xml" value="0.25" />

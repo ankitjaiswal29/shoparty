@@ -59,6 +59,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                     PrefManager.write(PrefManager.NAME, response.data?.name.toString())
                     PrefManager.write(PrefManager.USER_ID, response.data?.user_id.toString())
                     PrefManager.write(PrefManager.EMAIL, response.data?.email.toString())
+                    PrefManager.write(PrefManager.DOB, response.data?.dob!!)
 
                     val intent = Intent(this, VerificationActivity::class.java)
                     intent.putExtra(Constants.MOBILE, response.data.mobile)

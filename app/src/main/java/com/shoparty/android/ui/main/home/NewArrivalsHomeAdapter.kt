@@ -2,6 +2,7 @@ package com.shoparty.android.ui.main.home
 
 import android.content.Context
 import android.content.Intent
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import com.shoparty.android.ui.main.product_list.ProductListActivity
 import com.shoparty.android.ui.productdetails.ProductDetailsActivity
 import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.Utils
+import kotlinx.android.synthetic.main.home_offers_item_layout.view.*
 
 class NewArrivalsHomeAdapter(
     private val list: ArrayList<HomeResponse.Home.ArrivalResponse>,
@@ -54,6 +56,12 @@ class NewArrivalsHomeAdapter(
         private val binding: NewArrivalItemBinding? = DataBindingUtil.bind(view)
 
         fun bind(modal: HomeResponse.Home.ArrivalResponse) {
+            val metrics: DisplayMetrics = context.resources.displayMetrics
+            val deviceTotalWidth = metrics.widthPixels
+
+            binding?.newarrivel?.minimumWidth  = (deviceTotalWidth/2.3).toInt()
+            binding?.newarrivel?.maxWidth  = (deviceTotalWidth/2.3).toInt()
+
             binding?.newArrivalItemNameTv?.text = modal.product_name
             if (modal.sale_price != null)
                 binding?.tvPrice?.text = context.getString(R.string.dollor)+modal.sale_price

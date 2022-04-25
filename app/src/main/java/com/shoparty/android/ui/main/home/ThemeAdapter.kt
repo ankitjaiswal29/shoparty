@@ -2,6 +2,7 @@ package com.shoparty.android.ui.main.home
 
 import android.content.Context
 import android.content.Intent
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.shoparty.android.R
 import com.shoparty.android.databinding.HomeCategoriesLayoutItemBinding
+import com.shoparty.android.databinding.HomeThemeItemBinding
 import com.shoparty.android.interfaces.RVItemClickListener
 import com.shoparty.android.ui.main.product_list.ProductListActivity
 import com.shoparty.android.utils.Constants
@@ -27,7 +29,7 @@ class ThemeAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.home_categories_layout_item, parent, false) as View
+            .inflate(R.layout.home_theme_item, parent, false) as View
         return ViewHolder(
             view = view,
             listener = listener,
@@ -50,11 +52,18 @@ class ThemeAdapter(
     ) :
         RecyclerView.ViewHolder(view) {
 
-        private val binding: HomeCategoriesLayoutItemBinding? = DataBindingUtil.bind(view)
+        private val binding: HomeThemeItemBinding? = DataBindingUtil.bind(view)
 
         init { }
 
         fun bind(modal: HomeResponse.Home.Theme) {
+            val metrics: DisplayMetrics = context.resources.displayMetrics
+            val deviceTotalWidth = metrics.widthPixels
+            binding?.clCategoryItemRoot?.minimumWidth  = (deviceTotalWidth/2.3).toInt()
+            binding?.clCategoryItemRoot?.maxWidth  = (deviceTotalWidth/2.3).toInt()
+
+
+
             binding?.homeCategoriesItemNameTv?.text = modal.theame_name
             Glide.with(context).asBitmap().load(modal.theme_image).into(binding?.imgBanner!!)
             view.setOnClickListener {

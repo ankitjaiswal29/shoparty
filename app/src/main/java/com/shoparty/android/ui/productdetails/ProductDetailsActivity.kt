@@ -203,7 +203,8 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
         )
     }
 
-    private fun setrecyclaryoumayalsolike(productDetailList: List<ProducatDetailsResponse.ProductDetailList>) {
+    private fun setrecyclaryoumayalsolike(productDetailList: List<ProducatDetailsResponse.ProductDetailList>)
+    {
         binding.rvProductdetailsRecyclarview.adapter =
             ProductDetailsAdapter(this, productDetailList)
     }
