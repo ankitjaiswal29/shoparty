@@ -157,12 +157,34 @@ class CustomizeActivity : AppCompatActivity(), View.OnClickListener {
             showAvailableColors()
         }
         binding.customizeApproveBtn.setOnClickListener {
-                val bitmap=Utils.screenShot(binding.clView)
-                val file= bitmapToFile(bitmap!!,"cdc")
-                val intent = Intent()
-                setResult(Activity.RESULT_OK,
-                intent.putExtra("file",file))
-                finish()
+            Dexter.withContext(this)
+                .withPermissions(
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                )
+                .withListener(object : MultiplePermissionsListener {
+                    override fun onPermissionsChecked(report: MultiplePermissionsReport) {
+                        if (report.areAllPermissionsGranted()) {
+                            val bitmap=Utils.screenShot(binding.clView)
+                            val file= bitmapToFile(bitmap!!,"cdc")
+                            val intent = Intent()
+                            setResult(Activity.RESULT_OK,
+                                intent.putExtra("file",file))
+                               finish()
+                        }
+                        if (report.isAnyPermissionPermanentlyDenied) {
+                            showSettingsDialog()
+                        }
+                    }
+
+                    override fun onPermissionRationaleShouldBeShown(
+                        permissions: MutableList<com.karumi.dexter.listener.PermissionRequest>?,
+                        token: PermissionToken?
+                    ) {
+                        token?.continuePermissionRequest()
+                    }
+                }).check()
+
         }
         binding.llText.setOnClickListener {
             binding.etName.requestFocus()

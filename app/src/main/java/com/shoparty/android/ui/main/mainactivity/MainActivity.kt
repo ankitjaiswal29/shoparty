@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun initialise()
     {
-        if (PrefManager.read(PrefManager.AUTH_TOKEN, "").isEmpty())
+        if (PrefManager.read(PrefManager.USER_ID, "").isEmpty())
         {
             binding.btnSigninSignout.visibility = View.VISIBLE
             binding.clProfile.visibility = View.GONE

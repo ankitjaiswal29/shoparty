@@ -57,6 +57,7 @@ class ThemeAdapter(
         init { }
 
         fun bind(modal: HomeResponse.Home.Theme) {
+
             val metrics: DisplayMetrics = context.resources.displayMetrics
             val deviceTotalWidth = metrics.widthPixels
             binding?.clCategoryItemRoot?.minimumWidth  = (deviceTotalWidth/2.3).toInt()

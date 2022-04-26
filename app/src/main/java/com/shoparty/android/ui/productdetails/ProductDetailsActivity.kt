@@ -54,7 +54,6 @@ import java.io.FileOutputStream
 
 class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, RecyclerViewClickListener,
     ProductDetailCallback {
-
     private var pageClick:Boolean=false
     private var imageFile: File?=null
     private var l: Layout? = null
@@ -81,8 +80,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_details)
         viewModel = ViewModelProvider(
             this,
-            ViewModalFactory(application)
-        )[ProducatDetailsViewModel::class.java]
+            ViewModalFactory(application))[ProducatDetailsViewModel::class.java]
         wishlistviewModel =
             ViewModelProvider(this, ViewModalFactory(application))[WishListViewModel::class.java]
         icon = BitmapFactory.decodeResource(

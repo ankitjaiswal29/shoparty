@@ -52,12 +52,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     PrefManager.write(PrefManager.AUTH_TOKEN, response.data?.token!!)
-                    PrefManager.write(PrefManager.LANGUAGEID, response.data.language_id)
+                    PrefManager.write(PrefManager.LANGUAGEID, response.data?.language_id!!)
                     PrefManager.write(PrefManager.GENDER, response.data?.gender.toString())
                     PrefManager.write(PrefManager.IMAGE,response.data?.image.toString())
                     PrefManager.write(PrefManager.MOBILE, response.data?.mobile.toString())
                     PrefManager.write(PrefManager.NAME, response.data?.name.toString())
-                    PrefManager.write(PrefManager.USER_ID, response.data?.user_id.toString())
+                 //   PrefManager.write(PrefManager.USER_ID, response.data?.user_id.toString())
                     PrefManager.write(PrefManager.EMAIL, response.data?.email.toString())
                     PrefManager.write(PrefManager.DOB, response.data?.dob!!)
 

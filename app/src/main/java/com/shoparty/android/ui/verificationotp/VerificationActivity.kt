@@ -104,12 +104,12 @@ class VerificationActivity : AppCompatActivity() {
             when (response) {
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
-                  //  setupUI(response.data?.data)
-                    Toast.makeText(
+                    setupUI(response.data?.data)
+                    /*Toast.makeText(
                         applicationContext,
                         response.message,
                         Toast.LENGTH_SHORT
-                    ).show()
+                    ).show()*/
 
                     if (PrefManager.read(PrefManager.IS_SHIPPING_PAGE, "") == "1") {
                         val intent = Intent(this, ShippingActivity::class.java)
@@ -145,11 +145,6 @@ class VerificationActivity : AppCompatActivity() {
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
 
-                    /*  Toast.makeText(
-                        applicationContext,
-                        response.message,
-                        Toast.LENGTH_SHORT).show()*/
-
                     Toast.makeText(
                         applicationContext, response.message, Toast.LENGTH_LONG
                     ).show()
@@ -180,11 +175,12 @@ class VerificationActivity : AppCompatActivity() {
     }
     private fun setupUI(data: VerifiyOtpResponse.Data?)
     {
-        PrefManager.write(PrefManager.IMAGE,data?.image.toString())
+       /* PrefManager.write(PrefManager.IMAGE,data?.image.toString())
         PrefManager.write(PrefManager.MOBILE, data?.mobile.toString())
         PrefManager.write(PrefManager.NAME, data?.name.toString())
         PrefManager.write(PrefManager.USER_ID, data?.user_id.toString())
-        PrefManager.write(PrefManager.EMAIL, data?.email.toString())
+        PrefManager.write(PrefManager.EMAIL, data?.email.toString())*/
+        PrefManager.write(PrefManager.USER_ID, data?.user_id.toString())
     }
 
     override fun onDestroy() {

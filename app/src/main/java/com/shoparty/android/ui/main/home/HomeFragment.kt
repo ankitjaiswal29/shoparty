@@ -318,7 +318,7 @@ class HomeFragment : Fragment(), View.OnClickListener, RecyclerViewFavouriteList
     }
 
     private fun setTheme() {
-        val gridLayoutManager = GridLayoutManager(requireActivity(), 2)
+        val gridLayoutManager = GridLayoutManager(requireActivity(), 2, RecyclerView.HORIZONTAL, false)
         adapterTheme = ThemeAdapter(listTheme, requireContext())
         binding.rvThemes.apply {
             layoutManager = gridLayoutManager
