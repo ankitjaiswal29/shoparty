@@ -32,6 +32,7 @@ import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -40,7 +41,6 @@ import java.util.regex.Matcher
 import kotlin.math.roundToLong
 
 class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerViewClickListener {
-
     private var fulladdress: String=""
     private var addressid: String=""
     private var coupenapplied: Boolean=false
@@ -68,25 +68,27 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = DataBindingUtil.setContentView(this, R.layout.activity_shoping_bag)
         viewModel = ViewModelProvider(this,
-            ViewModalFactory(application)
-        )[ProducatDetailsViewModel::class.java]
+            ViewModalFactory(application))[ProducatDetailsViewModel::class.java]
         shoopingbagviewModel = ViewModelProvider(this,
             ViewModalFactory(application)
         )[ShoppingBagViewModel::class.java]
-
         initialise()
         setObserver()
-
         if(PrefManager.read(PrefManager.AUTH_TOKEN,"") == "")
         {
             shoppingBagListLocal()
+            binding.vwPurchasguest.visibility=View.VISIBLE
+            binding.txtPurchase.visibility=View.VISIBLE
+            binding.checkPurchaseGuast.visibility=View.VISIBLE
         }
-        else                            //shopping Bag List Api
+        else   //shopping Bag List Api
         {
             shoopingbagviewModel.cartItemList(PrefManager.read(PrefManager.LANGUAGEID,1).toString())
+            binding.vwPurchasguest.visibility=View.GONE
+            binding.txtPurchase.visibility=View.GONE
+            binding.checkPurchaseGuast.visibility=View.GONE
         }
     }
 
@@ -365,69 +367,81 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
 
     private fun shoppingBagListLocal()
     {
-        lifecycleScope.launch(Dispatchers.IO) {
+        val defQantity = lifecycleScope.async(Dispatchers.IO) {
             listCartProduct.clear()
             val dbList =
                 MyDatabase.getInstance(this@ShoppingBagActivity).getProductDao().getAllCartProduct()
             listCartProduct.addAll(dbList)
+            quantity
         }
-        adapterShoppingBag = ShoppingBagItemAdapter(this@ShoppingBagActivity, listCartProduct)
-        val gridLayoutManager = GridLayoutManager(this, 1)
-        binding.rvShopingitem.apply {
-            layoutManager = gridLayoutManager
-            setHasFixedSize(true)
-            isFocusable = false
-            adapter = adapterShoppingBag
-        }
-        adapterShoppingBag.onItemClick(object : RVCartItemClickListener {
-            override fun onClick(pos: Int, view: View?) {
-                startActivity(Intent(this@ShoppingBagActivity,ProductDetailsActivity::class.java))
+        lifecycleScope.launch(Dispatchers.Main) {
+            defQantity.await()
+            if(listCartProduct.isNullOrEmpty())
+            {
+                binding.linearNoData.visibility=View.VISIBLE
+                binding.linearBagData.visibility=View.GONE
             }
-
-            override fun onPlus(pos: Int, view: View?) {
-                lifecycleScope.launch(Dispatchers.IO) {
-                    listCartProduct[pos].quantity =
-                        (listCartProduct[pos].quantity.toInt() + 1).toString()
-                    MyDatabase.getInstance(this@ShoppingBagActivity).getProductDao()
-                        .updateCartProduct(listCartProduct[pos])
-                    lifecycleScope.launch(Dispatchers.Main) {
-                        adapterShoppingBag.notifyDataSetChanged()
-                    }
+            else
+            {
+                adapterShoppingBag = ShoppingBagItemAdapter(this@ShoppingBagActivity, listCartProduct)
+                val gridLayoutManager = GridLayoutManager(this@ShoppingBagActivity, 1)
+                binding.rvShopingitem.apply {
+                    layoutManager = gridLayoutManager
+                    setHasFixedSize(true)
+                    isFocusable = false
+                    adapter = adapterShoppingBag
                 }
-            }
 
-            override fun onMinus(pos: Int, view: View?, shoppingId: Int) {
-                lifecycleScope.launch(Dispatchers.IO) {
-                    if (listCartProduct.size > 0) {
-                        if (listCartProduct[pos].quantity.toInt() >= 2) {
-                            listCartProduct[pos].quantity =
-                                (listCartProduct[pos].quantity.toInt() - 1).toString()
+                adapterShoppingBag.onItemClick(object : RVCartItemClickListener {
+                    override fun onClick(pos: Int, view: View?) {
+                     //   startActivity(Intent(this@ShoppingBagActivity,ProductDetailsActivity::class.java))
+                    }
+
+                    override fun onPlus(pos: Int, view: View?) {
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            listCartProduct[pos].shopping_qnty = (listCartProduct[pos].shopping_qnty.toInt() + 1).toString()
                             MyDatabase.getInstance(this@ShoppingBagActivity).getProductDao()
                                 .updateCartProduct(listCartProduct[pos])
-                        } else {
+                            lifecycleScope.launch(Dispatchers.Main) {
+                                adapterShoppingBag.notifyDataSetChanged()
+                            }
+                        }
+                    }
+
+                    override fun onMinus(pos: Int, view: View?, shoppingId: Int) {
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            if (listCartProduct.size > 0) {
+                                if (listCartProduct[pos].shopping_qnty.toInt() >= 2) {
+                                    listCartProduct[pos].shopping_qnty =
+                                        (listCartProduct[pos].shopping_qnty.toInt() - 1).toString()
+                                    MyDatabase.getInstance(this@ShoppingBagActivity).getProductDao()
+                                        .updateCartProduct(listCartProduct[pos])
+                                } else {
+                                    MyDatabase.getInstance(this@ShoppingBagActivity).getProductDao()
+                                        .deleteCartProduct(listCartProduct[pos])
+                                    listCartProduct.removeAt(pos)
+                                }
+                                lifecycleScope.launch(Dispatchers.Main) {
+                                    adapterShoppingBag.notifyDataSetChanged()
+                                }
+                            }
+                        }
+
+                    }
+
+                    override fun onClear(pos: Int, view: View?) {
+                        lifecycleScope.launch(Dispatchers.IO) {
                             MyDatabase.getInstance(this@ShoppingBagActivity).getProductDao()
                                 .deleteCartProduct(listCartProduct[pos])
                             listCartProduct.removeAt(pos)
-                        }
-                        lifecycleScope.launch(Dispatchers.Main) {
-                            adapterShoppingBag.notifyDataSetChanged()
+                            lifecycleScope.launch(Dispatchers.Main) {
+                                adapterShoppingBag.notifyDataSetChanged()
+                            }
                         }
                     }
-                }
-
+                })
             }
-
-            override fun onClear(pos: Int, view: View?) {
-                lifecycleScope.launch(Dispatchers.IO) {
-                    MyDatabase.getInstance(this@ShoppingBagActivity).getProductDao()
-                        .deleteCartProduct(listCartProduct[pos])
-                    listCartProduct.removeAt(pos)
-                    lifecycleScope.launch(Dispatchers.Main) {
-                        adapterShoppingBag.notifyDataSetChanged()
-                    }
-                }
-            }
-        })
+        }
     }
 
 

@@ -17,8 +17,6 @@ import com.shoparty.android.interfaces.RecyclerViewFavouriteListener
 import com.shoparty.android.ui.productdetails.ProductDetailsActivity
 import com.shoparty.android.utils.Constants
 import kotlinx.android.synthetic.main.deals_item_layout.view.*
-
-
 class ProductListAdapters(
     val context: Context,
     private val mList: ArrayList<Product>,
@@ -34,8 +32,8 @@ class ProductListAdapters(
         val ItemsViewModel = mList[position]
         holder.tv_productname.text = ItemsViewModel.product_name
         holder.tv_product_subtitle.text = ItemsViewModel.product_descripion
-        holder.tv_price.text = context.getString(R.string.dollor)+ItemsViewModel.cost_price
-        holder.tv_offer.text = context.getString(R.string.dollor)+ItemsViewModel.sale_price
+        holder.tv_price.text = context.getString(R.string.dollor)+ItemsViewModel.sale_price
+      //  holder.tv_offer.text = context.getString(R.string.dollor)+ItemsViewModel.sale_price
         Glide.with(context).asBitmap().load(ItemsViewModel.image).into(holder.iv_dealsimg!!)
 
         holder.cl_productlist_root_item.setOnClickListener {

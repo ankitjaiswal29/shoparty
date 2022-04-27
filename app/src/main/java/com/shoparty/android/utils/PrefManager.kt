@@ -84,4 +84,5 @@ object PrefManager {
     fun write(key: String, value: Boolean) {
         preferences.edit().putBoolean(key, value).apply()
     }
+
 }

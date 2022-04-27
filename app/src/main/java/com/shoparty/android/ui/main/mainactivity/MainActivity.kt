@@ -20,9 +20,11 @@ import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.shoparty.android.R
+import com.shoparty.android.database.MyDatabase
 import com.shoparty.android.databinding.ActivityMainBinding
 import com.shoparty.android.ui.login.LoginActivity
 import com.shoparty.android.ui.main.categories.CategoriesFragment
@@ -44,6 +46,8 @@ import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var langaugevalue: Int=1
@@ -230,13 +234,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             when (response) {
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
-
                     PrefManager.clearAllPref()
+                    lifecycleScope.launch(Dispatchers.IO) {
+                       /* val dbList =
+                            MyDatabase.getInstance(this@MainActivity).getProductDao().deleteAllCartProduct()
+*/
+                        MyDatabase.getInstance(this@MainActivity).getProductDao().deleteAllCartProduct()
+                    }
                     dialog!!.dismiss()
-
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
-
                     Toast.makeText(
                         this,
                         response.message,

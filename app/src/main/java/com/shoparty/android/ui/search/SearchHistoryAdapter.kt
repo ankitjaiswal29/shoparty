@@ -47,10 +47,9 @@ class SearchHistoryAdapter(var context: Context, private var itemList: List<Prod
         val context: Context
     ) :
         RecyclerView.ViewHolder(view) {
-
         private val binding: SearchItemLayBinding? = DataBindingUtil.bind(view)
-
-        init {
+        init
+        {
             view.setOnClickListener { listener?.onClick(adapterPosition.toString()) }
         }
 

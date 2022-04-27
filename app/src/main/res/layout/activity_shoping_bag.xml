@@ -252,22 +252,26 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/cly_summary">
 
+
+
                         <View
                             android:id="@+id/vw_purchasguest"
                             android:layout_width="0dp"
                             android:layout_height="40dp"
+                            android:visibility="gone"
                             android:background="@drawable/bag_item_relative_lay_bg"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
-
                         </View>
 
                         <TextView
+                            android:id="@+id/txtPurchase"
                             style="@style/AppTheme.Text_12dp_Bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingStart="10dp"
+                            android:visibility="gone"
                             android:text="@string/purchase_as_a_guest"
                             app:layout_constraintBottom_toBottomOf="@id/vw_purchasguest"
                             app:layout_constraintStart_toStartOf="@+id/vw_purchasguest"
@@ -279,6 +283,7 @@
                             android:layout_height="wrap_content"
                             android:buttonTint="@color/pink"
                             android:paddingEnd="10dp"
+                            android:visibility="gone"
                             app:layout_constraintBottom_toBottomOf="@id/vw_purchasguest"
                             app:layout_constraintEnd_toEndOf="@id/vw_purchasguest"
                             app:layout_constraintTop_toTopOf="@+id/vw_purchasguest" />

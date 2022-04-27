@@ -88,16 +88,18 @@ class ShoppingBagItemAdapter(val context: Context, val list: List<CartProduct>) 
             }
 
             binding.ivMinus.setOnClickListener {
-                if (PrefManager.read(PrefManager.AUTH_TOKEN, "") == "") {
-                    listener?.onClear(adapterPosition)
-                }else {
+                if (PrefManager.read(PrefManager.AUTH_TOKEN, "") == "")
+                {
+                    listener?.onMinus(adapterPosition)
+                }
+                else {
                     listener?.onMinus(adapterPosition, binding.tvCount, modal.shopping_id.toInt())
                 }
             }
 
             binding.ivPlus.setOnClickListener {
                 if (PrefManager.read(PrefManager.AUTH_TOKEN, "") == "") {
-                    listener?.onClear(adapterPosition)
+                    listener?.onPlus(adapterPosition)
                 }else {
                     listener?.onPlus(adapterPosition, binding.tvCount)
                 }

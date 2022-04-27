@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.auth.FirebaseAuth
 
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityLoginBinding
@@ -21,6 +22,8 @@ import com.shoparty.android.utils.apiutils.ViewModalFactory
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var viewModel: LoginViewModel
+    private var deviceToken: String? = ""
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= DataBindingUtil.setContentView(this, R.layout.activity_login)
@@ -32,6 +35,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun initialise()
     {
+        /*auth = FirebaseAuth.getInstance()
+        deviceToken = FirebaseInstanceId.getInstance().token*/
         binding.btnGetOtp.setOnClickListener(this)
         binding.txtSignUp.setOnClickListener(this)
     }

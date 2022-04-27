@@ -16,6 +16,7 @@ import com.shoparty.android.common_modal.Product
 import com.shoparty.android.database.MyDatabase
 import com.shoparty.android.databinding.ActivitySearchBinding
 import com.shoparty.android.interfaces.RVItemClickListener
+import com.shoparty.android.ui.main.product_list.ProductListActivity
 import com.shoparty.android.ui.productdetails.ProductDetailsActivity
 import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.PrefManager
@@ -26,7 +27,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class SearchActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivitySearchBinding
     private lateinit var viewModel: SearchViewModel
     private lateinit var searchHistoryAdapter: SearchHistoryAdapter
@@ -74,13 +74,9 @@ class SearchActivity : AppCompatActivity() {
                     MyDatabase.getInstance(this@SearchActivity).getProductDao()
                         .insertProduct(list[pos.toInt()])
                 }
-
-                val intent = Intent(this@SearchActivity, ProductDetailsActivity::class.java)
-                intent.putExtra(Constants.IDPRODUCT,list[pos.toInt()].product_id.toString())
-                intent.putExtra(Constants.PRODUCATNAME,list[pos.toInt()].product_name)
-                intent.putExtra(Constants.PRODUCATDETAILSID,list[pos.toInt()].product_detail_id.toString())
-                intent.putExtra(Constants.PRODUCTSIZEID,list[pos.toInt()].product_size_id.toString())
-                intent.putExtra(Constants.PRODUCTCOLORID,list[pos.toInt()].product_color_id.toString())
+                val intent = Intent(this@SearchActivity, ProductListActivity::class.java)
+                intent.putExtra(Constants.PRODUCTID,list[pos.toInt()].product_id.toString())
+                intent.putExtra(Constants.CATEGORYNAME,list[pos.toInt()].product_name)
                 startActivity(intent)
             }
         })
@@ -119,17 +115,17 @@ class SearchActivity : AppCompatActivity() {
         viewModel.productList.observe(this) { response ->
             when (response) {
                 is Resource.Success -> {
-                    ProgressDialog.hideProgressBar()
+                  //  ProgressDialog.hideProgressBar()
                     list.clear()
                     list.addAll(response.data!!)
                     searchHistoryAdapter.notifyDataSetChanged()
                 }
 
                 is Resource.Loading -> {
-                    ProgressDialog.showProgressBar(this)
+                  //  ProgressDialog.showProgressBar(this)
                 }
                 is Resource.Error -> {
-                    ProgressDialog.hideProgressBar()
+                 //   ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         this,
                         response.message,
@@ -137,7 +133,7 @@ class SearchActivity : AppCompatActivity() {
                     ).show()
                 }
                 else -> {
-                    ProgressDialog.hideProgressBar()
+                  //  ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         this,
                         response.message,

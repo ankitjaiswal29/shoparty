@@ -105,12 +105,7 @@ class VerificationActivity : AppCompatActivity() {
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
                     setupUI(response.data?.data)
-                    /*Toast.makeText(
-                        applicationContext,
-                        response.message,
-                        Toast.LENGTH_SHORT
-                    ).show()*/
-
+                    Toast.makeText(applicationContext,getString(R.string.loginsuccess) ,Toast.LENGTH_SHORT).show()
                     if (PrefManager.read(PrefManager.IS_SHIPPING_PAGE, "") == "1") {
                         val intent = Intent(this, ShippingActivity::class.java)
                         startActivity(intent)

@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "689837356066-hlrdoqqt6dagbnvl8ileu3rhirv1i1ka.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shoparty.android",
+            "certificate_hash": "e54adeb4f2e206fc957a8be44e8fa0a0e6336d0b"
+          }
+        },
+        {
           "client_id": "689837356066-k1eipce12l0irf28fcbg79m899sqrjg5.apps.googleusercontent.com",
           "client_type": 3
         }

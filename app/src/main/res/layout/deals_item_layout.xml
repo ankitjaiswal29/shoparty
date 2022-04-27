@@ -49,6 +49,7 @@
         android:layout_height="wrap_content"
         style="@style/AppTheme.Text_9_whitedp"
         android:text="@string/_10_off"
+        android:visibility="gone"
         android:layout_margin="5dp"
         android:padding="3dp"
         android:background="@color/pink"

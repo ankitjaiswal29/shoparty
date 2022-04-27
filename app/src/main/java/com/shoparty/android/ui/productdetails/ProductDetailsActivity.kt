@@ -32,8 +32,10 @@ import com.shoparty.android.database.MyDatabase
 import com.shoparty.android.databinding.ActivityProductDetailsBinding
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.ui.customize.CustomizeActivity
+import com.shoparty.android.ui.login.LoginActivity
 import com.shoparty.android.ui.main.home.HomeResponse
 import com.shoparty.android.ui.main.home.MySliderImageAdapter
+import com.shoparty.android.ui.main.product_list.ProductListActivity
 import com.shoparty.android.ui.main.wishlist.WishListViewModel
 import com.shoparty.android.ui.shoppingbag.ShoppingBagActivity
 import com.shoparty.android.utils.Constants
@@ -42,6 +44,8 @@ import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -68,11 +72,9 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
     var is_customizable = ""
     var sliderfirstimage = ""
     var quantity: Int = 0
-    var prgressshow: Boolean=false
     private lateinit var viewModel: ProducatDetailsViewModel
     private lateinit var wishlistviewModel: WishListViewModel
     private lateinit var productDetails: ProducatDetailsResponse.ProductDetails
-
     private lateinit var icon: Bitmap
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -104,7 +106,8 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
     }
 
     @SuppressLint("SetTextI18n")
-    private fun initialise() {
+    private fun initialise()
+    {
         binding.infoTool.ivBagBtn.visibility = View.VISIBLE
         binding.btnCostomizeit.setOnClickListener(this)
         binding.tvAddtobag.setOnClickListener(this)
@@ -222,14 +225,11 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                     .putExtra("image", productDetails?.images?.get(0)?.image.toString())
                    // .putExtra("modal", productDetails)
                 startActivityForResult(intent,101)
-//                binding.tvAddtobag.setOnClickListener(this)
-//                binding.infoTool.ivBagBtn.setOnClickListener(this)
-//                binding.infoTool.ivDrawerBack.setOnClickListener(this)
             }
             R.id.tv_addtobag -> {
-
-                if (PrefManager.read(PrefManager.AUTH_TOKEN, "") == "") {
-                    lifecycleScope.launch(Dispatchers.IO) {
+                if(PrefManager.read(PrefManager.AUTH_TOKEN, "") == "")
+                {
+                    val defQantity = lifecycleScope.async (Dispatchers.IO) {
                         quantity += 1
                         MyDatabase.getInstance(this@ProductDetailsActivity).getProductDao()
                             .insertCartProduct(
@@ -244,16 +244,26 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                                     cost_price = productDetails.cost_price,
                                     tax = productDetails.tax,
                                     shopping_qnty = quantity.toString(),
-                                    bitmap = icon
-                                )
-                            )
+                                    bitmap = icon))
+                          quantity
+
                     }
-                    if (quantity == 0) {
-                        addToBagButtonVisible()
-                    } else {
-                        addToBagButtonInVisible()
+
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        defQantity.await()
+                        if(quantity == 0)
+                        {
+                            addToBagButtonVisible()
+                        }
+                        else
+                        {
+                            addToBagButtonInVisible()
+                        }
                     }
-                } else {
+
+                }
+                else
+                {
                     quantity += 1
                     addToBagApi()
 
@@ -270,24 +280,34 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
             }
 
             R.id.tv_wishlist -> {
-                if (fav_status == "0") {
-                    wishlistviewModel.addremoveWishlist(
-                        product_id,
-                        1,
-                        product_details_id.toInt(),
-                        product_sizeId,
-                        product_colorId
-                    )
-                    fav_status = "1"
-                } else {
-                    wishlistviewModel.addremoveWishlist(
-                        product_id,
-                        0,
-                        product_details_id.toInt(),
-                        product_sizeId,
-                        product_colorId
-                    )
-                    fav_status = "0"
+               if(PrefManager.read(PrefManager.AUTH_TOKEN,"") == "")
+               {
+                   val intent = Intent(this, LoginActivity::class.java)
+                 //  intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                   startActivity(intent)
+               //    finishAffinity()
+               }
+                else
+                {
+                    if(fav_status == "0")
+                    {
+                        wishlistviewModel.addremoveWishlist(
+                            product_id,
+                            1,
+                            product_details_id.toInt(),
+                            product_sizeId,
+                            product_colorId)
+                        fav_status = "1"
+                    } else {
+                        wishlistviewModel.addremoveWishlist(
+                            product_id,
+                            0,
+                            product_details_id.toInt(),
+                            product_sizeId,
+                            product_colorId
+                        )
+                        fav_status = "0"
+                    }
                 }
             }
 
@@ -306,8 +326,9 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                 }
             }
             R.id.iv_plus -> {
-                if (PrefManager.read(PrefManager.AUTH_TOKEN, "") == "") {
-                    lifecycleScope.launch(Dispatchers.IO) {
+                if(PrefManager.read(PrefManager.AUTH_TOKEN, "") == "")
+                {
+                    val defQantity = lifecycleScope.async (Dispatchers.IO) {
                         quantity += 1
                         MyDatabase.getInstance(this@ProductDetailsActivity).getProductDao()
                             .insertCartProduct(
@@ -322,28 +343,35 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                                     cost_price = productDetails.cost_price,
                                     tax = productDetails.tax,
                                     shopping_qnty = quantity.toString(),
-                                    bitmap = icon
-                                )
-                            )
+                                    bitmap = icon))
+                        quantity
 
                     }
-                    if (quantity == 0) {
-                        addToBagButtonVisible()
-                    } else {
-                        addToBagButtonInVisible()
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        defQantity.await()
+                        if(quantity == 0)
+                        {
+                            addToBagButtonVisible()
+                        }
+                        else
+                        {
+                            addToBagButtonInVisible()
+                        }
                     }
-
-                } else {
+                }
+                else
+                {
                     quantity += 1
                     addToBagApi()
                 }
             }
 
             R.id.iv_minus -> {
-                if (PrefManager.read(PrefManager.AUTH_TOKEN, "") == "") {
-                    lifecycleScope.launch(Dispatchers.IO) {
-
-                        if (quantity == 1) {
+                if (PrefManager.read(PrefManager.AUTH_TOKEN, "") == "")
+                {
+                    val defQantity = lifecycleScope.async(Dispatchers.IO) {
+                        if (quantity == 1)
+                        {
                             quantity -= 1
                             val product =
                                 MyDatabase.getInstance(this@ProductDetailsActivity).getProductDao()
@@ -351,7 +379,8 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                             if (product != null)
                                 MyDatabase.getInstance(this@ProductDetailsActivity).getProductDao()
                                     .deleteCartProduct(product)
-                        } else {
+                        }
+                        else {
                             quantity -= 1
                             MyDatabase.getInstance(this@ProductDetailsActivity).getProductDao()
                                 .insertCartProduct(
@@ -370,16 +399,22 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                                     )
                                 )
                         }
-
-
-                    }
-                    if (quantity == 0) {
-                        addToBagButtonVisible()
-                    } else {
-                        addToBagButtonInVisible()
+                        quantity
                     }
 
-                } else {
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        defQantity.await()
+                        if(quantity == 0)
+                        {
+                            addToBagButtonVisible()
+                        }
+                        else
+                        {
+                            addToBagButtonInVisible()
+                        }
+                    }
+                }
+                else {
                     if (quantity >= 2) {
                         quantity -= 1
                         addToBagApi()
@@ -581,22 +616,32 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
     @SuppressLint("SetTextI18n")
     private fun setData(data: ProducatDetailsResponse.ProductDetails) {
         productDetails = data
-        lifecycleScope.launch(Dispatchers.IO) {
-            val product = MyDatabase.getInstance(this@ProductDetailsActivity).getProductDao()
-                .getCartProduct(productDetails.product_id.toString())
-            if (product != null) {
-                if (product.shopping_qnty !="")
-                quantity = product.shopping_qnty.toInt()
-                lifecycleScope.launch(Dispatchers.Main) {
-                    if (quantity == 0) {
-                        addToBagButtonVisible()
-                    } else {
-                        addToBagButtonInVisible()
+        if(PrefManager.read(PrefManager.AUTH_TOKEN, "").isEmpty())  //for local database
+        {
+            lifecycleScope.launch(Dispatchers.IO) {
+                val product = MyDatabase.getInstance(this@ProductDetailsActivity).getProductDao().getCartProduct(productDetails.product_id.toString())
+                if (product != null) {
+                    if(product.shopping_qnty !="")
+                        quantity = product.shopping_qnty.toInt()
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        if (quantity <= 0) {
+                            addToBagButtonVisible()
+                        } else {
+                            addToBagButtonInVisible()
+                        }
                     }
                 }
             }
         }
-
+        else     //for api quantity
+        {
+            quantity = data.cart_quantity!!                   //for quantity
+            if (quantity <= 0) {
+                addToBagButtonVisible()
+            } else {
+                addToBagButtonInVisible()
+            }
+        }
         sale_price = data.sale_price
         fav_status = data.fav_status.toString()
         quantity = data.cart_quantity!!
@@ -636,12 +681,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
             binding.tvOrdernowdate.visibility = View.VISIBLE
             binding.tvOrdernowdate.text = getString(R.string.andgetitby) + " " + data.delivery_time
         }
-        quantity = data.cart_quantity!!                   //for quantity
-        if (quantity <= 0) {
-            addToBagButtonVisible()
-        } else {
-            addToBagButtonInVisible()
-        }
+
 
         binding.infoTool.tvTitle.text =
             data.product_name?.substring(0, 1)?.toUpperCase() +
