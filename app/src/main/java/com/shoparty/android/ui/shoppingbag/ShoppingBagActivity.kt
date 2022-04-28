@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.service.autofill.FieldClassification
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -23,7 +22,6 @@ import com.shoparty.android.ui.address.addaddress.getaddress.AddressActivity
 import com.shoparty.android.ui.login.LoginActivity
 import com.shoparty.android.ui.payment.PaymentActivity
 import com.shoparty.android.ui.productdetails.ProducatDetailsViewModel
-import com.shoparty.android.ui.productdetails.ProductDetailsActivity
 import com.shoparty.android.ui.vouchers.VouchersActivity
 import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.PrefManager
@@ -34,13 +32,11 @@ import com.shoparty.android.utils.apiutils.ViewModalFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
-import java.util.regex.Matcher
 import kotlin.math.roundToLong
 
 class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerViewClickListener {
+    private val comment: String=""
     private var fulladdress: String=""
     private var addressid: String=""
     private var coupenapplied: Boolean=false
@@ -83,7 +79,7 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
             binding.txtPurchase.visibility=View.VISIBLE
             binding.checkPurchaseGuast.visibility=View.VISIBLE
         }
-        else   //shopping Bag List Api
+        else                  //shopping Bag List Api
         {
             shoopingbagviewModel.cartItemList(PrefManager.read(PrefManager.LANGUAGEID,1).toString())
             binding.vwPurchasguest.visibility=View.GONE
@@ -310,10 +306,6 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
         {
             binding.tvTotalPriceDetail.text=getString(R.string.dollor)+totalprice.toString()
         }
-
-
-
-
     }
 
 
@@ -339,7 +331,8 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
             binding.tvTotalPriceDetail.text=getString(R.string.dollor)+totalprice.toString()
         }
     }
-    private fun updateMinusPrice() {
+    private fun updateMinusPrice()
+    {
         listCartProduct[position].shopping_qnty = quantity.toString()
         adapterShoppingBag.notifyDataSetChanged()
         summaryprice -=listCartProduct[position].sale_price.toDouble()
@@ -359,6 +352,8 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
             binding.tvTotalPriceDetail.text=getString(R.string.dollor)+totalprice.toString()
         }
     }
+
+
 
     private fun shoppingBagPickup(storeList: ArrayList<StoreListResponse.Result>)
     {
@@ -383,6 +378,8 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
             }
             else
             {
+                calculateUpdatedPriceLocal(listCartProduct)
+
                 adapterShoppingBag = ShoppingBagItemAdapter(this@ShoppingBagActivity, listCartProduct)
                 val gridLayoutManager = GridLayoutManager(this@ShoppingBagActivity, 1)
                 binding.rvShopingitem.apply {
@@ -397,36 +394,68 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
                      //   startActivity(Intent(this@ShoppingBagActivity,ProductDetailsActivity::class.java))
                     }
 
-                    override fun onPlus(pos: Int, view: View?) {
-                        lifecycleScope.launch(Dispatchers.IO) {
+                    override fun onPlus(pos: Int, view: View?)
+                    {
+                        lifecycleScope.launch(Dispatchers.IO)
+                        {
                             listCartProduct[pos].shopping_qnty = (listCartProduct[pos].shopping_qnty.toInt() + 1).toString()
-                            MyDatabase.getInstance(this@ShoppingBagActivity).getProductDao()
-                                .updateCartProduct(listCartProduct[pos])
-                            lifecycleScope.launch(Dispatchers.Main) {
-                                adapterShoppingBag.notifyDataSetChanged()
+                            MyDatabase.getInstance(this@ShoppingBagActivity).getProductDao().updateCartProduct(listCartProduct[pos])
+                            lifecycleScope.launch(Dispatchers.Main)
+                            {
+                                position=pos
+                                updateAddPriceLocal()
                             }
                         }
                     }
 
                     override fun onMinus(pos: Int, view: View?, shoppingId: Int) {
                         lifecycleScope.launch(Dispatchers.IO) {
-                            if (listCartProduct.size > 0) {
-                                if (listCartProduct[pos].shopping_qnty.toInt() >= 2) {
+                            if (listCartProduct.size > 0)
+                            {
+                                if(listCartProduct[pos].shopping_qnty.toInt() >= 2)
+                                {
                                     listCartProduct[pos].shopping_qnty =
                                         (listCartProduct[pos].shopping_qnty.toInt() - 1).toString()
                                     MyDatabase.getInstance(this@ShoppingBagActivity).getProductDao()
                                         .updateCartProduct(listCartProduct[pos])
-                                } else {
-                                    MyDatabase.getInstance(this@ShoppingBagActivity).getProductDao()
-                                        .deleteCartProduct(listCartProduct[pos])
-                                    listCartProduct.removeAt(pos)
+
+                                    lifecycleScope.launch(Dispatchers.Main) {
+                                        if(listCartProduct.isNullOrEmpty())
+                                        {
+                                            binding.linearNoData.visibility=View.VISIBLE
+                                            binding.linearBagData.visibility=View.GONE
+                                        }
+                                        else
+                                        {
+                                            position=pos
+                                            adapterShoppingBag.notifyDataSetChanged()
+                                            updateMinusPriceLocal()
+                                        }
+                                    }
                                 }
-                                lifecycleScope.launch(Dispatchers.Main) {
-                                    adapterShoppingBag.notifyDataSetChanged()
+                                else
+                                {
+                                    lifecycleScope.launch(Dispatchers.IO) {
+                                        MyDatabase.getInstance(this@ShoppingBagActivity).getProductDao()
+                                            .deleteCartProduct(listCartProduct[pos])
+                                        listCartProduct.removeAt(pos)
+                                        lifecycleScope.launch(Dispatchers.Main) {
+                                            if(listCartProduct.isNullOrEmpty())
+                                            {
+                                                binding.linearNoData.visibility=View.VISIBLE
+                                                binding.linearBagData.visibility=View.GONE
+                                            }
+                                            else
+                                            {
+                                                position=pos
+                                                adapterShoppingBag.notifyDataSetChanged()
+                                                calculateUpdatedPriceLocal(listCartProduct)
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
-
                     }
 
                     override fun onClear(pos: Int, view: View?) {
@@ -435,12 +464,94 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
                                 .deleteCartProduct(listCartProduct[pos])
                             listCartProduct.removeAt(pos)
                             lifecycleScope.launch(Dispatchers.Main) {
-                                adapterShoppingBag.notifyDataSetChanged()
+                                if(listCartProduct.isNullOrEmpty())
+                                {
+                                    binding.linearNoData.visibility=View.VISIBLE
+                                    binding.linearBagData.visibility=View.GONE
+                                }
+                                else
+                                {
+                                    position=pos
+                                    adapterShoppingBag.notifyDataSetChanged()
+                                    calculateUpdatedPriceLocal(listCartProduct)
+                                }
                             }
                         }
                     }
                 })
             }
+        }
+    }
+
+
+    private fun calculateUpdatedPriceLocal(listCartProduct: ArrayList<CartProduct>)
+    {
+        taxPrice=0.0
+        summaryprice=0.0
+        listCartProduct.forEach {
+            if(it.tax_type==1)  //calculation
+            {
+                taxPrice += (it.sale_price.toDouble() * it.shopping_qnty.toDouble()) * it.tax.toInt() / 100
+            }
+            summaryprice += it.sale_price.toDouble() * it.shopping_qnty.toDouble()
+            totalprice=summaryprice+taxPrice
+            shoopingidlist.addAll(listOf(it.shopping_id))
+            isDeliverable=it.is_deliverable
+        }
+        binding.tvSummeryPrice.text=getString(R.string.dollor)+summaryprice.toString()
+        binding.tvTaxPrice.text=getString(R.string.dollor)+taxPrice.toString()
+        binding.linearNoData.visibility=View.GONE
+        binding.linearBagData.visibility=View.VISIBLE
+        if(coupenapplied)
+        {
+            showCoupenDiscount()
+        }
+        else
+        {
+            binding.tvTotalPriceDetail.text=getString(R.string.dollor)+totalprice.toString()
+        }
+    }
+
+
+    private fun updateAddPriceLocal()
+    {
+        adapterShoppingBag.notifyDataSetChanged()
+        summaryprice +=listCartProduct[position].sale_price.toDouble()
+        binding.tvSummeryPrice.text=getString(R.string.dollor)+summaryprice.toString()
+
+        if(listCartProduct[position].tax_type==1)  //tax caluclation
+        {
+            taxPrice+=listCartProduct[position].sale_price.toDouble()*listCartProduct[position].tax.toDouble()/100
+            binding.tvTaxPrice.text=getString(R.string.dollor)+taxPrice.toString()
+        }
+        totalprice =summaryprice+taxPrice
+        if(coupenapplied)
+        {
+            showCoupenDiscount()
+        }
+        else
+        {
+            binding.tvTotalPriceDetail.text=getString(R.string.dollor)+totalprice.toString()
+        }
+    }
+
+
+    private fun updateMinusPriceLocal() {
+        summaryprice -=listCartProduct[position].sale_price.toDouble()
+        binding.tvSummeryPrice.text=getString(R.string.dollor)+summaryprice.toString()
+        if(listCartProduct[position].tax_type==1)  //tax caluclation
+        {
+            taxPrice-=listCartProduct[position].sale_price.toDouble()*listCartProduct[position].tax.toDouble()/100
+            binding.tvTaxPrice.text=getString(R.string.dollor)+taxPrice.toString()
+        }
+        totalprice =summaryprice+taxPrice
+        if(coupenapplied)
+        {
+            showCoupenDiscount()
+        }
+        else
+        {
+            binding.tvTotalPriceDetail.text=getString(R.string.dollor)+totalprice.toString()
         }
     }
 
@@ -614,6 +725,7 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
         }
         builder.addFormDataPart("is_customizable", listCartProduct[pos].is_customizable.toString())
         builder.addFormDataPart("product_id", listCartProduct[pos].product_id.toString())
+        builder.addFormDataPart("comment",comment)
         builder.addFormDataPart(
             "product_detail_id",
             listCartProduct[pos].product_detail_id.toString())

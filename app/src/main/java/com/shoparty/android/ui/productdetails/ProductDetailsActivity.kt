@@ -58,6 +58,7 @@ import java.io.FileOutputStream
 
 class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, RecyclerViewClickListener,
     ProductDetailCallback {
+    private var comment: String?=""
     private var pageClick:Boolean=false
     private var imageFile: File?=null
     private var l: Layout? = null
@@ -451,6 +452,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
         builder.addFormDataPart("product_color_id",product_colorId)
         builder.addFormDataPart("quantity",quantity.toString())
         builder.addFormDataPart("price",  sale_price)
+        builder.addFormDataPart("comment",  comment!!)
         val body = builder.build()
         viewModel.postAddProduct(body)
     }
@@ -620,7 +622,8 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
         {
             lifecycleScope.launch(Dispatchers.IO) {
                 val product = MyDatabase.getInstance(this@ProductDetailsActivity).getProductDao().getCartProduct(productDetails.product_id.toString())
-                if (product != null) {
+                if(product != null)
+                {
                     if(product.shopping_qnty !="")
                         quantity = product.shopping_qnty.toInt()
                     lifecycleScope.launch(Dispatchers.Main) {
@@ -629,6 +632,12 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                         } else {
                             addToBagButtonInVisible()
                         }
+                    }
+                }
+                else
+                {
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        addToBagButtonVisible()
                     }
                 }
             }
@@ -736,9 +745,48 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode==101 && resultCode == Activity.RESULT_OK){
             imageFile= data?.getSerializableExtra("file") as File?
+            comment = data?.getStringExtra("comment")
             quantity+=1
             pageClick=true
-            addToBagApi()
+            if(PrefManager.read(PrefManager.AUTH_TOKEN, "") == "")
+            {
+                val defQantity = lifecycleScope.async (Dispatchers.IO) {
+                    MyDatabase.getInstance(this@ProductDetailsActivity).getProductDao()
+                        .insertCartProduct(
+                            CartProduct(
+                                en_name = productDetails.en_name,
+                                comment = comment.toString(),
+                                id = productDetails.id,
+                                product_details_id = productDetails.product_detail_id,
+                                product_size_id = product_sizeId.toInt(),
+                                product_colorId = product_colorId.toInt(),
+                                image = productDetails.images[0].image,
+                                sale_price = productDetails.sale_price,
+                                cost_price = productDetails.cost_price,
+                                tax = productDetails.tax,
+                                shopping_qnty = quantity.toString(),
+                                bitmap = icon))
+                    quantity
+
+                }
+
+                lifecycleScope.launch(Dispatchers.Main) {
+                    defQantity.await()
+                    if(quantity == 0)
+                    {
+                        addToBagButtonVisible()
+                    }
+                    else
+                    {
+                        addToBagButtonInVisible()
+                    }
+                }
+
+            }
+            else
+            {
+                addToBagApi()
+            }
         }
     }
 

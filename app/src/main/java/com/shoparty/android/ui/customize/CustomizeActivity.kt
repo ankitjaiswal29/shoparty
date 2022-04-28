@@ -169,8 +169,8 @@ class CustomizeActivity : AppCompatActivity(), View.OnClickListener {
                             val file= bitmapToFile(bitmap!!,"cdc")
                             val intent = Intent()
                             setResult(Activity.RESULT_OK,
-                                intent.putExtra("file",file))
-                               finish()
+                                intent.putExtra("file",file).putExtra("comment",binding.etComment.text.toString()))
+                            finish()
                         }
                         if (report.isAnyPermissionPermanentlyDenied) {
                             showSettingsDialog()

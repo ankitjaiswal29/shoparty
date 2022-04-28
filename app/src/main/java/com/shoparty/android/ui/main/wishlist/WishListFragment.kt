@@ -25,6 +25,7 @@ import com.shoparty.android.utils.apiutils.ViewModalFactory
 import okhttp3.MultipartBody
 
 class WishListFragment : Fragment(), RecyclerViewFavouriteListener, WishListAddBagClickListener {
+    private val comment: String=""
     private var operationalPos: Int = -1
     private lateinit var binding: FragmentWishListBinding
     private lateinit var viewModel: WishListViewModel
@@ -218,6 +219,7 @@ class WishListFragment : Fragment(), RecyclerViewFavouriteListener, WishListAddB
                  startActivity(intent)
              }*/
         } else {
+
             position = pos
             action_type = actiontype
             quantity = listWishlistt[pos].cart_quantity!!
@@ -295,6 +297,7 @@ class WishListFragment : Fragment(), RecyclerViewFavouriteListener, WishListAddB
                 "customized_image",listWishlistt[pos].image)
         }
         builder.addFormDataPart("is_customizable", listWishlistt[pos].is_customizable.toString())
+        builder.addFormDataPart("comment",comment)
         builder.addFormDataPart("product_id", listWishlistt[pos].product_id.toString())
         builder.addFormDataPart(
             "product_detail_id",

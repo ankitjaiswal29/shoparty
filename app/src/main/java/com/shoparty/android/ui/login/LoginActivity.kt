@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 
+
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityLoginBinding
 import com.shoparty.android.ui.verificationotp.VerificationActivity
@@ -22,8 +23,7 @@ import com.shoparty.android.utils.apiutils.ViewModalFactory
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var viewModel: LoginViewModel
-    private var deviceToken: String? = ""
-    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= DataBindingUtil.setContentView(this, R.layout.activity_login)
@@ -35,8 +35,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun initialise()
     {
-        /*auth = FirebaseAuth.getInstance()
-        deviceToken = FirebaseInstanceId.getInstance().token*/
         binding.btnGetOtp.setOnClickListener(this)
         binding.txtSignUp.setOnClickListener(this)
     }
@@ -65,6 +63,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                  //   PrefManager.write(PrefManager.USER_ID, response.data?.user_id.toString())
                     PrefManager.write(PrefManager.EMAIL, response.data?.email.toString())
                     PrefManager.write(PrefManager.DOB, response.data?.dob!!)
+                    PrefManager.write(PrefManager.DEVICETOKEN, response.data?.device_token!!)
 
                     val intent = Intent(this, VerificationActivity::class.java)
                     intent.putExtra(Constants.MOBILE, response.data.mobile)

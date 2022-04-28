@@ -48,12 +48,12 @@
                     android:id="@+id/tvData"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_150sdp"
                     android:fontFamily="@font/poppins"
+                    android:maxLines="2"
                     android:text="@string/name"
                     android:textColor="@color/black"
                     android:textSize="20sp"
-                    android:maxLines="2"
-                    android:layout_marginStart="@dimen/_150sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/imgBanner"
                     app:layout_constraintEnd_toEndOf="@+id/imgBanner"
                     app:layout_constraintStart_toStartOf="@+id/imgBanner"
@@ -234,11 +234,33 @@
                 android:id="@+id/ct_constrain_lay5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_20sdp"
                 android:paddingBottom="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ct_constrain_lay4">
+
+
+
+                <EditText
+                    android:id="@+id/etComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/customize_border1"
+                    android:imeOptions="actionDone"
+                    android:minHeight="@dimen/_60sdp"
+                    android:inputType="text"
+                    android:layout_margin="@dimen/_15sdp"
+                    android:padding="@dimen/_5sdp"
+                    android:gravity="top|start"
+                    android:hint="@string/comment"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+
 
                 <Button
                     android:id="@+id/btnPreview"
@@ -248,12 +270,13 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_weight="0.5"
+                    android:layout_marginTop="@dimen/_15sdp"
                     android:background="@drawable/customize_pink_border_background"
                     android:text="@string/preview"
                     android:textAllCaps="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/etComment" />
 
 
                 <Button

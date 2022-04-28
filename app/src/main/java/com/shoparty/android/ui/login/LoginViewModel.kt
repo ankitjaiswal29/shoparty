@@ -7,6 +7,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessaging
+
 import com.shoparty.android.R
 import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.Utils
@@ -22,12 +26,18 @@ class LoginViewModel(private val app: Application) : ViewModel()
     val etMobileNo: ObservableField<String> = ObservableField()
     private val mlogin = MutableLiveData<Resource<LoginResponse.User>>()
     val login: LiveData<Resource<LoginResponse.User>> = mlogin
+    private var deviceToken: String? = ""
+    private lateinit var auth: FirebaseAuth
+
 
     fun postLogin() = viewModelScope.launch {
         if(validation())
         {
-            val request = LoginRequestModel(etMobileNo.get()!!,Constants.DEVICE_TYPE,
-                Constants.DEVICE_TOKEN,Constants.TYPE)
+            auth = FirebaseAuth.getInstance()
+            deviceToken = FirebaseInstanceId.getInstance().token.toString()
+
+            val request = LoginRequestModel(etMobileNo.get()!!, deviceToken.toString(),
+                Constants.DEVICE_TYPE,Constants.TYPE)
             if(Utils.hasInternetConnection(app.applicationContext))
             {
                 mlogin.postValue(Resource.Loading())

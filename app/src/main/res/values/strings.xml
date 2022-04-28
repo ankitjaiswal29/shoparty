@@ -445,5 +445,7 @@
     <string name="orderdelivered">Order Delivered</string>
     <string name="pleaseselectreason">Please select cancel reason</string>
     <string name="loginsuccess">"Login Successfully"</string>
+    <string name="comment">Write your comment here...</string>
+    <string name="notification">Notification</string>
 
 </resources>

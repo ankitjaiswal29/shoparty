@@ -25,6 +25,7 @@ import okhttp3.MultipartBody
 
 class WishListActivity : AppCompatActivity(), View.OnClickListener,
     RecyclerViewFavouriteListener, WishListAddBagClickListener {
+    private val comment: String=""
     private lateinit var binding: ActivityWishListBinding
     private lateinit var viewModel: WishListViewModel
     private lateinit var adapterWishlist: WishListAdapters
@@ -204,7 +205,8 @@ class WishListActivity : AppCompatActivity(), View.OnClickListener,
     }
 
     override fun addBagClick(pos: Int, actiontype: Int) {
-        if (PrefManager.read(PrefManager.AUTH_TOKEN, "") == "") {
+        if (PrefManager.read(PrefManager.AUTH_TOKEN, "") == "")
+        {
             /* lifecycleScope.launch(Dispatchers.IO) {
                  MyDatabase.getInstance(this@ProductDetailsActivity).getProductDao()
                      .insertCartProduct(CartProduct(productDetails.en_name, productDetails.id.toString(), productDetails.images[0].image.toString(), "1"))
@@ -228,8 +230,7 @@ class WishListActivity : AppCompatActivity(), View.OnClickListener,
                             Intent(this@WishListActivity, ProductDetailsActivity::class.java)
                         intent.putExtra(
                             Constants.IDPRODUCT,
-                            listWishlistt[pos].product_id.toString()
-                        )
+                            listWishlistt[pos].product_id.toString())
                         intent.putExtra(
                             Constants.PRODUCATDETAILSID,
                             listWishlistt[pos].product_detail_id.toString()
@@ -249,7 +250,7 @@ class WishListActivity : AppCompatActivity(), View.OnClickListener,
                     {
                         quantity -= 1
                         if (listWishlistt[pos].cart_quantity != 0) {
-                            addToBagApi(pos)
+                            addToBagApi(pos,)
                         }
                     }
             }
@@ -301,6 +302,7 @@ class WishListActivity : AppCompatActivity(), View.OnClickListener,
                 "customized_image",listWishlistt[pos].image)
         }
         builder.addFormDataPart("is_customizable", listWishlistt[pos].is_customizable.toString())
+        builder.addFormDataPart("comment",comment)
         builder.addFormDataPart("product_id", listWishlistt[pos].product_id.toString())
         builder.addFormDataPart(
             "product_detail_id",

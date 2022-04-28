@@ -106,13 +106,18 @@ class VerificationActivity : AppCompatActivity() {
                     ProgressDialog.hideProgressBar()
                     setupUI(response.data?.data)
                     Toast.makeText(applicationContext,getString(R.string.loginsuccess) ,Toast.LENGTH_SHORT).show()
-                    if (PrefManager.read(PrefManager.IS_SHIPPING_PAGE, "") == "1") {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    /*if (PrefManager.read(PrefManager.IS_SHIPPING_PAGE, "") == "1")
+                    {
                         val intent = Intent(this, ShippingActivity::class.java)
                         startActivity(intent)
-                    } else {
+                    }
+                    else
+                    {
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
-                    }
+                    }*/
                 }
                 is Resource.Loading -> {
                     ProgressDialog.showProgressBar(this)

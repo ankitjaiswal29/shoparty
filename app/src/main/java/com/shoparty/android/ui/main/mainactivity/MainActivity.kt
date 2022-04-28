@@ -37,6 +37,7 @@ import com.shoparty.android.ui.main.myaccount.MyAccountFragment
 import com.shoparty.android.ui.main.myaccount.MyAccountViewModel
 import com.shoparty.android.ui.main.myaccount.myprofileupdate.MyProfileActivity
 import com.shoparty.android.ui.main.wishlist.WishListFragment
+import com.shoparty.android.ui.notification.NotificationActivity
 import com.shoparty.android.ui.productdetails.ProductDetailsActivity
 import com.shoparty.android.ui.search.SearchActivity
 import com.shoparty.android.ui.shoppingbag.ShoppingBagActivity
@@ -104,6 +105,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.accountNavBtn.setOnClickListener(this)
         binding.languageNavLay.setOnClickListener(this)
         binding.rlSignout.setOnClickListener(this)
+        binding.linearnotification.setOnClickListener(this)
 
         binding.infoTools.ivDrawerIcon.setOnClickListener {
             if (PrefManager.read(PrefManager.LANGUAGEID, 1) == 1) {
@@ -236,9 +238,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     ProgressDialog.hideProgressBar()
                     PrefManager.clearAllPref()
                     lifecycleScope.launch(Dispatchers.IO) {
-                       /* val dbList =
-                            MyDatabase.getInstance(this@MainActivity).getProductDao().deleteAllCartProduct()
-*/
                         MyDatabase.getInstance(this@MainActivity).getProductDao().deleteAllCartProduct()
                     }
                     dialog!!.dismiss()
@@ -357,6 +356,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 val intent = Intent(this, MyProfileActivity::class.java)
                 intent.putExtra("pagestatus",Constants.MAINACTIVITY)
                 startActivity(intent)
+            }
+            R.id.linearnotification -> {
+                val intent = Intent(this, NotificationActivity::class.java)
+                startActivity(intent)
+                binding.drawerLayout.closeDrawer(GravityCompat.START)
             }
         }
     }
@@ -502,6 +506,26 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.bottomNavigatinView.findViewById<View>(R.id.WishlistFragment).performClick()
 
     }
+
+
+   /* private fun manageNotificationSidebar() {
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
+        binding.ivWishlist.setImageResource(R.drawable.drawer_wishlist_pink);
+        binding.tvWishlist.setTextColor(getColor(R.color.pink))
+
+        binding.ivSignout.setImageResource(R.drawable.ic_sign_out_icon);
+        binding.tvSignout.setTextColor(getColor(R.color.black))
+        binding.ivHome.setImageResource(R.drawable.ic_baseline_home_24);
+        binding.ivMyaccount.setImageResource(R.drawable.ic_user);
+        binding.ivLanguage.setImageResource(R.drawable.language_icon);
+        binding.tvHome.setTextColor(getColor(R.color.black))
+        binding.tvMyaccount.setTextColor(getColor(R.color.black))
+        binding.tvLanguage.setTextColor(getColor(R.color.black))
+
+        val intent = Intent(this, MyProfileActivity::class.java)
+        startActivity(intent)
+
+    }*/
 
     private fun manageHomeSidebar() {
 

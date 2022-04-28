@@ -10,6 +10,7 @@ import kotlinx.android.parcel.Parcelize
 @Entity(tableName = "cart_product")
 data class CartProduct(
     var age_from: String = "",
+    var comment: String = "",
     var age_to: String = "",
     var ar_color_name: String = "",
     var ar_description: String = "",

@@ -22,6 +22,7 @@ object PrefManager {
     const val IMAGE: String = "IMAGE"
     const val EMAIL: String = "EMAIL"
     const val DOB: String = "DOB"
+    const val DEVICETOKEN: String = "DEVICETOKEN"
     const val STREET: String = "STREET"
     const val HOUSENO: String = "HOUSENO"
     const val GENDER: String = "GENDER"
