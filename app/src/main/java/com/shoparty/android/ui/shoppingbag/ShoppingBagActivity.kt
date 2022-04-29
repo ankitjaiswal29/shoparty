@@ -36,6 +36,8 @@ import okhttp3.MultipartBody
 import kotlin.math.roundToLong
 
 class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerViewClickListener {
+    private var datasendcount: Int=0
+    private var listcartsize: Int=0
     private val comment: String=""
     private var fulladdress: String=""
     private var addressid: String=""
@@ -50,6 +52,7 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
     private var totalprice: Double=0.00
     private var storeSelectedId: Int=0
     private var pickupHomeSelected: Int=1
+    private var purchaseasguest: Int=0
     private var ordertype: Int=1
     private var isDeliverable: Int=0
     private lateinit var binding: ActivityShopingBagBinding
@@ -96,7 +99,6 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
         binding.bagItemConsLay3.setOnClickListener(this)
         binding.imgCoupenCross.setOnClickListener(this)
         binding.btnProcessTocheckOut.setOnClickListener(this)
-
         shoopingbagviewModel.storeList(PrefManager.read(PrefManager.LANGUAGEID,1).toString()) //api call
 
         binding.cbPickupBranch.setOnCheckedChangeListener { _, isChecked ->
@@ -123,10 +125,16 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
         }
 
         binding.checkPurchaseGuast.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                Utils.showLongToast(this, getString(R.string.comingsoon))
+            if (isChecked)
+            {
+                purchaseasguest=1
+            }
+            else
+            {
+                purchaseasguest=0
             }
         }
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -211,9 +219,27 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
                     {
                         updateAddPrice()
                     }
-                    else
+                    else if(clickAction==2)  //minus item click
                     {
                         updateMinusPrice()
+                    }
+                    else               //local database to server api call
+                    {
+                        datasendcount += 1
+                        if(listcartsize==datasendcount)
+                        {
+                            shoopingbagviewModel.cartItemList(PrefManager.read(PrefManager.LANGUAGEID,1).toString())
+                            binding.vwPurchasguest.visibility=View.GONE
+                            binding.txtPurchase.visibility=View.GONE
+                            binding.checkPurchaseGuast.visibility=View.GONE
+                            lifecycleScope.launch(Dispatchers.IO) {
+                                MyDatabase.getInstance(this@ShoppingBagActivity).getProductDao().deleteAllCartProduct()
+                            }
+                        }
+                        /*else
+                        {
+                            Utils.showLongToast(this,getString(R.string.somthingwentwrong))
+                        }*/
                     }
                 }
                 is Resource.Loading -> {
@@ -585,7 +611,7 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
 
             override fun onMinus(pos: Int, view: View?, shoppingId: Int) {
                 position=pos
-                clickAction=0
+                clickAction=2
                 quantity=listCartProduct[pos].shopping_qnty.toInt()-1
                 if(quantity==0)
                 {
@@ -594,7 +620,6 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
                else
                {
                    addToBagApi(pos)
-
                }
             }
 
@@ -614,11 +639,19 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
             }
             R.id.btn_ProcessTocheckOut ->
             {
-                if(PrefManager.read(PrefManager.AUTH_TOKEN, "").isEmpty())
+                if(PrefManager.read(PrefManager.AUTH_TOKEN, "").isEmpty() && PrefManager.read(PrefManager.USER_ID, "").isEmpty())
                 {
-                    val intent = Intent(applicationContext, LoginActivity::class.java)
-                    PrefManager.write(PrefManager.IS_SHIPPING_PAGE, "1")
-                    startActivity(intent)
+                    if(purchaseasguest==1)
+                    {
+                        val intent = Intent(applicationContext, LoginActivity::class.java)
+                        intent.putExtra("GUESTUSER",purchaseasguest.toString())
+                        startActivityForResult(intent,Constants.SHOPPINGBAG)
+                        PrefManager.write(PrefManager.IS_SHIPPING_PAGE, "1")
+                    }
+                    else
+                    {
+                        Utils.showLongToast(this,getString(R.string.comingsoon))
+                    }
                 }
                 else
                 {
@@ -677,6 +710,15 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
             addressid=data?.getStringExtra("addressid").toString()
             fulladdress=data?.getStringExtra("fulladdress").toString()
         }
+
+        else if(requestCode == Constants.SHOPPINGBAG && resultCode == Activity.RESULT_OK)
+        {
+                listcartsize=listCartProduct.size  //2
+                listCartProduct.forEachIndexed { index, _ ->
+                    addToBagApiLocal(index)
+                }
+
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -732,6 +774,34 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
         builder.addFormDataPart("product_size_id", listCartProduct[pos].product_size_id.toString())
         builder.addFormDataPart("product_color_id", listCartProduct[pos].product_color_id.toString())
         builder.addFormDataPart("quantity", quantity.toString())
+        builder.addFormDataPart("price", listCartProduct[pos].sale_price)
+        val body = builder.build()
+        viewModel.postAddProduct(body)
+    }
+
+    private fun addToBagApiLocal(pos: Int)
+    {
+        val builder = MultipartBody.Builder()
+        builder.setType(MultipartBody.FORM)
+        if(listCartProduct[pos].is_customizable.toString() == "0")
+        {
+            builder.addFormDataPart(
+                "customized_image",listCartProduct[pos].image)
+        }
+        else
+        {
+            builder.addFormDataPart(
+                "customized_image",listCartProduct[pos].image)
+        }
+        builder.addFormDataPart("is_customizable", listCartProduct[pos].is_customizable.toString())
+        builder.addFormDataPart("product_id", listCartProduct[pos].id.toString())
+        builder.addFormDataPart("comment",listCartProduct[pos].comment)
+        builder.addFormDataPart(
+            "product_detail_id",
+            listCartProduct[pos].product_detail_id)
+        builder.addFormDataPart("product_size_id", listCartProduct[pos].product_size_id.toString())
+        builder.addFormDataPart("product_color_id", listCartProduct[pos].product_colorId)
+        builder.addFormDataPart("quantity", listCartProduct[pos].shopping_qnty)
         builder.addFormDataPart("price", listCartProduct[pos].sale_price)
         val body = builder.build()
         viewModel.postAddProduct(body)

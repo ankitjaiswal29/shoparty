@@ -37,6 +37,7 @@ object Constants {
         const val ADDADDRESS_CODE = 101
         const val SHOPPINGBAG_CODE = 102
         const val SHOPPINGBAGTOADDRESS = 200
+        const val SHOPPINGBAG = 300
         const val Coupon_Code = "Coupon_Code"
         const val ADDRESSELIST = "ADDRESSEID"
         const val Coupon_Discount = "Coupon_Discount"

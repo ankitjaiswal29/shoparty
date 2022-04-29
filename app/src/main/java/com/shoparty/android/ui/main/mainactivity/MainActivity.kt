@@ -358,9 +358,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(intent)
             }
             R.id.linearnotification -> {
-                val intent = Intent(this, NotificationActivity::class.java)
-                startActivity(intent)
-                binding.drawerLayout.closeDrawer(GravityCompat.START)
+                if(PrefManager.read(PrefManager.AUTH_TOKEN,"") == "")
+                {
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                }
+                else
+                {
+                    val intent = Intent(this, NotificationActivity::class.java)
+                    startActivity(intent)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                }
+
             }
         }
     }

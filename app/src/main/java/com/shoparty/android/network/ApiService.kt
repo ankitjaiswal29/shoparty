@@ -37,6 +37,8 @@ import com.shoparty.android.ui.myorders.myorderlist.MyOrderRequestModel
 import com.shoparty.android.ui.myorders.myorderlist.MyOrderResponse
 import com.shoparty.android.ui.myorders.orderdetails.OrderDetailsRequestModel
 import com.shoparty.android.ui.myorders.orderdetails.OrderDetailsResponse
+import com.shoparty.android.ui.notification.NotificationListRequestModel
+import com.shoparty.android.ui.notification.NotificationListResponse
 import com.shoparty.android.ui.payment.orderplaced.OrderPlacedRequestModel
 import com.shoparty.android.ui.payment.orderplaced.OrderPlacedSuccessResponse
 import com.shoparty.android.ui.productdetails.AddItemBagResponse
@@ -225,6 +227,12 @@ interface ApiService {
         @Body shoppingBagRequestModel: ShoppingBagRequestModel
     ): Response<ShoppingBagResponse>
 
+
+
+    @POST("notifications")
+    suspend fun notificationListAsync(
+        @Body notificationListRequestModel: NotificationListRequestModel
+    ): Response<NotificationListResponse>
 
     @POST("stores-list")
     suspend fun storeListAsync(

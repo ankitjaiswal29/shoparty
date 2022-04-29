@@ -357,108 +357,7 @@
                             app:layout_constraintTop_toTopOf="@+id/vw_home" />
 
 
-                        <!--  <RelativeLayout
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:id="@+id/bag_item_relative_lay1"
-                              app:layout_constraintStart_toStartOf="parent"
-                              app:layout_constraintEnd_toEndOf="parent"
-                              app:layout_constraintTop_toTopOf="parent"
 
-                              android:paddingLeft="10dp"
-                              android:paddingRight="10dp"
-                              android:paddingTop="12dp"
-                              android:paddingBottom="11dp"
-                              android:background="@drawable/bag_item_relative_lay_bg">
-
-                              <TextView
-                                  style="@style/AppTheme.Text_12dp_Bold"
-                                  android:layout_width="wrap_content"
-                                  android:layout_height="wrap_content"
-                                  android:layout_centerVertical="true"
-                                  android:layout_marginStart="10dp"
-                                  android:text="@string/purchase_as_a_guest" />
-
-                              <CheckBox
-                                  android:layout_width="wrap_content"
-                                  android:layout_height="wrap_content"
-                                  android:layout_alignParentEnd="true"
-                                  android:layout_centerVertical="true"
-                                  android:buttonTint="@color/pink" />
-                          </RelativeLayout>-->
-
-                        <!-- <LinearLayout
-                            android:id="@+id/bag_item_linear1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@+id/bag_item_relative_lay1"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="10dp"
-                            android:weightSum="1">
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                android:paddingLeft="10dp"
-                                android:paddingRight="10dp"
-                                android:paddingTop="12dp"
-                                android:layout_marginRight="5dp"
-                                android:paddingBottom="11dp"
-                                android:layout_weight="0.5"
-
-                                android:background="@drawable/bag_item_relative_lay_bg">
-
-                                <TextView
-                                    style="@style/AppTheme.Text_12dp_Bold"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerVertical="true"
-                                    android:layout_marginStart="10dp"
-                                    android:text="@string/pickup_for_branch" />
-
-                                <CheckBox
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentEnd="true"
-                                    android:layout_centerVertical="true"
-                                    android:buttonTint="@color/pink" />
-                            </RelativeLayout>
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                android:paddingLeft="10dp"
-                                android:paddingRight="10dp"
-                                android:layout_marginLeft="5dp"
-                                android:paddingTop="12dp"
-                                android:paddingBottom="11dp"
-                                android:layout_weight="0.5"
-                                android:background="@drawable/bag_item_relative_lay_bg">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/delivered_for_home"
-                                    android:layout_centerVertical="true"
-                                    android:layout_marginStart="10dp"
-                                    style="@style/AppTheme.Text_12dp_Bold" />
-
-                                <CheckBox
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:buttonTint="@color/pink"
-                                    android:layout_alignParentEnd="true"
-                                    android:layout_centerVertical="true" />
-                            </RelativeLayout>
-                        </LinearLayout>-->
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/bag_item_pickup_recycler"
@@ -498,32 +397,6 @@
                             app:layout_constraintStart_toStartOf="@+id/btn_ProcessTocheckOut"
                             app:layout_constraintTop_toTopOf="@id/btn_ProcessTocheckOut" />
 
-                        <!-- <LinearLayout
-                             android:id="@+id/bag_item_checkout_btn"
-                             android:layout_width="match_parent"
-                             android:layout_height="50dp"
-                             app:layout_constraintTop_toBottomOf="@+id/bag_item_pickup_recycler"
-                             app:layout_constraintStart_toStartOf="parent"
-                             app:layout_constraintEnd_toEndOf="parent"
-                             android:background="@drawable/customize_btn_bg"
-                             android:layout_marginTop="20dp"
-                             android:layout_marginStart="20dp"
-                             android:layout_marginEnd="20dp"
-                             android:orientation="horizontal"
-                             android:gravity="center"
-                             android:textColor="@color/white">
-                             <ImageView
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:src="@drawable/ic_bag_white"/>
-                             <TextView
-                                 android:layout_width="wrap_content"
-                                 android:layout_height="wrap_content"
-                                 android:text="@string/proceed_to_checkout"
-                                 android:textColor="@color/white"
-                                 android:layout_marginStart="10dp"
-                                 />
-                         </LinearLayout>-->
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

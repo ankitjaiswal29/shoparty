@@ -14,10 +14,12 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.shoparty.android.R
 import com.shoparty.android.app.MyApp.Companion.application
+import com.shoparty.android.database.MyDatabase
 import com.shoparty.android.databinding.FragmentMyAccountBinding
 
 
@@ -40,6 +42,8 @@ import com.shoparty.android.utils.PrefManager.clearAllPref
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
@@ -99,10 +103,11 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
             when (response) {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
-
                     clearAllPref()
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        MyDatabase.getInstance(requireContext()).getProductDao().deleteAllCartProduct()
+                    }
                     dialog!!.dismiss()
-
                     val intent = Intent(activity, MainActivity::class.java)
                     activity?.startActivity(intent)
 

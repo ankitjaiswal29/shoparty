@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shoparty.android.R
 import com.shoparty.android.utils.Constants
+import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 
@@ -29,7 +30,9 @@ class RegisterViewModel(private val app: Application) : ViewModel()
     fun postSignUp(selectedGender: String, condition_checkable: Boolean) = viewModelScope.launch {
         if(validation(condition_checkable))
         {
-            val request = RegisterRequestModel(fullName.get()!!,etEmail.get()!!,etMobileNo.get()!!,tvDateOfBirth.get()!!,selectedGender,Constants.DEVICE_TYPE,Constants.DEVICE_TOKEN)
+            val request = RegisterRequestModel(fullName.get()!!,etEmail.get()!!,
+                etMobileNo.get()!!,tvDateOfBirth.get()!!,selectedGender,Constants.DEVICE_TYPE,
+                PrefManager.read(PrefManager.DEVICETOKEN,""))
             if(Utils.hasInternetConnection(app.applicationContext))
             {
                 mSignUp.postValue(Resource.Loading())

@@ -111,6 +111,19 @@ object Utils {
         return destFormat.format(convertedDate)
     }
 
+    fun convertToCustomFormatDate(dateStr: String?): String {
+        val utc = TimeZone.getTimeZone("UTC")
+        val sourceFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+        val destFormat = SimpleDateFormat("dd MMM,YYYY HH:mm aa")
+        sourceFormat.timeZone = utc
+        val convertedDate = sourceFormat.parse(dateStr)
+        return destFormat.format(convertedDate)
+    }
+
+
+
+
+
     fun checkValidMobile(mobile: String): Boolean {
         return mobile.length < 8 || mobile.length > 15
     }

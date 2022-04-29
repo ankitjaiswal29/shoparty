@@ -447,5 +447,7 @@
     <string name="loginsuccess">"Login Successfully"</string>
     <string name="comment">Write your comment here...</string>
     <string name="notification">Notification</string>
+    <string name="datetime">27/04/2022 -11.57 AM</string>
+    <string name="somthingwentwrong">Somthing went wrong</string>
 
 </resources>

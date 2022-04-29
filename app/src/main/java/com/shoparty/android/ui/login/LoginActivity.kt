@@ -1,5 +1,6 @@
 package com.shoparty.android.ui.login
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -65,11 +66,37 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                     PrefManager.write(PrefManager.DOB, response.data?.dob!!)
                     PrefManager.write(PrefManager.DEVICETOKEN, response.data?.device_token!!)
 
-                    val intent = Intent(this, VerificationActivity::class.java)
-                    intent.putExtra(Constants.MOBILE, response.data.mobile)
-                    intent.putExtra(Constants.USERID, response.data.user_id.toString())
-                    intent.putExtra(Constants.OTP, response.data.otp.toString())
-                    startActivity(intent)
+                    if(intent.extras!=null)
+                    {
+                        if(intent.getStringExtra("GUESTUSER").equals("1"))
+                        {
+                            val intent = Intent(this, VerificationActivity::class.java)
+                            intent.putExtra(Constants.MOBILE, response.data.mobile)
+                            intent.putExtra(Constants.USERID, response.data.user_id.toString())
+                            intent.putExtra(Constants.OTP, response.data.otp.toString())
+                            intent.putExtra("GUESTUSER", "1")
+                            startActivityForResult(intent,Constants.SHOPPINGBAG)
+                        }
+                        else
+                        {
+                            val intent = Intent(this, VerificationActivity::class.java)
+                            intent.putExtra(Constants.MOBILE, response.data.mobile)
+                            intent.putExtra(Constants.USERID, response.data.user_id.toString())
+                            intent.putExtra(Constants.OTP, response.data.otp.toString())
+                            startActivity(intent)
+                        }
+
+                    }
+                    else
+                    {
+                        val intent = Intent(this, VerificationActivity::class.java)
+                        intent.putExtra(Constants.MOBILE, response.data.mobile)
+                        intent.putExtra(Constants.USERID, response.data.user_id.toString())
+                        intent.putExtra(Constants.OTP, response.data.otp.toString())
+                        startActivity(intent)
+                    }
+
+
 
                     Toast.makeText(
                         applicationContext,
@@ -98,5 +125,15 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == Constants.SHOPPINGBAG && resultCode == Activity.RESULT_OK)
+        {
+            setResult(Activity.RESULT_OK)
+            finish()
+        }
+
     }
 }

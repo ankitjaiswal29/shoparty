@@ -1,5 +1,6 @@
 package com.shoparty.android.ui.verificationotp
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -62,7 +63,6 @@ class VerificationActivity : AppCompatActivity() {
 
     }
 
-
     private var countDownTimer =
         object : CountDownTimer((60000 * 2).toLong(), 1000) {
             override fun onTick(millisUntilFinished: Long)
@@ -106,18 +106,25 @@ class VerificationActivity : AppCompatActivity() {
                     ProgressDialog.hideProgressBar()
                     setupUI(response.data?.data)
                     Toast.makeText(applicationContext,getString(R.string.loginsuccess) ,Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    /*if (PrefManager.read(PrefManager.IS_SHIPPING_PAGE, "") == "1")
+                    if(intent.extras!=null)
                     {
-                        val intent = Intent(this, ShippingActivity::class.java)
-                        startActivity(intent)
+                        if(intent.getStringExtra("GUESTUSER").equals("1"))
+                        {
+                             setResult(Activity.RESULT_OK,intent)
+                             finish()
+                        }
+                        else
+                        {
+                            val intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
+                        }
                     }
                     else
                     {
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
-                    }*/
+                    }
+                    Constants.SHOPPINGBAG
                 }
                 is Resource.Loading -> {
                     ProgressDialog.showProgressBar(this)

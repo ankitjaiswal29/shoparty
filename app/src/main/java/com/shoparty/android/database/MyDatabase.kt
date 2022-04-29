@@ -13,7 +13,7 @@ import com.shoparty.android.ui.productdetails.AddItemToBagRequestModel
 /**
  * Created by Amit Gupta on 21-03-2022.
  */
-@Database(entities = [Product::class, CartProduct::class], version = 1, exportSchema = false)
+@Database(entities = [Product::class, CartProduct::class], version = 2, exportSchema = false)
 @androidx.room.TypeConverters(Converters::class)
 abstract class MyDatabase : RoomDatabase() {
 
