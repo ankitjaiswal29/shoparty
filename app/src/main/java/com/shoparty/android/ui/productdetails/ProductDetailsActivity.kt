@@ -50,10 +50,8 @@ import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
-import java.io.ByteArrayOutputStream
 import java.io.File
-import java.io.FileOutputStream
+
 
 
 class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, RecyclerViewClickListener,
@@ -247,7 +245,6 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                                     shopping_qnty = quantity.toString(),
                                     bitmap = icon))
                           quantity
-
                     }
 
                     lifecycleScope.launch(Dispatchers.Main) {

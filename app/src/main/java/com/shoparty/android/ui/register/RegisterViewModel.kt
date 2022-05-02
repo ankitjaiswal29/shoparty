@@ -8,6 +8,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.iid.FirebaseInstanceId
 import com.shoparty.android.R
 import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.PrefManager
@@ -25,14 +27,19 @@ class RegisterViewModel(private val app: Application) : ViewModel()
     val etEmail: ObservableField<String> = ObservableField()
     val etMobileNo: ObservableField<String> = ObservableField()
     val tvDateOfBirth: ObservableField<String> = ObservableField()
+    private var deviceToken: String? = ""
+    private lateinit var auth: FirebaseAuth
     private val mSignUp = MutableLiveData<Resource<RegisterResponseModel.User>>()
     val signUp: LiveData<Resource<RegisterResponseModel.User>> = mSignUp
     fun postSignUp(selectedGender: String, condition_checkable: Boolean) = viewModelScope.launch {
         if(validation(condition_checkable))
         {
+            auth = FirebaseAuth.getInstance()
+            deviceToken = FirebaseInstanceId.getInstance().token.toString()
             val request = RegisterRequestModel(fullName.get()!!,etEmail.get()!!,
                 etMobileNo.get()!!,tvDateOfBirth.get()!!,selectedGender,Constants.DEVICE_TYPE,
-                PrefManager.read(PrefManager.DEVICETOKEN,""))
+                deviceToken!!
+            )
             if(Utils.hasInternetConnection(app.applicationContext))
             {
                 mSignUp.postValue(Resource.Loading())

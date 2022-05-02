@@ -2,8 +2,10 @@ package com.shoparty.android.database.dao
 
 import androidx.room.*
 import com.shoparty.android.common_modal.CartProduct
+import com.shoparty.android.common_modal.Category
 import com.shoparty.android.common_modal.Product
 import com.shoparty.android.ui.productdetails.AddItemToBagRequestModel
+import com.shoparty.android.ui.search.SearchResponseModel
 
 /**
  * Created by Amit Gupta on 22-03-2022.
@@ -25,6 +27,23 @@ interface ProductDao {
 
     @Query("DELETE FROM product")
     suspend fun deleteAllProduct()
+
+//for category inser in search
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertCategory(items: Category)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAllCategory(order: List<Category>)
+
+    @Query("SELECT * FROM category")
+    suspend fun getAllCategory(): List<Category>
+
+    @Delete
+    suspend fun deleteCategory(model: Category)
+
+    @Query("DELETE FROM category")
+    suspend fun deleteAllCategory()
 
 
 

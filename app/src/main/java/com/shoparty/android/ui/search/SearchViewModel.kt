@@ -16,8 +16,8 @@ class SearchViewModel(private val app: Application) : ViewModel() {
 
     private val repository = SearchRepository()
 
-    private val mProductList = MutableLiveData<Resource<ArrayList<Product>>>()
-    val productList: LiveData<Resource<ArrayList<Product>>> = mProductList
+    private val mProductList = MutableLiveData<Resource<SearchResponseModel>>()
+    val productList: LiveData<Resource<SearchResponseModel>> = mProductList
 
     fun searchProduct(requestModel: SearchRequestModel) =
         viewModelScope.launch {
@@ -29,11 +29,12 @@ class SearchViewModel(private val app: Application) : ViewModel() {
                 mProductList.postValue(Resource.Error(app.resources.getString(R.string.no_internet)))
             }
         }
-    private fun handleSearchResponse(response: Response<SearchResponseModel>): Resource<ArrayList<Product>> {
-        if (response?.isSuccessful) {
+    private fun handleSearchResponse(response: Response<SearchResponseModel>): Resource<SearchResponseModel> {
+        if (response?.isSuccessful == true) {
             response.body()?.let { res ->
-                return if (res.response_code == 200) {
-                    Resource.Success(res.message, res.home_result)
+                return if (res.response_code == 200)
+                {
+                    Resource.Success(res.message, res)
                 } else {
                     Resource.Error(res.message)
                 }

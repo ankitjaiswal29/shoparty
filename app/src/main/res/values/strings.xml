@@ -449,5 +449,8 @@
     <string name="notification">Notification</string>
     <string name="datetime">27/04/2022 -11.57 AM</string>
     <string name="somthingwentwrong">Somthing went wrong</string>
+    <string name="taxtproduct">(Product)</string>
+    <string name="txtcategory">(Category)</string>
+    <string name="category">Category</string>
 
 </resources>

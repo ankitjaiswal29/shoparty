@@ -24,8 +24,8 @@ class VerifiyViewModel(private val app: Application) : ViewModel()
    val editTextNumberPassword2:ObservableField<String> = ObservableField()
    val editTextNumberPassword3:ObservableField<String> = ObservableField()
     val editTextNumberPassword4:ObservableField<String> = ObservableField()
-    private val mverifiy = MutableLiveData<Resource<VerifiyOtpResponse.User>>()
-    val verifiyotp: LiveData<Resource<VerifiyOtpResponse.User>> = mverifiy
+    private val mverifiy = MutableLiveData<Resource<VerifiyOtpResponse>>()
+    val verifiyotp: LiveData<Resource<VerifiyOtpResponse>> = mverifiy
 
 
     private val mresend = MutableLiveData<Resource<ResendOtpResponse>>()
@@ -92,13 +92,13 @@ class VerifiyViewModel(private val app: Application) : ViewModel()
         return true
     }
 
-    private fun handleLoginResponse(response: Response<VerifiyOtpResponse>): Resource<VerifiyOtpResponse.User> {
+    private fun handleLoginResponse(response: Response<VerifiyOtpResponse>): Resource<VerifiyOtpResponse> {
         if (response?.isSuccessful == true)
         {
             response.body()?.let { res ->
                 return if (res.response_code==200)
                 {
-                    Resource.Success(res.message,res.result)
+                    Resource.Success(res.message,res)
                 }
                 else {
                     Resource.Error(res.message)

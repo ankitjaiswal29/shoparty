@@ -11,8 +11,8 @@ import com.shoparty.android.common_modal.Product
 import com.shoparty.android.databinding.SearchItemLayBinding
 import com.shoparty.android.interfaces.RVItemClickListener
 
-class SearchHistoryAdapter(var context: Context, private var itemList: List<Product>) :
-    RecyclerView.Adapter<SearchHistoryAdapter.ViewHolder>() {
+class SearchHistoryProductAdapter(var context: Context, private var itemList: List<Product>) :
+    RecyclerView.Adapter<SearchHistoryProductAdapter.ViewHolder>() {
 
     var listener: RVItemClickListener? = null
 
@@ -23,10 +23,10 @@ class SearchHistoryAdapter(var context: Context, private var itemList: List<Prod
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): SearchHistoryAdapter.ViewHolder {
+    ): SearchHistoryProductAdapter.ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.search_item_lay, parent, false) as View
-        return SearchHistoryAdapter.ViewHolder(
+        return SearchHistoryProductAdapter.ViewHolder(
             view = view,
             listener = listener,
             context = context

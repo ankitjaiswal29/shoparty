@@ -22,6 +22,7 @@ import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
+    private var guestuser: String="1"  //1 for normal user
     private lateinit var binding: ActivityLoginBinding
     private lateinit var viewModel: LoginViewModel
 
@@ -36,6 +37,10 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun initialise()
     {
+        if(intent.extras!=null)
+        {
+           guestuser= intent.getStringExtra(Constants.GUESTUSER).toString()
+        }
         binding.btnGetOtp.setOnClickListener(this)
         binding.txtSignUp.setOnClickListener(this)
     }
@@ -44,7 +49,13 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         when(v?.id){
             R.id.txtSignUp -> {
                 val intent = Intent(this, RegisterActivity::class.java)
+               // intent.putExtra("mobile",binding.etMobileNo.text.toString().trim())
                 startActivity(intent)
+
+            }
+            R.id.btnGetOtp->
+            {
+                viewModel.postLogin(guestuser)
             }
         }
     }
@@ -61,23 +72,36 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                     PrefManager.write(PrefManager.IMAGE,response.data?.image.toString())
                     PrefManager.write(PrefManager.MOBILE, response.data?.mobile.toString())
                     PrefManager.write(PrefManager.NAME, response.data?.name.toString())
-                 //   PrefManager.write(PrefManager.USER_ID, response.data?.user_id.toString())
                     PrefManager.write(PrefManager.EMAIL, response.data?.email.toString())
                     PrefManager.write(PrefManager.DOB, response.data?.dob!!)
                     PrefManager.write(PrefManager.DEVICETOKEN, response.data?.device_token!!)
 
-                    if(intent.extras!=null)
+                    if(response.data.completely_registered == "1")  // if normal user mobile number ---- land on verification otp page
                     {
-                        if(intent.getStringExtra("GUESTUSER").equals("1"))
+
+                        if(intent.extras!=null)
                         {
-                            val intent = Intent(this, VerificationActivity::class.java)
-                            intent.putExtra(Constants.MOBILE, response.data.mobile)
-                            intent.putExtra(Constants.USERID, response.data.user_id.toString())
-                            intent.putExtra(Constants.OTP, response.data.otp.toString())
-                            intent.putExtra("GUESTUSER", "1")
-                            startActivityForResult(intent,Constants.SHOPPINGBAG)
+                            if(intent.getStringExtra(Constants.GUESTUSER).equals("2"))
+                            {
+                                val intent = Intent(this, VerificationActivity::class.java)
+                                intent.putExtra(Constants.MOBILE, response.data.mobile)
+                                intent.putExtra(Constants.USERID, response.data.user_id.toString())
+                                intent.putExtra(Constants.OTP, response.data.otp.toString())
+                                intent.putExtra(Constants.GUESTUSER, "2")
+                                startActivityForResult(intent,Constants.SHOPPINGBAG)
+                            }
+                            else if(intent.getStringExtra(Constants.GUESTUSER).equals("1"))
+                            {
+                                val intent = Intent(this, VerificationActivity::class.java)
+                                intent.putExtra(Constants.MOBILE, response.data.mobile)
+                                intent.putExtra(Constants.USERID, response.data.user_id.toString())
+                                intent.putExtra(Constants.OTP, response.data.otp.toString())
+                                intent.putExtra(Constants.GUESTUSER, "1")
+                                startActivityForResult(intent,Constants.SHOPPINGBAG)
+                            }
+
                         }
-                        else
+                        else  //normal user
                         {
                             val intent = Intent(this, VerificationActivity::class.java)
                             intent.putExtra(Constants.MOBILE, response.data.mobile)
@@ -85,24 +109,14 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                             intent.putExtra(Constants.OTP, response.data.otp.toString())
                             startActivity(intent)
                         }
-
                     }
-                    else
+                    else  //else --- land on Signup page
                     {
-                        val intent = Intent(this, VerificationActivity::class.java)
-                        intent.putExtra(Constants.MOBILE, response.data.mobile)
-                        intent.putExtra(Constants.USERID, response.data.user_id.toString())
-                        intent.putExtra(Constants.OTP, response.data.otp.toString())
-                        startActivity(intent)
+                        val intent = Intent(this, RegisterActivity::class.java)
+                        intent.putExtra(Constants.GUESTUSER,guestuser)
+                        startActivityForResult(intent,Constants.SHOPPINGBAG)
                     }
 
-
-
-                    Toast.makeText(
-                        applicationContext,
-                        response.message,
-                        Toast.LENGTH_SHORT
-                    ).show()
                 }
                 is Resource.Loading -> {
                     com.shoparty.android.utils.ProgressDialog.showProgressBar(this)

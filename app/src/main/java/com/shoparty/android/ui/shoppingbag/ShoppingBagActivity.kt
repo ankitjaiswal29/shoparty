@@ -52,7 +52,7 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
     private var totalprice: Double=0.00
     private var storeSelectedId: Int=0
     private var pickupHomeSelected: Int=1
-    private var purchaseasguest: Int=0
+    private var purchaseasguest: Int=1
     private var ordertype: Int=1
     private var isDeliverable: Int=0
     private lateinit var binding: ActivityShopingBagBinding
@@ -127,14 +127,13 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
         binding.checkPurchaseGuast.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked)
             {
-                purchaseasguest=1
+                purchaseasguest=2
             }
             else
             {
-                purchaseasguest=0
+                purchaseasguest=1
             }
         }
-
     }
 
     @SuppressLint("SetTextI18n")
@@ -641,16 +640,17 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
             {
                 if(PrefManager.read(PrefManager.AUTH_TOKEN, "").isEmpty() && PrefManager.read(PrefManager.USER_ID, "").isEmpty())
                 {
-                    if(purchaseasguest==1)
+                    if(purchaseasguest==2)
                     {
                         val intent = Intent(applicationContext, LoginActivity::class.java)
-                        intent.putExtra("GUESTUSER",purchaseasguest.toString())
+                        intent.putExtra(Constants.GUESTUSER,purchaseasguest.toString()) //2
                         startActivityForResult(intent,Constants.SHOPPINGBAG)
-                        PrefManager.write(PrefManager.IS_SHIPPING_PAGE, "1")
                     }
                     else
                     {
-                        Utils.showLongToast(this,getString(R.string.comingsoon))
+                        val intent = Intent(applicationContext, LoginActivity::class.java)
+                        intent.putExtra(Constants.GUESTUSER,"1")
+                        startActivityForResult(intent,Constants.SHOPPINGBAG)
                     }
                 }
                 else

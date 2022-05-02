@@ -21,5 +21,6 @@ data class LoginResponse(
         val language_id: Int,
         val user_id: Int,
         val dob: String,
+        val completely_registered: String,
     )
 }

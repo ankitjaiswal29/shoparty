@@ -8,6 +8,7 @@ data class ProductListRequestModel(
     var filter: Filter = Filter(),
     val sort_applied: Int = 0,
     val sort_type: Int = 0,
+    val user_id: String = "",
 ) {
     data class Filter(
         var color: ArrayList<String> = ArrayList(),

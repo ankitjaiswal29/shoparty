@@ -1,23 +1,17 @@
 package com.shoparty.android.ui.verificationotp
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityVerificationBinding
 import com.shoparty.android.ui.main.mainactivity.MainActivity
-import com.shoparty.android.ui.main.myaccount.getprofile.GetProfileResponse
-import com.shoparty.android.ui.shipping.ShippingActivity
 import com.shoparty.android.utils.*
 
 import com.shoparty.android.utils.apiutils.Resource
@@ -104,27 +98,31 @@ class VerificationActivity : AppCompatActivity() {
             when (response) {
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
-                    setupUI(response.data?.data)
+                    setupUI(response)
                     Toast.makeText(applicationContext,getString(R.string.loginsuccess) ,Toast.LENGTH_SHORT).show()
                     if(intent.extras!=null)
                     {
-                        if(intent.getStringExtra("GUESTUSER").equals("1"))
+                        if(intent.getStringExtra(Constants.GUESTUSER).equals("2")) //guest user
                         {
                              setResult(Activity.RESULT_OK,intent)
                              finish()
                         }
-                        else
+                        else if(intent.getStringExtra(Constants.GUESTUSER).equals("1")) //without guest but without login user
+                        {
+                            setResult(Activity.RESULT_OK,intent)
+                            finish()
+                        }
+                        else                     //normal user
                         {
                             val intent = Intent(this, MainActivity::class.java)
                             startActivity(intent)
                         }
                     }
-                    else
+                    else      //normal user
                     {
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                     }
-                    Constants.SHOPPINGBAG
                 }
                 is Resource.Loading -> {
                     ProgressDialog.showProgressBar(this)
@@ -180,14 +178,15 @@ class VerificationActivity : AppCompatActivity() {
             }
         }
     }
-    private fun setupUI(data: VerifiyOtpResponse.Data?)
+    private fun setupUI(data: Resource<VerifiyOtpResponse>)
     {
-       /* PrefManager.write(PrefManager.IMAGE,data?.image.toString())
-        PrefManager.write(PrefManager.MOBILE, data?.mobile.toString())
-        PrefManager.write(PrefManager.NAME, data?.name.toString())
-        PrefManager.write(PrefManager.USER_ID, data?.user_id.toString())
-        PrefManager.write(PrefManager.EMAIL, data?.email.toString())*/
-        PrefManager.write(PrefManager.USER_ID, data?.user_id.toString())
+        PrefManager.write(PrefManager.IMAGE, data.data?.result?.data!!.image)
+        PrefManager.write(PrefManager.MOBILE, data.data?.result?.data!!.mobile.toString())
+        PrefManager.write(PrefManager.NAME, data.data?.result?.data!!.name.toString())
+        PrefManager.write(PrefManager.USER_ID, data.data?.result?.data!!.user_id.toString())
+        PrefManager.write(PrefManager.EMAIL, data.data?.result?.data!!.toString())
+        PrefManager.write(PrefManager.USER_ID, data.data?.result?.data!!.toString())
+        PrefManager.write(PrefManager.AUTH_TOKEN, data.data.token)
     }
 
     override fun onDestroy() {

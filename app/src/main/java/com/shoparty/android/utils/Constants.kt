@@ -17,6 +17,7 @@ object Constants {
         const val TYPE = "1"
         const val USERID= "USERID"
         const val OTP= "OTP"
+        const val GUESTUSER="GUESTUSER"
         const val MAINACTIVITY= "MAINACTIVITY"
         const val MYACCOUNTFRAGMENT= "MYACCOUNTFRAGMENT"
         const val MOBILE = "MOBILE"

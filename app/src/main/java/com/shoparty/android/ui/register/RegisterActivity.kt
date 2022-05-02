@@ -1,6 +1,7 @@
 package com.shoparty.android.ui.register
 
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Color
@@ -14,6 +15,8 @@ import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityRegisterBinding
 import com.shoparty.android.ui.login.LoginActivity
 import com.shoparty.android.ui.main.myaccount.termandcondition.TermAndConditionActivity
+import com.shoparty.android.ui.verificationotp.VerificationActivity
+import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
@@ -116,7 +119,6 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
             binding.tvTermcondition.id -> {
                 val intent = Intent(this, TermAndConditionActivity::class.java)
                 startActivity(intent)
-
             }
         }
     }
@@ -128,7 +130,36 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     PrefManager.write(PrefManager.AUTH_TOKEN, response.data?.token!!)
-                    startActivity(Intent(this, LoginActivity::class.java))
+                    if(intent.extras!=null)
+                    {
+                        if(intent.getStringExtra(Constants.GUESTUSER)=="1")
+                        {
+                            val intent = Intent(this, VerificationActivity::class.java)
+                            intent.putExtra(Constants.MOBILE, response.data.mobile)
+                            intent.putExtra(Constants.USERID, response.data.user_id.toString())
+                            intent.putExtra(Constants.OTP, response.data.otp.toString())
+                            intent.putExtra(Constants.GUESTUSER, "2")
+                            startActivityForResult(intent,Constants.SHOPPINGBAG)
+                        }
+                        else if(intent.getStringExtra(Constants.GUESTUSER)=="2")
+                        {
+                            val intent = Intent(this, VerificationActivity::class.java)
+                            intent.putExtra(Constants.MOBILE, response.data.mobile)
+                            intent.putExtra(Constants.USERID, response.data.user_id.toString())
+                            intent.putExtra(Constants.OTP, response.data.otp.toString())
+                            intent.putExtra(Constants.GUESTUSER, "2")
+                            startActivityForResult(intent,Constants.SHOPPINGBAG)
+                        }
+                        else
+                        {
+                            finish()
+                        }
+                    }
+                    else
+                    {
+                        finish()
+                    }
+
                     Toast.makeText(
                         applicationContext,
                         response.message,
@@ -155,6 +186,15 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                     ).show()
                 }
             }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == Constants.SHOPPINGBAG && resultCode == Activity.RESULT_OK)
+        {
+            setResult(Activity.RESULT_OK)
+            finish()
         }
     }
 

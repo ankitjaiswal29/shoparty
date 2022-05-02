@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.shoparty.android.common_modal.CartProduct
+import com.shoparty.android.common_modal.Category
 import com.shoparty.android.common_modal.Product
 import com.shoparty.android.database.dao.ProductDao
 import com.shoparty.android.ui.productdetails.AddItemToBagRequestModel
@@ -13,7 +14,7 @@ import com.shoparty.android.ui.productdetails.AddItemToBagRequestModel
 /**
  * Created by Amit Gupta on 21-03-2022.
  */
-@Database(entities = [Product::class, CartProduct::class], version = 2, exportSchema = false)
+@Database(entities = [Product::class, CartProduct::class,Category::class], version = 1, exportSchema = false)
 @androidx.room.TypeConverters(Converters::class)
 abstract class MyDatabase : RoomDatabase() {
 

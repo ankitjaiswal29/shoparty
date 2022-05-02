@@ -81,7 +81,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/get_otp"
-        android:onClick="@{() -> loginViewModel.postLogin()}"
         android:textColor="@color/white"
         android:background="@drawable/customize_btn_bg"
         android:textAllCaps="false"/>

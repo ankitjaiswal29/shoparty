@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shoparty.android.R
 import com.shoparty.android.common_modal.Product
+import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 
@@ -27,8 +28,8 @@ class ProductListViewModel(private val app: Application) : ViewModel()
         sort_applied: Int,
         sort_type: Int
     ) = viewModelScope.launch {
-
-        val request = ProductListRequestModel(langauge_id,filter_applied,filterlist,sort_applied,sort_type)
+        val request = ProductListRequestModel(langauge_id,filter_applied,filterlist,sort_applied,sort_type
+        ,PrefManager.read(PrefManager.USER_ID,""))
         if(Utils.hasInternetConnection(app.applicationContext))
         {
             mProductList.postValue(Resource.Loading())
@@ -55,7 +56,7 @@ class ProductListViewModel(private val app: Application) : ViewModel()
         sort_type: Int
     ) = viewModelScope.launch {
         val request = TopSellingRequestModel(langauge_id,type,offset,limit,user_id,
-            filter_applied,filterlist,sort_applied,sort_type)
+            filter_applied,filterlist,sort_applied)
         if(Utils.hasInternetConnection(app.applicationContext))
         {
             mProductList.postValue(Resource.Loading())

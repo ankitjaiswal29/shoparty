@@ -30,14 +30,14 @@ class LoginViewModel(private val app: Application) : ViewModel()
     private lateinit var auth: FirebaseAuth
 
 
-    fun postLogin() = viewModelScope.launch {
+    fun postLogin(asGuest:String) = viewModelScope.launch {
         if(validation())
         {
             auth = FirebaseAuth.getInstance()
             deviceToken = FirebaseInstanceId.getInstance().token.toString()
 
             val request = LoginRequestModel(etMobileNo.get()!!, deviceToken.toString(),
-                Constants.DEVICE_TYPE,Constants.TYPE)
+                Constants.DEVICE_TYPE,asGuest)
             if(Utils.hasInternetConnection(app.applicationContext))
             {
                 mlogin.postValue(Resource.Loading())

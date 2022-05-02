@@ -9,5 +9,4 @@ data class TopSellingRequestModel(
     val filter_applied: String = "",
     val filter: ProductListRequestModel.Filter,
     val sort_applied: Int=0,
-    val sort_type: Int=0
 )
