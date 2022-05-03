@@ -292,8 +292,7 @@ class ProductListActivity : AppCompatActivity(),
             type,
             pageOffset.toString(), pageLimit.toString(),
             PrefManager.read(PrefManager.USER_ID, ""), filter_applied,
-            filterlist, sort_applied, sort_type
-        )
+            filterlist, sort_applied, sort_type)
     }
 
     private fun productListApiCall(

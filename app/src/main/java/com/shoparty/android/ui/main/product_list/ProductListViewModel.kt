@@ -56,7 +56,7 @@ class ProductListViewModel(private val app: Application) : ViewModel()
         sort_type: Int
     ) = viewModelScope.launch {
         val request = TopSellingRequestModel(langauge_id,type,offset,limit,user_id,
-            filter_applied,filterlist,sort_applied)
+            filter_applied,filterlist,sort_applied,sort_type)
         if(Utils.hasInternetConnection(app.applicationContext))
         {
             mProductList.postValue(Resource.Loading())
