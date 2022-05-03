@@ -27,8 +27,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService()
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
         Log.e(TAG, ">>>>>" + remoteMessage.data.toString())
-
-      //  PrefManager.putBoolean(PrefManager.IS_NEW_NOTIFICATION,true)
         val intent = Intent(this, SplashActivity::class.java)
          sendNotification(intent,
              remoteMessage.data["title"],

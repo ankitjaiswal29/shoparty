@@ -561,8 +561,7 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
                 parent: AdapterView<*>?,
                 view: View,
                 position: Int,
-                id: Long)
-            {
+                id: Long) {
                 selectedcityid=cityidlist[position]
             }
 

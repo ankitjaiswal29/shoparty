@@ -62,7 +62,8 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
         }
     }
 
-    override fun onResume() {
+    override fun onResume()
+    {
         super.onResume()
         (activity as MainActivity).manageUi(ivLogo = true, ivBag = true,ivSearch = true)
     }
@@ -83,12 +84,12 @@ class MyAccountFragment : Fragment(), RecyclerViewClickListener {
            binding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_account, container, false)
            viewModel = ViewModelProvider(this, ViewModalFactory(application))[MyAccountViewModel::class.java]
            setObserver()
+           apiCall()
            return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        apiCall()
     }
 
     private fun apiCall()

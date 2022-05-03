@@ -139,7 +139,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                         setCurrentFragment(WishListFragment())
                     }
                 R.id.MyAccountFragment ->
-                    if(PrefManager.read(PrefManager.AUTH_TOKEN, "").isEmpty())
+                    if(PrefManager.read(PrefManager.AUTH_TOKEN, "").isEmpty()
+                        && PrefManager.read(PrefManager.USER_ID, "").isEmpty())
                     {
                         val intent = Intent(this, LoginActivity::class.java)
                         startActivity(intent)
