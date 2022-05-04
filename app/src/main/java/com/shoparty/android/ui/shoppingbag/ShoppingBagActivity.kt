@@ -378,8 +378,6 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
         }
     }
 
-
-
     private fun shoppingBagPickup(storeList: ArrayList<StoreListResponse.Result>)
     {
         binding.bagItemPickupRecycler.adapter = ShopingBagPickupAdapter(storeList,this)

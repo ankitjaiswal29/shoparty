@@ -8,11 +8,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.shoparty.android.R
 import com.shoparty.android.interfaces.RecyclerViewClickListener
+import com.shoparty.android.interfaces.WishListAddBagClickListener
+import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.inflate
 import kotlinx.android.synthetic.main.filter_color_item_layout.view.*
 
-class ProductDetailsColorAdapter(var context: Context, private val itemList: List<ProducatDetailsResponse.Color>,
-                                 var recyclerViewClickListener: RecyclerViewClickListener): RecyclerView.Adapter<ProductDetailsColorAdapter.TopSellingSubcategoriesViewHolder>()
+class ProductDetailsColorAdapter(var context: Context,
+                                 private val itemList: List<ProducatDetailsResponse.Color>,
+                                 var recyclerViewClickListener: WishListAddBagClickListener
+): RecyclerView.Adapter<ProductDetailsColorAdapter.TopSellingSubcategoriesViewHolder>()
 {
     inner class TopSellingSubcategoriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     var check=false
@@ -28,7 +32,6 @@ class ProductDetailsColorAdapter(var context: Context, private val itemList: Lis
         holder.itemView.apply {
             view_circle.backgroundTintList = ColorStateList.valueOf(Color.parseColor(item.color_code))
         }
-
         if(item.ischecked)
         {
             holder.itemView.iv_check.visibility=View.VISIBLE
@@ -39,10 +42,11 @@ class ProductDetailsColorAdapter(var context: Context, private val itemList: Lis
         }
 
         holder.itemView.view_circle.setOnClickListener{
-            recyclerViewClickListener.click(item.color_id.toString())
+            recyclerViewClickListener.twoitemsPassClick(item.product_color_id,item.product_detail_id)
             itemList.forEach {
                 it.ischecked = false
             }
+
             item.ischecked = true
             notifyDataSetChanged()
         }

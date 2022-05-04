@@ -17,8 +17,6 @@ import com.shoparty.android.interfaces.RecyclerViewFavouriteListener
 import com.shoparty.android.interfaces.WishListAddBagClickListener
 import com.shoparty.android.ui.productdetails.ProductDetailsActivity
 import com.shoparty.android.utils.Constants
-import com.shoparty.android.utils.Constants.CARTACTIONMINUSTYPE
-import com.shoparty.android.utils.Constants.CARTACTIONPLUSTYPE
 
 class WishListAdapters(
     var context: Context,
@@ -68,15 +66,15 @@ class WishListAdapters(
         Glide.with(context).asBitmap().load(ItemsViewModel.image).into(holder.iv_Productimg!!)
 
         holder.txtAdd.setOnClickListener {
-            wishListAddBagClickListener.addBagClick(position,Constants.CARTACTIONADDBUTTONTYPE)
+            wishListAddBagClickListener.twoitemsPassClick(position,Constants.CARTACTIONADDBUTTONTYPE)
         }
 
         holder.iv_plus.setOnClickListener {
-            wishListAddBagClickListener.addBagClick(position,Constants.CARTACTIONPLUSTYPE)
+            wishListAddBagClickListener.twoitemsPassClick(position,Constants.CARTACTIONPLUSTYPE)
         }
 
         holder.iv_minus.setOnClickListener {
-            wishListAddBagClickListener.addBagClick(position,Constants.CARTACTIONMINUSTYPE)
+            wishListAddBagClickListener.twoitemsPassClick(position,Constants.CARTACTIONMINUSTYPE)
         }
 
 

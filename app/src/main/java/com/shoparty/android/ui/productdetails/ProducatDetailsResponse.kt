@@ -84,7 +84,7 @@ data class ProducatDetailsResponse(
 
     @Parcelize
     data class Color(
-        val color_id: Int,
+        val product_color_id: Int,
         var color_code: String,
         val id: Int,
         val product_detail_id: Int,

@@ -513,9 +513,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.tvHome.setTextColor(getColor(R.color.black))
         binding.tvMyaccount.setTextColor(getColor(R.color.black))
         binding.tvLanguage.setTextColor(getColor(R.color.black))
-
         binding.bottomNavigatinView.findViewById<View>(R.id.WishlistFragment).performClick()
-
     }
 
 
@@ -558,7 +556,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
 
     override fun onBackPressed() {
-        if (binding.bottomNavigatinView.getSelectedItemId() == R.id.homeFragment) {
+        if (binding.bottomNavigatinView.selectedItemId == R.id.homeFragment) {
             AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle(getString(R.string.app_name))
@@ -570,7 +568,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
                 .setNegativeButton(getString(R.string.no), null).show()
         } else {
-            binding.bottomNavigatinView.setSelectedItemId(R.id.homeFragment)
+            binding.bottomNavigatinView.selectedItemId = R.id.homeFragment
             binding.bottomNavigatinView.findViewById<View>(R.id.homeFragment).performClick()
         }
     }

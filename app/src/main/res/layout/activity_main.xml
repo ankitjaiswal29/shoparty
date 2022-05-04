@@ -48,7 +48,7 @@
                             android:id="@+id/iv_ProfilePic"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:src="@drawable/person_img"
+                            android:src="@drawable/dummy_img"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -60,9 +60,8 @@
                             android:layout_marginLeft="10dp"
                             android:drawableEnd="@drawable/ic_icon_aeroright"
                             android:drawablePadding="60dp"
-
                             android:padding="2dp"
-                            android:text="@string/lukman_khan"
+                            android:text=""
                             app:layout_constraintStart_toEndOf="@+id/iv_ProfilePic"
                             app:layout_constraintTop_toTopOf="@+id/iv_ProfilePic" />
 
@@ -73,7 +72,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:padding="2dp"
-                            android:text="@string/_999_9999_999"
+                            android:text=""
                             app:layout_constraintStart_toEndOf="@+id/iv_ProfilePic"
                             app:layout_constraintTop_toBottomOf="@+id/tv_Name" />
 

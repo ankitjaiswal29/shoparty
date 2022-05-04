@@ -31,6 +31,7 @@ import com.shoparty.android.common_modal.CartProduct
 import com.shoparty.android.database.MyDatabase
 import com.shoparty.android.databinding.ActivityProductDetailsBinding
 import com.shoparty.android.interfaces.RecyclerViewClickListener
+import com.shoparty.android.interfaces.WishListAddBagClickListener
 import com.shoparty.android.ui.customize.CustomizeActivity
 import com.shoparty.android.ui.login.LoginActivity
 import com.shoparty.android.ui.main.home.HomeResponse
@@ -52,9 +53,8 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
-
-
-class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, RecyclerViewClickListener,
+class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener,
+    WishListAddBagClickListener,
     ProductDetailCallback {
     private var comment: String?=""
     private var pageClick:Boolean=false
@@ -71,6 +71,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
     var is_customizable = ""
     var sliderfirstimage = ""
     var quantity: Int = 0
+    var colorfirattimeset:Boolean=false
     private lateinit var viewModel: ProducatDetailsViewModel
     private lateinit var wishlistviewModel: WishListViewModel
     private lateinit var productDetails: ProducatDetailsResponse.ProductDetails
@@ -88,20 +89,22 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
             resources,
             R.mipmap.ic_success_logo
         )
+        Constants.PRODUCT_COLOR = 0
         initialise()
         setObserver()
     }
 
 
-    override fun onResume() {
+    override fun onResume()
+    {
         super.onResume()
-        viewModel.postProducatDetails(
-            PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
+          viewModel.postProducatDetails(
+                PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
+                PrefManager.read(PrefManager.USER_ID, ""),
                 product_details_id,
                 product_id,
                 product_sizeId,
-                product_colorId,
-                PrefManager.read(PrefManager.USER_ID, "")) //api call
+                product_colorId) //api call
     }
 
     @SuppressLint("SetTextI18n")
@@ -137,14 +140,6 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                                 ?.lowercase()
             }
         }
-        viewModel.postProducatDetails(
-            PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
-            product_details_id,
-            product_id,
-            product_sizeId,
-            product_colorId,
-            PrefManager.read(PrefManager.USER_ID, "")
-        ) //api call
 
         binding.ivShare.setOnClickListener {
             val sharedLink =
@@ -189,9 +184,17 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
     }
 
     private fun choesColorRecyclaritem(colors: List<ProducatDetailsResponse.Color>) {
-        colors.forEachIndexed { pos, it ->
-            if (pos == 0) {
-                it.ischecked = true
+        if (Constants.PRODUCT_COLOR != 0){
+            colors.forEachIndexed { pos, it ->
+                if (it.product_color_id == Constants.PRODUCT_COLOR) {
+                    it.ischecked = true
+                }
+            }
+        }else {
+            colors.forEachIndexed { pos, it ->
+                if (pos == 0) {
+                    it.ischecked = true
+                }
             }
         }
         val gridLayoutManager = GridLayoutManager(this, 9)
@@ -199,8 +202,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
         binding.rvColorrecyclarview.adapter = ProductDetailsColorAdapter(
             this@ProductDetailsActivity,
             colors,
-            this@ProductDetailsActivity
-        )
+            this@ProductDetailsActivity)
     }
 
     private fun setrecyclaryoumayalsolike(productDetailList: List<ProducatDetailsResponse.ProductDetailList>)
@@ -264,7 +266,6 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                 {
                     quantity += 1
                     addToBagApi()
-
                 }
             }
             R.id.ivBagBtn -> {
@@ -466,11 +467,21 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                     ProgressDialog.hideProgressBar()
                     setImageInSlider(response.data?.product_details?.images!!)
                     sliderfirstimage=response.data?.product_details.images[0].image
-                    response.data.product_details.let { setData(it) }     //for data set
+                    product_details_id=response.data?.product_details.product_detail_id
+                    response.data.product_details.let {
+                        setData(it)
+                    }     //for data set
                     setrecyclaryoumayalsolike(response.data.you_may_also_like)
                     recyclarcustomeralsobought(response.data.also_bought)
                     checkReadMore(response.data.product_details.product_desc)
-                    choesColorRecyclaritem(response.data.product_details.colors)
+
+                    if(colorfirattimeset)  //color click user
+                    {
+                        colorfirattimeset=false
+                    }
+                    else {
+                        choesColorRecyclaritem(response.data.product_details.colors)
+                    }
                 }
                 is Resource.Loading -> {
                     ProgressDialog.showProgressBar(this)
@@ -497,6 +508,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
         wishlistviewModel.addremovewishlist.observe(this) { response ->
             when (response) {
                 is Resource.Success -> {
+                    ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         this,
                         response.message,
@@ -511,10 +523,10 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                     }
                 }
                 is Resource.Loading -> {
-                //    ProgressDialog.showProgressBar(this)
+                   ProgressDialog.showProgressBar(this)
                 }
                 is Resource.Error -> {
-                    //ProgressDialog.hideProgressBar()
+                    ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         this,
                         response.message,
@@ -522,7 +534,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                     ).show()
                 }
                 else -> {
-                    //ProgressDialog.hideProgressBar()
+                    ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         this,
                         response.message,
@@ -545,11 +557,11 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                     {
                         viewModel.postProducatDetails(
                             PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
+                            PrefManager.read(PrefManager.USER_ID, "").toString(),
                             product_details_id,
                             product_id,
                             product_sizeId,
-                            product_colorId,
-                            PrefManager.read(PrefManager.USER_ID, "").toString()
+                            product_colorId
                         ) //api call
                         pageClick=false
                     }
@@ -613,7 +625,8 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
     }
 
     @SuppressLint("SetTextI18n")
-    private fun setData(data: ProducatDetailsResponse.ProductDetails) {
+    private fun setData(data: ProducatDetailsResponse.ProductDetails)
+    {
         productDetails = data
         if(PrefManager.read(PrefManager.AUTH_TOKEN, "").isEmpty())  //for local database
         {
@@ -642,7 +655,8 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
         else     //for api quantity
         {
             quantity = data.cart_quantity!!                   //for quantity
-            if (quantity <= 0) {
+            if (quantity <= 0)
+            {
                 addToBagButtonVisible()
             } else {
                 addToBagButtonInVisible()
@@ -719,22 +733,19 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
         binding.imageSliderr.startAutoCycle()
     }
 
-    override fun click(color_id: String) {
-        // Utils.showLongToast(this,color_id)
-    }
+
 
     override fun onProductClick(
         product_detail_id: Int,
         product_id: Int,
         product_sizeId: String,
-        product_colorId: String
-    ) {
+        product_colorId: String)
+    {
         resetAllValues(product_detail_id, product_id, product_sizeId, product_colorId)
         viewModel.postProducatDetails(
             PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
-            product_detail_id.toString(), product_id.toString(), product_sizeId, product_colorId,
-            PrefManager.read(PrefManager.USER_ID, "")
-        ) //api call
+            PrefManager.read(PrefManager.USER_ID, ""),
+            product_detail_id.toString(), product_id.toString(), product_sizeId, product_colorId) //api call
         binding.nestedScrool.scrollTo(0, binding.nestedScrool.top)
     }
 
@@ -785,6 +796,17 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener, Recycl
                 addToBagApi()
             }
         }
+    }
+
+    override fun twoitemsPassClick(color_id: Int,product_detailid: Int) {
+        viewModel.postProducatDetails(
+            PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
+            PrefManager.read(PrefManager.USER_ID, ""),
+            product_detailid.toString(), product_id, product_sizeId,color_id.toString()) //api call
+        colorfirattimeset=true
+        Constants.PRODUCT_COLOR = color_id
+        product_colorId=color_id.toString()
+      //  product_detailid=product_detailid.toString()
     }
 
 }

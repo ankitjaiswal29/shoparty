@@ -53,8 +53,6 @@ import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
-
-
 class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
     private var dob1= ""
     private lateinit var binding: ActivityMyProfileBinding
@@ -68,7 +66,6 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
     private lateinit var addressviewModel: AddressViewModel
     private var countrylist: ArrayList<String> = ArrayList()
     private var countryidlist: ArrayList<String> = ArrayList()
-
     private var citylist: ArrayList<String> = ArrayList()
     private var cityidlist: ArrayList<String> = ArrayList()
     private var selectedcountryid=""
@@ -81,7 +78,7 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
         viewModel = ViewModelProvider(this, ViewModalFactory(application))[MyAccountViewModel::class.java]
         addressviewModel = ViewModelProvider(this, ViewModalFactory(application))[AddressViewModel::class.java]
         initialise()
-        addressviewModel.getcountrylist()      //api call
+        addressviewModel.getcountrylist()  //api call
         setObserver()
     }
 
@@ -113,10 +110,12 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
                     PrefManager.write(PrefManager.CITYID, response.data?.city_id.toString())
 
 
-                    if(!response.data?.street_no.isNullOrEmpty()) {
+                    if(!response.data?.street_no.isNullOrEmpty())
+                    {
                         response.data?.street_no?.let { PrefManager.write(PrefManager.STREET, it) }
                     }
-                    if (!response.data?.building_no.isNullOrEmpty()) {
+                    if(!response.data?.building_no.isNullOrEmpty())
+                    {
                         response.data?.building_no?.let {
                             PrefManager.write(
                                 PrefManager.HOUSENO,
@@ -304,7 +303,8 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
                     )
                     .withListener(object : MultiplePermissionsListener {
                         override fun onPermissionsChecked(report: MultiplePermissionsReport) {
-                            if (report.areAllPermissionsGranted()) {
+                            if (report.areAllPermissionsGranted())
+                            {
                                 openDialogToUpdateProfilePIC()
                             }
                             if (report.isAnyPermissionPermanentlyDenied) {

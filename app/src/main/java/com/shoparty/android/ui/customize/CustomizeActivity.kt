@@ -15,6 +15,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.os.Environment.getExternalStorageDirectory
 import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
@@ -160,11 +161,11 @@ class CustomizeActivity : AppCompatActivity(), View.OnClickListener {
             Dexter.withContext(this)
                 .withPermissions(
                     Manifest.permission.CAMERA,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                )
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .withListener(object : MultiplePermissionsListener {
                     override fun onPermissionsChecked(report: MultiplePermissionsReport) {
-                        if (report.areAllPermissionsGranted()) {
+                        if (report.areAllPermissionsGranted())
+                        {
                             val bitmap=Utils.screenShot(binding.clView)
                             val file= bitmapToFile(bitmap!!,"cdc")
                             val intent = Intent()
@@ -295,17 +296,16 @@ class CustomizeActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     fun bitmapToFile(bitmap: Bitmap, fileNameToSave: String): File? { // File name like "image.png"
-        //create a file to write bitmap data
         var file: File? = null
         return try {
-            file = File(Environment.getExternalStorageDirectory().toString() + File.separator + fileNameToSave)
+            file = File(externalCacheDir.toString() + File.separator + fileNameToSave)
+
             file.createNewFile()
 
             //Convert bitmap to byte array
             val bos = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.PNG, 0, bos) // YOU can also save it in JPEG
             val bitmapdata = bos.toByteArray()
-
             //write the bytes in file
             val fos = FileOutputStream(file)
             fos.write(bitmapdata)
@@ -331,8 +331,6 @@ class CustomizeActivity : AppCompatActivity(), View.OnClickListener {
         popupWindow.isFocusable = true
         popupWindow.isOutsideTouchable = true
         popupWindow.elevation = 5.0f
-        // popupWindow.softInputMode = PopupWindow.INPUT_METHOD_NEEDED
-        //popupWindow.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING
         popupWindow.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         popupWindow.showAtLocation(binding.root, Gravity.CENTER, 0, 0)
 

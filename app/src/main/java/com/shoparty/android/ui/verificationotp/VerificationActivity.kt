@@ -182,10 +182,9 @@ class VerificationActivity : AppCompatActivity() {
     {
         PrefManager.write(PrefManager.IMAGE, data.data?.result?.data!!.image)
         PrefManager.write(PrefManager.MOBILE, data.data?.result?.data!!.mobile.toString())
-        PrefManager.write(PrefManager.NAME, data.data?.result?.data!!.name.toString())
+        PrefManager.write(PrefManager.NAME, data.data?.result?.data!!.name)
         PrefManager.write(PrefManager.USER_ID, data.data?.result?.data!!.user_id.toString())
-        PrefManager.write(PrefManager.EMAIL, data.data?.result?.data!!.toString())
-        PrefManager.write(PrefManager.USER_ID, data.data?.result?.data!!.toString())
+        PrefManager.write(PrefManager.EMAIL, data.data?.result?.data!!.email)
         PrefManager.write(PrefManager.AUTH_TOKEN, data.data.token)
     }
 

@@ -6,10 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shoparty.android.R
-import com.shoparty.android.common_modal.CartProduct
-import com.shoparty.android.common_modal.Product
-import com.shoparty.android.ui.productdetails.ProducatDetailsRequestModel
-import com.shoparty.android.ui.productdetails.ProducatDetailsResponse
+
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import kotlinx.coroutines.launch

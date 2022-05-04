@@ -2,7 +2,7 @@ package com.shoparty.android.ui.main.mainactivity
 
 import com.shoparty.android.network.RetrofitBuilder
 import com.shoparty.android.ui.main.categories.CategoryRequestModel
-import com.shoparty.android.ui.productdetails.ProducatDetailsRequestModel
+
 
 /**
  * Created by Amit Gupta on 16-03-2022.

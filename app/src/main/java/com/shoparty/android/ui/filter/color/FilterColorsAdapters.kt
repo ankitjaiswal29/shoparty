@@ -19,9 +19,7 @@ import kotlinx.android.synthetic.main.filter_color_item_layout.view.*
 class FilterColorsAdapters(
     private val colorList: List<ColorsResponse.Colors>,
     var quantityListner: QuantityListner,
-    var context: Context
-) :
-                           RecyclerView.Adapter<FilterColorsAdapters.ViewHolder>() {
+    var context: Context) : RecyclerView.Adapter<FilterColorsAdapters.ViewHolder>() {
     var checkedItems = ArrayList<String>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
