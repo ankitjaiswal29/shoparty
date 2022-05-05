@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.shoparty.android.R
-import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.interfaces.WishListAddBagClickListener
-import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.inflate
 import kotlinx.android.synthetic.main.filter_color_item_layout.view.*
 
@@ -42,7 +40,7 @@ class ProductDetailsColorAdapter(var context: Context,
         }
 
         holder.itemView.view_circle.setOnClickListener{
-            recyclerViewClickListener.twoitemsPassClick(item.product_color_id,item.product_detail_id)
+            recyclerViewClickListener.twoParameterPassClick(item.product_color_id,item.product_detail_id)
             itemList.forEach {
                 it.ischecked = false
             }

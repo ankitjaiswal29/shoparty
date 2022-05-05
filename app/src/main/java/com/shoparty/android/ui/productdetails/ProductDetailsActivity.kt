@@ -87,8 +87,7 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener,
             ViewModelProvider(this, ViewModalFactory(application))[WishListViewModel::class.java]
         icon = BitmapFactory.decodeResource(
             resources,
-            R.mipmap.ic_success_logo
-        )
+            R.mipmap.ic_success_logo)
         Constants.PRODUCT_COLOR = 0
         initialise()
         setObserver()
@@ -468,6 +467,8 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener,
                     setImageInSlider(response.data?.product_details?.images!!)
                     sliderfirstimage=response.data?.product_details.images[0].image
                     product_details_id=response.data?.product_details.product_detail_id
+                    product_sizeId=response.data?.product_details.product_size_id.toString()
+
                     response.data.product_details.let {
                         setData(it)
                     }     //for data set
@@ -798,15 +799,16 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener,
         }
     }
 
-    override fun twoitemsPassClick(color_id: Int,product_detailid: Int) {
+    override fun twoParameterPassClick(color_id: Int, product_detailid: Int)
+    {
+        product_details_id = product_detailid.toString()
+        product_colorId = color_id.toString()
+        Constants.PRODUCT_COLOR = color_id
+        colorfirattimeset=true
         viewModel.postProducatDetails(
             PrefManager.read(PrefManager.LANGUAGEID, 1).toString(),
             PrefManager.read(PrefManager.USER_ID, ""),
-            product_detailid.toString(), product_id, product_sizeId,color_id.toString()) //api call
-        colorfirattimeset=true
-        Constants.PRODUCT_COLOR = color_id
-        product_colorId=color_id.toString()
-      //  product_detailid=product_detailid.toString()
+            product_details_id, product_id, product_sizeId,product_colorId) //api call
     }
 
 }

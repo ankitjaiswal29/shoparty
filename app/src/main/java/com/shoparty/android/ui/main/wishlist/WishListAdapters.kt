@@ -66,15 +66,15 @@ class WishListAdapters(
         Glide.with(context).asBitmap().load(ItemsViewModel.image).into(holder.iv_Productimg!!)
 
         holder.txtAdd.setOnClickListener {
-            wishListAddBagClickListener.twoitemsPassClick(position,Constants.CARTACTIONADDBUTTONTYPE)
+            wishListAddBagClickListener.twoParameterPassClick(position,Constants.CARTACTIONADDBUTTONTYPE)
         }
 
         holder.iv_plus.setOnClickListener {
-            wishListAddBagClickListener.twoitemsPassClick(position,Constants.CARTACTIONPLUSTYPE)
+            wishListAddBagClickListener.twoParameterPassClick(position,Constants.CARTACTIONPLUSTYPE)
         }
 
         holder.iv_minus.setOnClickListener {
-            wishListAddBagClickListener.twoitemsPassClick(position,Constants.CARTACTIONMINUSTYPE)
+            wishListAddBagClickListener.twoParameterPassClick(position,Constants.CARTACTIONMINUSTYPE)
         }
 
 

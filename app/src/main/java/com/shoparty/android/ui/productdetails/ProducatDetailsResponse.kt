@@ -39,6 +39,7 @@ data class ProducatDetailsResponse(
         val is_deliverable: Int,
         val product_desc: String,
         val product_detail_id: String,
+        val product_size_id: Int,
         val product_id: Int,
         val product_name: String,
         val sale_price: String,

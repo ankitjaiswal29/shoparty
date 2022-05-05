@@ -204,7 +204,7 @@ class WishListActivity : AppCompatActivity(), View.OnClickListener,
         )
     }
 
-    override fun twoitemsPassClick(pos: Int, actiontype: Int) {
+    override fun twoParameterPassClick(pos: Int, actiontype: Int) {
         if (PrefManager.read(PrefManager.AUTH_TOKEN, "") == "")
         {
             /* lifecycleScope.launch(Dispatchers.IO) {
