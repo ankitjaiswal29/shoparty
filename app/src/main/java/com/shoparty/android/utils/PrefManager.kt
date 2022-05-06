@@ -25,6 +25,7 @@ object PrefManager {
     const val DEVICETOKEN: String = "DEVICETOKEN"
     const val STREET: String = "STREET"
     const val HOUSENO: String = "HOUSENO"
+    const val COUNTRYCODE: String = "COUNTRYCODE"
     const val GENDER: String = "GENDER"
     const val CITYID: String = "CITYID"
     const val MALE: String = "Male"

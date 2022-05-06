@@ -5,4 +5,5 @@ data class LoginRequestModel(
     val device_token: String? = "",
     val device_type: String = "",
     var type: String = "",
+    var country_code: String = "",
 )

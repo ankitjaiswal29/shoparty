@@ -452,5 +452,6 @@
     <string name="taxtproduct">(Product)</string>
     <string name="txtcategory">(Category)</string>
     <string name="category">Category</string>
+    <string name="countrycode">+966</string>
 
 </resources>

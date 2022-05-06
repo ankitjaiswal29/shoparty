@@ -4,12 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import com.google.firebase.auth.FirebaseAuth
 
 
 import com.shoparty.android.R
@@ -43,6 +41,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         }
         binding.btnGetOtp.setOnClickListener(this)
         binding.txtSignUp.setOnClickListener(this)
+        binding.etCountryCode.isFocusable = false
     }
 
     override fun onClick(v: View?) {
@@ -55,7 +54,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.btnGetOtp->
             {
-                viewModel.postLogin(guestuser)
+                viewModel.postLogin(guestuser,binding.etCountryCode.text.toString())
             }
         }
     }

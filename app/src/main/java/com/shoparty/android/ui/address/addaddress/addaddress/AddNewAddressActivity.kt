@@ -14,6 +14,7 @@ import com.shoparty.android.databinding.ActivityAddNewAddressBinding
 import com.shoparty.android.ui.address.addaddress.AddressViewModel
 import com.shoparty.android.ui.address.addaddress.getaddress.GetAddressListResponse
 import com.shoparty.android.utils.Constants
+import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener {
@@ -52,10 +53,12 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener {
             viewModel.etMobile.set(addressData.mobile)
             binding.infoTool.tvTitle.text = getString(R.string.editaddress)
             cityid = addressData.city_id
-        } else {
+        }
+        else {
             binding.infoTool.tvTitle.text = getString(R.string.add_new_address)
         }
-
+        binding.etCountryCode.setText(PrefManager.read(PrefManager.COUNTRYCODE,""))
+        binding.etCountryCode.isFocusable = false
         binding.btnCan.setOnClickListener(this)
         binding.btnSav.setOnClickListener(this)
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
@@ -68,14 +71,16 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener {
                 finish()
             }
             R.id.btn_sav -> {
-                if (updatepagestatus == "1") {
+                if (updatepagestatus == "1")
+                {
                     viewModel.updateAddress(
                         selectedcountryid,
                         selectedcityid,
-                        addressid
-                    )   //api call
-                } else {
-                    viewModel.addAddress(selectedcountryid, selectedcityid)   //api call
+                        addressid)   //api call
+                }
+                else
+                {
+                    viewModel.addAddress(selectedcountryid, selectedcityid,binding.etCountryCode.text.toString())   //api call
                 }
 
             }

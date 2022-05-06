@@ -8,7 +8,9 @@
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/drawable/home_top_selling_items_bg.xml" value="0.1345" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/drawable/ic_pink_line_img.xml" value="0.1195" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/drawable/ic_youtube_icon.xml" value="0.1195" />
+        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/drawable/signin_ed_bg.xml" value="0.1205" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_add_card.xml" value="0.1787037037037037" />
+        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_add_new_address.xml" value="0.2" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_address.xml" value="0.17314814814814813" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_cancel_confirm.xml" value="0.16" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_cancel_order.xml" value="0.18055555555555555" />
@@ -18,7 +20,7 @@
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_login.xml" value="0.20416666666666666" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_my_orders.xml" value="0.1787037037037037" />
-        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_my_profile.xml" value="0.17314814814814813" />
+        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_my_profile.xml" value="0.18" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_notification.xml" value="0.20416666666666666" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_ongoing_order.xml" value="0.20416666666666666" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_order_cancel.xml" value="0.18055555555555555" />
@@ -27,6 +29,7 @@
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_payment.xml" value="0.20416666666666666" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_product_details.xml" value="0.17314814814814813" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_product_list.xml" value="0.20416666666666666" />
+        <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_register.xml" value="0.22" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_search.xml" value="0.22" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_shipping.xml" value="0.20416666666666666" />
         <entry key="..\:/Quytech/Projects/shoparty_android/app/src/main/res/layout/activity_shoping_bag.xml" value="0.16" />

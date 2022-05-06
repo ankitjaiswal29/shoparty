@@ -11,6 +11,7 @@ data class MyProfileUpdateResponse(
         val gender: String="",
         val image: String="",
         val mobile: String="",
+        val country_code: String="",
         val name: String="",
         val street_no: String="",
         val building_no: String="",

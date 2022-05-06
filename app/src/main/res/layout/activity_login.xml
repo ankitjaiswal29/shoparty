@@ -59,24 +59,46 @@
         app:layout_constraintTop_toBottomOf="@+id/signin_desc_tv"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="49dp"/>
-    <EditText
-        android:id="@+id/etMobileNo"
-        style="@style/AppTheme.editText_gray"
-        android:imeOptions="actionNext"
-        android:singleLine="true"
-        app:layout_constraintTop_toBottomOf="@+id/signin_mobile_htv"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="10dp"
-        android:inputType="phone"
-        android:text="@={loginViewModel.etMobileNo}"
-       />
+
+        <RelativeLayout
+            android:id="@+id/const_mobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@+id/signin_mobile_htv">
+
+
+            <EditText
+                android:id="@+id/etCountryCode"
+                style="@style/AppTheme.editText_gray_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/signin_ed_bg"
+                android:text="@string/countrycode"
+                android:imeOptions="actionNext"
+                android:inputType="phone"
+                android:singleLine="true"
+                android:textColorHint="@color/black" />
+
+
+            <EditText
+                android:id="@+id/etMobileNo"
+                style="@style/AppTheme.editText_gray"
+                android:layout_marginLeft="@dimen/_2sdp"
+                android:layout_toRightOf="@+id/etCountryCode"
+                android:imeOptions="actionNext"
+                android:inputType="phone"
+                android:singleLine="true"
+                android:text="@={loginViewModel.etMobileNo}" />
+        </RelativeLayout>
+
+
 
     <Button
         android:id="@+id/btnGetOtp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/etMobileNo"
+        app:layout_constraintTop_toBottomOf="@+id/const_mobile"
         android:layout_marginTop="86dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

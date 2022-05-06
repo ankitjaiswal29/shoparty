@@ -4,7 +4,7 @@ data class VerifiyOtpResponse(
     val message: String,
     val response_code: Int,
     val result: User,
-    val token: String
+    val token: String,
 )
 {
     data class User(
@@ -17,7 +17,8 @@ data class VerifiyOtpResponse(
         val mobile: Long,
         val name: String,
         val role: Int,
-        val user_id: Int
+        val user_id: Int,
+        val country_code: String,
     )
 
 

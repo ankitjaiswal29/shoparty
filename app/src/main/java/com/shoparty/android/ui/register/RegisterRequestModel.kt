@@ -7,5 +7,6 @@ data class RegisterRequestModel(
     val dob: String = "",
     val gender: String = "",
     val device_type: String = "",
-    val device_token: String = ""
+    val device_token: String = "",
+    val country_code: String = "",
 )

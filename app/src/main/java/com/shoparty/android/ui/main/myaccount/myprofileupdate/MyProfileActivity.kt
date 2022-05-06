@@ -70,8 +70,6 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
     private var cityidlist: ArrayList<String> = ArrayList()
     private var selectedcountryid=""
     private var selectedcityid=""
-    private var cityId=""
-    private var cityIdposition:Int=0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= DataBindingUtil.setContentView(this, R.layout.activity_my_profile)
@@ -108,6 +106,7 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
                     PrefManager.write(PrefManager.DOB, binding.tvDateBirth.text.toString().trim())
                     PrefManager.write(PrefManager.GENDER, response.data?.gender!!)
                     PrefManager.write(PrefManager.CITYID, response.data?.city_id.toString())
+                    PrefManager.write(PrefManager.COUNTRYCODE, response.data?.country_code.toString())
 
 
                     if(!response.data?.street_no.isNullOrEmpty())
@@ -235,6 +234,8 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
         binding.tvDateBirth.text = PrefManager.read(PrefManager.DOB,"")
         binding.etStreet.setText(PrefManager.read(PrefManager.STREET,""))
         binding.etHouseno.setText(PrefManager.read(PrefManager.HOUSENO,""))
+        binding.etCountryCode.setText(PrefManager.read(PrefManager.COUNTRYCODE,""))
+        binding.etCountryCode.isFocusable = false
         binding.etFirstname.setSelection(binding.etFirstname.length())
 
 
@@ -283,6 +284,7 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
                         builder.addFormDataPart("city_id",  selectedcityid)
                         builder.addFormDataPart("street_no",  binding.etStreet.text.toString())
                         builder.addFormDataPart("building_no",  binding.etHouseno.text.toString())
+                        builder.addFormDataPart("country_code",binding.etCountryCode.text.toString())
                         val body = builder.build()
                         viewModel.postupdateProfile(body)   //api call
                 }

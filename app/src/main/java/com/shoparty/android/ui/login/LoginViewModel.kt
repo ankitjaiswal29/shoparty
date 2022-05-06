@@ -28,16 +28,14 @@ class LoginViewModel(private val app: Application) : ViewModel()
     val login: LiveData<Resource<LoginResponse.User>> = mlogin
     private var deviceToken: String? = ""
     private lateinit var auth: FirebaseAuth
-
-
-    fun postLogin(asGuest:String) = viewModelScope.launch {
+    fun postLogin(asGuest: String, etCountryCode: String) = viewModelScope.launch {
         if(validation())
         {
             auth = FirebaseAuth.getInstance()
             deviceToken = FirebaseInstanceId.getInstance().token.toString()
 
             val request = LoginRequestModel(etMobileNo.get()!!, deviceToken.toString(),
-                Constants.DEVICE_TYPE,asGuest)
+                Constants.DEVICE_TYPE,asGuest,etCountryCode)
             if(Utils.hasInternetConnection(app.applicationContext))
             {
                 mlogin.postValue(Resource.Loading())

@@ -22,7 +22,6 @@ import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 
-import java.text.SimpleDateFormat
 import java.util.*
 
 class RegisterActivity : AppCompatActivity(), View.OnClickListener {
@@ -46,6 +45,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initialise() {
+        binding.etCountryCode.isFocusable = false
         selectedgender = binding.tvMale.text.toString()
         binding.tvTermcondition.setOnClickListener(this)
         binding.signUpToInBtn.setOnClickListener(this)
@@ -108,12 +108,12 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                 binding.ivMale.visibility = View.GONE
                 binding.ivFemale.visibility = View.VISIBLE
                 binding.tvFemale.setTextColor(Color.parseColor("#E30986"));
-                binding.tvMale.setTextColor(Color.parseColor("#A19989"));
+                binding.tvMale.setTextColor(Color.parseColor("#A19989"))
                 selectedgender = binding.tvFemale.text.toString()
             }
 
             binding.signUpBtn.id -> {
-                viewModel.postSignUp(selectedgender,condition_checkable)
+                viewModel.postSignUp(selectedgender,condition_checkable,binding.etCountryCode.text.toString())
 
             }
             binding.tvTermcondition.id -> {
@@ -159,7 +159,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                     {
                         finish()
                     }
-
+                    PrefManager.write(PrefManager.DOB,binding.tvDateOfBirth.text.toString())
                     Toast.makeText(
                         applicationContext,
                         response.message,

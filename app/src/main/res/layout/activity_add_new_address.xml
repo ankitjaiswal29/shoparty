@@ -178,20 +178,41 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/etBuildingnoApartment" />
 
-                <EditText
-                    android:id="@+id/etMobile"
-                    style="@style/AppTheme.editText"
-                    android:imeOptions="actionNext"
-                    android:digits="0123456789"
-                    android:inputType="number"
-                    android:paddingBottom="@dimen/_10sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:text="@={AddressViewModel.etMobile}"
-                    app:layout_constraintTop_toBottomOf="@+id/tvMobile" />
+
+                <RelativeLayout
+                    android:id="@+id/const_mobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    app:layout_constraintTop_toBottomOf="@+id/tvMobile"
+                    android:paddingBottom="@dimen/_10sdp">
 
 
+                    <EditText
+                        android:id="@+id/etCountryCode"
+                        style="@style/AppTheme.editText_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        android:inputType="phone"
+                        android:singleLine="true"
+                        android:textColorHint="@color/black" />
 
+
+                    <EditText
+                        android:id="@+id/etMobile"
+                        style="@style/AppTheme.editText"
+                        android:layout_marginLeft="@dimen/_2sdp"
+                        android:layout_toRightOf="@+id/etCountryCode"
+                        android:digits="0123456789"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:text="@={AddressViewModel.etMobile}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+
+                </RelativeLayout>
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline_start"

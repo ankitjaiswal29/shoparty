@@ -125,7 +125,7 @@ object Utils {
 
 
     fun checkValidMobile(mobile: String): Boolean {
-        return mobile.length < 8 || mobile.length > 15
+        return mobile.length < 8 || mobile.length > 12
     }
 
     fun formatElapsedTime(elapsedSeconds: Long): String? {

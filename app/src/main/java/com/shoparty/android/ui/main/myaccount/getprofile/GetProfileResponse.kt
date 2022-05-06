@@ -12,6 +12,7 @@ data class GetProfileResponse(
         val gender: String,
         val image: String,
         val mobile: Long,
+        val country_code: String,
         val name: String,
         val role: Int,
         val user_id: Int,

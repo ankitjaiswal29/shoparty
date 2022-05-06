@@ -31,15 +31,14 @@ class RegisterViewModel(private val app: Application) : ViewModel()
     private lateinit var auth: FirebaseAuth
     private val mSignUp = MutableLiveData<Resource<RegisterResponseModel.User>>()
     val signUp: LiveData<Resource<RegisterResponseModel.User>> = mSignUp
-    fun postSignUp(selectedGender: String, condition_checkable: Boolean) = viewModelScope.launch {
+    fun postSignUp(selectedGender: String, condition_checkable: Boolean, etCountryCode: String) = viewModelScope.launch {
         if(validation(condition_checkable))
         {
             auth = FirebaseAuth.getInstance()
             deviceToken = FirebaseInstanceId.getInstance().token.toString()
             val request = RegisterRequestModel(fullName.get()!!,etEmail.get()!!,
                 etMobileNo.get()!!,tvDateOfBirth.get()!!,selectedGender,Constants.DEVICE_TYPE,
-                deviceToken!!
-            )
+                deviceToken!!,etCountryCode)
             if(Utils.hasInternetConnection(app.applicationContext))
             {
                 mSignUp.postValue(Resource.Loading())

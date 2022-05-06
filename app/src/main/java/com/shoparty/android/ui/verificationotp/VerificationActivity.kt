@@ -186,6 +186,15 @@ class VerificationActivity : AppCompatActivity() {
         PrefManager.write(PrefManager.USER_ID, data.data?.result?.data!!.user_id.toString())
         PrefManager.write(PrefManager.EMAIL, data.data?.result?.data!!.email)
         PrefManager.write(PrefManager.AUTH_TOKEN, data.data.token)
+        if(data.data.result.data.country_code.isNullOrEmpty())
+        {
+            PrefManager.write(PrefManager.COUNTRYCODE,"+966")
+        }
+        else
+        {
+            PrefManager.write(PrefManager.COUNTRYCODE, data.data.result.data.country_code)
+        }
+
     }
 
     override fun onDestroy() {

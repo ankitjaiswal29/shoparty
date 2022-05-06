@@ -170,16 +170,42 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/etEmail" />
 
-                    <EditText
-                        android:id="@+id/etMobile"
-                        style="@style/AppTheme.editText_gray"
-                        android:hint="@string/_999_9999_999"
-                        android:imeOptions="actionNext"
-                        android:inputType="text"
-                        android:text=""
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvMobile" />
+
+                    <RelativeLayout
+                        android:id="@+id/const_mobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@+id/tvMobile">
+
+                        <EditText
+                            android:id="@+id/etCountryCode"
+                            style="@style/AppTheme.editText_gray_code"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/signin_ed_bg"
+                            android:hint=""
+                            android:imeOptions="actionNext"
+                            android:inputType="phone"
+                            android:singleLine="true"
+                            android:textColorHint="@color/black" />
+
+
+                        <EditText
+                            android:id="@+id/etMobile"
+                            style="@style/AppTheme.editText_gray"
+                            android:layout_toRightOf="@+id/etCountryCode"
+                            android:hint="@string/_999_9999_999"
+                            android:imeOptions="actionNext"
+                            android:inputType="text"
+                            android:text=""
+                            android:layout_marginLeft="@dimen/_2sdp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+
+
+                    </RelativeLayout>
+
 
                     <TextView
                         android:id="@+id/tvAddress"
@@ -188,7 +214,7 @@
                         android:text="@string/address"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/etMobile" />
+                        app:layout_constraintTop_toBottomOf="@+id/const_mobile" />
 
                     <TextView
                         android:id="@+id/tvCountry"

@@ -8,4 +8,5 @@ data class AddAddressRequestModel(
     val street_no: String? = "",
     val building_no: String? = "",
     val mobile: String? = "",
+    val country_code: String? = "",
 )

@@ -12,6 +12,7 @@ import com.shoparty.android.ui.address.addaddress.addaddress.*
 import com.shoparty.android.ui.address.addaddress.getaddress.DeleteAddressRequestModel
 import com.shoparty.android.ui.address.addaddress.getaddress.DeleteAddressResponse
 import com.shoparty.android.ui.address.addaddress.getaddress.GetAddressListResponse
+import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 
@@ -22,9 +23,7 @@ import retrofit2.Response
 class AddressViewModel(private val app: Application) : ViewModel()
 {
     private var mContext:Context = app.applicationContext
-
     private val repository = AddressRepository()
-
     val etFirstname: ObservableField<String> = ObservableField()
     val etLasttName: ObservableField<String> = ObservableField()
     val etStreatLandmark: ObservableField<String> = ObservableField()
@@ -56,12 +55,12 @@ class AddressViewModel(private val app: Application) : ViewModel()
 
 
 
-    fun addAddress(country_id:String, city_id:String) = viewModelScope.launch {
+    fun addAddress(country_id: String, city_id: String, etCountryCode: String) = viewModelScope.launch {
         if(validation())
         {
             val request = AddAddressRequestModel(etFirstname.get()!!,etLasttName.get()!!,country_id,
                      city_id,
-                     etStreatLandmark.get()!!,etBuildingnoApartment.get()!!,etMobile.get()!!)
+                     etStreatLandmark.get()!!,etBuildingnoApartment.get()!!,etMobile.get()!!,etCountryCode)
             if(Utils.hasInternetConnection(app.applicationContext))
             {
                 maddaddress.postValue(Resource.Loading())

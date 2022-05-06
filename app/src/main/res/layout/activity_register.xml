@@ -100,18 +100,43 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="25dp" />
 
-            <EditText
-                android:id="@+id/etMobileNo"
-                app:layout_constraintTop_toBottomOf="@+id/signUp_mobile_htv"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="10dp"
-                android:singleLine="true"
-                android:imeOptions="actionNext"
-                android:inputType="phone"
-                android:text="@={registerViewModel.etMobileNo}"
-                style="@style/AppTheme.editText_gray"
-                android:background="@drawable/signin_ed_bg" />
+
+            <RelativeLayout
+                android:id="@+id/const_mobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:layout_constraintTop_toBottomOf="@+id/signUp_mobile_htv">
+
+
+                <EditText
+                    android:id="@+id/etCountryCode"
+                    style="@style/AppTheme.editText_gray_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/signin_ed_bg"
+                    android:text="@string/countrycode"
+                    android:imeOptions="actionNext"
+                    android:inputType="phone"
+                    android:singleLine="true"
+                    android:textColorHint="@color/black" />
+
+
+                <EditText
+                    android:id="@+id/etMobileNo"
+                    style="@style/AppTheme.editText_gray"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:layout_toRightOf="@+id/etCountryCode"
+                    android:background="@drawable/signin_ed_bg"
+                    android:imeOptions="actionNext"
+                    android:inputType="phone"
+                    android:singleLine="true"
+                    android:text="@={registerViewModel.etMobileNo}"
+                    android:textColorHint="@color/black"
+                    app:layout_constraintStart_toEndOf="@+id/etCountryCode" />
+
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/signUp_gender_htv"
@@ -119,8 +144,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/gender"
                 android:textSize="14dp"
-                app:layout_constraintTop_toBottomOf="@+id/etMobileNo"
-
+                app:layout_constraintTop_toBottomOf="@+id/const_mobile"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="25dp" />
 
