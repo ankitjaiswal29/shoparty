@@ -23,7 +23,6 @@ class AddressActivity : AppCompatActivity(), View.OnClickListener,
     private lateinit var binding: ActivityAddressBinding
     private lateinit var viewModel: AddressViewModel
     private var addresslist: ArrayList<GetAddressListResponse.AddressData> = ArrayList()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= DataBindingUtil.setContentView(this, R.layout.activity_address)
@@ -32,7 +31,6 @@ class AddressActivity : AppCompatActivity(), View.OnClickListener,
         viewModel.getaddresslist()    //api call
         setObserver()
     }
-
     private fun initialise()
     {
         binding.infoTool.tvTitle.text = getString(R.string.addresstitle)
@@ -51,8 +49,6 @@ class AddressActivity : AppCompatActivity(), View.OnClickListener,
              }
         }
     }
-
-
     private fun setObserver()
     {
         viewModel.getaddress.observe(this) { response ->
@@ -92,12 +88,7 @@ class AddressActivity : AppCompatActivity(), View.OnClickListener,
             when (response) {
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
-                    Toast.makeText(
-                        applicationContext,
-                        response.message,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    //  viewModel.getaddresslist()  //api call
+                    Toast.makeText(applicationContext, response.message, Toast.LENGTH_SHORT).show() //  viewModel.getaddresslist()  //api call
                 }
                 is Resource.Loading -> {
                     com.shoparty.android.utils.ProgressDialog.showProgressBar(this)

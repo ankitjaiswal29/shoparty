@@ -1,9 +1,7 @@
 package com.shoparty.android.ui.contactus
 
-import abhishekti7.unicorn.filepicker.utils.Constants
 import android.annotation.TargetApi
 import android.app.Activity
-import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,7 +12,6 @@ import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.shoparty.android.R
-import com.shoparty.android.databinding.ActivityContactUsBinding
 import com.shoparty.android.databinding.ActivityWebViewBinding
 import com.shoparty.android.utils.ProgressDialog
 

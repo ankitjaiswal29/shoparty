@@ -23,7 +23,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private var guestuser: String="1"  //1 for normal user
     private lateinit var binding: ActivityLoginBinding
     private lateinit var viewModel: LoginViewModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= DataBindingUtil.setContentView(this, R.layout.activity_login)
@@ -32,7 +31,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         initialise()
         setObserver()
     }
-
     private fun initialise()
     {
         if(intent.extras!=null)

@@ -715,7 +715,6 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
                 listCartProduct.forEachIndexed { index, _ ->
                     addToBagApiLocal(index)
                 }
-
         }
     }
 
@@ -746,7 +745,6 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
     override fun click(pos: String) {
         storeSelectedId=storeList[pos.toInt()].id.toInt()
         ordertype=0
-       // Utils.showLongToast(this,storeSelectedId.toString())
     }
 
     private fun addToBagApi(pos: Int)

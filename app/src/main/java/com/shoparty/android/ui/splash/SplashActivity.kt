@@ -20,7 +20,6 @@ class SplashActivity : AppCompatActivity() {
     private fun handleDeepLinking() {
 
         val intent = intent
-       // val dashIntent = Intent(this, ProductDetailsActivity::class.java)
         if (intent != null && intent.data != null) {
             val data = intent.data
             val splittedData = data.toString().split("&")
@@ -58,13 +57,11 @@ class SplashActivity : AppCompatActivity() {
             PrefManager.write(PrefManager.PRODUCTSIZEID1,productSize)
             PrefManager.write(PrefManager.PRODUCTCOLORID1,productColor)
             PrefManager.write(PrefManager.isFromLink,true)
-//            startActivity(dashIntent)
         }
         Handler().postDelayed({
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         }, 1000)
-
     }
     }

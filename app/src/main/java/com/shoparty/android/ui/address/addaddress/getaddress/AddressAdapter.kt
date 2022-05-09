@@ -20,6 +20,7 @@ class AddressAdapter(private val mList: List<GetAddressListResponse.AddressData>
         return ViewHolder(view)
     }
 
+
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val ItemsViewModel = mList[position]

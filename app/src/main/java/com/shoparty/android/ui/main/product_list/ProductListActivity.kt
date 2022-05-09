@@ -49,7 +49,7 @@ class ProductListActivity : AppCompatActivity(),
     var progressshow = true
     var viewall_status = ""
     var pageOffset = 0
-    var pageLimit = 10
+    var pageLimit = 100
     var fav_position: Int = 0
     var fav_type: Int = 0
     var filter_applied = 0

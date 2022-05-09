@@ -9,10 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityNotificationBinding
-import com.shoparty.android.ui.main.home.HomeResponse
-import com.shoparty.android.ui.myorders.myorderlist.MyOrderAdapters
-import com.shoparty.android.ui.myorders.myorderlist.MyOrderResponse
-import com.shoparty.android.ui.productdetails.ProducatDetailsViewModel
 import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.apiutils.Resource

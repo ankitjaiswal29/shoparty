@@ -13,12 +13,9 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class SearchViewModel(private val app: Application) : ViewModel() {
-
     private val repository = SearchRepository()
-
     private val mProductList = MutableLiveData<Resource<SearchResponseModel>>()
     val productList: LiveData<Resource<SearchResponseModel>> = mProductList
-
     fun searchProduct(requestModel: SearchRequestModel) =
         viewModelScope.launch {
             if (Utils.hasInternetConnection(app.applicationContext)) {

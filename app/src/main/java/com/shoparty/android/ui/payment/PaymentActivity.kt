@@ -9,11 +9,9 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.shoparty.android.R
-import com.shoparty.android.common_modal.CartProduct
 import com.shoparty.android.databinding.ActivityPaymentBinding
 import com.shoparty.android.ui.myorders.ordersuccess.OrderSuccessfulyActivity
 import com.shoparty.android.ui.payment.orderplaced.OrderPlacedViewModel
-import com.shoparty.android.ui.shoppingbag.StoreListResponse
 import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.ProgressDialog

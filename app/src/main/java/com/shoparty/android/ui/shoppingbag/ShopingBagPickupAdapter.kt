@@ -1,10 +1,9 @@
 package com.shoparty.android.ui.shoppingbag
 
-import android.annotation.SuppressLint
+
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
-import android.widget.RadioButton
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.shoparty.android.R

@@ -36,7 +36,7 @@ class ContactUsViewModel(private val app: Application) : ViewModel()
             }
     }
     private fun handleContactUsResponse(response: Response<ContactUsResponse>): Resource<ContactUsResponse.Data> {
-        if (response?.isSuccessful)
+        if (response?.isSuccessful == true)
         {
             response.body()?.let { res ->
                 return if (res.response_code==200)

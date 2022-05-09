@@ -13,13 +13,10 @@ import com.shoparty.android.interfaces.RVItemClickListener
 
 class SearchHistoryProductAdapter(var context: Context, private var itemList: List<Product>) :
     RecyclerView.Adapter<SearchHistoryProductAdapter.ViewHolder>() {
-
     var listener: RVItemClickListener? = null
-
     fun onItemClick(listener: RVItemClickListener) {
         this.listener = listener
     }
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
