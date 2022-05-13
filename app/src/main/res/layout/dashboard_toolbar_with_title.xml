@@ -39,7 +39,7 @@
         android:id="@+id/iv_btnsearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="11dp"
+        android:layout_marginEnd="11dp"
         android:src="@drawable/ic_search_icon_dashbord"
         app:layout_constraintBottom_toBottomOf="@+id/ivBagBtn"
         app:layout_constraintEnd_toStartOf="@+id/ivBagBtn"

@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:text="@string/txtcategory"
             android:textSize="@dimen/_10ssp"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_item_name_tv"
             style="@style/AppTheme.Text_16_black_dp"
             android:textColor="@color/black" />

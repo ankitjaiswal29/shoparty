@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@id/ivNO"
         app:layout_constraintBottom_toBottomOf="@+id/ivNO"
-        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         android:drawableEnd="@drawable/ic_forword_icon"
         android:text="@string/lorem_ipsum_is_simply"

@@ -20,7 +20,7 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         style="@style/AppTheme.Text_14dp_Bold"
         app:layout_constraintStart_toEndOf="@+id/radiobutton"
          android:text="@string/bend_the_trend"

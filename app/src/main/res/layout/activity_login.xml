@@ -14,8 +14,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="36dp"
-        android:layout_marginRight="36dp">
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp">
 
 
 
@@ -84,8 +84,8 @@
             <EditText
                 android:id="@+id/etMobileNo"
                 style="@style/AppTheme.editText_gray"
-                android:layout_marginLeft="@dimen/_2sdp"
-                android:layout_toRightOf="@+id/etCountryCode"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:layout_toEndOf="@+id/etCountryCode"
                 android:imeOptions="actionNext"
                 android:inputType="phone"
                 android:singleLine="true"

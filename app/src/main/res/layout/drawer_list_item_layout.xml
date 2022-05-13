@@ -44,11 +44,11 @@
             android:id="@+id/rvChildCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_10sdp"
             android:visibility="gone"
-            android:layout_marginRight="@dimen/_2sdp"
+            android:layout_marginEnd="@dimen/_2sdp"
             android:layout_marginTop="@dimen/_5sdp"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/relative1"
             tools:listitem="@layout/drawer_list_child" />
 

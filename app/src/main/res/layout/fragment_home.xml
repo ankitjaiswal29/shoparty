@@ -343,7 +343,7 @@
                         style="@style/AppTheme.Text_14dp_Bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
                         android:text="@string/offers_discounted_items"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -375,7 +375,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/brands"
-                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -429,7 +429,7 @@
                             style="@style/AppTheme.Text_12dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="12dp"
+                            android:layout_marginEnd="12dp"
                             android:drawableStart="@drawable/ic_phone_icon"
                             android:drawablePadding="5dp"
                             android:text="@string/phone" />
@@ -439,7 +439,7 @@
                             style="@style/AppTheme.Text_12dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="12dp"
+                            android:layout_marginEnd="12dp"
                             android:drawableStart="@drawable/ic_whatsapp_icon"
                             android:drawablePadding="5dp"
                             android:text="@string/whatsapp" />
@@ -449,7 +449,7 @@
                             style="@style/AppTheme.Text_12dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="12dp"
+                            android:layout_marginEnd="12dp"
                             android:drawableStart="@drawable/ic_email_icon"
                             android:drawablePadding="5dp"
                             android:text="@string/email_without" />

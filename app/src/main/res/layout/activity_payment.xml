@@ -51,7 +51,7 @@
                         android:id="@+id/iv_shippingicon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="42dp"
+                        android:layout_marginStart="42dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         android:src="@drawable/ic_shipping_pink_icon"/>
@@ -105,7 +105,7 @@
                         android:id="@+id/iv_confirm"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="42dp"
+                        android:layout_marginEnd="42dp"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         android:src="@drawable/ic_payment_circle"/>
@@ -230,7 +230,7 @@
                         app:layout_constraintStart_toEndOf="@+id/tvTotal"
                         app:layout_constraintTop_toTopOf="@+id/tvTotal"
                         app:layout_constraintBottom_toBottomOf="@id/tvTotal"
-                        android:layout_marginLeft="@dimen/_40sdp"
+                        android:layout_marginStart="@dimen/_40sdp"
                         />
 
 
@@ -275,7 +275,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         android:padding="@dimen/_10sdp"
                         android:paddingStart="@dimen/_10sdp"
-                        android:paddingLeft="@dimen/_5sdp"
                         android:visibility="gone"
                         android:layout_marginTop="@dimen/_20sdp"
                         android:background="@drawable/background_rectangular_white"
@@ -305,7 +304,6 @@
                         android:padding="@dimen/_10sdp"
                         android:visibility="gone"
                         android:paddingStart="@dimen/_10sdp"
-                        android:paddingLeft="@dimen/_5sdp"
                         android:layout_marginTop="@dimen/_20sdp"
                         android:background="@drawable/background_rectangular_white"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -331,7 +329,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         android:padding="@dimen/_10sdp"
                         android:paddingStart="@dimen/_10sdp"
-                        android:paddingLeft="@dimen/_5sdp"
                         android:layout_marginTop="@dimen/_20sdp"
                         android:background="@drawable/background_rectangular_white"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -344,8 +341,8 @@
                         android:text="@string/pay_now"
                         app:layout_constraintVertical_bias="0.2"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         android:layout_marginTop="50dp"
 
                         app:layout_constraintTop_toBottomOf="@id/tvAddCard" />

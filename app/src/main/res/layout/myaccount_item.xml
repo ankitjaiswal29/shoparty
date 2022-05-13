@@ -14,9 +14,9 @@
             android:id="@+id/cv_Carditem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
             android:elevation="5dp"
             app:cardCornerRadius="10dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="10dp"
                 android:paddingTop="16dp"
-                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
                 android:paddingBottom="16dp">
 
                 <ImageView
@@ -43,7 +43,7 @@
                     style="@style/AppTheme.Text_14dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_30sdp"
+                    android:layout_marginStart="@dimen/_30sdp"
                     android:drawableEnd="@drawable/ic_forword_icon"
                     android:drawablePadding="9dp"
                     android:text="@string/my_orders"

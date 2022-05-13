@@ -172,7 +172,7 @@
             android:id="@+id/reOtp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_constraintotp"
             android:layout_marginTop="30dp">
 
@@ -201,8 +201,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/txtotpcount"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/txtotpcount"
                 android:text="@string/_2_min"
                 android:textColor="@color/black"
                 android:textSize="15dp"

@@ -37,7 +37,7 @@
         app:layout_constraintTop_toTopOf="parent"
         style="@style/AppTheme.Text_14dp"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp"
         android:text="@string/on_minimum_purchase_of_200"/>
 
     <View
@@ -58,7 +58,7 @@
     android:layout_height="wrap_content"
     android:text="@string/code_123wefxtra10"
     style="@style/AppTheme.Text_12dp"
-    android:layout_marginLeft="5dp"
+    android:layout_marginStart="5dp"
     app:layout_constraintStart_toStartOf="@+id/view_dotted"
     app:layout_constraintTop_toTopOf="@+id/view_dotted"
     app:layout_constraintBottom_toBottomOf="@+id/view_dotted"/>
@@ -69,7 +69,7 @@
         android:layout_height="wrap_content"
         android:text=""
         style="@style/AppTheme.Text_12dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         app:layout_constraintLeft_toRightOf="@+id/txtCode"
         app:layout_constraintTop_toTopOf="@+id/view_dotted"
         app:layout_constraintBottom_toBottomOf="@+id/view_dotted"/>
@@ -97,7 +97,7 @@
     app:layout_constraintTop_toTopOf="@+id/view_dotted"
     app:layout_constraintBottom_toBottomOf="@id/view_dotted"
     android:orientation="vertical"
-android:layout_marginRight="10dp"
+android:layout_marginEnd="10dp"
     android:layout_marginTop="2dp"
     android:layout_marginBottom="2dp"
     android:background="@color/cardview_dark_background"

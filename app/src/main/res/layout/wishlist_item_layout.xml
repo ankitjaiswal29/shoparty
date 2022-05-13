@@ -11,8 +11,8 @@
         android:id="@+id/cl_wishlist_root_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
         android:paddingTop="6dp"
         android:paddingBottom="6dp"
         android:layout_marginTop="@dimen/_1sdp"
@@ -62,7 +62,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/relative_img"
                 app:layout_constraintTop_toTopOf="@+id/relative_img"
                 android:background="@drawable/ic_favourite_gray"
-                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp">
 
 
@@ -91,11 +91,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="12dp"
-                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
                 android:lines="1"
                 android:ellipsize="end"
                 android:text="@string/princess_dress"
-                app:layout_constraintRight_toLeftOf="@+id/tv_Offer"
+                app:layout_constraintEnd_toStartOf="@+id/tv_Offer"
                 app:layout_constraintStart_toEndOf="@+id/relative_img"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -109,7 +109,7 @@
                 android:padding="3dp"
                 android:background="@color/pink"
                 style="@style/AppTheme.Text_9_whitedp"
-                android:layout_marginRight="5dp"
+                android:layout_marginEnd="5dp"
                 app:layout_constraintEnd_toEndOf="parent" />
 
 
@@ -118,7 +118,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
                 android:textColor="@color/cardview_dark_background"
                 android:text="@string/yoke_design_kurta_set"
                 android:textSize="12dp"
@@ -170,7 +170,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginLeft="@dimen/_2sdp"/>
+                    android:layout_marginStart="@dimen/_2sdp"/>
 
 
                 <TextView
@@ -195,7 +195,7 @@
                     android:src="@drawable/plus_icon"
                     android:text="@string/_7_10"
                     android:visibility="gone"
-                    android:layout_marginRight="@dimen/_2sdp"
+                    android:layout_marginEnd="@dimen/_2sdp"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

@@ -4,7 +4,7 @@
     android:layout_width="104dp"
     android:layout_height="165dp"
     android:id="@+id/top_selling_home_item_root"
-    android:layout_marginRight="11dp"
+    android:layout_marginEnd="11dp"
     android:background="@drawable/home_top_selling_items_bg"
     xmlns:app="http://schemas.android.com/apk/res-auto">
          <ImageView
@@ -32,7 +32,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/ic_favourite_gray"
-        android:layout_marginRight="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
         android:layout_marginTop="@dimen/_5sdp">
 
 

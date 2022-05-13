@@ -7,14 +7,32 @@ import androidx.appcompat.app.AppCompatActivity
 import com.shoparty.android.R
 import com.shoparty.android.ui.main.mainactivity.MainActivity
 import com.shoparty.android.utils.PrefManager
+import java.util.*
 
 
 class SplashActivity : AppCompatActivity() {
+    lateinit var locale: Locale
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
+            setLocale("ar")
+        }else {
+            setLocale("en")
+        }
+
         handleDeepLinking()
+    }
+
+    private fun setLocale(localeName: String) {
+        // if (localeName != currentLanguage) {
+        locale = Locale(localeName)
+        val res = resources
+        val dm = res.displayMetrics
+        val conf = res.configuration
+        conf.locale = locale
+        res.updateConfiguration(conf, dm)
     }
 
     private fun handleDeepLinking() {
@@ -64,4 +82,6 @@ class SplashActivity : AppCompatActivity() {
             finish()
         }, 1000)
     }
+
+
     }

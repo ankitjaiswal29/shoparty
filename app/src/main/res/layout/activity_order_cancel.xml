@@ -97,8 +97,8 @@
             android:text="@string/tesla_toys_kids_6_bundle_color_pack"
             app:layout_constraintTop_toTopOf="@+id/ivProductImg"
             app:layout_constraintBottom_toBottomOf="@id/ivProductImg"
-            android:layout_marginLeft="14dp"
-            android:paddingRight="@dimen/_41sdp"/>
+            android:layout_marginStart="14dp"
+            android:paddingEnd="@dimen/_41sdp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -132,7 +132,7 @@
                 app:layout_constraintStart_toEndOf="@+id/ivImageOrderplace"
                 android:text="@string/order_placed"
                 style="@style/AppTheme.Text_16_Bold_dp"
-                android:layout_marginLeft="16dp"/>
+                android:layout_marginStart="16dp"/>
 
             <TextView
                 android:id="@+id/tv_orderplaced_subtitle"
@@ -171,7 +171,7 @@
                 app:layout_constraintStart_toEndOf="@+id/ivOrderConfirm"
                 android:text="@string/order_cancelled"
                 style="@style/AppTheme.Text_16_Bold_dp"
-                android:layout_marginLeft="16dp"/>
+                android:layout_marginStart="16dp"/>
 
             <TextView
                 android:id="@+id/tv_OrderConfirm_subtitle"
@@ -203,8 +203,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-           android:paddingLeft="20dp"
-            android:paddingRight="20dp"
+           android:paddingStart="20dp"
+            android:paddingEnd="20dp"
             android:paddingTop="20dp"
             android:paddingBottom="31dp"
             android:layout_marginTop="5dp"
@@ -250,8 +250,8 @@
                 android:id="@+id/tvSummery"
                 style="@style/AppTheme.Text_14dp"
                 android:text="@string/summary"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:paddingBottom="5dp"
                 android:paddingTop="10dp"
                 app:layout_constraintStart_toStartOf="@id/view_pinkshape"
@@ -263,8 +263,8 @@
                 style="@style/AppTheme.Text_14dp"
                 android:text="@string/_14_0"
                 android:gravity="end"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:paddingBottom="5dp"
                 android:paddingTop="10dp"
                 app:layout_constraintEnd_toEndOf="@id/view_pinkshape"
@@ -276,8 +276,8 @@
                 android:id="@+id/tvTax"
                 style="@style/AppTheme.Text_14dp"
                 android:text="@string/tax_vat_5"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:paddingBottom="5dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvSummeryPrice" />
@@ -288,8 +288,8 @@
                 style="@style/AppTheme.Text_14dp"
                 android:text="@string/_5_0"
                 android:gravity="end"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:paddingBottom="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvSummeryPrice" />

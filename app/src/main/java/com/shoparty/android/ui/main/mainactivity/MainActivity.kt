@@ -3,9 +3,14 @@ package com.shoparty.android.ui.main.mainactivity
 import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
+import android.util.DisplayMetrics
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.Window
@@ -24,6 +29,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.shoparty.android.R
+import com.shoparty.android.app.MyApp
 import com.shoparty.android.database.MyDatabase
 import com.shoparty.android.databinding.ActivityMainBinding
 import com.shoparty.android.ui.login.LoginActivity
@@ -49,6 +55,8 @@ import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.*
+
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var langaugevalue: Int=1
@@ -58,6 +66,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private val listDrawer: ArrayList<DrawerResponse.Category> = ArrayList()
     private lateinit var myaccountviewModel: MyAccountViewModel
     var dialog: Dialog? = null
+    lateinit var locale: Locale
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -72,10 +81,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             val dashIntent = Intent(this, ProductDetailsActivity::class.java)
             startActivity(dashIntent)
         }
+
+
     }
 
     private fun initialise()
     {
+
+       /* if (PrefManager.read(PrefManager.LANGUAGEID, "").equals("1")){
+            setLocale("en")
+        }else if (PrefManager.read(PrefManager.LANGUAGEID, "").equals("2")) {
+            setLocale("ar")
+        }*/
+
         if (PrefManager.read(PrefManager.USER_ID, "").isEmpty())
         {
             binding.btnSigninSignout.visibility = View.VISIBLE
@@ -200,10 +218,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     if(response.data?.language_id.equals("1"))
                     {
                         PrefManager.write(PrefManager.LANGUAGEID, 1)
+
+                      //  setApplicationlanguage("en")
+                        setLocale("en")
+                        Log.d("Testing","english")
                     }
                     else if(response.data?.language_id.equals("2"))
                     {
                         PrefManager.write(PrefManager.LANGUAGEID,2)
+                       // setApplicationlanguage("ar")
+                        setLocale("ar")
+                        Log.d("Testing","arabic")
                     }
                     else
                     {
@@ -266,11 +291,53 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     Toast.makeText(
                         this,
                         response.message,
-                        Toast.LENGTH_SHORT
-                    ).show()
+                        Toast.LENGTH_SHORT).show()
                 }
             }
         }
+
+    }
+    fun setApplicationlanguage(language: String?) {
+        val res: Resources = MyApp.getInstance().getResources()
+        val dm: DisplayMetrics = res.getDisplayMetrics()
+        val conf: Configuration = res.getConfiguration()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            conf.setLocale(Locale(language))
+        // API 17+ only.
+        } else {
+            conf.locale = Locale(language)
+        }
+        res.updateConfiguration(conf, dm)
+
+
+    }
+    private fun setLocale(localeName: String) {
+        // if (localeName != currentLanguage) {
+            locale = Locale(localeName)
+            val res = resources
+            val dm = res.displayMetrics
+            val conf = res.configuration
+            conf.locale = locale
+            res.updateConfiguration(conf, dm)
+
+         // recreate()
+
+         val refresh = Intent(this,MainActivity::class.java)
+//          //  refresh.putExtra(currentLang, localeName)
+            startActivity(refresh)
+
+
+
+    }
+
+    private fun setLocal(language: String) {
+        var locale= Locale(language)
+        Locale.setDefault(locale)
+
+        val configuration=Configuration()
+        configuration.locale=locale
+        baseContext.resources.updateConfiguration(configuration,baseContext.resources.displayMetrics)
+        recreate()
 
     }
 

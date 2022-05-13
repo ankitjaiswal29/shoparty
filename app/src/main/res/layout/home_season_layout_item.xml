@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="@dimen/_90sdp"
         android:layout_height="@dimen/_60sdp"
-        android:layout_marginRight="@dimen/_5sdp">
+        android:layout_marginEnd="@dimen/_5sdp">
 
         <ImageView
             android:id="@+id/imgSeason"

@@ -20,7 +20,7 @@
     android:layout_width="match_parent"
     android:layout_height="70dp"
     android:padding="5dp"
-    android:layout_marginLeft="@dimen/_3sdp"
+    android:layout_marginStart="@dimen/_3sdp"
     android:background="@drawable/background_rectangular_white"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"/>
@@ -32,7 +32,7 @@ android:layout_height="60dp"
 app:layout_constraintStart_toStartOf="@+id/vViewractangle"
 app:layout_constraintTop_toTopOf="@+id/vViewractangle"
 android:src="@drawable/icon_shippingbag"
-    android:layout_marginLeft="@dimen/_5sdp"
+    android:layout_marginStart="@dimen/_5sdp"
 app:layout_constraintBottom_toBottomOf="parent"/>
 
 
@@ -43,7 +43,7 @@ app:layout_constraintBottom_toBottomOf="parent"/>
             style="@style/AppTheme.Text_12ssp"
             android:lines="2"
             android:ellipsize="end"
-            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_5sdp"
             app:layout_constraintStart_toEndOf="@+id/ivProductImg"
             android:text="@string/tesla_toys_kids_6_bundle_color_pack"
             app:layout_constraintTop_toTopOf="parent"

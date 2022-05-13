@@ -115,10 +115,10 @@
                     android:id="@+id/btnSave"
                     style="@style/AppTheme.ButtonStyle"
                     android:text="@string/save"
-                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/etCvv"
                     android:layout_marginTop="@dimen/_105sdp"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintVertical_bias="0.2" />
 
 

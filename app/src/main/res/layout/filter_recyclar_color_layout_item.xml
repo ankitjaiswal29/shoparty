@@ -24,7 +24,7 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <!--This is the layout "expanded_view" we will
@@ -36,8 +36,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@color/grey"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_lang_name">
 
             <!--It has a text view which we will use in our case as

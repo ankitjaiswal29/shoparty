@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/_5sdp"
-        android:layout_marginRight="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
         android:background="@drawable/background_unsellected_filter">
 
 
@@ -30,7 +30,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginLeft="@dimen/_15sdp"/>
+            android:layout_marginStart="@dimen/_15sdp"/>
         <ImageView
             android:id="@+id/img_rightblack"
             android:layout_width="wrap_content"
@@ -38,7 +38,7 @@
             android:src="@drawable/check_black"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/tv_text">
+            app:layout_constraintStart_toEndOf="@+id/tv_text">
         </ImageView>
 
 
@@ -50,7 +50,7 @@
                 android:src="@drawable/ic_baseline_check_24"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/tv_text">
+                app:layout_constraintStart_toEndOf="@+id/tv_text">
 
         </ImageView>
         </androidx.constraintlayout.widget.ConstraintLayout>

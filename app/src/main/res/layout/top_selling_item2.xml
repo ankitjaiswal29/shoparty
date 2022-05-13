@@ -55,7 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/_10_02"
-        android:layout_toRightOf="@+id/tsi_item_price_tv"
+        android:layout_toEndOf="@+id/tsi_item_price_tv"
         android:layout_below="@+id/tsi_item_desc_tv"
         android:layout_marginStart="5dp"/>
 </RelativeLayout>
