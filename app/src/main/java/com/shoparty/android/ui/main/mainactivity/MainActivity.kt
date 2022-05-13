@@ -15,10 +15,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -70,6 +67,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
+            binding.drawerLayout.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            binding.navigationView.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            binding.linearRecyclar.layoutDirection = View.LAYOUT_DIRECTION_RTL
+        }else {
+            binding.drawerLayout.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            binding.navigationView.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            binding.linearRecyclar.layoutDirection = View.LAYOUT_DIRECTION_LTR
+        }
+
+
         viewModel = ViewModelProvider(this, ViewModalFactory(application))[MainViewModal::class.java]
         myaccountviewModel = ViewModelProvider(this, ViewModalFactory(application))[MyAccountViewModel::class.java]
         initialise()
@@ -81,8 +90,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             val dashIntent = Intent(this, ProductDetailsActivity::class.java)
             startActivity(dashIntent)
         }
-
-
     }
 
     private fun initialise()

@@ -31,6 +31,8 @@ import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
+import java.util.*
+import kotlin.collections.ArrayList
 
 class HomeFragment : Fragment(), View.OnClickListener, RecyclerViewFavouriteListener {
     lateinit var binding: FragmentHomeBinding
@@ -79,6 +81,9 @@ class HomeFragment : Fragment(), View.OnClickListener, RecyclerViewFavouriteList
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val configuration = resources.configuration
+        configuration.setLayoutDirection(Locale("ar"))
+        resources.updateConfiguration(configuration, resources.displayMetrics)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         viewModel = ViewModelProvider(
             this,
@@ -135,31 +140,31 @@ class HomeFragment : Fragment(), View.OnClickListener, RecyclerViewFavouriteList
                       //  listTopBanner.clear()
                         listTopBanner.addAll(response.data?.top_banner!! as ArrayList<HomeResponse.Home.Banner>)
 
-                        setImageInSlider(response.data?.top_banner!! as ArrayList<HomeResponse.Home.Banner>)
+                        setImageInSlider(response.data.top_banner!! as ArrayList<HomeResponse.Home.Banner>)
 
                         top20sellingitemlist= response.data.top20Selling as ArrayList<HomeResponse.Top20Selling>
                         setTopSelling(top20sellingitemlist)
-                        TopsellingSubcategories(response.data?.topSubCategory)
-                        OfferDiscoutItem(response.data?.OffersAndDiscountedItems)
+                        TopsellingSubcategories(response.data.topSubCategory)
+                        OfferDiscoutItem(response.data.OffersAndDiscountedItems)
 
                      //   listMiddleBanner.clear()
-                        listMiddleBanner.addAll(response.data?.bottom_banner!! as ArrayList<HomeResponse.Home.Banner>)
+                        listMiddleBanner.addAll(response.data.bottom_banner!! as ArrayList<HomeResponse.Home.Banner>)
                         adapterBannerMiddle.notifyDataSetChanged()
 
                     //    listBottomBanner.clear()
-                        listBottomBanner.addAll(response.data?.upcoming_banner!! as ArrayList<HomeResponse.Home.Banner>)
+                        listBottomBanner.addAll(response.data.upcoming_banner!! as ArrayList<HomeResponse.Home.Banner>)
                         adapterBannerBottom.notifyDataSetChanged()
 
                         listBrand.clear()
-                        listBrand.addAll(response.data?.brand_response!! as ArrayList<HomeResponse.Home.Brand>)
+                        listBrand.addAll(response.data.brand_response!! as ArrayList<HomeResponse.Home.Brand>)
                         adapterBrands.notifyDataSetChanged()
 
                         listCategory.clear()
-                        listCategory.addAll(response.data?.category_response!! as ArrayList<HomeResponse.Home.Category>)
+                        listCategory.addAll(response.data.category_response!! as ArrayList<HomeResponse.Home.Category>)
                         adapterCategory.notifyDataSetChanged()
 
                         listSeason.clear()
-                        listSeason.addAll(response.data?.season_response!! as ArrayList<HomeResponse.Home.Season>)
+                        listSeason.addAll(response.data.season_response!! as ArrayList<HomeResponse.Home.Season>)
                         adapterSeason.notifyDataSetChanged()
 
                         listTheme.clear()
