@@ -24,6 +24,7 @@ import com.shoparty.android.ui.filter.color.ColorsResponse
 import com.shoparty.android.ui.filter.color.FilterColorsAdapters
 import com.shoparty.android.ui.filter.gender.FilterGenderAdapter
 import com.shoparty.android.ui.filter.size.SizeAdapters
+import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
@@ -64,6 +65,17 @@ class FilterActivity : AppCompatActivity(), View.OnClickListener, QuantityListne
     }
 
     private fun initialise() {
+
+        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
+            binding.clfilterRootlayout.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            binding.clfilterRootlayout.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            binding.clfilterRootlayout.layoutDirection = View.LAYOUT_DIRECTION_RTL
+        }else {
+            binding.clfilterRootlayout.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            binding.clfilterRootlayout.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            binding.clfilterRootlayout.layoutDirection = View.LAYOUT_DIRECTION_LTR
+        }
+
         if (intent.extras !=null)
         {
             selectedColorList = intent.getStringArrayListExtra("colorList") as ArrayList<String>

@@ -110,6 +110,16 @@ class ProductListActivity : AppCompatActivity(),
     }
 
     private fun initialise() {
+        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
+            binding.clRootlayout.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            binding.clRootlayout.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            binding.clRootlayout.layoutDirection = View.LAYOUT_DIRECTION_RTL
+        }else {
+            binding.clRootlayout.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            binding.clRootlayout.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            binding.clRootlayout.layoutDirection = View.LAYOUT_DIRECTION_LTR
+        }
+
         viewModel =
             ViewModelProvider(this, ViewModalFactory(application))[ProductListViewModel::class.java]
         viewModeladdwishlist =

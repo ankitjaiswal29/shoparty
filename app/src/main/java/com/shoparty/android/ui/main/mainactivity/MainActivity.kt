@@ -18,6 +18,7 @@ import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -515,10 +516,20 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             inflater.inflate(R.layout.alert_dialog_signout, null)
         val btn_cancel = dialogLayout.findViewById<Button>(R.id.cancel_btn)
         val btn_save = dialogLayout.findViewById<Button>(R.id.save_btn)
+        val languagedialog = dialogLayout.findViewById<ConstraintLayout>(R.id.languagedialog)
 
         val rbEnglish = dialogLayout.findViewById<RadioButton>(R.id.english_radio_btn)
         val rbArabic = dialogLayout.findViewById<RadioButton>(R.id.arabic_radio_btn)
 
+        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
+            languagedialog.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            languagedialog.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            languagedialog.layoutDirection = View.LAYOUT_DIRECTION_RTL
+        }else {
+            languagedialog.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            languagedialog.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            languagedialog.layoutDirection = View.LAYOUT_DIRECTION_LTR
+        }
         if(PrefManager.read(PrefManager.LANGUAGEID, 1)==1)
         {
             rbEnglish.isChecked=true
