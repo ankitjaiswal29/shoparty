@@ -14,14 +14,12 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainLayoutVerification"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingStart="20dp"
         android:background="@color/white"
         android:paddingEnd="20dp">
-
-
-
 
     <TextView
         android:id="@+id/verification_htv"

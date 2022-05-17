@@ -335,7 +335,7 @@
     <string name="toys_kid">Toys Kids</string>
     <string name="_54_off">% OFF</string>
     <string name="on_minimum_purchase_of_200">On Minimum Purchase Of $</string>
-    <string name="code_123wefxtra10">Code:</string>
+    <string name="code_123wefxtra10">Code</string>
     <string name="expire_on_30_sep_2021_11_45_pm">Expire On: 30 Sep, 2021, 11:45 PM</string>
     <string name="princess_dress">Princess Dress</string>
     <string name="_10_off">% OFF</string>
@@ -343,7 +343,6 @@
     <string name="_10_02">$10.02</string>
     <string name="categories">Categories</string>
     <string name="deals">Deals</string>
-
     <string name="people">People</string>
     <string name="settings">Settings</string>
     <string name="full_name_manditory">Full Name*</string>
@@ -389,7 +388,7 @@
     <string name="i_agree_to">I agree to</string>
     <string name="allow_shoparty_app_to_use_your_location">Allow Shoparty App to use your location?</string>
     <string name="verification_successfull">Verification Successfull!</string>
-    <string name="lorem_ipsum_dolor_sit_amet_sadip_scing_elitr_sed_diam_nonum">Lorem ipsum dolor sit amet, sadip scing elitr, sed diam nonum.</string>
+    <string name="lorem_ipsum_dolor_sit_amet_sadip_scing_elitr_sed_diam_nonum" translatable="false">Lorem ipsum dolor sit amet, sadip scing elitr, sed diam nonum.</string>
     <string name="recent_searches">Recent Searches</string>
     <string name="clear_history">Clear History</string>
     <string name="price_range">Price Range</string>
@@ -422,7 +421,6 @@
     <string name="pleaselogintochange">Please login to change language</string>
     <string name="arebic">Arabic</string>
     <string name="share_to">Share to</string>
-
     <string name="font">Font</string>
     <string name="sign_in_sign_up">Sign in / Sign Up</string>
     <string name="this_application_requires_location_servicies">This application requires location servicies to know your current city and provide better and offers</string>

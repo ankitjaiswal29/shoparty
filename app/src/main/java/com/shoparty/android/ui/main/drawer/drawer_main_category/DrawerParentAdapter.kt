@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.shoparty.android.R
 import com.shoparty.android.databinding.DrawerListItemLayoutBinding
 import com.shoparty.android.interfaces.RVItemClickListener
+import com.shoparty.android.utils.PrefManager
 
 class DrawerParentAdapter(
     var context: Context,
@@ -64,13 +65,11 @@ class DrawerParentAdapter(
 
         fun bind(modal: DrawerResponse.Category) {
             binding?.tvTitle?.text = modal.category_name
-            binding?.rvChildCategory?.setLayoutManager(
-                LinearLayoutManager(
-                    context,
-                    LinearLayoutManager.VERTICAL,
-                    false
+            binding?.rvChildCategory?.layoutManager = LinearLayoutManager(
+                context,
+                LinearLayoutManager.VERTICAL,
+                false
 
-                )
             )
             val adapter = DrawerChildAdapter(context,modal.child_category)
             binding?.rvChildCategory?.adapter = adapter

@@ -65,19 +65,16 @@
 
     <TextView
         android:id="@+id/tvCode"
+        style="@style/AppTheme.Text_12dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-        style="@style/AppTheme.Text_12dp"
-        android:layout_marginStart="5dp"
+        android:text="hello"
+        app:layout_constraintBottom_toBottomOf="@+id/view_dotted"
+        app:layout_constraintEnd_toStartOf="@+id/view4"
+        app:layout_constraintHorizontal_bias="0.12"
         app:layout_constraintLeft_toRightOf="@+id/txtCode"
-        app:layout_constraintTop_toTopOf="@+id/view_dotted"
-        app:layout_constraintBottom_toBottomOf="@+id/view_dotted"/>
-
-
-
-
-
+        app:layout_constraintStart_toEndOf="@+id/txtCode"
+        app:layout_constraintTop_toTopOf="@+id/view_dotted" />
 
     <TextView
         android:id="@+id/tv_Copy"
@@ -91,29 +88,30 @@
         app:layout_constraintTop_toTopOf="@+id/view_dotted"
         app:layout_constraintBottom_toBottomOf="@+id/view_dotted"/>
 
-<View
-    android:layout_width="1dp"
-    android:layout_height="35dp"
-    app:layout_constraintTop_toTopOf="@+id/view_dotted"
-    app:layout_constraintBottom_toBottomOf="@id/view_dotted"
-    android:orientation="vertical"
-android:layout_marginEnd="10dp"
-    android:layout_marginTop="2dp"
-    android:layout_marginBottom="2dp"
-    android:background="@color/cardview_dark_background"
-    app:layout_constraintEnd_toStartOf="@+id/tv_Copy"/>
+    <View
+        android:id="@+id/view4"
+        android:layout_width="1dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="2dp"
+        android:background="@color/cardview_dark_background"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/view_dotted"
+        app:layout_constraintEnd_toStartOf="@+id/tv_Copy"
+        app:layout_constraintTop_toTopOf="@+id/view_dotted" />
 
     <TextView
         android:id="@+id/txtExpiry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableStart="@drawable/ic_ic_icon_calender"
         app:layout_constraintStart_toStartOf="@+id/view_dotted"
         app:layout_constraintTop_toBottomOf="@+id/view_dotted"
         android:text="@string/strexpiry"
         style="@style/AppTheme.Text_12dp"
         android:drawablePadding="10dp"
-        android:layout_marginTop="11dp"/>
+        android:layout_marginTop="11dp"
+        app:drawableStartCompat="@drawable/ic_ic_icon_calender" />
 
 
 

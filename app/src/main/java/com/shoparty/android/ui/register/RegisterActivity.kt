@@ -1,6 +1,5 @@
 package com.shoparty.android.ui.register
 
-
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -35,6 +34,11 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_register)
+        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
+            binding.mainLayoutRegister.layoutDirection = View.LAYOUT_DIRECTION_RTL
+        }else {
+            binding.mainLayoutRegister.layoutDirection = View.LAYOUT_DIRECTION_LTR
+        }
         viewModel = ViewModelProvider(
             this,
             ViewModalFactory(application)

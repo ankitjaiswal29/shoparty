@@ -12,7 +12,6 @@ import com.shoparty.android.R
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.utils.Utils
 
-
 class VoucherAdapter(context:Context,private val mList: List<VoucherListResponse.Data>,
                      var recyclerViewClickListener: RecyclerViewClickListener
 ) : RecyclerView.Adapter<VoucherAdapter.ViewHolder>()

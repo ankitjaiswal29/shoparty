@@ -28,6 +28,11 @@ class VerificationActivity : AppCompatActivity() {
     {
         super.onCreate(savedInstanceState)
         binding= DataBindingUtil.setContentView(this, R.layout.activity_verification)
+        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
+            binding.mainLayoutVerification.layoutDirection = View.LAYOUT_DIRECTION_RTL
+        }else {
+            binding.mainLayoutVerification.layoutDirection = View.LAYOUT_DIRECTION_LTR
+        }
         viewModel = ViewModelProvider(this, ViewModalFactory(application))[VerifiyViewModel::class.java]
         binding.verifiyViewModel = viewModel
         initialise()

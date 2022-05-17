@@ -7,6 +7,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +16,7 @@ import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityVouchersBinding
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.utils.Constants
+import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
@@ -28,6 +30,11 @@ class VouchersActivity : AppCompatActivity(),RecyclerViewClickListener{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= DataBindingUtil.setContentView(this, R.layout.activity_vouchers)
+        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
+            binding.mainLayoutVoucher.layoutDirection = View.LAYOUT_DIRECTION_RTL
+        }else {
+            binding.mainLayoutVoucher.layoutDirection = View.LAYOUT_DIRECTION_LTR
+        }
         viewModel = ViewModelProvider(this, ViewModalFactory(application))[VoucherViewModel::class.java]
         initialise()
         viewModel.getVoucher()    //api call
@@ -39,7 +46,6 @@ class VouchersActivity : AppCompatActivity(),RecyclerViewClickListener{
             onBackPressed()
         }
     }
-
 
     override fun onBackPressed() {
         super.onBackPressed()
@@ -76,19 +82,11 @@ class VouchersActivity : AppCompatActivity(),RecyclerViewClickListener{
 
     override fun click(pos: String)
     {
-        /*val clipboard: ClipboardManager =
-            getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clip = ClipData.newPlainText(label.toString(), couponcode)
-        clipboard.setPrimaryClip(clip)
-        Utils.showShortToast(this,getString(R.string.copytoclipboard))*/
-       var coupen_code = voucherlist?.get(pos.toInt())?.coupon_code
-       var coupen_discount = voucherlist?.get(pos.toInt())?.discount
+       val coupen_code = voucherlist?.get(pos.toInt())?.coupon_code
+       val coupen_discount = voucherlist?.get(pos.toInt())?.discount
         setResult(Activity.RESULT_OK, intent.putExtra(Constants.Coupon_Code,coupen_code)
             .putExtra(Constants.Coupon_Discount,coupen_discount).putExtra(Constants.
             CouponID,voucherlist?.get(pos.toInt())?.voucher_id))
            finish()
     }
-
-
-
 }

@@ -72,13 +72,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
             binding.drawerLayout.layoutDirection = View.LAYOUT_DIRECTION_RTL
             binding.navigationView.layoutDirection = View.LAYOUT_DIRECTION_RTL
-            binding.linearRecyclar.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            binding.rvCategories.layoutDirection = View.LAYOUT_DIRECTION_RTL
         }else {
             binding.drawerLayout.layoutDirection = View.LAYOUT_DIRECTION_LTR
             binding.navigationView.layoutDirection = View.LAYOUT_DIRECTION_LTR
-            binding.linearRecyclar.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            binding.rvCategories.layoutDirection = View.LAYOUT_DIRECTION_LTR
         }
-
 
         viewModel = ViewModelProvider(this, ViewModalFactory(application))[MainViewModal::class.java]
         myaccountviewModel = ViewModelProvider(this, ViewModalFactory(application))[MyAccountViewModel::class.java]
@@ -122,7 +121,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.navigationView.bringToFront()
         binding.homeNavBtn.setOnClickListener(this)
         binding.crossNavBtn.setOnClickListener(this)
-        binding.btnSigninSignout.setOnClickListener(this)
         binding.btnSigninSignout.setOnClickListener(this)
         binding.infoTools.ivBag.setOnClickListener(this)
         binding.infoTools.ivSearch.setOnClickListener(this)
@@ -487,6 +485,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         lp.gravity = Gravity.CENTER
         dialog!!.window?.attributes = lp
         dialog!!.setCanceledOnTouchOutside(true)
+        val tvSignout = dialog!!.findViewById<TextView>(R.id.tvSignout)
+        val tvSignoutSubtitle = dialog!!.findViewById<TextView>(R.id.tv_Signoutsubtitle)
+        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
+            tvSignout.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            tvSignoutSubtitle.layoutDirection = View.LAYOUT_DIRECTION_RTL
+        }else {
+            tvSignout.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            tvSignoutSubtitle.layoutDirection = View.LAYOUT_DIRECTION_LTR
+        }
         val btn_cancel = dialog!!.findViewById<Button>(R.id.btn_cancel)
         val btn_yes = dialog!!.findViewById<Button>(R.id.btn_yes)
         btn_yes.setOnClickListener {
@@ -523,11 +530,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
             languagedialog.layoutDirection = View.LAYOUT_DIRECTION_RTL
-            languagedialog.layoutDirection = View.LAYOUT_DIRECTION_RTL
-            languagedialog.layoutDirection = View.LAYOUT_DIRECTION_RTL
         }else {
-            languagedialog.layoutDirection = View.LAYOUT_DIRECTION_LTR
-            languagedialog.layoutDirection = View.LAYOUT_DIRECTION_LTR
             languagedialog.layoutDirection = View.LAYOUT_DIRECTION_LTR
         }
         if(PrefManager.read(PrefManager.LANGUAGEID, 1)==1)
