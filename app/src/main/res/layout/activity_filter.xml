@@ -48,10 +48,10 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:drawableEnd="@drawable/ic_aero_new_downs"
                 style="@style/AppTheme.Text_14dp"
                 android:paddingTop="15dp"
-                android:paddingBottom="15dp"/>
+                android:paddingBottom="15dp"
+                app:drawableEndCompat="@drawable/ic_aero_new_downs" />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_color_recyclarview"
                 android:layout_width="match_parent"
@@ -75,10 +75,10 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_color_recyclarview"
-                android:drawableEnd="@drawable/ic_aerou_new_up"
                 style="@style/AppTheme.Text_14dp"
                 android:paddingTop="15dp"
-                android:paddingBottom="15dp"/>
+                android:paddingBottom="15dp"
+                app:drawableEndCompat="@drawable/ic_aerou_new_up" />
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -105,10 +105,10 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_size_recyclarview"
-                android:drawableEnd="@drawable/ic_aerou_new_up"
                 style="@style/AppTheme.Text_14dp"
                 android:paddingTop="15dp"
-                android:paddingBottom="15dp"/>
+                android:paddingBottom="15dp"
+                app:drawableEndCompat="@drawable/ic_aerou_new_up" />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_age_recyclarview"
                 android:layout_width="match_parent"
@@ -134,10 +134,10 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_age_recyclarview"
-                android:drawableEnd="@drawable/ic_aerou_new_up"
                 style="@style/AppTheme.Text_14dp"
                 android:paddingTop="15dp"
-                android:paddingBottom="15dp"/>
+                android:paddingBottom="15dp"
+                app:drawableEndCompat="@drawable/ic_aerou_new_up" />
 
               <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_gender_recyclarview"
@@ -162,10 +162,10 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_gender_recyclarview"
-                android:drawableEnd="@drawable/ic_aerou_new_up"
                 style="@style/AppTheme.Text_14dp"
                 android:paddingTop="15dp"
-                android:paddingBottom="15dp"/>
+                android:paddingBottom="15dp"
+                app:drawableEndCompat="@drawable/ic_aerou_new_up" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
               android:id="@+id/cl_price"

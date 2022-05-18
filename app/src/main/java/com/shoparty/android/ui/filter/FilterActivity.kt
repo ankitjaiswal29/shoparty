@@ -53,8 +53,12 @@ class FilterActivity : AppCompatActivity(), View.OnClickListener, QuantityListne
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_filter)
-        viewModel =
-            ViewModelProvider(this, ViewModalFactory(application))[FilterViewModel::class.java]
+        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
+            binding.clfilterRootlayout.layoutDirection = View.LAYOUT_DIRECTION_RTL
+        }else {
+            binding.clfilterRootlayout.layoutDirection = View.LAYOUT_DIRECTION_LTR
+        }
+        viewModel = ViewModelProvider(this, ViewModalFactory(application))[FilterViewModel::class.java]
         viewModel.colors()//color api call
         viewModel.sizes()//size api call
         viewModel.gender()//gender api call

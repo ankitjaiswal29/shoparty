@@ -44,12 +44,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_30sdp"
-                    android:drawableEnd="@drawable/ic_forword_icon"
                     android:drawablePadding="9dp"
                     android:text="@string/my_orders"
                     app:layout_constraintBottom_toBottomOf="@+id/iv_icon"
                     app:layout_constraintStart_toEndOf="@+id/iv_icon"
-                    app:layout_constraintTop_toTopOf="@+id/iv_icon" />
+                    app:layout_constraintTop_toTopOf="@+id/iv_icon"
+                    app:drawableEndCompat="@drawable/ic_forword_icon" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

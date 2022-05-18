@@ -3,9 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainLayoutProfile"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.main.myaccount.MyProfileActivity">
@@ -25,7 +24,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/info_tool">
 
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -33,9 +31,6 @@
                 android:layout_marginBottom="100dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/info_tool">
-
-
-
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/imgProfile"
@@ -61,26 +56,26 @@
                     app:riv_corner_radius="@dimen/_10sdp" />
 
                 <ImageView
-           android:id="@+id/iv_EditProfile"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
+               android:id="@+id/iv_EditProfile"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
                     android:visibility="gone"
-           app:layout_constraintStart_toEndOf="@+id/iv_ProfilePic"
-           app:layout_constraintEnd_toEndOf="@+id/iv_ProfilePic"
-           android:src="@drawable/ic_rectangle_editshape"
-           app:layout_constraintBottom_toBottomOf="@id/iv_ProfilePic"
-           android:layout_marginBottom="5dp"/>
-       <ImageView
-           android:id="@+id/imgPencil"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:visibility="gone"
-           app:layout_constraintStart_toStartOf="@+id/iv_EditProfile"
-           app:layout_constraintEnd_toEndOf="@+id/iv_EditProfile"
-           app:layout_constraintTop_toTopOf="@+id/iv_EditProfile"
-           android:src="@drawable/ic_edit_red_icon"
-           app:layout_constraintBottom_toBottomOf="@+id/iv_EditProfile"/>
+               app:layout_constraintStart_toEndOf="@+id/iv_ProfilePic"
+               app:layout_constraintEnd_toEndOf="@+id/iv_ProfilePic"
+               android:src="@drawable/ic_rectangle_editshape"
+               app:layout_constraintBottom_toBottomOf="@id/iv_ProfilePic"
+               android:layout_marginBottom="5dp"/>
 
+             <ImageView
+               android:id="@+id/imgPencil"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:visibility="gone"
+               app:layout_constraintStart_toStartOf="@+id/iv_EditProfile"
+               app:layout_constraintEnd_toEndOf="@+id/iv_EditProfile"
+               app:layout_constraintTop_toTopOf="@+id/iv_EditProfile"
+               android:src="@drawable/ic_edit_red_icon"
+               app:layout_constraintBottom_toBottomOf="@+id/iv_EditProfile"/>
 
                 <TextView
                 android:id="@+id/tvName"
@@ -160,7 +155,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvEmail" />
 
-
                     <TextView
                         android:id="@+id/tvMobile"
                         style="@style/AppTheme.Title"
@@ -169,7 +163,6 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/etEmail" />
-
 
                     <RelativeLayout
                         android:id="@+id/const_mobile"
@@ -189,11 +182,10 @@
                             android:singleLine="true"
                             android:textColorHint="@color/black" />
 
-
                         <EditText
                             android:id="@+id/etMobile"
                             style="@style/AppTheme.editText_gray"
-                            android:layout_toRightOf="@+id/etCountryCode"
+                            android:layout_toEndOf="@+id/etCountryCode"
                             android:hint="@string/_999_9999_999"
                             android:imeOptions="actionNext"
                             android:inputType="text"
@@ -201,9 +193,6 @@
                             android:layout_marginStart="@dimen/_2sdp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />
-
-
-
                     </RelativeLayout>
 
 
@@ -225,36 +214,17 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvAddress" />
 
-
-                  <!--  <EditText
-                        android:id="@+id/etCountry"
-                        style="@style/AppTheme.editText_gray"
-                        android:layout_width="0dp"
-                        android:hint="@string/american"
-                        android:layout_marginRight="5dp"
-                        android:imeOptions="actionNext"
-                        android:inputType="text"
-                        app:layout_constraintEnd_toStartOf="@+id/guideline"
-                        app:layout_constraintHorizontal_chainStyle="spread_inside"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvCountry" />
--->
-
-
                     <Spinner
                         android:id="@+id/etCountry"
                         android:background="@drawable/spinner_backgroundgray"
                         android:layout_width="0dp"
                         android:layout_marginEnd="5dp"
                         android:layout_height="@dimen/_40sdp"
+                        android:gravity="center"
                         app:layout_constraintEnd_toStartOf="@+id/guideline"
                         app:layout_constraintHorizontal_chainStyle="spread_inside"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvCountry" />
-
-
-
-
 
                     <TextView
                         android:id="@+id/tvCity"
@@ -262,24 +232,9 @@
                         android:layout_width="wrap_content"
                         android:layout_marginTop="15dp"
                         android:text="@string/city"
+                        android:gravity="center"
                         app:layout_constraintStart_toStartOf="@+id/etCity"
                         app:layout_constraintTop_toBottomOf="@+id/tvAddress" />
-
-
-                    <!--<EditText
-                        android:id="@+id/etCity"
-                        style="@style/AppTheme.editText_gray"
-                        android:layout_width="0dp"
-                        android:hint="@string/xyz"
-                        android:imeOptions="actionNext"
-                        android:inputType="text"
-                        android:layout_marginLeft="5dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintHorizontal_chainStyle="spread_inside"
-                        app:layout_constraintStart_toEndOf="@+id/guideline"
-                        app:layout_constraintTop_toBottomOf="@+id/tvCountry" />
--->
 
                     <Spinner
                         android:id="@+id/etCity"
@@ -292,14 +247,6 @@
                         app:layout_constraintHorizontal_chainStyle="spread_inside"
                         app:layout_constraintStart_toEndOf="@+id/guideline"
                         app:layout_constraintTop_toBottomOf="@+id/tvCountry" />
-
-
-
-
-
-
-
-
 
                     <TextView
                         android:id="@+id/tvStreet"
@@ -310,12 +257,10 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/etCity" />
 
-
                     <EditText
                         android:id="@+id/etStreet"
                         style="@style/AppTheme.editText_gray"
                         android:layout_width="0dp"
-                        android:hint=""
                         android:imeOptions="actionNext"
                         android:layout_marginEnd="5dp"
                         android:inputType="text"
@@ -323,7 +268,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/guideline"
                         app:layout_constraintTop_toBottomOf="@+id/tvStreet" />
-
 
                     <TextView
                         android:id="@+id/tvHouseno"
@@ -334,12 +278,10 @@
                         app:layout_constraintStart_toStartOf="@id/etHouseno"
                         app:layout_constraintTop_toBottomOf="@+id/etCity" />
 
-
                     <EditText
                         android:id="@+id/etHouseno"
                         style="@style/AppTheme.editText_gray"
                         android:layout_width="0dp"
-                        android:hint=""
                         android:imeOptions="actionNext"
                         android:inputType="text"
                         android:layout_marginStart="5dp"
@@ -348,7 +290,6 @@
                         app:layout_constraintHorizontal_chainStyle="spread_inside"
                         app:layout_constraintStart_toEndOf="@+id/guideline"
                         app:layout_constraintTop_toBottomOf="@+id/tvStreet" />
-
 
                     <TextView
                         android:id="@+id/tvGender"
@@ -359,14 +300,12 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/etHouseno" />
 
-
                     <TextView
                         android:id="@+id/tvMale"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/background_rectangular_white"
-                        android:drawableStart="@drawable/ic_pink_check"
                         android:drawablePadding="5dp"
                         android:gravity="center"
                         android:layout_marginEnd="2dp"
@@ -379,7 +318,8 @@
                         app:layout_constraintEnd_toStartOf="@+id/guideline"
                         app:layout_constraintHorizontal_chainStyle="spread_inside"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvGender" />
+                        app:layout_constraintTop_toBottomOf="@+id/tvGender"
+                        app:drawableStartCompat="@drawable/ic_pink_check" />
 
 
                     <TextView
@@ -402,7 +342,6 @@
                         app:layout_constraintHorizontal_chainStyle="spread_inside"
                         app:layout_constraintTop_toBottomOf="@+id/tvGender" />
 
-
                     <TextView
                         android:id="@+id/tvDateBirthlabel"
                         style="@style/AppTheme.Title"
@@ -419,14 +358,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/background_rectangular_white"
-                        android:drawableEnd="@drawable/ic_ic_icon_calender"
                         android:paddingStart="15dp"
                         android:text=""
                         android:paddingTop="10dp"
                         android:paddingEnd="15dp"
                         android:paddingBottom="10dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvDateBirthlabel" />
+                        app:layout_constraintTop_toBottomOf="@+id/tvDateBirthlabel"
+                        app:drawableEndCompat="@drawable/ic_ic_icon_calender" />
 
                     <Button
                         android:id="@+id/btnSave"
@@ -444,11 +383,11 @@
                         android:orientation="vertical"
                         app:layout_constraintGuide_percent="0.5" />
 
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

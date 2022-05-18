@@ -73,6 +73,11 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= DataBindingUtil.setContentView(this, R.layout.activity_my_profile)
+        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
+            binding.mainLayoutProfile.layoutDirection = View.LAYOUT_DIRECTION_RTL
+        }else {
+            binding.mainLayoutProfile.layoutDirection = View.LAYOUT_DIRECTION_LTR
+        }
         viewModel = ViewModelProvider(this, ViewModalFactory(application))[MyAccountViewModel::class.java]
         addressviewModel = ViewModelProvider(this, ViewModalFactory(application))[AddressViewModel::class.java]
         initialise()
@@ -107,7 +112,6 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
                     PrefManager.write(PrefManager.GENDER, response.data?.gender!!)
                     PrefManager.write(PrefManager.CITYID, response.data?.city_id.toString())
                     PrefManager.write(PrefManager.COUNTRYCODE, response.data?.country_code.toString())
-
 
                     if(!response.data?.street_no.isNullOrEmpty())
                     {
@@ -185,7 +189,6 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
                 }
             }
         }
-
 
         addressviewModel.getcity.observe(this) { response ->
             when (response) {

@@ -68,29 +68,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- <LinearLayout
-                android:id="@+id/deals_sort_btn"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/white"
-                android:layout_weight="0.5"
-                android:layout_marginStart="2dp"
-                android:gravity="center">
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_icon_sort"/>-->
-
-           <!-- <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="60dp"
-                android:elevation="10dp"
-                app:layout_constraintTop_toTopOf="@+id/tv_sort"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_sort"
-                app:layout_constraintStart_toStartOf="@+id/tv_sort"
-                android:src="@drawable/ic_icon_sort" />
--->
             <TextView
                 android:id="@+id/tv_sort"
                 style="@style/AppTheme.Text_12_graydp"

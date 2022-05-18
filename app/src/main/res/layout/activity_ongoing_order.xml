@@ -319,7 +319,7 @@
                         app:layout_constraintStart_toEndOf="@+id/ivOrderDelivered"
                         android:text="@string/out_for_delivery"
                         style="@style/AppTheme.Text_16_Bold_dp"
-                        android:layout_marginLeft="16dp"/>
+                        android:layout_marginStart="16dp"/>
 
                     <TextView
                         android:id="@+id/tv_OrderDelivered_sutitle"
@@ -336,10 +336,10 @@
                         android:id="@+id/btnCancel"
                         style="@style/AppTheme.ButtonStyle"
                         android:text="@string/cancel"
-                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/ivOrderDelivered"
                         android:layout_marginTop="25dp"
-                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintVertical_bias="0.2" />
 
 

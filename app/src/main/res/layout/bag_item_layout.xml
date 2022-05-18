@@ -21,6 +21,7 @@
             android:layout_width="@dimen/_70sdp"
             android:layout_height="@dimen/_85sdp"
             android:contentDescription="@null"
+            android:scaleType="fitXY"
             android:src="@drawable/icon_shippingbag"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,12 +46,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/_7_10"
-            android:layout_marginStart="@dimen/_5sdp"
-            app:layout_constraintLeft_toRightOf="@+id/ivItem"
-            app:layout_constraintTop_toBottomOf="@+id/tvName"
-            />
-
-
+            app:layout_constraintEnd_toStartOf="@+id/iv_minus"
+            app:layout_constraintHorizontal_bias="0.01"
+            app:layout_constraintStart_toEndOf="@+id/ivItem"
+            app:layout_constraintStart_toStartOf="@+id/tvName"
+            app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
         <TextView
             android:id="@+id/tv_product_cost_price"

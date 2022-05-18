@@ -68,6 +68,13 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_shoping_bag)
+        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
+            binding.mainLayoutShopping.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            binding.rvShopingitem.layoutDirection = View.LAYOUT_DIRECTION_RTL
+        }else {
+            binding.mainLayoutShopping.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            binding.rvShopingitem.layoutDirection = View.LAYOUT_DIRECTION_LTR
+        }
         viewModel = ViewModelProvider(this,
             ViewModalFactory(application))[ProducatDetailsViewModel::class.java]
         shoopingbagviewModel = ViewModelProvider(this,

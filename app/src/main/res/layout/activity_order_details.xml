@@ -188,7 +188,7 @@
                          app:layout_constraintStart_toEndOf="@+id/ivImageOrderplace"
                          android:text="@string/order_placed"
                          style="@style/AppTheme.Text_16_Bold_dp"
-                         android:layout_marginLeft="16dp"/>
+                         android:layout_marginStart="16dp"/>
 
                      <TextView
                          android:id="@+id/tv_orderplaced_subtitle"
