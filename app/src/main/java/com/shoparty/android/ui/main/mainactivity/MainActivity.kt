@@ -48,7 +48,6 @@ import com.shoparty.android.ui.shoppingbag.ShoppingBagActivity
 import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.ProgressDialog
-import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 import kotlinx.coroutines.Dispatchers
@@ -220,26 +219,26 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             when (response) {
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
-                    Utils.showLongToast(this,response.message)
-                    if(response.data?.language_id.equals("1"))
-                    {
-                        PrefManager.write(PrefManager.LANGUAGEID, 1)
-
-                      //  setApplicationlanguage("en")
-                        setLocale("en")
-                        Log.d("Testing","english")
-                    }
-                    else if(response.data?.language_id.equals("2"))
-                    {
-                        PrefManager.write(PrefManager.LANGUAGEID,2)
-                       // setApplicationlanguage("ar")
-                        setLocale("ar")
-                        Log.d("Testing","arabic")
-                    }
-                    else
-                    {
-                        Utils.showLongToast(this,getString(R.string.pleaselogintochange))
-                    }
+//                    Utils.showLongToast(this,response.message)
+//                    if(response.data?.language_id.equals("1"))
+//                    {
+//                        PrefManager.write(PrefManager.LANGUAGEID, 1)
+//
+//                      //  setApplicationlanguage("en")
+//                        setLocale("en")
+//                        Log.d("Testing","english")
+//                    }
+//                    else if(response.data?.language_id.equals("2"))
+//                    {
+//                        PrefManager.write(PrefManager.LANGUAGEID,2)
+//                       // setApplicationlanguage("ar")
+//                        setLocale("ar")
+//                        Log.d("Testing","arabic")
+//                    }
+//                    else
+//                    {
+//                        Utils.showLongToast(this,getString(R.string.pleaselogintochange))
+//                    }
                 }
 
                 is Resource.Loading -> {
@@ -527,18 +526,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         val rbEnglish = dialogLayout.findViewById<RadioButton>(R.id.english_radio_btn)
         val rbArabic = dialogLayout.findViewById<RadioButton>(R.id.arabic_radio_btn)
-
-        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
-            languagedialog.layoutDirection = View.LAYOUT_DIRECTION_RTL
-        }else {
-            languagedialog.layoutDirection = View.LAYOUT_DIRECTION_LTR
-        }
+        
         if(PrefManager.read(PrefManager.LANGUAGEID, 1)==1)
         {
+            languagedialog.layoutDirection = View.LAYOUT_DIRECTION_LTR
             rbEnglish.isChecked=true
             rbArabic.isChecked=false
         }
         else{
+            languagedialog.layoutDirection = View.LAYOUT_DIRECTION_RTL
             rbEnglish.isChecked=false
             rbArabic.isChecked=true
         }
@@ -566,8 +562,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         btn_save.setOnClickListener {
             builder.setCancelable(true)
             builderinstance.dismiss()
-            val request = ChangeLanguageRequestModel(langaugevalue)
-            viewModel.getLanguage(request)
+            if (langaugevalue==1) {
+                PrefManager.write(PrefManager.LANGUAGEID, 1)
+                setLocale("en")
+                Log.d("Testing", "english")
+            } else {
+                PrefManager.write(PrefManager.LANGUAGEID, 2)
+                setLocale("ar")
+                Log.d("Testing", "arabic")
+            }
+//            val request = ChangeLanguageRequestModel(langaugevalue)
+//            viewModel.getLanguage(request)
         }
     }
 

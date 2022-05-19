@@ -75,9 +75,18 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
         binding= DataBindingUtil.setContentView(this, R.layout.activity_my_profile)
         if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
             binding.mainLayoutProfile.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            binding.layoutProfile.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            binding.etStreet.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            binding.etHouseno.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            binding.infoTool.back.rotation = 180F
         }else {
             binding.mainLayoutProfile.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            binding.layoutProfile.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            binding.etStreet.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            binding.etHouseno.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            binding.infoTool.back.rotation = 0F
         }
+
         viewModel = ViewModelProvider(this, ViewModalFactory(application))[MyAccountViewModel::class.java]
         addressviewModel = ViewModelProvider(this, ViewModalFactory(application))[AddressViewModel::class.java]
         initialise()
@@ -528,8 +537,8 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
 
     private fun setupCountryData(data: ArrayList<String>)
     {
-        val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, data)
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val arrayAdapter = ArrayAdapter(this, R.layout.simple_spinner_item_custom, data)
+        arrayAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item_custom)
         binding.etCountry.adapter = arrayAdapter
 
         binding.etCountry.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -547,12 +556,10 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
     }
 
 
-
-
     private fun setupCityData(data: ArrayList<String>)
     {
-        val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, data)
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val arrayAdapter = ArrayAdapter(this, R.layout.simple_spinner_item_custom, data)
+        arrayAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item_custom)
         binding.etCity.adapter = arrayAdapter
 
         cityidlist.forEachIndexed { index, s ->

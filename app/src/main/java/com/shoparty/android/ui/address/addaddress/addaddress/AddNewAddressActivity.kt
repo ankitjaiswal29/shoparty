@@ -33,6 +33,11 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_new_address)
+        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
+            binding.mainLayoutAddress.layoutDirection = View.LAYOUT_DIRECTION_RTL
+        }else {
+            binding.mainLayoutAddress.layoutDirection = View.LAYOUT_DIRECTION_LTR
+        }
         viewModel =
             ViewModelProvider(this, ViewModalFactory(application))[AddressViewModel::class.java]
         binding.addressViewModel = viewModel
@@ -232,13 +237,11 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
-
-
     }
 
     private fun setupCountryData(data: ArrayList<String>) {
-        val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, data)
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val arrayAdapter = ArrayAdapter(this, R.layout.simple_spinner_item_custom, data)
+        arrayAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item_custom)
         binding.spLasttName.adapter = arrayAdapter
 
         binding.spLasttName.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -258,8 +261,8 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener {
 
 
     private fun setupCityData(data: java.util.ArrayList<String>) {
-        val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, data)
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val arrayAdapter = ArrayAdapter(this, R.layout.simple_spinner_item_custom, data)
+        arrayAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item_custom)
         binding.etCity.adapter = arrayAdapter
 
         cityidlist.forEachIndexed { index, s ->

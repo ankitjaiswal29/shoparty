@@ -3,9 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-
-
-
     <data>
         <variable
             name="AddressViewModel"
@@ -13,6 +10,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainLayoutAddress"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/lightgraybackground"
@@ -60,9 +58,10 @@
                     android:inputType="text|textCapSentences"
                     android:text="@={AddressViewModel.etFirstname}"
                     app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_gravity="start"
+                    android:textAlignment="viewStart"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvOrderNumber"
-                    />
+                    app:layout_constraintTop_toBottomOf="@+id/tvOrderNumber" />
 
                 <TextView
                     android:id="@+id/tvLasttName"
@@ -77,11 +76,12 @@
                     style="@style/AppTheme.editText"
                     android:imeOptions="actionNext"
                     android:inputType="text|textCapSentences"
+                    android:layout_gravity="start"
+                    android:textAlignment="viewStart"
                     android:text="@={AddressViewModel.etLasttName}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvLasttName"
-                    />
+                    app:layout_constraintTop_toBottomOf="@+id/tvLasttName" />
                 <TextView
                     android:id="@+id/tvCountry"
                     style="@style/AppTheme.Title"
@@ -95,6 +95,8 @@
                     android:background="@drawable/spinner_background_2"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
+                    android:gravity="center"
+                    android:padding="@dimen/_2sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvCountry" />
@@ -113,12 +115,11 @@
                     android:background="@drawable/spinner_background_2"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
+                    android:gravity="center"
+                    android:padding="@dimen/_2sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvCity" />
-
-
-
 
                 <!--<EditText
                     android:id="@+id/etCity"
@@ -144,11 +145,12 @@
                     style="@style/AppTheme.editText"
                     android:imeOptions="actionNext"
                     android:inputType="text|textCapSentences"
+                    android:layout_gravity="start"
+                    android:textAlignment="viewStart"
                     android:text="@={AddressViewModel.etStreatLandmark}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvStreatLandmark"
-                    />
+                    app:layout_constraintTop_toBottomOf="@+id/tvStreatLandmark" />
 
 
                 <TextView
@@ -164,11 +166,12 @@
                     style="@style/AppTheme.editText"
                     android:imeOptions="actionNext"
                     android:inputType="text|textCapSentences"
+                    android:layout_gravity="start"
+                    android:textAlignment="viewStart"
                     android:text="@={AddressViewModel.etBuildingnoApartment}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvBuildingno"
-                    />
+                    app:layout_constraintTop_toBottomOf="@+id/tvBuildingno" />
 
                 <TextView
                     android:id="@+id/tvMobile"
@@ -195,6 +198,8 @@
                         android:layout_height="wrap_content"
                         android:imeOptions="actionNext"
                         android:inputType="phone"
+                        android:layout_gravity="start"
+                        android:textAlignment="viewStart"
                         android:singleLine="true"
                         android:textColorHint="@color/black" />
 
@@ -207,6 +212,8 @@
                         android:digits="0123456789"
                         android:imeOptions="actionNext"
                         android:inputType="number"
+                        android:layout_gravity="start"
+                        android:textAlignment="viewStart"
                         android:text="@={AddressViewModel.etMobile}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />

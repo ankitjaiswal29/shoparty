@@ -10,6 +10,7 @@ import com.shoparty.android.R
 import com.shoparty.android.common_modal.Product
 import com.shoparty.android.databinding.SearchItemLayBinding
 import com.shoparty.android.interfaces.RVItemClickListener
+import com.shoparty.android.utils.PrefManager
 
 class SearchHistoryProductAdapter(var context: Context, private var itemList: List<Product>) :
     RecyclerView.Adapter<SearchHistoryProductAdapter.ViewHolder>() {
@@ -53,6 +54,11 @@ class SearchHistoryProductAdapter(var context: Context, private var itemList: Li
         fun bind(modal: Product) {
             binding?.searchItemNameTv?.text = modal.en_name
             //Glide.with(context).asBitmap().load(modal.image).into(binding?.!!)
+            if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
+                binding?.searchItemArrowImg?.rotation = 180F
+            }else {
+                binding?.searchItemArrowImg?.rotation = 0F
+            }
         }
     }
 

@@ -84,6 +84,8 @@
                 android:layout_toEndOf="@+id/etCountryCode"
                 android:imeOptions="actionNext"
                 android:inputType="phone"
+                android:layout_gravity="start"
+                android:textAlignment="viewStart"
                 android:singleLine="true"
                 android:text="@={loginViewModel.etMobileNo}" />
         </RelativeLayout>

@@ -227,7 +227,7 @@ class HomeFragment : Fragment(), View.OnClickListener, RecyclerViewFavouriteList
         viewModeladdwishlist.addremovewishlist.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
-                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         requireContext(),
                         response.message,
