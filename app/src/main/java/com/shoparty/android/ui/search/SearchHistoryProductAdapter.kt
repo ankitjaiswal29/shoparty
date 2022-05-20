@@ -21,10 +21,10 @@ class SearchHistoryProductAdapter(var context: Context, private var itemList: Li
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): SearchHistoryProductAdapter.ViewHolder {
+    ): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.search_item_lay, parent, false) as View
-        return SearchHistoryProductAdapter.ViewHolder(
+        return ViewHolder(
             view = view,
             listener = listener,
             context = context

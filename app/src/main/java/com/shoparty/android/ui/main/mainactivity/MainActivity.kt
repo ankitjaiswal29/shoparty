@@ -64,6 +64,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var myaccountviewModel: MyAccountViewModel
     var dialog: Dialog? = null
     lateinit var locale: Locale
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -93,12 +94,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun initialise()
     {
-
-       /* if (PrefManager.read(PrefManager.LANGUAGEID, "").equals("1")){
-            setLocale("en")
-        }else if (PrefManager.read(PrefManager.LANGUAGEID, "").equals("2")) {
-            setLocale("ar")
-        }*/
 
         if (PrefManager.read(PrefManager.USER_ID, "").isEmpty())
         {
@@ -161,6 +156,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     {
                         setCurrentFragment(WishListFragment())
                     }
+
                 R.id.MyAccountFragment ->
                     if(PrefManager.read(PrefManager.AUTH_TOKEN, "").isEmpty()
                         && PrefManager.read(PrefManager.USER_ID, "").isEmpty())
@@ -443,7 +439,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     startActivity(intent)
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                 }
-
             }
         }
     }

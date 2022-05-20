@@ -1,6 +1,5 @@
 package com.shoparty.android.ui.main.myaccount.myprofileupdate
 
-
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
@@ -53,6 +52,7 @@ import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+
 class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
     private var dob1= ""
     private lateinit var binding: ActivityMyProfileBinding
@@ -76,6 +76,7 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
         if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
             binding.mainLayoutProfile.layoutDirection = View.LAYOUT_DIRECTION_RTL
             binding.layoutProfile.layoutDirection = View.LAYOUT_DIRECTION_RTL
+
             binding.etStreet.layoutDirection = View.LAYOUT_DIRECTION_RTL
             binding.etHouseno.layoutDirection = View.LAYOUT_DIRECTION_RTL
             binding.infoTool.back.rotation = 180F
@@ -106,7 +107,6 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
         binding.infoTool.back.setOnClickListener(this)
     }
 
-
     private fun setObserver()
     {
         viewModel.profileupdate.observe(this) { response ->
@@ -114,13 +114,13 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
                 is Resource.Success -> {
                     com.shoparty.android.utils.ProgressDialog.hideProgressBar()
                     PrefManager.write(PrefManager.NAME, response.data?.name!!)
-                    PrefManager.write(PrefManager.IMAGE, response.data.image!!)
-                    PrefManager.write(PrefManager.MOBILE, response.data?.mobile!!)
-                    PrefManager.write(PrefManager.EMAIL, response.data?.email!!)
+                    PrefManager.write(PrefManager.IMAGE, response.data.image)
+                    PrefManager.write(PrefManager.MOBILE, response.data.mobile)
+                    PrefManager.write(PrefManager.EMAIL, response.data.email)
                     PrefManager.write(PrefManager.DOB, binding.tvDateBirth.text.toString().trim())
-                    PrefManager.write(PrefManager.GENDER, response.data?.gender!!)
-                    PrefManager.write(PrefManager.CITYID, response.data?.city_id.toString())
-                    PrefManager.write(PrefManager.COUNTRYCODE, response.data?.country_code.toString())
+                    PrefManager.write(PrefManager.GENDER, response.data.gender)
+                    PrefManager.write(PrefManager.CITYID, response.data.city_id)
+                    PrefManager.write(PrefManager.COUNTRYCODE, response.data.country_code)
 
                     if(!response.data?.street_no.isNullOrEmpty())
                     {
@@ -128,12 +128,7 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
                     }
                     if(!response.data?.building_no.isNullOrEmpty())
                     {
-                        response.data?.building_no?.let {
-                            PrefManager.write(
-                                PrefManager.HOUSENO,
-                                it
-                            )
-                        }
+                        response.data?.building_no?.let { PrefManager.write(PrefManager.HOUSENO,it) }
                     }
                     setResult(Activity.RESULT_OK, intent)
                     finish()
@@ -371,7 +366,7 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
             R.style.DialogTheme,
             { _, year, monthOfYear, dayOfMonth ->
                 dob1= "$dayOfMonth-${monthOfYear + 1}-$year"
-                var dob= "$year-${monthOfYear + 1}-$dayOfMonth"
+                val dob= "$year-${monthOfYear + 1}-$dayOfMonth"
                 if(Utils.calculateAgeFromDob(dob,"YYYY-MM-dd")>=18)
                 {
                     binding.tvDateBirth.text = dob1
@@ -397,7 +392,7 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
         dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_curved_bg_inset)
         dialog?.setContentView(R.layout.dialog_select)
         val lp = WindowManager.LayoutParams()
-        lp.copyFrom(dialog?.getWindow()?.getAttributes())
+        lp.copyFrom(dialog?.window?.attributes)
         lp.width = WindowManager.LayoutParams.MATCH_PARENT
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT
         lp.gravity = Gravity.CENTER
@@ -498,8 +493,6 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
     }
 
 
-
-
     override fun onBackPressed() {
         super.onBackPressed()
     }
@@ -576,8 +569,6 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
                 id: Long) {
                 selectedcityid=cityidlist[position]
             }
-
-
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }

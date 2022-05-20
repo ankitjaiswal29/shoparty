@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.shoparty.android.R
 import com.shoparty.android.databinding.DrawerListChildBinding
 import com.shoparty.android.ui.main.drawer.drawer_sub_category.DrawerSubCategoryActivity
+import com.shoparty.android.utils.PrefManager
 
 class DrawerChildAdapter(
     var context: Context,
@@ -27,6 +28,12 @@ class DrawerChildAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = itemList[position]
 
+        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
+            holder.binding.mainLayoutC.layoutDirection = View.LAYOUT_DIRECTION_RTL
+        }else {
+            holder.binding.mainLayoutC.layoutDirection = View.LAYOUT_DIRECTION_LTR
+        }
+
         holder.binding.tvTitle.text = item.category_name
 
         holder.binding.tvTitle.setOnClickListener(View.OnClickListener {
@@ -35,7 +42,6 @@ class DrawerChildAdapter(
                 .putParcelableArrayListExtra("category",item.child_category)
                 it.context.startActivity(intent)
         })
-
     }
 
     override fun getItemCount(): Int {
@@ -45,5 +51,4 @@ class DrawerChildAdapter(
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var binding = DrawerListChildBinding.bind(view)
     }
-
 }
