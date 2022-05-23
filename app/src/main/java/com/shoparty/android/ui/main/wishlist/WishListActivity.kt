@@ -37,6 +37,13 @@ class WishListActivity : AppCompatActivity(), View.OnClickListener,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_wish_list)
+        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
+            binding.mainLayoutWishList.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            binding.infoTool.ivDrawerBack.rotation = 0F
+        }else {
+            binding.mainLayoutWishList.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            binding.infoTool.ivDrawerBack.rotation = 180F
+        }
         initialise()
         viewModel = ViewModelProvider(
             this,

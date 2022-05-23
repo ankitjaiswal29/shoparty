@@ -14,13 +14,12 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.gson.JsonObject
 import com.shoparty.android.R
 import com.shoparty.android.common_modal.Product
 import com.shoparty.android.databinding.FragmentDealsBinding
 import com.shoparty.android.interfaces.RecyclerViewClickListener
 import com.shoparty.android.interfaces.RecyclerViewFavouriteListener
-import com.shoparty.android.ui.filter.*
+import com.shoparty.android.ui.filter.FilterActivity
 import com.shoparty.android.ui.filter.age.AgeRequest
 import com.shoparty.android.ui.login.LoginActivity
 import com.shoparty.android.ui.main.mainactivity.MainActivity
@@ -28,7 +27,8 @@ import com.shoparty.android.ui.main.product_list.ProductListAdapters
 import com.shoparty.android.ui.main.product_list.ProductListRequestModel
 import com.shoparty.android.ui.main.product_list.ProductListSortingBottomSheetAdapter
 import com.shoparty.android.ui.main.wishlist.WishListViewModel
-import com.shoparty.android.utils.*
+import com.shoparty.android.utils.PrefManager
+import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 
@@ -162,7 +162,6 @@ class DealsFragment : Fragment(),View.OnClickListener,RecyclerViewClickListener{
                             dialog.dismiss()
                             saveSortLocal()
                         }
-
                     }
                 }
                 is Resource.Loading -> {
@@ -182,7 +181,6 @@ class DealsFragment : Fragment(),View.OnClickListener,RecyclerViewClickListener{
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-
                 else -> {
                     ProgressDialog.hideProgressBar()
                     Toast.makeText(
@@ -207,10 +205,10 @@ class DealsFragment : Fragment(),View.OnClickListener,RecyclerViewClickListener{
                     adapter.notifyDataSetChanged()
                 }
                 is Resource.Loading -> {
-                    com.shoparty.android.utils.ProgressDialog.showProgressBar(requireContext())
+                    ProgressDialog.showProgressBar(requireContext())
                 }
                 is Resource.Error -> {
-                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         requireContext(),
                         response.message,
@@ -218,7 +216,7 @@ class DealsFragment : Fragment(),View.OnClickListener,RecyclerViewClickListener{
                     ).show()
                 }
                 else -> {
-                    com.shoparty.android.utils.ProgressDialog.hideProgressBar()
+                    ProgressDialog.hideProgressBar()
                     Toast.makeText(
                         requireContext(),
                         response.message,
@@ -229,27 +227,17 @@ class DealsFragment : Fragment(),View.OnClickListener,RecyclerViewClickListener{
         }
     }
 
-
-
     private fun initilize() {
         binding.tvSort.setOnClickListener(this)
         binding.tvFilter.setOnClickListener(this)
         saveSortLocal()
     }
 
-
-
-
-
     override fun onClick(v: View?)
     {
         when (v?.id) {
             R.id.tv_filter -> {
                 val intent = Intent(requireContext(), FilterActivity::class.java)
-               /* intent.putStringArrayListExtra("colorList",selectedColorList)
-                intent.putParcelableArrayListExtra("ageList",selectedAgeList)
-                intent.putStringArrayListExtra("genderList",selectedGenderList)
-                intent.putStringArrayListExtra("sizeList",selectedSizeList)*/
                 startActivityForResult(intent, 101)
             }
             R.id.tv_sort -> {
@@ -275,7 +263,6 @@ class DealsFragment : Fragment(),View.OnClickListener,RecyclerViewClickListener{
         dialog.setContentView(view)
         dialog.show()
     }
-
 
     private fun setupData(mproductlist: ArrayList<Product>)
     {
@@ -340,11 +327,11 @@ class DealsFragment : Fragment(),View.OnClickListener,RecyclerViewClickListener{
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == 101) {
             selectedColorList = data?.getStringArrayListExtra("colorList") as ArrayList<String>
-            selectedAgeList = data?.getParcelableArrayListExtra<AgeRequest>("ageList") as ArrayList<AgeRequest>
-            selectedSizeList = data?.getStringArrayListExtra("sizeList") as ArrayList<String>
-            selectedGenderList = data?.getStringArrayListExtra("genderList") as ArrayList<String>
-            selectedminprice = data?.getIntExtra("selectedminprice",0)!!
-            selectedmaxprice = data?.getIntExtra("selectedmaxprice",0)!!
+            selectedAgeList = data.getParcelableArrayListExtra<AgeRequest>("ageList") as ArrayList<AgeRequest>
+            selectedSizeList = data.getStringArrayListExtra("sizeList") as ArrayList<String>
+            selectedGenderList = data.getStringArrayListExtra("genderList") as ArrayList<String>
+            selectedminprice = data.getIntExtra("selectedminprice",0)
+            selectedmaxprice = data.getIntExtra("selectedmaxprice",0)
 
             val filterList = ProductListRequestModel.Filter()
             val priceObj = ProductListRequestModel.Filter.Price()
@@ -366,5 +353,3 @@ class DealsFragment : Fragment(),View.OnClickListener,RecyclerViewClickListener{
         }
     }
    }
-
-

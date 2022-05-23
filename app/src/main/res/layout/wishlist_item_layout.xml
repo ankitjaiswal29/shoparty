@@ -49,12 +49,6 @@
                    android:src="@drawable/person_img" />
            </RelativeLayout>
 
-
-
-
-
-
-
             <RelativeLayout
                 android:id="@+id/relative_like"
                 android:layout_width="30dp"
@@ -93,6 +87,8 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:lines="1"
+                android:layout_gravity="start"
+                android:textAlignment="viewStart"
                 android:ellipsize="end"
                 android:text="@string/princess_dress"
                 app:layout_constraintEnd_toStartOf="@+id/tv_Offer"
@@ -112,7 +108,6 @@
                 android:layout_marginEnd="5dp"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-
             <TextView
                 android:id="@+id/tv_Item_subtitle"
                 android:layout_width="0dp"
@@ -122,9 +117,11 @@
                 android:textColor="@color/cardview_dark_background"
                 android:text="@string/yoke_design_kurta_set"
                 android:textSize="12dp"
-                android:lines="1"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:ellipsize="end"
+                android:lines="1"
+                android:layout_gravity="start"
+                android:textAlignment="viewStart"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_ItemName"
                 app:layout_constraintStart_toStartOf="@+id/tv_ItemName" />
 
@@ -134,6 +131,8 @@
                 android:layout_height="wrap_content"
                 style="@style/AppTheme.Text_pink_12ssp"
                 android:text="@string/_10_02"
+                android:layout_gravity="start"
+                android:textAlignment="viewStart"
                 app:layout_constraintTop_toBottomOf="@+id/tv_Item_subtitle"
                 app:layout_constraintStart_toStartOf="@+id/tv_Item_subtitle" />
 
@@ -157,8 +156,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent" />
-
-
 
                 <ImageView
                     android:id="@+id/iv_minus"
@@ -186,8 +183,6 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:text="@string/_1" />
 
-
-
                 <ImageView
                     android:id="@+id/iv_plus"
                     android:layout_width="@dimen/_16sdp"
@@ -198,11 +193,7 @@
                     android:layout_marginEnd="@dimen/_2sdp"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    />
-
-
-
+                    app:layout_constraintEnd_toEndOf="parent" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

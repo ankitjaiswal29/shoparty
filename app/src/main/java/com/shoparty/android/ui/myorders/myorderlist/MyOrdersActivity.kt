@@ -26,6 +26,13 @@ class MyOrdersActivity : AppCompatActivity(), View.OnClickListener{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_my_orders)
+        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
+            binding.mainLayoutOrder.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            binding.infoTool.ivDrawerBack.rotation = 0F
+        }else {
+            binding.mainLayoutOrder.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            binding.infoTool.ivDrawerBack.rotation = 180F
+        }
         viewModel = ViewModelProvider(this, ViewModalFactory(application))[MyOrderViewModel::class.java]
         initialise()
         setObserver()
@@ -80,8 +87,6 @@ class MyOrdersActivity : AppCompatActivity(), View.OnClickListener{
                 }
             }
         }
-
-
     }
 
     private fun setMyOrderListAdapter(data: List<MyOrderResponse.OrderHistory>?) {

@@ -3,12 +3,14 @@ package com.shoparty.android.ui.main.wishlist
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
@@ -17,6 +19,7 @@ import com.shoparty.android.interfaces.RecyclerViewFavouriteListener
 import com.shoparty.android.interfaces.WishListAddBagClickListener
 import com.shoparty.android.ui.productdetails.ProductDetailsActivity
 import com.shoparty.android.utils.Constants
+import com.shoparty.android.utils.PrefManager
 
 class WishListAdapters(
     var context: Context,
@@ -34,25 +37,35 @@ class WishListAdapters(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val ItemsViewModel = mList[position]
+        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
+            holder.clWishListRootItem.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            holder.tv_ItemName.ellipsize = TextUtils.TruncateAt.START
+            holder.tvItemSubtitle.ellipsize = TextUtils.TruncateAt.START
+            holder.tvPrice.ellipsize = TextUtils.TruncateAt.START
+        }else {
+            holder.clWishListRootItem.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            holder.tv_ItemName.ellipsize = TextUtils.TruncateAt.END
+            holder.tvItemSubtitle.ellipsize = TextUtils.TruncateAt.END
+            holder.tvPrice.ellipsize = TextUtils.TruncateAt.END
+        }
+
         holder.tv_ItemName.text = ItemsViewModel.product_name
         holder.tvItemSubtitle.text = ItemsViewModel.product_descripion
         holder.tvPrice.text = context.getString(R.string.dollor)+ItemsViewModel.sale_price
+
         if(ItemsViewModel.cart_quantity==0)
         {
             holder.txtAdd.visibility=View.VISIBLE
             holder.iv_minus.visibility=View.GONE
             holder.iv_plus.visibility=View.GONE
             holder.tv_count.visibility=View.GONE
-        }
-        else
-        {
+        } else {
             holder.txtAdd.visibility=View.GONE
             holder.iv_minus.visibility=View.VISIBLE
             holder.iv_plus.visibility=View.VISIBLE
             holder.tv_count.visibility=View.VISIBLE
             holder.tv_count.text=ItemsViewModel.cart_quantity.toString()
         }
-
 
         if(!ItemsViewModel.discount.isNullOrEmpty())
         {
@@ -76,9 +89,6 @@ class WishListAdapters(
         holder.iv_minus.setOnClickListener {
             wishListAddBagClickListener.twoParameterPassClick(position,Constants.CARTACTIONMINUSTYPE)
         }
-
-
-
 
         holder.relativeLike.setOnClickListener {
             recyclerViewFavouriteListener.favourite(
@@ -126,6 +136,7 @@ class WishListAdapters(
         val tv_count: TextView = itemView.findViewById(R.id.tv_count)
         val txtAdd: TextView = itemView.findViewById(R.id.txtAdd)
         val tvItemSubtitle: TextView = itemView.findViewById(R.id.tv_Item_subtitle)
+        val clWishListRootItem: ConstraintLayout = itemView.findViewById(R.id.cl_wishlist_root_item)
         val relativeLike: RelativeLayout = itemView.findViewById(R.id.relative_like)
     }
 }

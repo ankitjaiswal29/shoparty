@@ -35,8 +35,10 @@ class AddNewAddressActivity : AppCompatActivity(), View.OnClickListener {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_new_address)
         if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
             binding.mainLayoutAddress.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            binding.infoTool.ivDrawerBack.rotation = 0F
         }else {
             binding.mainLayoutAddress.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            binding.infoTool.ivDrawerBack.rotation = 180F
         }
         viewModel =
             ViewModelProvider(this, ViewModalFactory(application))[AddressViewModel::class.java]

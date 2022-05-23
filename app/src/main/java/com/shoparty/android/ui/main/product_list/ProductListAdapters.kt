@@ -2,6 +2,7 @@ package com.shoparty.android.ui.main.product_list
 
 import android.content.Context
 import android.content.Intent
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import com.shoparty.android.common_modal.Product
 import com.shoparty.android.interfaces.RecyclerViewFavouriteListener
 import com.shoparty.android.ui.productdetails.ProductDetailsActivity
 import com.shoparty.android.utils.Constants
+import com.shoparty.android.utils.PrefManager
 import kotlinx.android.synthetic.main.deals_item_layout.view.*
 class ProductListAdapters(
     val context: Context,
@@ -30,11 +32,21 @@ class ProductListAdapters(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val ItemsViewModel = mList[position]
+
+        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
+            holder.cl_productlist_root_item.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            holder.tv_productname.ellipsize = TextUtils.TruncateAt.START
+            holder.tv_product_subtitle.ellipsize = TextUtils.TruncateAt.START
+        }else {
+            holder.cl_productlist_root_item.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            holder.tv_productname.ellipsize = TextUtils.TruncateAt.END
+            holder.tv_product_subtitle.ellipsize = TextUtils.TruncateAt.END
+        }
+
         holder.tv_productname.text = ItemsViewModel.product_name
         holder.tv_product_subtitle.text = ItemsViewModel.product_descripion
         holder.tv_price.text = context.getString(R.string.dollor)+ItemsViewModel.sale_price
-      //  holder.tv_offer.text = context.getString(R.string.dollor)+ItemsViewModel.sale_price
-        Glide.with(context).asBitmap().load(ItemsViewModel.image).into(holder.iv_dealsimg!!)
+        Glide.with(context).asBitmap().load(ItemsViewModel.image).into(holder.iv_dealsimg)
 
         holder.cl_productlist_root_item.setOnClickListener {
             val intent = Intent(context, ProductDetailsActivity::class.java)

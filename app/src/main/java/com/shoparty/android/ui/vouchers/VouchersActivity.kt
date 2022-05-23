@@ -32,8 +32,10 @@ class VouchersActivity : AppCompatActivity(),RecyclerViewClickListener{
         binding= DataBindingUtil.setContentView(this, R.layout.activity_vouchers)
         if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
             binding.mainLayoutVoucher.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            binding.infoTool.ivDrawerBack.rotation = 0F
         }else {
             binding.mainLayoutVoucher.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            binding.infoTool.ivDrawerBack.rotation = 180F
         }
         viewModel = ViewModelProvider(this, ViewModalFactory(application))[VoucherViewModel::class.java]
         initialise()
