@@ -55,8 +55,10 @@ class FilterActivity : AppCompatActivity(), View.OnClickListener, QuantityListne
         binding = DataBindingUtil.setContentView(this, R.layout.activity_filter)
         if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
             binding.clfilterRootlayout.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            binding.infoTool.ivDrawerBack.rotation = 0F
         }else {
             binding.clfilterRootlayout.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            binding.infoTool.ivDrawerBack.rotation = 180F
         }
         viewModel = ViewModelProvider(this, ViewModalFactory(application))[FilterViewModel::class.java]
         viewModel.colors()//color api call

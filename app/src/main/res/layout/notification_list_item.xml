@@ -31,6 +31,8 @@
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:lines="1"
                 android:ellipsize="end"
+                android:layout_gravity="start"
+                android:textAlignment="viewStart"
                 android:textSize="@dimen/_12ssp"
                 android:fontFamily="@font/poppins"
                 android:textColor="@color/black"
@@ -39,8 +41,6 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-
 
             <TextView
                 android:id="@+id/tv_Item_subtitle"
@@ -51,12 +51,12 @@
                 android:textColor="@color/cardview_dark_background"
                 android:text="@string/yoke_design_kurta_set"
                 android:textSize="12dp"
+                android:layout_gravity="start"
+                android:textAlignment="viewStart"
                 android:lines="2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_ItemName"
                 app:layout_constraintStart_toStartOf="@+id/tv_ItemName" />
-
-
 
             <TextView
                 android:id="@+id/tv_date"
@@ -73,14 +73,7 @@
                 android:ellipsize="end"
                 app:layout_constraintTop_toBottomOf="@+id/tv_Item_subtitle"
                 app:layout_constraintBottom_toBottomOf="parent"/>
-
-
-
-
-
-
-
-
+            
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

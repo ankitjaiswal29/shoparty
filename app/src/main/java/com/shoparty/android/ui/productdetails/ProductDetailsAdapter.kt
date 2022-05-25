@@ -1,11 +1,13 @@
 package com.shoparty.android.ui.productdetails
 
 import android.annotation.SuppressLint
+import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.shoparty.android.R
+import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.inflate
 
 import kotlinx.android.synthetic.main.top_selling_layout_item.view.*
@@ -27,6 +29,11 @@ class ProductDetailsAdapter(var productDetailCallback:ProductDetailCallback,
     override fun onBindViewHolder(holder: TopSellingHomeViewHolder, position: Int) {
         val items = itemList[position]
         holder.itemView.apply {
+            if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
+                tv_princesdresses.ellipsize = TextUtils.TruncateAt.START
+            }else {
+                tv_princesdresses.ellipsize = TextUtils.TruncateAt.END
+            }
             tv_princesdresses.text = items.product_name
             tv_dressprise.text = context.getString(R.string.dollor)+items.sale_price
             Glide.with(context).asBitmap().load(items.image).into(imgProduct!!)
@@ -34,8 +41,6 @@ class ProductDetailsAdapter(var productDetailCallback:ProductDetailCallback,
             rootView.setOnClickListener {
                 productDetailCallback.onProductClick(items.product_detail_id,items.product_id,items.product_size_id.toString(),items.product_color_id.toString())
             }
-
-
         }
 
     }

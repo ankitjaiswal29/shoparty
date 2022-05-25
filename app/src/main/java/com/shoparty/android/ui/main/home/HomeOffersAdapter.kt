@@ -29,13 +29,11 @@ class HomeOffersAdapter(var context: Context, private val itemList: List<HomeRes
         val deviceTotalWidth = metrics.widthPixels
 
         holder.itemView.apply {
-            home_offers_item_price_tv.text = context.getString(R.string.up_to_10_off)+" "+items.offer_discount.toString()+context.getString(R.string._54_off)
+            home_offers_item_price_tv.text = context.getString(R.string.up_to_10_off)+" "+ items.offer_discount +context.getString(R.string._54_off)
             Glide.with(context).asBitmap().load(items.image).into(home_offers_item_img)
             item10.minimumWidth  = (deviceTotalWidth/2.3).toInt()
             item10.maxWidth  = (deviceTotalWidth/2.3).toInt()
         }
-
-
 
         holder.itemView.setOnClickListener {
                 val intent = Intent(context, ProductDetailsActivity::class.java)

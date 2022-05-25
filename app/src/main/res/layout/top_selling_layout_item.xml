@@ -18,12 +18,6 @@
             android:src="@drawable/person_img"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-
-
-
-
-
-
     <RelativeLayout
         android:id="@+id/relative_like"
         android:layout_width="25dp"
@@ -54,19 +48,13 @@
             android:visibility="gone" />
     </RelativeLayout>
 
-
-
-
-
-
-
     <TextView
         android:id="@+id/tv_princesdresses"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/princess_dress"
         app:layout_constraintTop_toBottomOf="@+id/imgProduct"
-        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginStart="@dimen/_2sdp"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginEnd="@dimen/_5sdp"
         android:lines="1"
@@ -80,13 +68,11 @@
         android:layout_height="wrap_content"
         android:text="@string/_10_02"
         app:layout_constraintTop_toBottomOf="@+id/tv_princesdresses"
-        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginStart="@dimen/_2sdp"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginEnd="10dp"
         android:layout_marginTop="5dp"
         style="@style/AppTheme.Text_12dp_Bold"/>
-
-
 
     <ImageView
         android:id="@+id/iv_background"

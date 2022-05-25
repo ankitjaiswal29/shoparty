@@ -23,6 +23,14 @@ class NotificationActivity : AppCompatActivity()
     {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_notification)
+        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
+            binding.mainLayoutNotification.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            binding.infoTool.ivDrawerBack.rotation = 0F
+        }else {
+            binding.mainLayoutNotification.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            binding.infoTool.ivDrawerBack.rotation = 180F
+        }
+
         initialise()
         viewModel.notificationList(PrefManager.read(PrefManager.LANGUAGEID,1).toString()) //api call
         setObserver()

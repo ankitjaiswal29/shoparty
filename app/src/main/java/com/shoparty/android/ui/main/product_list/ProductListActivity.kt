@@ -67,6 +67,13 @@ class ProductListActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_list)
+        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
+            binding.clRootlayout.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            binding.infoTool.ivDrawerBack.rotation = 0F
+        }else {
+            binding.clRootlayout.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            binding.infoTool.ivDrawerBack.rotation = 180F
+        }
         initialise()
         withpaginationAdapterSet(newproductlist)
         if (intent.extras != null)

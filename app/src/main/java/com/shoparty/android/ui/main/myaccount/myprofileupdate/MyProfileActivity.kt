@@ -76,7 +76,6 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
         if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
             binding.mainLayoutProfile.layoutDirection = View.LAYOUT_DIRECTION_RTL
             binding.layoutProfile.layoutDirection = View.LAYOUT_DIRECTION_RTL
-
             binding.etStreet.layoutDirection = View.LAYOUT_DIRECTION_RTL
             binding.etHouseno.layoutDirection = View.LAYOUT_DIRECTION_RTL
             binding.infoTool.back.rotation = 180F
