@@ -3,13 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainLayoutC"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
 
     <TextView
         android:id="@+id/tv_title"
@@ -24,8 +21,7 @@
         style="@style/AppTheme.Text_16_black_dp"
         android:background="@color/white"
         android:padding="@dimen/_10sdp"
-        android:drawableEnd="@drawable/right_arrow_icon"/>
-
+        app:drawableEndCompat="@drawable/right_arrow_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

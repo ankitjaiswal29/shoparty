@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainSubParent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -22,8 +23,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_gravity="start"
                 android:background="@color/white"
-                android:text="@string/products" />
+                android:text="@string/products"
+                android:textAlignment="viewStart" />
 
             <ImageView
                 android:id="@+id/ivArrow"

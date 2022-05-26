@@ -9,10 +9,11 @@ import com.shoparty.android.R
 
 import com.shoparty.android.databinding.ActivityDrawersubcategoryBinding
 import com.shoparty.android.ui.main.drawer.drawer_main_category.DrawerResponse
+import com.shoparty.android.utils.PrefManager
 
 
-class DrawerSubCategoryActivity : AppCompatActivity()
-{
+class DrawerSubCategoryActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityDrawersubcategoryBinding
     private lateinit var drawerSubParentAdapter: DrawerSubParentAdapter
 
@@ -20,6 +21,14 @@ class DrawerSubCategoryActivity : AppCompatActivity()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_drawersubcategory)
+        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
+            binding.mainDrawer.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            binding.infoTool.ivDrawerBack.rotation = 0F
+        }else {
+            binding.mainDrawer.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            binding.infoTool.ivDrawerBack.rotation = 180F
+        }
+
         initialise()
         binding.infoTool.tvTitle.text = intent.extras?.getString("categoryName")
         list =
@@ -56,6 +65,5 @@ class DrawerSubCategoryActivity : AppCompatActivity()
             isFocusable = false
             adapter = drawerSubParentAdapter
         }
-
     }
 }

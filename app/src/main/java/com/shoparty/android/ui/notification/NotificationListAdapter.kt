@@ -1,20 +1,14 @@
 package com.shoparty.android.ui.notification
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.shoparty.android.R
-import com.shoparty.android.databinding.HomeCategoriesLayoutItemBinding
 import com.shoparty.android.databinding.NotificationListItemBinding
 import com.shoparty.android.interfaces.RVItemClickListener
-import com.shoparty.android.ui.main.home.HomeResponse
-import com.shoparty.android.ui.main.product_list.ProductListActivity
-import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.Utils
 
 class NotificationListAdapter(
@@ -62,5 +56,4 @@ class NotificationListAdapter(
             binding?.tvDate?.text = Utils.convertToCustomFormatDate(modal.created_at)
         }
     }
-
 }

@@ -24,9 +24,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_gravity="start"
+                android:textAlignment="viewStart"
                 android:background="@color/white"
-                android:text="@string/products"
-                android:textAlignment="viewStart" />
+                android:text="@string/products"/>
 
             <ImageView
                 android:id="@+id/ivArrow"
@@ -52,4 +52,5 @@
             tools:listitem="@layout/drawer_list_child" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

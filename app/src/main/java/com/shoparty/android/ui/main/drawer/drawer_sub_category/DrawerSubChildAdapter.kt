@@ -11,6 +11,7 @@ import com.shoparty.android.databinding.DrawerListChildBinding
 import com.shoparty.android.ui.main.drawer.drawer_main_category.DrawerResponse
 import com.shoparty.android.ui.main.product_list.ProductListActivity
 import com.shoparty.android.utils.Constants
+import com.shoparty.android.utils.PrefManager
 
 class DrawerSubChildAdapter(
     var context: Context,
@@ -28,6 +29,15 @@ class DrawerSubChildAdapter(
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = itemList[position]
+
+        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
+            holder.binding.mainLayoutC.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            holder.binding.tvTitle.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_keyboard_arrow_back, 0, 0, 0);
+        }else {
+            holder.binding.mainLayoutC.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            holder.binding.tvTitle.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_baseline_keyboard_arrow_forward, 0);
+        }
+
         holder.binding.tvTitle.text = item.category_name
 
         holder.binding.tvTitle.setOnClickListener {

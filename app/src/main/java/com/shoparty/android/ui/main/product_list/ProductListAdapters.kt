@@ -84,9 +84,11 @@ class ProductListAdapters(
             }
         }
     }
+
     override fun getItemCount(): Int {
         return mList.size
     }
+
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView)
     {
         val cl_productlist_root_item: ConstraintLayout = itemView.findViewById(R.id.cl_productlist_root_item)
@@ -103,6 +105,4 @@ class ProductListAdapters(
         mList.addAll(newList)
         notifyDataSetChanged()
     }
-
-
 }

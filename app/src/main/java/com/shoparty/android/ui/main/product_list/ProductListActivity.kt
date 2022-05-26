@@ -154,7 +154,6 @@ class ProductListActivity : AppCompatActivity(),
         binding.dealsItemRecycler.adapter = adapter
     }
 
-
     private fun withoutPaginationAdapterSet(arrayList: ArrayList<Product>) {
         layoutManager = GridLayoutManager(this, 2)
         binding.dealsItemRecycler.layoutManager = layoutManager
@@ -264,8 +263,6 @@ class ProductListActivity : AppCompatActivity(),
                 }
             }
         }
-
-
     }
 
 

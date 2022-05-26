@@ -11,6 +11,7 @@ import com.shoparty.android.R
 import com.shoparty.android.databinding.DrawerListItemsubParentLayoutBinding
 import com.shoparty.android.interfaces.RVItemClickListener
 import com.shoparty.android.ui.main.drawer.drawer_main_category.DrawerResponse
+import com.shoparty.android.utils.PrefManager
 
 class DrawerSubParentAdapter(
     var context: Context,
@@ -45,8 +46,8 @@ class DrawerSubParentAdapter(
         init {
             view.setOnClickListener {
                 if (binding?.ivArrow?.rotation == 90f){
-                    binding?.ivArrow?.rotation = 0f
-                    binding?.rvChildCategory?.visibility = View.GONE
+                    binding.ivArrow.rotation = 180f
+                    binding.rvChildCategory.visibility = View.GONE
                 }else{
                     binding?.ivArrow?.rotation = 90f
                     binding?.rvChildCategory?.visibility = View.VISIBLE
@@ -54,6 +55,13 @@ class DrawerSubParentAdapter(
             }
         }
         fun bind(modal: DrawerResponse.Category.ChildCategory.ChildCategoryX) {
+            if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
+                binding?.mainSubParent?.layoutDirection = View.LAYOUT_DIRECTION_RTL
+                binding?.ivArrow?.rotation = 180f
+            }else {
+                binding?.mainSubParent?.layoutDirection = View.LAYOUT_DIRECTION_LTR
+                binding?.ivArrow?.rotation = 0f
+            }
             binding?.tvTitle?.text = modal.category_name
             binding?.rvChildCategory?.layoutManager = LinearLayoutManager(
                 context,

@@ -53,7 +53,7 @@ class DrawerParentAdapter(
         init {
             view.setOnClickListener {
                 if (binding?.ivArrow?.rotation == 90f){
-                    binding.ivArrow.rotation = 0f
+                    binding.ivArrow.rotation = 180f
                     binding.rvChildCategory.visibility = View.GONE
                 }
                 else{
@@ -66,8 +66,10 @@ class DrawerParentAdapter(
         fun bind(modal: DrawerResponse.Category) {
             if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
                 binding?.mainLayoutR?.layoutDirection = View.LAYOUT_DIRECTION_RTL
+                binding?.ivArrow?.rotation = 180f
             }else {
                 binding?.mainLayoutR?.layoutDirection = View.LAYOUT_DIRECTION_LTR
+                binding?.ivArrow?.rotation = 0f
             }
             binding?.tvTitle?.text = modal.category_name
             binding?.rvChildCategory?.layoutManager = LinearLayoutManager(

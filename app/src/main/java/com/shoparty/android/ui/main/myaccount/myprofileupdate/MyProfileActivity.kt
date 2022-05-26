@@ -121,13 +121,13 @@ class MyProfileActivity : AppCompatActivity(), View.OnClickListener{
                     PrefManager.write(PrefManager.CITYID, response.data.city_id)
                     PrefManager.write(PrefManager.COUNTRYCODE, response.data.country_code)
 
-                    if(!response.data?.street_no.isNullOrEmpty())
+                    if(!response.data.street_no.isNullOrEmpty())
                     {
-                        response.data?.street_no?.let { PrefManager.write(PrefManager.STREET, it) }
+                        response.data.street_no.let { PrefManager.write(PrefManager.STREET, it) }
                     }
-                    if(!response.data?.building_no.isNullOrEmpty())
+                    if(!response.data.building_no.isNullOrEmpty())
                     {
-                        response.data?.building_no?.let { PrefManager.write(PrefManager.HOUSENO,it) }
+                        response.data.building_no.let { PrefManager.write(PrefManager.HOUSENO,it) }
                     }
                     setResult(Activity.RESULT_OK, intent)
                     finish()

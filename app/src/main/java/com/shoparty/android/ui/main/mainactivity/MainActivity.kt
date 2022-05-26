@@ -54,7 +54,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
 
-
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var langaugevalue: Int=1
     private lateinit var binding: ActivityMainBinding
@@ -92,8 +91,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun initialise()
-    {
+    private fun initialise() {
 
         if (PrefManager.read(PrefManager.USER_ID, "").isEmpty())
         {
@@ -299,9 +297,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     }
     fun setApplicationlanguage(language: String?) {
-        val res: Resources = MyApp.getInstance().getResources()
-        val dm: DisplayMetrics = res.getDisplayMetrics()
-        val conf: Configuration = res.getConfiguration()
+        val res: Resources = MyApp.getInstance().resources
+        val dm: DisplayMetrics = res.displayMetrics
+        val conf: Configuration = res.configuration
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             conf.setLocale(Locale(language))
         // API 17+ only.

@@ -30,18 +30,20 @@ class DrawerChildAdapter(
 
         if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
             holder.binding.mainLayoutC.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            holder.binding.tvTitle.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_keyboard_arrow_back, 0, 0, 0);
         }else {
             holder.binding.mainLayoutC.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            holder.binding.tvTitle.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_baseline_keyboard_arrow_forward, 0);
         }
 
         holder.binding.tvTitle.text = item.category_name
 
-        holder.binding.tvTitle.setOnClickListener(View.OnClickListener {
+        holder.binding.tvTitle.setOnClickListener {
             val intent = Intent(it.context, DrawerSubCategoryActivity::class.java)
-                .putExtra("categoryName",item.category_name)
-                .putParcelableArrayListExtra("category",item.child_category)
-                it.context.startActivity(intent)
-        })
+                .putExtra("categoryName", item.category_name)
+                .putParcelableArrayListExtra("category", item.child_category)
+            it.context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
