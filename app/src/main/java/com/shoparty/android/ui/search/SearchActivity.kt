@@ -39,10 +39,10 @@ class SearchActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search)
         if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
             binding.mainLayoutSearch.layoutDirection = View.LAYOUT_DIRECTION_RTL
-            binding.infoTool.ivDrawerBack.rotation = 180F
+            binding.infoTool.ivDrawerBack.rotation = 0F
         }else {
             binding.mainLayoutSearch.layoutDirection = View.LAYOUT_DIRECTION_LTR
-            binding.infoTool.ivDrawerBack.rotation = 0F
+            binding.infoTool.ivDrawerBack.rotation = 180F
         }
 
         viewModel =

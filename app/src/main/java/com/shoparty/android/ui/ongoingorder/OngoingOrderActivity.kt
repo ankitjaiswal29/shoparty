@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityOngoingOrderBinding
 import com.shoparty.android.ui.myorders.cancelorder.cancelorder.CancelOrderActivity
+import com.shoparty.android.utils.PrefManager
 
 
 class OngoingOrderActivity : AppCompatActivity(), View.OnClickListener {
@@ -15,6 +16,13 @@ class OngoingOrderActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_ongoing_order)
+        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
+            binding.mainLayoutOngoingOrder.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            binding.infoTool.ivDrawerBack.rotation = 0F
+        }else {
+            binding.mainLayoutOngoingOrder.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            binding.infoTool.ivDrawerBack.rotation = 180F
+        }
         initialise()
     }
 

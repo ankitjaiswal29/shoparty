@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityShippingBinding
 import com.shoparty.android.ui.payment.PaymentActivity
+import com.shoparty.android.utils.PrefManager
 
 
 class ShippingActivity : AppCompatActivity(), View.OnClickListener {
@@ -15,6 +16,13 @@ class ShippingActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_shipping)
+        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
+            binding.mainLayoutShip.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            binding.infoTool.back.rotation = 0F
+        }else {
+            binding.mainLayoutShip.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            binding.infoTool.back.rotation = 180F
+        }
         initialise()
     }
 

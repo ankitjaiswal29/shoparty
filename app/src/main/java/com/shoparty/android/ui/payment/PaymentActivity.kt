@@ -39,6 +39,14 @@ class PaymentActivity : AppCompatActivity(), View.OnClickListener{
     {
         super.onCreate(savedInstanceState)
         binding= DataBindingUtil.setContentView(this, R.layout.activity_payment)
+        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
+            binding.mainLayoutPayment.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            binding.infoTool.back.rotation = 180F
+        }else {
+            binding.mainLayoutPayment.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            binding.infoTool.back.rotation = 0F
+        }
+
         initialise()
         getIntentData()
         setObserver()

@@ -71,11 +71,11 @@ class ShoppingBagActivity : AppCompatActivity(), View.OnClickListener,RecyclerVi
         if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
             binding.mainLayoutShopping.layoutDirection = View.LAYOUT_DIRECTION_RTL
             binding.rvShopingitem.layoutDirection = View.LAYOUT_DIRECTION_RTL
-            binding.infoTool.ivDrawerBack.rotation = 180F
+            binding.infoTool.ivDrawerBack.rotation = 0F
         }else {
             binding.mainLayoutShopping.layoutDirection = View.LAYOUT_DIRECTION_LTR
             binding.rvShopingitem.layoutDirection = View.LAYOUT_DIRECTION_LTR
-            binding.infoTool.ivDrawerBack.rotation = 0F
+            binding.infoTool.ivDrawerBack.rotation = 180F
         }
         viewModel = ViewModelProvider(this,
             ViewModalFactory(application))[ProducatDetailsViewModel::class.java]
