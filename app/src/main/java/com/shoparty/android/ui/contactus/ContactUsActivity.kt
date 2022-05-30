@@ -21,7 +21,6 @@ import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
 
-
 class ContactUsActivity : AppCompatActivity(){
     private var facebookurl: String?=""
     private var twitter_url: String?=""
@@ -67,7 +66,6 @@ class ContactUsActivity : AppCompatActivity(){
             startActivity(intent)
         }
 
-
         binding.ivTwitter.setOnClickListener {
             val intent = Intent (this, WebViewActivity::class.java)
             intent.putExtra(Constants.LINKSTATUS,"2")
@@ -88,8 +86,6 @@ class ContactUsActivity : AppCompatActivity(){
             intent.putExtra(Constants.INSTAGRAMELINK,instagram_url)
             startActivity(intent)
         }
-
-
     }
 
     private fun openWhatsAppConversation(number: String, message: String?) {

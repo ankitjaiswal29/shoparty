@@ -52,7 +52,6 @@
     <string name="privacy_policy">Privacy Policy</string>
     <string name="return_policy">Return Policy</string>
     <string name="cancellation_confirmed">Cancellation Confirmed</string>
-
     <string name="order_cancelled">Order Cancelled</string>
     <string name="cancelled_on_aug_05">Cancelled On Aug 05</string>
     <string name="email">Email*</string>

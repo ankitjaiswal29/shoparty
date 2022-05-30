@@ -4,8 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainLayoutOrderDetails"
         android:layout_width="match_parent"
@@ -13,13 +11,11 @@
         android:background="@color/lightgraybackground"
         tools:context=".ui.myorders.orderdetails.OrderDetailsActivity">
 
-
         <include
             android:id="@+id/info_tool"
             layout="@layout/toolbar_layout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scrollMain"
