@@ -44,7 +44,7 @@ class ContactUsActivity : AppCompatActivity(){
     }
 
     private fun initialise() {
-        viewModel.getContactus()                                    //api call
+        viewModel.getContactus()  //api call
         binding.infoTool.tvTitle.text = getString(R.string.contact_us)
         binding.infoTool.ivDrawerBack.setOnClickListener {
             onBackPressed()

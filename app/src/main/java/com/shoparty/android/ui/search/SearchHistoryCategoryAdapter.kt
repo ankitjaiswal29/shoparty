@@ -12,6 +12,7 @@ import com.shoparty.android.common_modal.Product
 import com.shoparty.android.databinding.SearchItemLayBinding
 import com.shoparty.android.databinding.SearchItemLayCategoryBinding
 import com.shoparty.android.interfaces.RVItemClickListener
+import com.shoparty.android.utils.PrefManager
 
 class SearchHistoryCategoryAdapter(var context: Context,
                                    private var itemList: List<Category>) :
@@ -25,10 +26,10 @@ class SearchHistoryCategoryAdapter(var context: Context,
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): SearchHistoryCategoryAdapter.ViewHolder {
+    ): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.search_item_lay_category, parent, false) as View
-        return SearchHistoryCategoryAdapter.ViewHolder(
+        return ViewHolder(
             view = view,
             listener = listener,
             context = context
@@ -41,6 +42,11 @@ class SearchHistoryCategoryAdapter(var context: Context,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         itemList[position].let { holder.bind(it) }
+        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
+            holder.binding?.searchItemArrowImg?.rotation = 180F
+        }else {
+            holder.binding?.searchItemArrowImg?.rotation = 0F
+        }
     }
 
     class ViewHolder(
@@ -49,7 +55,7 @@ class SearchHistoryCategoryAdapter(var context: Context,
         val context: Context
     ) :
         RecyclerView.ViewHolder(view) {
-        private val binding: SearchItemLayCategoryBinding? = DataBindingUtil.bind(view)
+        val binding: SearchItemLayCategoryBinding? = DataBindingUtil.bind(view)
         init
         {
             view.setOnClickListener { listener?.onClick(adapterPosition.toString()) }

@@ -37,6 +37,11 @@ class SearchHistoryProductAdapter(var context: Context, private var itemList: Li
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         itemList[position].let { holder.bind(it) }
+        if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
+            holder.binding?.searchItemArrowImg?.rotation = 180F
+        }else {
+            holder.binding?.searchItemArrowImg?.rotation = 0F
+        }
     }
 
     class ViewHolder(
@@ -45,7 +50,7 @@ class SearchHistoryProductAdapter(var context: Context, private var itemList: Li
         val context: Context
     ) :
         RecyclerView.ViewHolder(view) {
-        private val binding: SearchItemLayBinding? = DataBindingUtil.bind(view)
+        val binding: SearchItemLayBinding? = DataBindingUtil.bind(view)
         init
         {
             view.setOnClickListener { listener?.onClick(adapterPosition.toString()) }
@@ -54,12 +59,6 @@ class SearchHistoryProductAdapter(var context: Context, private var itemList: Li
         fun bind(modal: Product) {
             binding?.searchItemNameTv?.text = modal.en_name
             //Glide.with(context).asBitmap().load(modal.image).into(binding?.!!)
-            if(PrefManager.read(PrefManager.LANGUAGEID, 1)==2){
-                binding?.searchItemArrowImg?.rotation = 180F
-            }else {
-                binding?.searchItemArrowImg?.rotation = 0F
-            }
         }
     }
-
 }

@@ -15,15 +15,21 @@
 
         <TextView
             android:id="@+id/search_item_name_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/birthday_cap"
-            app:layout_constraintStart_toStartOf="parent"
-            android:drawablePadding="8dp"
-            app:layout_constraintTop_toTopOf="parent"
             style="@style/AppTheme.Text_16_black_dp"
-            android:textColor="@color/black" />
-
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:drawablePadding="8dp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:text="@string/birthday_cap"
+            android:justificationMode="inter_word"
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/search_item_arrow_img"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/search_name"
@@ -31,7 +37,10 @@
             android:layout_height="wrap_content"
             android:text="@string/taxtproduct"
             android:textSize="@dimen/_10ssp"
-
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_gravity="start"
+            android:textAlignment="viewStart"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_item_name_tv"
             style="@style/AppTheme.Text_16_black_dp"
@@ -41,11 +50,13 @@
             android:id="@+id/search_item_arrow_img"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:layout_margin="@dimen/_10sdp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:src="@drawable/right_arrow_icon"
             app:tint="@color/black"
             android:layout_alignParentEnd="true" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

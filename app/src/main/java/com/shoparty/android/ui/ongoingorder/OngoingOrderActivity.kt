@@ -30,7 +30,6 @@ class OngoingOrderActivity : AppCompatActivity(), View.OnClickListener {
         binding.infoTool.tvTitle.text = getString(R.string.OngoingOrder)
         binding.infoTool.ivDrawerBack.setOnClickListener(this)
         binding.btnCancel.setOnClickListener(this)
-
     }
 
     override fun onClick(v: View?) {
