@@ -211,7 +211,6 @@ interface ApiService {
         @Body producatDetailsRequestModel: ProducatDetailsRequestModel
     ): Response<ProducatDetailsResponse>
 
-
     @POST("add-order")
     suspend fun orderPlacedAsync(
         @Body orderPlacedRequestModel: OrderPlacedRequestModel
@@ -226,8 +225,6 @@ interface ApiService {
     suspend fun shoppingListAsync(
         @Body shoppingBagRequestModel: ShoppingBagRequestModel
     ): Response<ShoppingBagResponse>
-
-
 
     @POST("notifications")
     suspend fun notificationListAsync(
@@ -248,8 +245,6 @@ interface ApiService {
     suspend fun orderCancelAsync(
         @Body orderCancelSucessRequestModel: OrderCancelSucessRequestModel
     ): Response<OrderCancelSuccessfully>
-
-
 
     @POST("delete-cart-product")
     suspend fun deleteCartItemAsync(

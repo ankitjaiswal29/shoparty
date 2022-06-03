@@ -8,6 +8,13 @@ import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.google.gson.stream.JsonReader
+import com.nsoftware.ipworks3ds.sdk.Transaction
+import com.oppwa.mobile.connect.checkout.dialog.CheckoutActivity
+import com.oppwa.mobile.connect.checkout.meta.CheckoutSettings
+import com.oppwa.mobile.connect.exception.PaymentError
+import com.oppwa.mobile.connect.provider.Connect
+import com.oppwa.mobile.connect.provider.TransactionType
 import com.shoparty.android.R
 import com.shoparty.android.databinding.ActivityPaymentBinding
 import com.shoparty.android.ui.myorders.ordersuccess.OrderSuccessfulyActivity
@@ -17,6 +24,10 @@ import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.ProgressDialog
 import com.shoparty.android.utils.apiutils.Resource
 import com.shoparty.android.utils.apiutils.ViewModalFactory
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
+import java.net.URL
+import java.net.URLEncoder
 
 
 class PaymentActivity : AppCompatActivity(), View.OnClickListener{
@@ -111,6 +122,12 @@ class PaymentActivity : AppCompatActivity(), View.OnClickListener{
                     shoppingidlist,paymentstatus,paymenttype,transactionid,
                     ordertype,promocodeid,summaryprice,discountprice,totaltax,
                     totalamount,addressid,isdeliverable,storeid)    //api call
+
+                val checkID = requestCheckoutId()
+                val paymentBrands = hashSetOf("VISA", "MASTER")
+                val checkoutSettings = CheckoutSettings(checkID!!, paymentBrands, Connect.ProviderMode.TEST)
+                val intent = checkoutSettings.createCheckoutActivityIntent(this)
+                startActivityForResult(intent, CheckoutActivity.REQUEST_CODE_CHECKOUT)
             }
             R.id.back -> {
                 onBackPressed()
@@ -118,8 +135,99 @@ class PaymentActivity : AppCompatActivity(), View.OnClickListener{
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when (resultCode) {
+            CheckoutActivity.RESULT_OK -> {
+                /* transaction completed */
+                val transaction: Transaction = data!!.getParcelableExtra(CheckoutActivity.CHECKOUT_RESULT_TRANSACTION)!!
+
+                /* resource path if needed */
+                val resourcePath = data.getStringExtra(CheckoutActivity.CHECKOUT_RESULT_RESOURCE_PATH)
+                requestPaymentStatus(resourcePath)
+//                if (transaction.transactionType == TransactionType.SYNC) {
+//                    /* check the result of synchronous transaction */
+//                } else {
+//                    /* wait for the asynchronous transaction callback in the onNewIntent() */
+//                }
+            }
+
+            CheckoutActivity.RESULT_CANCELED -> {
+                /* shopper cancelled the checkout process */
+            }
+
+            CheckoutActivity.RESULT_ERROR -> {
+                /* error occurred */
+                val error: PaymentError = data!!.getParcelableExtra(CheckoutActivity.CHECKOUT_RESULT_ERROR)!!
+            }
+        }
+    }
+
+    private fun requestPaymentStatus(resourcePath:String?): String? {
+        val url: URL
+        var connection: HttpURLConnection? = null
+        var paymentStatus: String? = null
+
+        val urlString = "https://eu-test.oppwa.com/v1/checkouts".toString() + "/paymentStatus?resourcePath=" + URLEncoder.encode(resourcePath, "UTF-8")
+
+        try {
+            url = URL(urlString)
+            connection = url.openConnection() as HttpURLConnection
+
+            val jsonReader = JsonReader(InputStreamReader(connection.inputStream, "UTF-8"))
+            jsonReader.beginObject()
+
+            while (jsonReader.hasNext()) {
+                if (jsonReader.nextName() == "paymentResult") {
+                    paymentStatus = jsonReader.nextString()
+
+                    break
+                }
+            }
+
+            jsonReader.endObject()
+            jsonReader.close()
+        } catch (e: Exception) {
+            /* error occurred */
+        } finally {
+            connection?.disconnect()
+        }
+
+        return paymentStatus
+    }
+
+    fun requestCheckoutId(): String? {
+        val url: URL
+        var connection: HttpURLConnection? = null
+        var checkoutId: String? = null
+
+        val urlString = "https://eu-test.oppwa.com/v1/checkouts" + "?amount=48.99&currency=SAR&paymentType=DB"
+
+        try {
+            url = URL(urlString)
+            connection = url.openConnection() as HttpURLConnection
+
+            val reader = JsonReader(InputStreamReader(connection.inputStream, "UTF-8"))
+            reader.beginObject()
+
+            while (reader.hasNext()) {
+                if (reader.nextName() == "checkoutId") {
+                    checkoutId = reader.nextString()
+
+                    break
+                }
+            }
+
+            reader.endObject()
+            reader.close()
+        } catch (e: Exception) {
+            /* error occurred */
+        } finally {
+            connection?.disconnect()
+        }
+
+        return checkoutId
     }
 
     private fun setObserver()

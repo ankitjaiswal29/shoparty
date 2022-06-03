@@ -8,14 +8,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging
-
 import com.shoparty.android.R
 import com.shoparty.android.utils.Constants
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
-
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
@@ -32,7 +29,13 @@ class LoginViewModel(private val app: Application) : ViewModel()
         if(validation())
         {
             auth = FirebaseAuth.getInstance()
-            deviceToken = FirebaseInstanceId.getInstance().token.toString()
+            FirebaseMessaging.getInstance().token.addOnSuccessListener { result ->
+                if(result != null){
+                    deviceToken = result
+                    // DO your thing with your firebase token
+                }
+            }
+            //deviceToken = FirebaseInstanceId.getInstance().token.toString()
 
             val request = LoginRequestModel(etMobileNo.get()!!, deviceToken.toString(),
                 Constants.DEVICE_TYPE,asGuest,etCountryCode)
@@ -81,13 +84,5 @@ class LoginViewModel(private val app: Application) : ViewModel()
         }
         return Resource.Error(response.message())
     }
-    
-    
-    
-
-
-
-
-
 
 }

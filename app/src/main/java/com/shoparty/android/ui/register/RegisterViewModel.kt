@@ -9,13 +9,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessaging
 import com.shoparty.android.R
 import com.shoparty.android.utils.Constants
-import com.shoparty.android.utils.PrefManager
 import com.shoparty.android.utils.Utils
 import com.shoparty.android.utils.apiutils.Resource
-
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
@@ -35,7 +33,13 @@ class RegisterViewModel(private val app: Application) : ViewModel()
         if(validation(condition_checkable))
         {
             auth = FirebaseAuth.getInstance()
-            deviceToken = FirebaseInstanceId.getInstance().token.toString()
+           // deviceToken = FirebaseInstanceId.getInstance().token.toString()
+            FirebaseMessaging.getInstance().token.addOnSuccessListener { result ->
+                if(result != null){
+                    deviceToken = result
+                    // DO your thing with your firebase token
+                }
+            }
             val request = RegisterRequestModel(fullName.get()!!,etEmail.get()!!,
                 etMobileNo.get()!!,tvDateOfBirth.get()!!,selectedGender,Constants.DEVICE_TYPE,
                 deviceToken!!,etCountryCode)
