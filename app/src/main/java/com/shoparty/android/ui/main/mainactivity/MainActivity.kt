@@ -176,7 +176,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.bottomNavigatinView.selectedItemId = R.id.categoriesFragment
     }
 
-
     private fun setObserver() {
         viewModel.drawer.observe(this) { response ->
             when (response) {
@@ -294,8 +293,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
-
     }
+
     fun setApplicationlanguage(language: String?) {
         val res: Resources = MyApp.getInstance().resources
         val dm: DisplayMetrics = res.displayMetrics

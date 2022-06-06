@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -123,9 +124,11 @@ class PaymentActivity : AppCompatActivity(), View.OnClickListener{
                     ordertype,promocodeid,summaryprice,discountprice,totaltax,
                     totalamount,addressid,isdeliverable,storeid)    //api call
 
-                val checkID = requestCheckoutId()
+               // val checkID = requestCheckoutId()
+               // Log.e("TAG", "onClick: $checkID")
                 val paymentBrands = hashSetOf("VISA", "MASTER")
-                val checkoutSettings = CheckoutSettings(checkID!!, paymentBrands, Connect.ProviderMode.TEST)
+               // val checkoutSettings = CheckoutSettings(checkID!!, paymentBrands, Connect.ProviderMode.TEST)
+                val checkoutSettings = CheckoutSettings("B2730B92C1D8A27EAACC3EF25D0DF202.uat01-vm-tx04", paymentBrands, Connect.ProviderMode.TEST)
                 val intent = checkoutSettings.createCheckoutActivityIntent(this)
                 startActivityForResult(intent, CheckoutActivity.REQUEST_CODE_CHECKOUT)
             }
@@ -142,10 +145,12 @@ class PaymentActivity : AppCompatActivity(), View.OnClickListener{
             CheckoutActivity.RESULT_OK -> {
                 /* transaction completed */
                 val transaction: Transaction = data!!.getParcelableExtra(CheckoutActivity.CHECKOUT_RESULT_TRANSACTION)!!
+                Log.e("TAG", "onActivityResult: "+transaction.authenticationRequestParameters.sdkTransactionID )
 
                 /* resource path if needed */
                 val resourcePath = data.getStringExtra(CheckoutActivity.CHECKOUT_RESULT_RESOURCE_PATH)
-                requestPaymentStatus(resourcePath)
+                Log.e("TAG", "onActivityResult: "+resourcePath.toString() )
+              //  requestPaymentStatus(resourcePath)
 //                if (transaction.transactionType == TransactionType.SYNC) {
 //                    /* check the result of synchronous transaction */
 //                } else {
@@ -236,10 +241,10 @@ class PaymentActivity : AppCompatActivity(), View.OnClickListener{
             when (response) {
                 is Resource.Success -> {
                     ProgressDialog.hideProgressBar()
-                    val intent = Intent(this, OrderSuccessfulyActivity::class.java)
-                    intent.putExtra("order_id",response.data?.order_id.toString())
-                    startActivity(intent)
-                    finish()
+//                    val intent = Intent(this, OrderSuccessfulyActivity::class.java)
+//                    intent.putExtra("order_id",response.data?.order_id.toString())
+//                    startActivity(intent)
+//                    finish()
                 }
                 is Resource.Loading -> {
                     ProgressDialog.showProgressBar(this)
@@ -263,5 +268,4 @@ class PaymentActivity : AppCompatActivity(), View.OnClickListener{
             }
         }
     }
-
 }
