@@ -175,8 +175,6 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener,
                 Log.e("TAG", ">>>>> exception ::${it.message}")
             }
         }
-
-
     }
 
     private fun shareLink(link: String) {
@@ -316,7 +314,6 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener,
                 }
             }
 
-
             R.id.tv_readmore -> {
                 if (binding.tvReadmore.text.equals(getString(R.string.str_hideless))) {
                     binding.tvProductDetailsDescr.ellipsize = TextUtils.TruncateAt.END
@@ -442,7 +439,6 @@ class ProductDetailsActivity : AppCompatActivity(), View.OnClickListener,
                 "customized_image",
                 imageFile?.name,
                 imageFile!!.asRequestBody("image/*".toMediaTypeOrNull()))
-
         }
         else
         {

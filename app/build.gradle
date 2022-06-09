@@ -88,9 +88,8 @@ dependencies {
     //live data
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
-    implementation 'androidx.browser:browser:1.3.0.'
+    implementation 'androidx.browser:browser:1.4.0'
 
     //filter activity tagview
     //implementation 'co.lujun:androidtagview:1.1.7'
@@ -123,11 +122,14 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore-ktx'
     implementation 'com.google.firebase:firebase-dynamic-links-ktx'
 
-    //payment gateway
+
     implementation fileTree(dir: "libs", include: ["*.aar"])
-    implementation files('libs/ipworks3ds_sdk.aar')
-    implementation files('libs/oppwa.mobile.aar')
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.browser:browser:1.4.0'
+    implementation "androidx.fragment:fragment-ktx:1.4.1"
     implementation 'com.google.android.gms:play-services-wallet:19.1.0'
     implementation 'com.google.android.gms:play-services-base:18.0.1'
 
+    implementation files('libs/ipworks3ds_sdk.aar')
+    implementation files('libs/oppwa.mobile.aar')
 }
